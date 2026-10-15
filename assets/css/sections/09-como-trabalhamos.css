@@ -1,0 +1,339 @@
+/* Seção 09 — Como trabalhamos (Figma 8490:2191) */
+
+.como-trabalhamos {
+  background: var(--black-200);
+  padding-block: var(--section-py);
+}
+
+.como-trabalhamos__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* Left Service Block (8490:2192) — eyebrow + título, gap 24 (o componente usa 16) */
+.como-trabalhamos__head { gap: 24px; overflow-wrap: break-word; }
+.como-trabalhamos__title { align-self: stretch; } /* 8490:2194 — largura total (min-w-full) */
+
+/* --------------------------------------------------------------------------
+   Frame 84 (8490:2976) — moldura 1px gray-900.
+   Neste bloco o Figma inclui os strokes no layout (filhos em 1,1; célula
+   8490:2204 abraça 191 = 32+126+32+1; texto de 8490:2220 em x=33), então
+   border CSS (border-box) reproduz a geometria exata.
+   -------------------------------------------------------------------------- */
+.como-trabalhamos__frame { border: 1px solid var(--gray-900); }
+
+/* Main Container (8490:2195) — regra 1 em coluna de 437 (ocupa as 2 linhas);
+   área de 937 dividida em 468 | 1 | 467 | 1 para reproduzir as células
+   469 + 468 (linha 1) e 468 + 468 (linha 2) com os divisores alinhados. */
+.como-trabalhamos__rules {
+  display: grid;
+  grid-template-columns: 437px 468fr 1px 467fr 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.como-trabalhamos__rule {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+}
+.como-trabalhamos__rule:nth-child(1) { /* 8490:2196 */
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  justify-content: flex-end;
+  gap: 32px;
+  border-right: 1px solid var(--gray-900);
+}
+.como-trabalhamos__rule:nth-child(2) { /* 8490:2200 — texto 403 numa célula de 469 */
+  grid-column: 2 / 4;
+  grid-row: 1;
+  padding-right: 33px;
+  border-right: 1px solid var(--gray-900);
+  border-bottom: 1px solid var(--gray-900);
+}
+.como-trabalhamos__rule:nth-child(3) { /* 8490:2204 */
+  grid-column: 4 / 6;
+  grid-row: 1;
+  border-bottom: 1px solid var(--gray-900);
+}
+.como-trabalhamos__rule:nth-child(4) { /* 8490:2208 */
+  grid-column: 2 / 3;
+  grid-row: 2;
+}
+.como-trabalhamos__rule:nth-child(5) { /* 8490:2212 */
+  grid-column: 3 / 5;
+  grid-row: 2;
+  border-left: 1px solid var(--gray-900);
+}
+
+/* Item (8490:2221 …) — título + descrição, gap 16 */
+.como-trabalhamos__rule-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.como-trabalhamos__rule-title { /* 8490:2198 — Exo SemiBold 24/1.3 */
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.3;
+  line-height: round(1.3em, 1px); /* Figma arredonda a linha: 31 / 62 (31,2 somaria 0,8px na grade) */
+  color: var(--gray-0);
+}
+
+.como-trabalhamos__rule-text { /* 8490:2199 — Cabin 16/1.5 gray-300 */
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+
+/* --------------------------------------------------------------------------
+   Illustration (8490:2308) — 372×190, posições absolutas do Figma.
+   Projeções isométricas (equivalentes às transformações do Figma):
+   --top  : plano deitado   = matrix(.866, -.5, .866, .5, 0, 0)
+   --side : plano vertical  = matrix(.866, -.5, 0, 1, 0, 0)
+   -------------------------------------------------------------------------- */
+.como-trabalhamos__illustration {
+  position: relative;
+  flex: none;
+  height: 190px;
+  overflow: clip;
+}
+.como-trabalhamos__illustration > * { position: absolute; }
+.como-trabalhamos__illustration img { max-width: none; }
+
+.como-trabalhamos__iso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.como-trabalhamos__iso > * { flex: none; }
+.como-trabalhamos__iso--top > * { transform: rotate(-30deg) skewX(30deg) scaleY(0.86603); }
+.como-trabalhamos__iso--side > * { transform: rotate(-30deg) skewX(-30deg) scaleY(0.86603); }
+
+/* Camada inferior (8490:2618) */
+.como-trabalhamos__base { left: 77px; top: 109px; }                                      /* 8490:2617 */
+.como-trabalhamos__iso--code { left: 77px; top: 56px; width: 218.238px; height: 126px; }  /* 8490:2550 */
+.como-trabalhamos__iso--tick-code { left: 171px; top: 181px; width: 0; height: 7.5px; }   /* 8490:2620 */
+
+/* Camada "Screen" (8490:2549) */
+.como-trabalhamos__screen-outline { left: 77.5px; top: 53.136px; }                        /* 8490:2547 (inset −0.5 / −0.864) */
+.como-trabalhamos__iso--screen { left: 76px; top: 0; width: 219.97px; height: 127px; }    /* 8490:2514 */
+.como-trabalhamos__iso--tick-screen { left: 172px; top: 126px; width: 0; height: 7.5px; } /* 8490:2548 */
+
+/* Selo de status (8490:2919) */
+.como-trabalhamos__iso--line { left: 43.3px; top: 50px; width: 20.785px; height: 80px; }  /* 8490:2917 */
+.como-trabalhamos__iso--status { left: 0; top: 0.5px; width: 85.737px; height: 94.5px; }  /* 8490:2636 */
+
+.como-trabalhamos__tick { position: relative; width: 0; height: 7.5px; }
+.como-trabalhamos__tick img { position: absolute; top: 0; left: -0.5px; }
+
+/* Tracejado 0,5px (8490:2917): em 1x o Chrome some com o trecho vertical quando
+   pinta o SVG direto sob a projeção; em camada própria ele aparece. */
+.como-trabalhamos__dashed { position: relative; width: 24px; height: 68px; will-change: transform; }
+.como-trabalhamos__dashed img { position: absolute; top: -0.25px; left: -0.25px; }
+
+/* Cards (8490:2550 / 8490:2514) — 144 de largura, stroke gray-800 */
+.como-trabalhamos__card {
+  width: 144px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border: 1px solid var(--gray-800);
+}
+.como-trabalhamos__card--code { height: 108px; gap: 8px; background: var(--black-200); }
+.como-trabalhamos__card--screen { background: var(--black-100); }
+
+.como-trabalhamos__code-label { /* 8490:2580 — Cabin 8/1.5 caixa-alta green-300, caixa aparada no cap */
+  font-size: 8px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--green-300);
+  text-box: trim-both cap alphabetic;
+}
+
+/* Text block (8490:2599) — linhas 3px, raio 4, gray-800 */
+.como-trabalhamos__lines,
+.como-trabalhamos__lines-indent { display: flex; flex-direction: column; gap: 3px; }
+.como-trabalhamos__lines-indent { padding-left: 11px; }
+.como-trabalhamos__lines-row { display: flex; gap: 2px; width: 115px; }
+.como-trabalhamos__lines span {
+  flex: none;
+  width: var(--w, 100%);
+  height: 3px;
+  border-radius: 4px;
+  background: var(--gray-800);
+}
+.como-trabalhamos__lines span.is-fill { flex: 1 0 0; min-width: 1px; width: auto; }
+
+/* Inner container da tela (8490:2513) */
+.como-trabalhamos__screen-row { display: flex; align-items: center; gap: 6px; }
+.como-trabalhamos__screen-pattern { /* 8490:2403 — padrão 92×14 girado 90° */
+  flex: none;
+  width: 14px;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.como-trabalhamos__screen-pattern img { flex: none; transform: rotate(90deg); }
+.como-trabalhamos__screen-ui { /* 8490:2507 */
+  flex: 1 0 0;
+  min-width: 1px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.como-trabalhamos__screen-ui span {
+  background: var(--black-100);
+  border: 1px solid var(--gray-800);
+}
+.como-trabalhamos__screen-header { height: 15px; }                                   /* 8490:2312 */
+.como-trabalhamos__screen-buttons { display: flex; gap: 4px; }                       /* 8490:2504 */
+.como-trabalhamos__screen-buttons span { flex: 1 0 0; min-width: 1px; height: 15px; }
+.como-trabalhamos__screen-lower { flex: 1 0 0; min-height: 1px; display: flex; gap: 4px; } /* 8490:2508 */
+.como-trabalhamos__screen-lower span:first-child { flex: none; width: 33.33px; }    /* 8490:2510 */
+.como-trabalhamos__screen-lower span:last-child { flex: 1 0 0; min-width: 1px; }    /* 8490:2511 */
+
+/* Status (8490:2636) — "Validação / Pendente" */
+.como-trabalhamos__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: var(--black-200);
+  border: 1px solid var(--gray-900);
+}
+.como-trabalhamos__status img { flex: none; }
+.como-trabalhamos__status-label { /* 8490:2639 — 49×27 (15 + 12) */
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+/* Figma usa leading "normal" (1,215 no Cabin) e arredonda cada linha: 14,58 → 15 e 12,15 → 12.
+   O "normal" do Chrome arredonda ascent/descent e dá 15 + 13 (selo 1px mais alto). */
+.como-trabalhamos__status-label span:first-child { font-size: 12px; line-height: 1.25; color: var(--gray-0); }                    /* 8490:2640 */
+.como-trabalhamos__status-label span:last-child { font-size: 10px; line-height: 1.2; font-weight: 700; color: var(--orange-300); } /* 8490:2641 */
+
+/* --------------------------------------------------------------------------
+   Animação de scroll da ilustração (assets/js/sections/09-como-trabalhamos.js)
+   --p vai de 0 → 1 conforme a ilustração sobe na tela. Padrão 1 = desenho do
+   Figma (sem JS / prefers-reduced-motion a ilustração aparece pronta).
+   1. A camada "Screen" começa encaixada sobre a de código (56 = 56 − 0, topo do
+      card de código menos topo da tela) e sobe até a posição do Figma.
+   2. O tracejado se desenha de baixo para cima enquanto a tela sobe.
+   3. O selo "Validação / Pendente" surge quando o tracejado chega nele.
+   -------------------------------------------------------------------------- */
+.como-trabalhamos__illustration { --p: 1; --lift: 56px; }
+
+.como-trabalhamos__lift {
+  translate: 0 calc((1 - var(--p)) * var(--lift));
+  will-change: translate;
+}
+
+.como-trabalhamos__iso--line { /* desenha de 15% a 85% do progresso */
+  clip-path: inset(calc((1 - clamp(0, (var(--p) - 0.15) / 0.7, 1)) * 100%) -4px -4px -4px);
+}
+
+.como-trabalhamos__iso--status { /* aparece nos últimos 20% */
+  opacity: clamp(0, (var(--p) - 0.8) / 0.2, 1);
+  translate: 0 calc((1 - clamp(0, (var(--p) - 0.8) / 0.2, 1)) * 6px);
+}
+
+/* --------------------------------------------------------------------------
+   Pattern (8490:2977) — stroke-top inside (não soma altura: diagonais em y=0).
+   83 diagonais de 24/22 com margem −7,366 (Figma). O layout do navegador arredonda
+   a margem em 1/64px e acumularia 0,5px: −7,375 (= −472/64) + space-between
+   distribui a sobra e devolve o passo exato do Figma (16,634 / 14,634).
+   -------------------------------------------------------------------------- */
+.como-trabalhamos__pattern {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: inset 0 1px 0 var(--gray-900);
+  overflow: clip visible; /* em telas menores as diagonais excedentes são cortadas */
+}
+.como-trabalhamos__stroke {
+  position: relative;
+  flex: none;
+  width: 24px;
+  height: 64px;
+}
+.como-trabalhamos__stroke:not(:last-child) { margin-right: -7.375px; }
+.como-trabalhamos__stroke--narrow { width: 22px; }
+.como-trabalhamos__stroke img { /* SVG 24,94×64,35 (ou 22,95×64,33) centrado no slot — inset do Figma */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: none;
+  translate: -50% -50%;
+}
+
+/* --------------------------------------------------------------------------
+   Responsivo (768–1023) — regra 1 sobre a grade 2×2; até 767 vale o Mobile abaixo
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .como-trabalhamos__rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .como-trabalhamos__rule,
+  .como-trabalhamos__rule:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+    padding: 32px;
+    border: 0;
+  }
+  .como-trabalhamos__rule:nth-child(1) {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    border-bottom: 1px solid var(--gray-900);
+  }
+  .como-trabalhamos__rule:nth-child(2),
+  .como-trabalhamos__rule:nth-child(3) { border-bottom: 1px solid var(--gray-900); }
+  .como-trabalhamos__rule:nth-child(2),
+  .como-trabalhamos__rule:nth-child(4) { border-right: 1px solid var(--gray-900); }
+}
+
+/* ==========================================================================
+   Mobile — Figma "Mobile" 8635:2435 (375 × 1227), vale até 767px.
+   Padding 60/16 vem dos tokens (--section-py / --section-px). A ilustração
+   (8635:2442) é a mesma do desktop, nas mesmas posições, numa caixa de 301.
+   ========================================================================== */
+@media (max-width: 767px) {
+  .como-trabalhamos__inner { gap: 40px; } /* 8635:2435 — cabeçalho → moldura */
+
+  /* Left Service Block (8635:2436) — gap 24 (já vale). O Figma arredonda a altura
+     de cada linha: 18 × 1,3 = 23,4 → 23 e 28 × 1,2 = 33,6 → 34 (2 linhas = 68). */
+  .como-trabalhamos__eyebrow { font-size: 18px; line-height: round(1.3em, 1px); } /* 8635:2437 */
+  .como-trabalhamos__title { font-size: 28px; line-height: round(1.2em, 1px); }   /* 8635:2438 */
+
+  /* Main Container (8635:2440) — regras empilhadas, padding 20, divisores 1px gray-900.
+     O Figma agrupa as regras 2–5 em 8635:2524 (sem estilo próprio) — não precisa de wrapper. */
+  .como-trabalhamos__rules { grid-template-columns: minmax(0, 1fr); }
+  .como-trabalhamos__rule:nth-child(n) { padding: 20px; border: 0; }
+  .como-trabalhamos__rule:nth-child(1) { gap: 20px; }                                   /* 8635:2441 */
+  .como-trabalhamos__rule:nth-child(-n+3) { border-bottom: 1px solid var(--gray-900); } /* 8635:2441 / 2525 / 2529 */
+  .como-trabalhamos__rule:nth-child(5) { border-top: 1px solid var(--gray-900); }       /* 8635:2537 — 8635:2533 não tem divisor */
+
+  .como-trabalhamos__rule-title { font-size: 20px; } /* 8635:2522 … — Exo SemiBold 20/1.3 (26) */
+
+  /* Pattern (8635:2541) — faixa de 32 com as mesmas diagonais 24/22 (64 de altura,
+     centradas em y −16), passo de 12 (margem −12) e corte nos dois eixos. */
+  .como-trabalhamos__pattern {
+    height: 32px;
+    justify-content: flex-start;
+    overflow: clip;
+  }
+  .como-trabalhamos__stroke:not(:last-child) { margin-right: -12px; }
+}
+
+/* A ilustração desenha até x = 296 numa caixa de (largura da tela − 74): abaixo de 370px
+   a célula fica mais estreita e o corte pegaria as telas. Reduz em degraus para caber
+   inteira (0,9 → 266,4 cabe a partir de 341; 0,8 → 236,8 cabe a partir de 311). */
+@media (max-width: 369px) { .como-trabalhamos__illustration { zoom: 0.9; } }
+@media (max-width: 340px) { .como-trabalhamos__illustration { zoom: 0.8; } }

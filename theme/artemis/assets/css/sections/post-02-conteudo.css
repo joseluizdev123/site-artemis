@@ -1,0 +1,223 @@
+/* Post — conteúdo (Figma 8331:1178 · mobile 8673:5795)
+   .post-body = texto do post em fluxo plano: as mesmas classes que o editor de blocos gera no WordPress
+   (wp-block-heading, wp-block-list, wp-block-image + estilos de bloco is-style-destaque / is-style-recorte). */
+
+/* 8331:1178: px 32 · py 120 · linha: texto 859 + gap 80 + índice 437 = 1376 */
+.post-content {
+  padding-block: var(--section-py);
+  background: var(--black-200);
+}
+/* O reset global só zera p/h1–h3: listas, figura e lista de definição daqui partem do zero */
+.post-content :where(ol, ul, dl, dd, figure) { margin: 0; padding: 0; }
+
+.post-content__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+}
+
+/* Container 8331:1230: texto + chamada, gap 80 */
+.post-content__main {
+  flex: 0 1 859px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* --------------------------------------------------------------------------
+   Índice "Neste artigo" (8331:1264) — à direita, texto alinhado à direita, acompanha a rolagem
+   -------------------------------------------------------------------------- */
+.post-toc {
+  order: 2;
+  flex: 1 1 437px;
+  min-width: 0;
+  align-self: stretch;
+}
+.post-toc__nav {
+  position: sticky;
+  top: calc(var(--header-h-scrolled) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 120px; /* pb 120 do frame */
+  text-align: right;
+}
+/* 8331:1262 · Cabin SemiBold 24/1.215 (caixa 29) */
+.post-toc__title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(--gray-0);
+}
+/* Subheadings 8331:1272: gap 8 · 8331:1266 Cabin 18/1.5 gray-300; a seção em leitura fica branca */
+.post-toc__list { display: flex; flex-direction: column; gap: 8px; list-style: none; }
+.post-toc__link {
+  display: block;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gray-300);
+  transition: color .2s ease;
+}
+.post-toc__link:hover,
+.post-toc__link[aria-current] { color: var(--gray-0); }
+
+/* --------------------------------------------------------------------------
+   Texto do post — Page 8436:1612: blocos com gap 32; dentro de cada bloco, parágrafos com 16
+   e 24 entre o título e o texto (8331:1184)
+   -------------------------------------------------------------------------- */
+.post-body {
+  --post-block: 32px;
+  --post-head: 24px;
+  overflow-wrap: break-word;
+  text-wrap: pretty; /* textWrapStyle PRETTY do Figma em todo o texto do post (8331:1180…1260) — evita a última linha curta */
+}
+.post-body > * + * { margin-top: 16px; }
+.post-body > h2,
+.post-body > h3,
+.post-body > figure,
+.post-body > .post-numeros,
+.post-body > figure + *,
+.post-body > .post-numeros + * { margin-top: var(--post-block); }
+.post-body > :is(h2, h3) + * { margin-top: var(--post-head); }
+
+/* 8331:1180 · Cabin Regular 18/1.5 gray-300 */
+.post-body > p,
+.post-body li {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+.post-body a { color: var(--gray-0); text-decoration: underline; text-underline-offset: .15em; }
+.post-body strong { font-weight: 600; color: var(--gray-0); }
+
+/* 8331:1188 · Exo SemiBold 32/1.2 (caixa 38); estilo "Destaque" 8331:1185 · 40/1.2 (fora do índice) */
+.post-body > h2,
+.post-body > h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
+  color: var(--gray-0);
+  text-wrap: pretty;
+}
+.post-body > h2.is-style-destaque { font-size: 40px; line-height: 48px; }
+.post-body > h3 { font-size: 24px; line-height: 1.3; }
+.post-body > :is(h2, h3)[id] { scroll-margin-top: calc(var(--header-h-scrolled) + 32px); }
+
+/* Listas (8331:1189): recuo 28; numerada com 8 entre itens, com marcador sem espaço extra */
+.post-body > ol,
+.post-body > ul { padding-left: 28px; }
+.post-body > ol { list-style: decimal; }
+.post-body > ul { list-style: disc; }
+.post-body > ol > li + li { margin-top: 8px; }
+.post-body li::marker { color: var(--gray-300); }
+
+/* Imagem 8331:1213: 859×600 — estilo "Recorte do layout" corta como o FILL do Figma (cover, centro) */
+.post-body > figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.post-body > figure.is-style-recorte img {
+  aspect-ratio: 859 / 600;
+  object-fit: cover;
+}
+.post-body > figure figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-500);
+}
+
+/* --------------------------------------------------------------------------
+   Números (8331:1248) — strokes gray-900 em cima e embaixo no layout (242 = 240 + 2), py 32, gap 32
+   -------------------------------------------------------------------------- */
+.post-numeros {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: 32px;
+  border-block: 1px solid var(--gray-900);
+}
+.post-numeros__label { align-self: flex-start; }
+/* Container 8331:1250: 3 × 265, gap 32 */
+.post-numeros__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+/* Statistic 8331:1251: gap 16 — o número vem antes da descrição */
+.post-numeros__item { display: flex; flex-direction: column; gap: 16px; }
+/* 8331:1252 · Exo SemiBold 40/1.2; "R$" e "/MÊS" em 24 */
+.post-numeros__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 48px;
+  color: var(--gray-0);
+}
+.post-numeros__value small { font-size: 24px; line-height: 1; } /* sem aumentar a linha de 48 */
+/* 8331:1253 · Cabin 18/1.5 gray-300 */
+.post-numeros__desc { font-size: 18px; line-height: 1.5; color: var(--gray-300); text-wrap: pretty; }
+
+/* --------------------------------------------------------------------------
+   Chamada final (8435:1493) — bg black-100, p 56, gap 56; conteúdo 8435:1588 gap 16; botões gap 16
+   -------------------------------------------------------------------------- */
+.post-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding: 56px;
+  background: var(--black-100);
+}
+.post-cta__content { display: flex; flex-direction: column; gap: 16px; }
+/* 8435:1590 · Exo SemiBold 40/1.2 */
+.post-cta__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--gray-0);
+  text-wrap: pretty;
+}
+.post-cta__actions { align-self: flex-start; display: flex; flex-wrap: wrap; gap: 16px; } /* 8435:1592: 432 (hug) */
+
+/* --------------------------------------------------------------------------
+   768–1023: índice volta para cima do texto, como no Mobile
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .post-content__inner { flex-direction: column; gap: 40px; }
+  .post-toc { order: 0; flex: none; align-self: stretch; }
+  .post-toc__nav { position: static; padding-bottom: 0; text-align: left; }
+  .post-content__main { flex: none; width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767) · 8673:5795 (375×4913): px 16 · py 60 · índice + gap 40 + texto
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* Page 8673:5797: blocos com gap 40; título → texto 16 (8673:5800) */
+  .post-body { --post-block: 40px; --post-head: 16px; }
+
+  /* 8673:5804 · Exo SemiBold 28/1.2 (caixa 34 por linha) */
+  .post-body > h2,
+  .post-body > h2.is-style-destaque { font-size: 28px; line-height: 34px; }
+
+  /* Image 8673:5806: 343×292 */
+  .post-body > figure.is-style-recorte img { aspect-ratio: 343 / 292; }
+
+  /* Statistics 8673:5813: números empilhados, gap 32 · "Números" 18/1.3 (caixa 23) · número Exo 24/1.2 (caixa 29) */
+  .post-numeros__label { font-size: 18px; line-height: 23px; }
+  .post-numeros__grid { grid-template-columns: 1fr; }
+  .post-numeros__value { font-size: 24px; line-height: 29px; }
+
+  /* call to action 8673:5826: p 32/20, gap 32; título 28 (caixa 34 por linha); botões na largura toda, gap 16 */
+  .post-cta { gap: 32px; padding: 32px 20px; }
+  .post-cta__title { font-size: 28px; line-height: 34px; }
+  .post-cta__actions { align-self: stretch; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-toc__link { transition: none; }
+}

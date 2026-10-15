@@ -1,0 +1,188 @@
+/* Seção 10 — Call to action (Figma 8160:1628) */
+
+.cta {
+  --cta-led: #6f7277; /* 8160:1631 — fora da paleta */
+  background: var(--black-100);
+}
+
+/* --------------------------------------------------------------------------
+   Barra de status (8160:1629) — stroke top inside, pt 24, gap 32
+   -------------------------------------------------------------------------- */
+.cta__status { box-shadow: inset 0 1px 0 var(--gray-900); }
+
+.cta__status-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-top: 24px;
+}
+
+.cta__status-item { flex: none; display: flex; align-items: center; gap: 10px; }
+
+.cta__led {
+  flex: none;
+  width: 7px;
+  height: 9px;
+  background: var(--cta-led);
+  animation: cta-led 2.4s ease-in-out infinite;
+}
+@keyframes cta-led {
+  0%, 60%, 100% { opacity: 1; }
+  80%           { opacity: .2; }
+}
+
+.cta__status-text {
+  flex: none;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--gray-500);
+}
+
+/* Icon group (8160:1633) — ícones nas pontas + 20 traços distribuídos */
+.cta__signal {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 13.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cta__signal-icon { flex: none; position: relative; width: 36px; height: 13.5px; }
+.cta__signal-icon--wide { width: 54px; }
+.cta__signal-icon img { position: absolute; top: 0; left: -0.5px; width: calc(100% + 1px); height: 100%; }
+.cta__signal-line { flex: none; width: 1px; height: 13.5px; margin-inline: -0.5px; } /* vetor de largura 0, stroke 1px */
+
+/* --------------------------------------------------------------------------
+   Main container (8160:1721) — py 120, justify-between, padrão ao fundo
+   -------------------------------------------------------------------------- */
+.cta__main {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden; /* fallback: Safari < 16 não tem overflow: clip (o padrão de 1440 geraria rolagem lateral) */
+  overflow: clip;
+  min-height: 578px;
+  padding-block: var(--section-py);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cta__note-row {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.cta__note { width: 408px; max-width: 100%; text-align: right; }
+
+.cta__content { position: relative; z-index: 2; display: flex; align-items: flex-start; }
+.cta__body { width: 524px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
+.cta__heading { display: flex; flex-direction: column; gap: 16px; }
+
+.cta__title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--gray-0);
+}
+.cta__text { white-space: pre-wrap; } /* preserva o espaço duplo do Figma */
+
+/* Padrão de traços (8160:1729) — 1440 de largura, centralizado no main */
+.cta__pattern {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: calc(50% - 0.5px);
+  transform: translate(-50%, -50%);
+  width: var(--frame-w);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.cta__pattern-group { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+.cta__pattern-group--start { align-items: flex-start; }
+.cta__pattern-group--end { align-items: flex-end; }
+.cta__dash-slot { width: 100%; display: flex; flex-direction: column; align-items: flex-start; }
+.cta__dash-row { position: relative; flex: none; height: 24px; }
+/* Inset do Figma por linha via --l/--r (ex.: 8160:1957 → left -0.19%) */
+.cta__dash-row > img,
+.cta__dash-row > svg {
+  position: absolute;
+  top: 0;
+  left: var(--l, 0%);
+  width: calc(100% - var(--l, 0%) - var(--r, 0%));
+  height: 100%;
+  overflow: visible;
+}
+
+.cta__dash-row path {
+  opacity: var(--o, 1);
+  transition: opacity .35s ease, stroke .35s ease;
+}
+.cta__pattern.is-live .cta__dash-row path {
+  animation: cta-dash-blink var(--d, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+.cta__pattern.is-live .cta__dash-row path.is-lit {
+  animation: none;
+  opacity: 1;
+  stroke: var(--blue-300);
+}
+@keyframes cta-dash-blink {
+  0%, 100% { opacity: var(--o, 1); }
+  50%      { opacity: calc(var(--o, 1) * .25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta__led,
+  .cta__pattern.is-live .cta__dash-row path { animation: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet (768–1100) — barra de status encurta (o desktop segue fluido até 1440)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .cta__status-inner { gap: 20px; }
+  .cta__status-inner > :nth-child(n+4) { display: none; } /* 2º ícone + último status */
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767) · frame Mobile 8635:2625 (375×576)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* Container 8635:2626 — pt 24, px 16, gap 20: a linha inteira segue além da tela e é cortada */
+  .cta__status { overflow: hidden; overflow: clip; } /* hidden = fallback de Safari < 16 */
+  .cta__status-inner { gap: 20px; }
+  /* Icon group 8635:2630 / 8635:2674 — 342 fixos (ícones nas pontas + 20 traços a cada 12) */
+  .cta__signal { flex: none; width: 342px; }
+
+  /* main container 8635:2718 — h 526, py 60, justify-between; cresce se o texto quebrar mais.
+     gap 56 = espaço que sobra em 375 (526 − 120 − 46 − 304): em 375 nada muda e, abaixo disso,
+     a nota não encosta no título quando o texto ganha linhas */
+  .cta__main { min-height: 526px; gap: 56px; }
+
+  /* Main Description 8635:2720 — Instrument Serif Italic 18/1.3 à direita, largura total.
+     Figma arredonda cada linha: 23.4 → 23 (caixa 46 em 2 linhas) */
+  .cta__note {
+    flex: 1 0 0;
+    min-width: 1px;
+    width: auto;
+    font-size: 18px;
+    line-height: round(1.3em, 1px);
+  }
+
+  /* Content Container 8635:2722 — largura total; título Cabin SemiBold 28/1.2 (caixa 34) */
+  .cta__body { width: 100%; }
+  .cta__title { font-size: 28px; line-height: round(1.2em, 1px); }
+  .cta__button { align-self: stretch; } /* 8635:2726 — 343×60 */
+
+  /* Pattern 8635:2728 — 1440 centralizado com +0.5 (left calc(50% + 0.5px) no Figma) */
+  .cta__pattern { left: calc(50% + 0.5px); }
+}

@@ -1,0 +1,5 @@
+/* Ilustração "Alocação e roteirização" (Figma 8294:746 · celular 8635:3593) — o cubo laranja ("Carga"
+   8294:795) percorre a rota (8294:790) do início até onde está no Figma (JS: 03-nossos-sistemas--roteirizacao.js),
+   enquanto a barra do card "Otimizando rota…" (8294:757…779) carrega um segmento por vez — termina junto. */
+.ilu--roteirizacao { --ilu-step: 110ms; }
+.sistemas.is-armed .sistemas__card:not(.is-playing):not(.is-static) .ilu--roteirizacao .ilu__cube { opacity: 0; }

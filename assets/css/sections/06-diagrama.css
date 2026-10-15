@@ -1,0 +1,345 @@
+/* Seção 06 — Diagram (Figma 8653:2286 · mobile 8653:2599): POC → MVP → Escala + Description Block (8653:2355)
+   Posições horizontais do diagrama em % da largura do Section Container (8653:2287 = --content-w),
+   para o desenho acompanhar a coluna sem quebrar entre 1024 e o frame desktop. */
+
+.diagrama {
+  --diagrama-card-from: #1f1f1f; /* início do gradiente dos cards (8653:2312) — fora da paleta */
+  --diagrama-error: #ff8f91;     /* "Humano errou" + borda tracejada (8653:2322) — fora da paleta */
+  /* Base das proporções: --content-w sem unidade (tan(atan2(a, b)) = a / b entre comprimentos) */
+  --diagrama-ref: tan(atan2(var(--content-w), 1px));
+  background: var(--black-200);
+  padding-top: 32px;
+  padding-bottom: var(--section-py);
+}
+
+.diagrama__inner { display: flex; flex-direction: column; gap: 80px; }
+
+/* --------------------------------------------------------------------------
+   Section Container (8653:2287)
+   -------------------------------------------------------------------------- */
+.diagrama__chart {
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Header POC / MVP / Escala (8653:2288) */
+.diagrama__phases {
+  display: flex;
+  align-items: center;
+  gap: var(--content-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.diagrama__phase {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gray-800); /* 26 + 10 + 1 = 37 como no Figma */
+}
+.diagrama__phase-title { display: block; width: 100%; text-align: center; color: var(--gray-0); }
+
+/* Linhas verticais de fundo (8653:2293 · 8653:2300 · 8653:2343) — SVGs do Figma */
+.diagrama__lines {
+  position: absolute;
+  top: 53px;
+  height: 461px;
+  pointer-events: none;
+}
+.diagrama__lines img { width: calc(100% + 0.5px); height: 100%; max-width: none; } /* +0,5px: traço de 1px na borda (inset -0.11% do Figma) */
+.diagrama__lines--mvp    { left: calc(459 / var(--diagrama-ref) * 100%); width: calc(464 / var(--diagrama-ref) * 100%); }
+.diagrama__lines--escala { left: calc(924 / var(--diagrama-ref) * 100%); width: calc(433 / var(--diagrama-ref) * 100%); }
+.diagrama__lines--poc    { z-index: 1; top: -16px; left: calc(18 / var(--diagrama-ref) * 100%); width: calc(435 / var(--diagrama-ref) * 100%); }
+.diagrama__lines--poc img { width: calc(100% + 1px); margin-left: -0.5px; }
+
+/* Content Container (8653:2305) → Content (8653:2306) + Legenda (8653:2348) */
+.diagrama__body { display: flex; flex-direction: column; gap: 24px; }
+
+.diagrama__content {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.diagrama__row { position: relative; z-index: 2; display: flex; align-items: flex-start; }
+.diagrama__row--start { gap: var(--content-gap); }
+.diagrama__row--end { justify-content: flex-end; }
+
+/* --------------------------------------------------------------------------
+   Item (cards) — borda 1px gray-900 entra no layout (texto em x=19), 70 de altura
+   -------------------------------------------------------------------------- */
+.diagrama__item {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 18px;
+  border: 1px solid var(--gray-900);
+  border-radius: 17px;
+  background: linear-gradient(90deg, var(--diagrama-card-from) 0%, var(--black-100) 100%), var(--black-100);
+  box-shadow: 0 0.3px 0 color-mix(in srgb, var(--gray-0) 25%, transparent); /* drop-shadow 0 0.3 0 */
+}
+/* Inner shadow do Figma cobre a forma inteira, inclusive o stroke → overlay na border-box */
+.diagrama__item::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: inset 1px 1px 2px color-mix(in srgb, var(--gray-0) 8%, transparent);
+  pointer-events: none;
+}
+
+/* 01 · Amostra com gabarito (8653:2308) — branco, sem borda: 22 + 24 + 22 = 68 */
+.diagrama__item--light {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 68px;
+  border: 0;
+  background: var(--gray-0);
+  box-shadow: none;
+}
+.diagrama__item--light::after,
+.diagrama__item--lab::after { content: none; }
+
+/* 02 · Medição de assertividade (8653:2312) */
+.diagrama__item--measure { width: calc(917 / var(--diagrama-ref) * 100%); }
+
+/* Ajuste de critério (8653:2317) */
+.diagrama__item--adjust { width: calc(771 / var(--diagrama-ref) * 100%); margin-left: calc(495 / var(--diagrama-ref) * 100%); }
+
+/* Humano errou · Caso sai da base (8653:2322) — stroke tracejado CENTRALIZADO na borda (meio px para fora),
+   fora do layout (texto em x=18). Traço 7 / vão 5 medido no render do Figma → SVG, já que border: dashed não controla o traço. */
+.diagrama__item--error {
+  justify-content: flex-start;
+  gap: 16px;
+  margin-left: calc(566 / var(--diagrama-ref) * 100%);
+  border: 0;
+}
+.diagrama__item--error::after { inset: -0.5px; }
+.diagrama__dash {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.diagrama__dash rect {
+  fill: none;
+  stroke: var(--diagrama-error);
+  stroke-width: 1;
+  stroke-dasharray: 7 5;
+  stroke-dashoffset: -1.5;
+}
+
+/* 03 · Laboratório no seu sistema (8653:2329) */
+.diagrama__item--lab {
+  width: calc(696 / var(--diagrama-ref) * 100%);
+  margin-left: calc(680 / var(--diagrama-ref) * 100%);
+  overflow: clip;
+  background: var(--blue-300);
+  box-shadow: none;
+}
+
+/* Versions (8653:2336) */
+.diagrama__versions {
+  width: calc(696 / var(--diagrama-ref) * 100%);
+  display: flex;
+  align-items: center;
+  gap: var(--content-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.diagrama__item--version { flex: 1 0 0; min-width: 0; justify-content: flex-start; }
+
+/* Textos dos cards — Cabin 18, line-height normal (22 no Figma) */
+.diagrama__item-title {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--gray-0);
+}
+.diagrama__item-title--bold { font-weight: 700; color: var(--black-200); }
+
+.diagrama__item-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.diagrama__item-label {
+  min-width: 100%;
+  font-size: 14px;
+  line-height: 1.215; /* "normal" da Cabin (965 + 250 / 1000) sem o arredondamento do Chrome: 17 como no Figma */
+  color: var(--diagrama-error);
+}
+/* "Você testa" (mobile 8653:2644) — só no layout mobile; no desktop (8653:2329) o cartão 03 tem só o título */
+.diagrama__item-label--lab { display: none; min-width: 0; color: var(--black-200); }
+
+/* Badge Container (8653:2310 · 8653:2314 · 8653:2333) */
+.diagrama__badge {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--black-200);
+  color: var(--gray-0);
+}
+.diagrama__badge--blue { background: var(--blue-300); color: var(--black-200); }
+.diagrama__badge-num {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-box: trim-both cap alphabetic; /* text-box-trim do Figma: caixa = altura das maiúsculas (10) */
+}
+
+.diagrama__icon { flex: none; width: 24px; height: 24px; }
+
+/* Legenda (8653:2348) */
+.diagrama__legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.diagrama__legend-item { display: flex; align-items: center; gap: 8px; }
+.diagrama__legend-item img { flex: none; width: 24px; height: 24px; }
+.diagrama__legend-item--start { width: calc(540 / var(--diagrama-ref) * 100%); justify-content: flex-end; }
+.diagrama__legend-item--end { width: calc(696 / var(--diagrama-ref) * 100%); }
+.diagrama__legend-text {
+  font-size: 16px;
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--gray-300);
+}
+
+/* Divider Lines Container (mobile 8653:2896) — progresso da rolagem; só aparece no mobile */
+.diagrama__progress { display: none; }
+
+/* --------------------------------------------------------------------------
+   Description Block (8653:2355) — título .section-title + texto 672 (coluna)
+   -------------------------------------------------------------------------- */
+.diagrama__desc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--content-gap);
+}
+.diagrama__title { white-space: nowrap; }
+.diagrama__text {
+  flex: 0 1 calc((100% - var(--content-gap)) / 2); /* 672 no desktop; encolhe antes de estourar a coluna */
+  min-width: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+
+/* --------------------------------------------------------------------------
+   Telas estreitas: o diagrama mantém a proporção mínima e rola na horizontal
+   -------------------------------------------------------------------------- */
+@media (max-width: 1087px) {
+  .diagrama__scroll {
+    overflow-x: auto;
+    margin-inline: calc(-1 * var(--section-px));
+    padding-inline: var(--section-px);
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+  }
+  .diagrama__chart { min-width: 1024px; }
+
+  /* Description Block empilha: título (nowrap, 534) + texto lado a lado não cabem na coluna */
+  .diagrama__desc { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .diagrama__text { flex: none; width: 100%; max-width: calc((var(--content-w) - var(--content-gap)) / 2); }
+}
+
+/* Mouse (janela estreita): arrastar rola o diagrama — assets/js/sections/06-diagrama.js
+   (.is-scrollable vem do JS: entre ~1072 e 1087 o desenho já cabe e não há o que arrastar) */
+@media (max-width: 1087px) and (hover: hover) and (pointer: fine) {
+  .diagrama__scroll.is-scrollable { cursor: grab; }
+  .diagrama__scroll.is-dragging { cursor: grabbing; user-select: none; }
+}
+
+/* ==========================================================================
+   Mobile (≤767) — Figma 8653:2599 (375 × 869)
+   diagram 8653:2900 (rolagem horizontal + progresso 8653:2896) · Description Block 8653:2668
+   ========================================================================== */
+@media (max-width: 767px) {
+  .diagrama { padding-top: 16px; padding-bottom: 56px; } /* 8653:2599: pt 16 · pb 56 */
+  .diagrama__inner { gap: 40px; }
+
+  /* diagram (8653:2900): anotação "Scroll horizontal" — o desenho de 1376 rola sob a coluna; gap 16 até a barra */
+  .diagrama__diagram { display: flex; flex-direction: column; gap: 16px; }
+  .diagrama__scroll {
+    display: flex;
+    padding-bottom: 0;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none; /* a barra do Figma (8653:2896) substitui a nativa */
+  }
+  .diagrama__scroll::-webkit-scrollbar { display: none; }
+  .diagrama__scroll:focus-visible { outline-offset: -2px; } /* o scroller encosta nas bordas da tela */
+
+  /* Section Container (8653:2600): coluna de 343 com o desenho de 1376 transbordando, como no Figma.
+     A margem final leva a área rolável até o fim do desenho (+ respiro de 16 do padding do scroller). */
+  .diagrama__chart {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    margin-inline-end: calc(var(--content-w) - 100%);
+  }
+  .diagrama__phases,
+  .diagrama__body { flex: none; width: var(--content-w); }
+  .diagrama__phases { position: relative; } /* linhas MVP/Escala em % dos 1376 (8653:2601), não da coluna */
+
+  /* 03 · Laboratório (8653:2642): "Você testa" 14 + título 18, gap 2 (Frame 100 · 8653:2643) */
+  .diagrama__item-label--lab { display: block; }
+
+  /* Divider Lines Container (8653:2896): 4 de altura, branco 164 de 343 no início → 100% no fim da rolagem */
+  .diagrama__progress {
+    --diagrama-bar-min: calc(164 / 343 * 100%);
+    display: flex;
+    align-items: center;
+    height: 4px;
+    overflow: clip;
+    border-radius: 999px;
+  }
+  .diagrama__progress-fill {
+    flex: none;
+    width: calc(var(--diagrama-bar-min) + (100% - var(--diagrama-bar-min)) * var(--diagrama-progress, 0));
+    height: 100%;
+    background: var(--gray-0);
+  }
+  .diagrama__progress-rest {
+    flex: 1 0 0;
+    min-width: 0;
+    height: 100%;
+    background: var(--gray-400);
+  }
+
+  /* Description Block (8653:2668): centralizado, gap 10; título 28/1.2 (8653:2669) · texto 16/1.5 (8653:2670) */
+  .diagrama__desc { align-items: stretch; gap: 10px; text-align: center; }
+  .diagrama__title {
+    white-space: normal;
+    text-wrap: wrap; /* quebra como no Figma ("…no seu / sistema"); o pretty de .section-title levava "seu" para baixo */
+    font-size: 28px;
+    line-height: 1.2;
+    line-height: round(nearest, 1.2em, 1px); /* o Figma arredonda cada linha: 28 × 1,2 = 33,6 → 34 (2 linhas = 68) */
+  }
+  .diagrama__text { max-width: none; }
+}

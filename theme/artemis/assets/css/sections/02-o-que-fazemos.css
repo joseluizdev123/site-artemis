@@ -1,0 +1,172 @@
+/* Seção 02 — O que fazemos (Figma 8183:302) */
+
+.o-que-fazemos {
+  background: var(--black-200);
+  padding-block: var(--section-py);
+  /* stroke inside top/bottom gray-900 — não soma altura */
+  box-shadow: inset 0 1px 0 var(--gray-900), inset 0 -1px 0 var(--gray-900);
+}
+
+.o-que-fazemos__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--content-gap);
+}
+
+/* Coluna esquerda (8183:977): heading no topo, fundadores na base */
+.o-que-fazemos__aside {
+  flex: 1 0 0;
+  min-width: 1px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px; /* respiro mínimo se o texto da direita encurtar (no Figma sobra 149px) */
+}
+
+.o-que-fazemos__heading { overflow-wrap: break-word; } /* 8213:369 */
+.o-que-fazemos__eyebrow { align-self: stretch; }        /* 8183:975 — largura total da coluna */
+.o-que-fazemos__title { width: 489px; max-width: 100%; } /* 8183:309 */
+
+/* Founder Info (8213:357) */
+.o-que-fazemos__founders {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Avatares 64px sobrepostos −16px (8213:358) */
+.o-que-fazemos__avatars {
+  display: flex;
+  flex: none;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.o-que-fazemos__avatar {
+  position: relative;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: default;
+}
+.o-que-fazemos__avatar:not(:last-child) { margin-right: -16px; }
+.o-que-fazemos__avatar img {
+  position: absolute;
+  top: -1.5625%;   /* imagem 66px com stroke de 1px fora da elipse de 64 */
+  left: -1.5625%;
+  width: 103.125%;
+  height: 103.125%;
+  max-width: none;
+  border-radius: 50%;
+  object-fit: cover; /* fotos trocadas no WP podem não ser quadradas */
+}
+/* Anel 1px black-200 (o mesmo já embutido nas fotos do Figma) — garante o recorte em fotos novas */
+.o-que-fazemos__avatar::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--black-200);
+  pointer-events: none;
+}
+
+/* Microinteração: nome acima do avatar no hover/foco */
+.o-que-fazemos__name {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--black-100);
+  box-shadow: inset 0 0 0 1px var(--gray-800);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--gray-0);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.o-que-fazemos__avatar:hover,
+.o-que-fazemos__avatar:focus-visible { z-index: 2; }
+.o-que-fazemos__avatar:hover .o-que-fazemos__name,
+.o-que-fazemos__avatar:focus-visible .o-que-fazemos__name {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+/* Touch: o toque foca o avatar (tabindex) e mostra o nome.
+   cursor: pointer faz o iOS Safari tratar o avatar como clicável e disparar o foco no toque. */
+@media (hover: none) {
+  .o-que-fazemos__avatar { cursor: pointer; }
+  .o-que-fazemos__avatar:focus { z-index: 2; }
+  .o-que-fazemos__avatar:focus .o-que-fazemos__name { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* 8244:1236 — Cabin SemiBold 18/1.5 branco */
+.o-que-fazemos__caption {
+  flex: none;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--gray-0);
+  white-space: nowrap;
+}
+
+/* Texto longo (8183:974) — Cabin 18/1.5 gray-300, parágrafos com 16 de espaço */
+.o-que-fazemos__body {
+  flex: 1 0 0;
+  min-width: 1px;
+  overflow-wrap: break-word;
+}
+.o-que-fazemos__body p + p { margin-top: 16px; }
+.o-que-fazemos__body strong { font-weight: 700; color: var(--gray-0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .o-que-fazemos__name { transition: opacity .2s ease; transform: translate(-50%, 0); }
+}
+
+/* Abaixo do desktop: colunas empilhadas */
+@media (max-width: 1023px) {
+  .o-que-fazemos__inner { flex-direction: column; gap: 48px; }
+  .o-que-fazemos__aside,
+  .o-que-fazemos__body { flex: none; width: 100%; }
+  .o-que-fazemos__aside { align-self: auto; }
+  .o-que-fazemos__founders { flex-wrap: wrap; } /* legenda desce se não couber (evita scroll horizontal) */
+}
+
+/* --------------------------------------------------------------------------
+   Mobile — Figma 8635:1990 (375 × 1096), vale até 767px
+   Seção: coluna, px 16 (--section-px) · py 60 (--section-py) · gap 40
+     8635:1991 Container (343 × 240): heading + fundadores, gap 32
+       8635:1992 Heading: eyebrow 8635:1993 + título 8635:1994 (Exo 28/1.2), gap 16
+       8635:1995 Founder Info: avatares 8635:1996 (187 = 4 × 64 − 3 × 23) + legenda 8635:1997 (fill), gap 16
+     8635:1998 Texto (343 × 696): Cabin 18/1.5, parágrafos com 16 de espaço (herda do desktop)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .o-que-fazemos__inner { gap: 40px; }   /* 8635:1990 */
+  .o-que-fazemos__aside { gap: 32px; }   /* 8635:1991 */
+
+  /* 8635:1994 — largura total; o Figma arredonda a linha de 33,6 para 34px (3 linhas = 102) */
+  .o-que-fazemos__title {
+    width: auto;
+    font-size: 28px;
+    line-height: 1.2;
+    line-height: round(nearest, 1.2em, 1px);
+  }
+
+  /* 8635:1996 — avatares mais sobrepostos: −23px em 375 (187 de largura). Abaixo de 375 a sobreposição
+     cresce até −26px em 320 (178), para "Fundadores" (~90px) continuar ao lado dos avatares */
+  .o-que-fazemos__avatar:not(:last-child) {
+    margin-right: clamp(-26px, calc((100vw - 375px) * 3 / 55 - 23px), -23px);
+  }
+
+  /* 8635:1997 — legenda ocupa o resto da linha (140 em 375). Abaixo de 375 o texto quebra em mais
+     linhas ao lado dos avatares (ex.: 360, 320); só desce para baixo deles abaixo de ~310px */
+  .o-que-fazemos__caption { flex: 1 1 0; white-space: normal; }
+}

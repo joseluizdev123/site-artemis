@@ -1,0 +1,120 @@
+<!-- Newsletter desktop · 8436:2153 (símbolo "newsletter", 1440×498, Blog 8294:1703) — filhos via get_metadata -->
+<symbol id="8436:2153" name="newsletter" x="0" y="5668" width="1440" height="498">
+  <frame id="8314:2133" name="Container" x="0" y="0" width="1440" height="50">
+    <frame id="8314:2134" name="Icon" x="32" y="24" width="304" height="26">
+      <rounded-rectangle id="8314:2135" name="Bullet Point" x="0" y="8.5" width="7" height="9" />
+      <text id="8314:2136" name="Main Heading" x="17" y="0" width="287" height="26" />
+    </frame>
+    <frame id="8314:2137" name="Icon group" x="368" y="30.25" width="314.5" height="13.5">
+      <frame id="8314:2138" name="Signal icon" x="0" y="0" width="36" height="13.5">
+        <vector id="8314:2139" name="Vector 124" x="0" y="0" width="0" height="13.5" />
+        <vector id="8314:2140" name="Vector 125" x="4" y="0" width="0" height="13.5" />
+        <vector id="8314:2141" name="Vector 126" x="8" y="0" width="0" height="13.5" />
+        <vector id="8314:2142" name="Vector 127" x="12" y="0" width="0" height="13.5" />
+        <vector id="8314:2143" name="Vector 128" x="16" y="0" width="0" height="13.5" />
+        <vector id="8314:2144" name="Vector 129" x="20" y="0" width="0" height="13.5" />
+        <vector id="8314:2145" name="Vector 130" x="24" y="0" width="0" height="13.5" />
+        <vector id="8314:2146" name="Vector 131" x="28" y="0" width="0" height="13.5" />
+        <vector id="8314:2147" name="Vector 132" x="32" y="0" width="0" height="13.5" />
+        <vector id="8314:2148" name="Vector 133" x="36" y="0" width="0" height="13.5" />
+      </frame>
+      <vector id="8314:2149" name="Vector 130" x="46.69047546386719" y="0" width="0" height="13.5" />
+      <vector id="8314:2150" name="Vector 131" x="57.380950927734375" y="0" width="0" height="13.5" />
+      <vector id="8314:2151" name="Vector 136" x="68.07142639160156" y="0" width="0" height="13.5" />
+      <vector id="8314:2152" name="Vector 137" x="78.76190185546875" y="0" width="0" height="13.5" />
+      <vector id="8314:2153" name="Vector 138" x="89.45237731933594" y="0" width="0" height="13.5" />
+      <vector id="8314:2154" name="Vector 139" x="100.14285278320312" y="0" width="0" height="13.5" />
+      <vector id="8314:2155" name="Vector 140" x="110.83332824707031" y="0" width="0" height="13.5" />
+      <vector id="8314:2156" name="Vector 141" x="121.5238037109375" y="0" width="0" height="13.5" />
+      <vector id="8314:2157" name="Vector 142" x="132.2142791748047" y="0" width="0" height="13.5" />
+      <vector id="8314:2158" name="Vector 143" x="142.90475463867188" y="0" width="0" height="13.5" />
+      <vector id="8314:2159" name="Vector 144" x="153.59523010253906" y="0" width="0" height="13.5" />
+      <vector id="8314:2160" name="Vector 145" x="164.28570556640625" y="0" width="0" height="13.5" />
+      <vector id="8314:2161" name="Vector 146" x="174.97618103027344" y="0" width="0" height="13.5" />
+      <vector id="8314:2162" name="Vector 147" x="185.66665649414062" y="0" width="0" height="13.5" />
+      <vector id="8314:2163" name="Vector 148" x="196.3571319580078" y="0" width="0" height="13.5" />
+      <vector id="8314:2164" name="Vector 149" x="207.047607421875" y="0" width="0" height="13.5" />
+      <vector id="8314:2165" name="Vector 132" x="217.7380828857422" y="0" width="0" height="13.5" />
+      <vector id="8314:2166" name="Vector 133" x="228.42855834960938" y="0" width="0" height="13.5" />
+      <vector id="8314:2167" name="Vector 134" x="239.11903381347656" y="0" width="0" height="13.5" />
+      <vector id="8314:2168" name="Vector 135" x="249.80950927734375" y="0" width="0" height="13.5" />
+      <frame id="8314:2169" name="Signal icon" x="260.5" y="0" width="54" height="13.5">
+        <vector id="8314:2170" name="Vector 124" x="0" y="0" width="0" height="13.5" />
+        <vector id="8314:2171" name="Vector 125" x="6" y="0" width="0" height="13.5" />
+        <vector id="8314:2172" name="Vector 126" x="12" y="0" width="0" height="13.5" />
+        <vector id="8314:2173" name="Vector 127" x="18" y="0" width="0" height="13.5" />
+        <vector id="8314:2174" name="Vector 128" x="24" y="0" width="0" height="13.5" />
+        <vector id="8314:2175" name="Vector 129" x="30" y="0" width="0" height="13.5" />
+        <vector id="8314:2176" name="Vector 130" x="36" y="0" width="0" height="13.5" />
+        <vector id="8314:2177" name="Vector 131" x="42" y="0" width="0" height="13.5" />
+        <vector id="8314:2178" name="Vector 132" x="48" y="0" width="0" height="13.5" />
+        <vector id="8314:2179" name="Vector 133" x="54" y="0" width="0" height="13.5" />
+      </frame>
+    </frame>
+    <text id="8314:2180" name="Main Heading" x="714.5" y="24" width="137" height="26" />
+    <frame id="8314:2181" name="Icon group" x="883.5" y="30.25" width="314.5" height="13.5">
+      <frame id="8314:2182" name="Signal icon" x="0" y="0" width="36" height="13.5">
+        <vector id="8314:2183" name="Vector 124" x="0" y="0" width="0" height="13.5" />
+        <vector id="8314:2184" name="Vector 125" x="4" y="0" width="0" height="13.5" />
+        <vector id="8314:2185" name="Vector 126" x="8" y="0" width="0" height="13.5" />
+        <vector id="8314:2186" name="Vector 127" x="12" y="0" width="0" height="13.5" />
+        <vector id="8314:2187" name="Vector 128" x="16" y="0" width="0" height="13.5" />
+        <vector id="8314:2188" name="Vector 129" x="20" y="0" width="0" height="13.5" />
+        <vector id="8314:2189" name="Vector 130" x="24" y="0" width="0" height="13.5" />
+        <vector id="8314:2190" name="Vector 131" x="28" y="0" width="0" height="13.5" />
+        <vector id="8314:2191" name="Vector 132" x="32" y="0" width="0" height="13.5" />
+        <vector id="8314:2192" name="Vector 133" x="36" y="0" width="0" height="13.5" />
+      </frame>
+      <vector id="8314:2193" name="Vector 130" x="46.69047546386719" y="0" width="0" height="13.5" />
+      <vector id="8314:2194" name="Vector 131" x="57.380950927734375" y="0" width="0" height="13.5" />
+      <vector id="8314:2195" name="Vector 136" x="68.07142639160156" y="0" width="0" height="13.5" />
+      <vector id="8314:2196" name="Vector 137" x="78.76190185546875" y="0" width="0" height="13.5" />
+      <vector id="8314:2197" name="Vector 138" x="89.45237731933594" y="0" width="0" height="13.5" />
+      <vector id="8314:2198" name="Vector 139" x="100.14285278320312" y="0" width="0" height="13.5" />
+      <vector id="8314:2199" name="Vector 140" x="110.83332824707031" y="0" width="0" height="13.5" />
+      <vector id="8314:2200" name="Vector 141" x="121.5238037109375" y="0" width="0" height="13.5" />
+      <vector id="8314:2201" name="Vector 142" x="132.2142791748047" y="0" width="0" height="13.5" />
+      <vector id="8314:2202" name="Vector 143" x="142.90475463867188" y="0" width="0" height="13.5" />
+      <vector id="8314:2203" name="Vector 144" x="153.59523010253906" y="0" width="0" height="13.5" />
+      <vector id="8314:2204" name="Vector 145" x="164.28570556640625" y="0" width="0" height="13.5" />
+      <vector id="8314:2205" name="Vector 146" x="174.97618103027344" y="0" width="0" height="13.5" />
+      <vector id="8314:2206" name="Vector 147" x="185.66665649414062" y="0" width="0" height="13.5" />
+      <vector id="8314:2207" name="Vector 148" x="196.3571319580078" y="0" width="0" height="13.5" />
+      <vector id="8314:2208" name="Vector 149" x="207.047607421875" y="0" width="0" height="13.5" />
+      <vector id="8314:2209" name="Vector 132" x="217.7380828857422" y="0" width="0" height="13.5" />
+      <vector id="8314:2210" name="Vector 133" x="228.42855834960938" y="0" width="0" height="13.5" />
+      <vector id="8314:2211" name="Vector 134" x="239.11903381347656" y="0" width="0" height="13.5" />
+      <vector id="8314:2212" name="Vector 135" x="249.80950927734375" y="0" width="0" height="13.5" />
+      <frame id="8314:2213" name="Signal icon" x="260.5" y="0" width="54" height="13.5">
+        <vector id="8314:2214" name="Vector 124" x="0" y="0" width="0" height="13.5" />
+        <vector id="8314:2215" name="Vector 125" x="6" y="0" width="0" height="13.5" />
+        <vector id="8314:2216" name="Vector 126" x="12" y="0" width="0" height="13.5" />
+        <vector id="8314:2217" name="Vector 127" x="18" y="0" width="0" height="13.5" />
+        <vector id="8314:2218" name="Vector 128" x="24" y="0" width="0" height="13.5" />
+        <vector id="8314:2219" name="Vector 129" x="30" y="0" width="0" height="13.5" />
+        <vector id="8314:2220" name="Vector 130" x="36" y="0" width="0" height="13.5" />
+        <vector id="8314:2221" name="Vector 131" x="42" y="0" width="0" height="13.5" />
+        <vector id="8314:2222" name="Vector 132" x="48" y="0" width="0" height="13.5" />
+        <vector id="8314:2223" name="Vector 133" x="54" y="0" width="0" height="13.5" />
+      </frame>
+    </frame>
+    <text id="8314:2224" name="Main Heading" x="1230" y="24" width="178" height="26" />
+  </frame>
+  <frame id="8314:2225" name="main container" x="0" y="50" width="1440" height="448">
+    <frame id="8314:2630" name="Content Section" x="32" y="120" width="907" height="208">
+      <frame id="8314:2629" name="Content Box" x="0" y="0" width="694" height="208">
+        <text id="8314:2636" name="Main Description" x="0" y="0" width="694" height="26" />
+        <text id="8314:2231" name="Main Heading" x="0" y="42" width="694" height="96" />
+        <text id="8314:2626" name="Main Heading" x="0" y="154" width="694" height="54" />
+      </frame>
+    </frame>
+    <frame id="8314:2508" name="Input and Submit Container" x="971" y="272" width="437" height="56">
+      <frame id="8314:2509" name="primary-butotn" x="0" y="0" width="338" height="56">
+        <text id="8314:2510" name="Main Description" x="24" y="16" width="128" height="24" />
+      </frame>
+      <frame id="8314:2511" name="primary-butotn" x="346" y="0" width="91" height="56">
+        <text id="8314:2512" name="Main Description" x="24" y="16" width="43" height="24" />
+      </frame>
+    </frame>
+  </frame>
+</symbol>

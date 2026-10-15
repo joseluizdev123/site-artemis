@@ -1,0 +1,7 @@
+/* Ilustração "Codificação de produto" (Figma 8294:696 · celular 8635:2195) — os 23 segmentos rosa da
+   barra (8294:714…736) carregam um por vez (capas da cor do card somem em sequência) e, no fim, aparece
+   o status "Configurado" (8294:737). */
+.ilu--codificacao { --ilu-step: 95ms; }
+.sistemas__card.is-playing .ilu--codificacao .ilu__cover--status {
+  animation-delay: calc(23 * var(--ilu-step) + .15s);
+}

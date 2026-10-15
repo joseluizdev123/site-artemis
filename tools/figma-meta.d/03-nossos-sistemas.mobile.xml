@@ -1,0 +1,26 @@
+<!-- Nossos sistemas mobile (8635:1999): filhos dos Description Blocks, autofechados em figma-meta.xml.
+     Raiz = o próprio nó (get_metadata 8635:2073/2190/2240/2297); filhos = get_metadata dos Text Blocks. -->
+<frame id="8635:2073" name="Description Block" x="0" y="343" width="343" height="170">
+  <frame id="8635:2074" name="Text Block" x="20" y="20" width="303" height="130">
+    <text id="8635:2075" name="Heading" x="0" y="0" width="303" height="26" />
+    <text id="8635:2076" name="Description" x="0" y="34" width="303" height="96" />
+  </frame>
+</frame>
+<frame id="8635:2190" name="Description Block" x="0" y="343" width="343" height="170">
+  <frame id="8635:2191" name="Text Block" x="20" y="20" width="303" height="130">
+    <text id="8635:2192" name="Heading" x="0" y="0" width="303" height="26" />
+    <text id="8635:2193" name="Description" x="0" y="34" width="303" height="96" />
+  </frame>
+</frame>
+<frame id="8635:2240" name="Description Block" x="0" y="343" width="343" height="170">
+  <frame id="8635:2241" name="Text Block" x="20" y="20" width="303" height="130">
+    <text id="8635:2242" name="Heading" x="0" y="0" width="303" height="26" />
+    <text id="8635:2243" name="Description" x="0" y="34" width="303" height="96" />
+  </frame>
+</frame>
+<frame id="8635:2297" name="Description Block" x="0" y="343" width="343" height="146">
+  <frame id="8635:2298" name="Text Block" x="20" y="20" width="303" height="106">
+    <text id="8635:2299" name="Heading" x="0" y="0" width="303" height="26" />
+    <text id="8635:2300" name="Description" x="0" y="34" width="303" height="72" />
+  </frame>
+</frame>

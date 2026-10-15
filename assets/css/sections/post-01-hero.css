@@ -1,0 +1,54 @@
+/* Post — topo do artigo (Figma 8331:338 · mobile 8673:5779)
+   Meta (categoria · data) e autor = componente .post-card__* (blog-03-categoria.css) */
+
+/* 8331:338: px 32 · py 120 · stroke inferior 1px gray-900 no layout (691 = 690 + 1) */
+.post-hero {
+  padding-block: var(--section-py);
+  border-bottom: 1px solid var(--gray-900);
+  background: var(--black-200);
+}
+
+/* Article 8331:341: 859 de largura, gap 32 */
+.post-hero__article {
+  max-width: 859px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Heading 8331:342: meta + título, gap 24 */
+.post-hero__heading { display: flex; flex-direction: column; gap: 24px; }
+
+/* No post a categoria leva à seção dela no Blog */
+.post-hero__cat { transition: color .2s ease; }
+.post-hero__cat:hover { color: var(--gray-300); }
+
+/* 8331:344 · Exo SemiBold 62/1.1 (Figma arredonda a caixa: 3 × 68,2 → 204, entrelinha 68) */
+.post-hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 62px;
+  line-height: 68px;
+  color: var(--gray-0);
+  text-wrap: pretty;
+}
+
+/* O autor não fica no rodapé (o margin-top: auto é do card) */
+.post-hero .post-card__author { margin-top: 0; }
+
+/* 768–1023: o título de 62 quebra em palavras soltas */
+@media (max-width: 1023px) {
+  .post-hero__title { font-size: 48px; line-height: 1.1; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767) · 8673:5779 (375×611): px 16 · py 60 · gap 24 · título Exo 32/1.2 (caixa 4 × 38,4 → 152: entrelinha 38)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .post-hero__article { gap: 24px; }
+  .post-hero__title { font-size: 32px; line-height: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-hero__cat { transition: none; }
+}

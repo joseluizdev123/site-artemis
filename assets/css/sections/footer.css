@@ -1,0 +1,251 @@
+/* Footer (Figma 8165:2501 — símbolo "Footer container") */
+
+.site-footer { background: var(--black-200); }
+
+/* Content Container (8193:512) — pt 120, pb 32, gap 56 */
+.site-footer__content {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding-top: var(--section-py);
+  padding-bottom: 32px;
+}
+
+/* Navigation and Contact (8165:2341) */
+.site-footer__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; }
+
+.site-footer__intro { flex: none; display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
+.site-footer__brand { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.site-footer__logo { transition: opacity .2s ease; }
+.site-footer__logo:hover { opacity: .8; }
+.site-footer__logo img { width: 137px; height: 32px; }
+
+.site-footer__title {
+  width: 445px;
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2;
+  line-height: round(1.2em, 1px); /* Figma arredonda cada linha: 28.8 → 29 (caixa 87 em 3 linhas) */
+  color: var(--gray-0);
+}
+.site-footer__title em { font-style: normal; color: var(--gray-400); }
+
+/* Newsletter (8165:2346) — input + botão, gap 8; strokes inside (border-box) */
+.site-footer__form { position: relative; align-self: stretch; display: flex; align-items: flex-start; gap: 8px; }
+.site-footer__input {
+  flex: 1 0 0;
+  min-width: 1px;
+  margin: 0;
+  padding: 15px 23px; /* 16/24 do Figma − 1px do stroke */
+  border: 1px solid var(--gray-800);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-variation-settings: "wdth" 100;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-0);
+  transition: border-color .2s ease;
+}
+.site-footer__input::placeholder { color: var(--gray-500); opacity: 1; }
+.site-footer__input:hover,
+.site-footer__input:focus { border-color: var(--gray-500); }
+.site-footer__input:focus { outline: none; }
+.site-footer__input:focus-visible { outline: 2px solid var(--blue-400); outline-offset: 3px; }
+.site-footer__submit { flex: none; padding: 15px 23px; cursor: pointer; } /* 8165:2349 — py 16 (botão menor que o .btn padrão) */
+.site-footer__form-msg {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 24px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-400);
+}
+
+/* Colunas de links e contato (8165:2351) — 740 de largura, gap 32 */
+.site-footer__cols { flex: none; width: 740px; display: flex; align-items: flex-start; gap: 32px; }
+.site-footer__col { flex: 1 0 0; min-width: 1px; display: flex; flex-direction: column; gap: 16px; }
+.site-footer__links { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
+
+.site-footer__heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-0);
+}
+
+.site-footer__link,
+.site-footer__label,
+.site-footer__totop-label,
+.site-footer__legal {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+.site-footer__link { display: block; transition: color .2s ease; }
+.site-footer__link:hover { color: var(--gray-0); }
+
+/* Contato (8165:2365) — largura = e-mail (nowrap); demais textos quebram */
+.site-footer__contact {
+  flex: none;
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  font-style: normal;
+}
+.site-footer__contact-item { display: flex; flex-direction: column; gap: 16px; }
+.site-footer__value {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2;
+  line-height: round(1.2em, 1px); /* idem: 29 por linha, como no Figma */
+  color: var(--gray-0);
+  transition: color .2s ease;
+}
+.site-footer__value--nowrap { white-space: nowrap; }
+.site-footer__value:hover { color: var(--gray-300); }
+
+/* Social + voltar ao topo (8165:2375) */
+.site-footer__middle { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; }
+.site-footer__social { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.site-footer__social .site-footer__label { align-self: stretch; }
+.site-footer__icons { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+/* Ícone redondo 48 (8165:2379) — stroke inside via border-box */
+.site-footer__icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--gray-800);
+  border-radius: 999px;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.site-footer__icon img { flex: none; }
+a.site-footer__icon:hover,
+.site-footer__totop:hover .site-footer__icon { border-color: var(--gray-500); background: var(--gray-900); }
+
+.site-footer__glyph { position: relative; flex: none; overflow: clip; }
+/* mingcute:dribbble-fill (8165:2392) — grupo com inset 8.33% 8.34% 0.77% 8.34% */
+.site-footer__glyph--dribbble { width: 24px; height: 24px; }
+.site-footer__glyph--dribbble img { position: absolute; top: 8.33%; left: 8.34%; width: 83.32%; height: 90.9%; }
+/* prime:twitter (8165:2397) — 14×14, grupo com inset 4.69% 0 */
+.site-footer__glyph--x { width: 14px; height: 14px; }
+.site-footer__glyph--x img { position: absolute; top: 4.69%; left: 0; width: 100%; height: 90.62%; }
+
+/* Voltar ao topo (8165:2404) — texto 95×23 alinhado à direita, gap 16 */
+.site-footer__totop { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 16px; }
+.site-footer__totop-label { display: block; width: 95px; height: 23px; text-align: right; white-space: nowrap; transition: color .2s ease; }
+.site-footer__totop:hover .site-footer__totop-label { color: var(--gray-0); }
+
+/* Copyright (8165:2493) */
+.site-footer__legal { display: flex; align-items: center; justify-content: space-between; gap: 24px; white-space: nowrap; }
+.site-footer__legal-links { display: flex; align-items: flex-start; gap: 24px; margin: 0; padding: 0; list-style: none; }
+
+/* Pattern (8193:599) — stroke top inside; 83 diagonais, justify-between, mr −6.561 */
+.site-footer__pattern {
+  display: flex;
+  justify-content: center;
+  height: 64px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 var(--gray-900);
+}
+.site-footer__pattern-track {
+  flex: none;
+  width: max(100%, var(--frame-w));
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/* Caixa do vetor 24×64 com o SVG em inset −0.27% −1.95% (22×64: −0.25% −2.15%) e mr −6.561.
+   Valores em múltiplos de 1/64 px (unidade de layout do Chrome): 24.936 → 24.9375, −0.468 → −0.46875 etc.
+   Com decimais "soltos" o arredondamento somava ~0.013px por vetor (+1px na ponta direita). Passo = 17.4375 (Figma 17.439). */
+.site-footer__diag { flex: none; width: 24.9375px; height: 64.34375px; margin: 0 -7.03125px 0 -0.46875px; }
+.site-footer__diag--22 { width: 22.9375px; height: 64.3125px; }
+.site-footer__diag:last-child { margin-right: -0.46875px; }
+
+/* Leitores de tela */
+.site-footer__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Telas menores que o frame
+   -------------------------------------------------------------------------- */
+@media (max-width: 1240px) {
+  .site-footer__top { flex-direction: column; gap: 64px; }
+  .site-footer__cols { width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767) · frame Mobile 8641:1595 (símbolo "Footer container", 375×1459)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* Content Container 8635:3302 — pt 60 (--section-py), px 16, pb 16, gap 40 */
+  .site-footer__content { gap: 40px; padding-bottom: 16px; }
+
+  /* Navigation and Contact 8635:3303 — tudo em coluna, gap 40 */
+  .site-footer__top { align-items: stretch; gap: 40px; }
+
+  /* Main Heading 8635:3307 — Exo SemiBold 20/1.2, largura total */
+  .site-footer__title { align-self: stretch; width: auto; font-size: 20px; }
+
+  /* Campo 8635:3309 — texto com reticências quando não cabe (text-ellipsis no Figma) */
+  .site-footer__input { text-overflow: ellipsis; }
+
+  /* Links and Contact Sections 8635:3313 — coluna, gap 32 */
+  .site-footer__cols { width: auto; flex-direction: column; align-items: stretch; }
+  .site-footer__col { flex: none; }
+
+  /* Contact Information 8635:3325 — largura total; valores Exo SemiBold 20/1.2 */
+  .site-footer__contact { width: auto; }
+  .site-footer__value { font-size: 20px; }
+  .site-footer__value--nowrap { white-space: normal; overflow-wrap: anywhere; } /* e-mail longo em telas estreitas */
+
+  /* Container 8635:3335 — Social (8635:3336) e Voltar ao topo (8635:3364) em coluna, gap 40 */
+  .site-footer__middle { flex-direction: column; align-items: stretch; gap: 40px; }
+  .site-footer__social { align-items: stretch; }
+  .site-footer__icons { flex-wrap: wrap; }
+  .site-footer__totop { align-items: flex-start; } /* rótulo 95×23 e ícone à esquerda */
+
+  /* Copyright Notice 8635:3369 — coluna, gap 32; links lado a lado (gap 24) */
+  .site-footer__legal { flex-direction: column; align-items: stretch; gap: 32px; white-space: normal; }
+  .site-footer__legal-links { flex-wrap: wrap; white-space: nowrap; }
+
+  /* Área de toque sem mexer no layout: links de 24 com gap 16 → ±8 (40); valores e links legais → 44 */
+  .site-footer__link,
+  .site-footer__value { position: relative; }
+  .site-footer__link::after,
+  .site-footer__value::after { content: ""; position: absolute; inset: -10px 0; }
+  .site-footer__links .site-footer__link::after { inset: -8px 0; }
+  .site-footer__legal-links .site-footer__link::after { inset: -10px -12px; }
+  /* Logo 8635:3306 (137×32) → alvo de 44 (pt 60 acima, gap 24 abaixo) */
+  .site-footer__logo { position: relative; }
+  .site-footer__logo::after { content: ""; position: absolute; inset: -6px 0; }
+
+  /* Pattern 8635:3374 — h 32; diagonais 24/22×64 centradas (y −16) com mr −12: passo 12, faixa de 994.
+     Mesmo inset do desktop (−0.46875 de cada lado) → mr da imagem = −12 − 0.46875 */
+  .site-footer__pattern { height: 32px; align-items: center; }
+  .site-footer__pattern-track { width: auto; justify-content: flex-start; }
+  .site-footer__diag { margin-right: -12.46875px; }
+  .site-footer__diag:last-child { margin-right: -0.46875px; }
+}

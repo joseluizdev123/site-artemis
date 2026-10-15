@@ -1,0 +1,321 @@
+/* Seção 07 — Estudos de impacto (Figma 8195:1063) · carrossel = instância 8201:3770 do componente 8201:3769 */
+
+.estudos { background: var(--black-200); }
+
+/* 8195:1063: px 32 (container) · py 120 · gap 80 entre cabeçalho e carrossel */
+.estudos__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding-block: var(--section-py);
+}
+.estudos__heading { align-self: stretch; } /* 8195:1066: min-w-full → 1376 */
+
+/* --------------------------------------------------------------------------
+   Carrossel (8201:3770): card 573 + gap 32 + controles 40 = 645
+   -------------------------------------------------------------------------- */
+.estudos__carousel { display: flex; flex-direction: column; gap: 32px; }
+
+/* Só o slide ativo ocupa o fluxo; a altura acompanha o slide (Gascat 8201:3766 é mais alto) */
+.estudos__slides {
+  position: relative;
+  overflow: clip;
+  touch-action: pan-y;
+  transition: height .45s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Review Container (8201:3594): stroke 1px inside gray-900 — a pintura cobre o stroke à direita */
+.estudos__card {
+  position: relative;
+  display: flex;
+  background: var(--black-200);
+  box-shadow: inset 0 0 0 1px var(--gray-900);
+  transition: opacity .45s ease, visibility 0s;
+}
+.estudos__card:not(.is-active) {
+  position: absolute;
+  inset: 0 0 auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .45s ease, visibility 0s linear .45s;
+}
+
+/* Review Text Container (8201:3595): 640 · p 48 · gap 32 · stroke direito inside */
+.estudos__text {
+  flex: 0 0 calc((100% - 64px) * 640 / 1312); /* 640 : 672 ao redor do padrão de 64 */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 48px;
+  box-shadow: inset -1px 0 0 var(--gray-900);
+  overflow-wrap: break-word;
+}
+/* Estudo 4 (8284:168): sem rodapé, altura fixa 573 com conteúdo centralizado — entre 1024 e 1439,
+   onde os outros estudos crescem, acompanha o menor bloco de texto deles (--estudos-text-min, JS) */
+.estudos__text--center { justify-content: center; min-height: max(573px, var(--estudos-text-min, 0px)); }
+
+/* Figma arredonda a entrelinha para px inteiro (24×1,3 = 31,2 → 31 · 32×1,2 = 38,4 → 38) */
+.estudos__meta {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.3;
+  line-height: round(1.3em, 1px);
+  color: var(--gray-300);
+}
+
+.estudos__content { display: flex; flex-direction: column; gap: 16px; } /* 8201:3600 */
+
+.estudos__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.2;
+  line-height: round(1.2em, 1px);
+  color: var(--gray-0);
+}
+
+/* 8201:3602: Cabin 16/1.5 gray-300, parágrafos com 12 entre si */
+.estudos__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+
+/* Review Header (8201:3596): categoria | status — tipografia do .eyebrow */
+.estudos__tags { display: flex; align-items: flex-start; gap: 8px; white-space: nowrap; }
+.estudos__status {
+  display: flex;
+  padding-left: 8px;
+  box-shadow: inset 1px 0 0 var(--gray-900); /* 8201:3598: stroke esquerdo inside */
+}
+.estudos__status:first-child { padding-left: 0; box-shadow: none; } /* WP: status sem categoria */
+.estudos__status-label { display: block; }
+
+/* Right Pattern Container (8201:3604): 64 de largura, padrão 1376×64 girado 90°, centro em 50% − 40,5 */
+.estudos__pattern {
+  position: relative;
+  flex: 0 0 64px;
+  overflow: clip;
+}
+.estudos__pattern img {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 40.5px);
+  width: var(--content-w);
+  height: 64.35px; /* 64 + inset −0,27% do Figma */
+  max-width: none;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Review Image (8201:3689): 672 · pl 48 · pt 48 · pintura em cover + captura do sistema */
+.estudos__media {
+  position: relative;
+  flex: 1 1 0; /* 672 = o que sobra */
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 0 0 48px;
+  overflow: clip;
+}
+.estudos__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+/* Review Image Content (8201:3690): fundo branco, captura alinhada ao topo/esquerda na altura do quadro */
+.estudos__shot {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 1px;
+  background: var(--gray-0);
+  overflow: hidden;
+}
+.estudos__shot-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: var(--shot-zoom, 100%); /* Gascat 8201:3580: 138,69% */
+  max-width: none;
+}
+
+/* --------------------------------------------------------------------------
+   Controles (8201:3692): progresso 640 + setas 40 (gap 8)
+   -------------------------------------------------------------------------- */
+.estudos__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* Divider Lines Container (8201:3693) — trecho branco = 164 por estudo ((640 + 16) / 4) */
+.estudos__progress {
+  flex: 0 1 640px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  border-radius: 999px;
+}
+.estudos__progress-fill {
+  flex: none;
+  width: calc((100% + 16px) * var(--estudos-step, 1) / var(--estudos-total, 4));
+  height: 2px;
+  background: var(--gray-0);
+  transition: width .45s cubic-bezier(.4, 0, .2, 1);
+}
+.estudos__progress-rest {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 2px;
+  background: var(--gray-400);
+}
+
+.estudos__nav { display: flex; align-items: center; gap: 8px; } /* 8201:3696 */
+
+/* primary-butotn (8201:3697): 40×40, stroke 1px gray-900, ícone 16 centralizado */
+.estudos__arrow {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--gray-900);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.estudos__arrow:hover { border-color: var(--gray-500); }
+.estudos__arrow:active { background: var(--gray-900); }
+.estudos__arrow img { width: 16px; height: 16px; }
+
+/* Um estudo só: sem controles (WP) */
+.estudos__carousel.is-single .estudos__controls { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .estudos__slides,
+  .estudos__card,
+  .estudos__card:not(.is-active),
+  .estudos__progress-fill { transition: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Telas menores: texto em cima, imagem embaixo
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .estudos__inner { gap: 48px; }
+  .estudos__card { flex-direction: column; }
+  .estudos__text { flex: none; padding: 32px 24px; box-shadow: inset 0 -1px 0 var(--gray-900); }
+  /* Estudo sem rodapé: altura do menor bloco de texto dos outros estudos (JS) */
+  .estudos__text--center { min-height: var(--estudos-text-min, 0px); }
+  .estudos__pattern { display: none; }
+  .estudos__media { flex: none; aspect-ratio: 672 / 573; padding: 32px 0 0 32px; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (frame 8635:1583 · seção 8635:2366, 375 × 1321,47) — vale até 767px.
+   Abaixo de 375 tudo encolhe junto: conteúdo = 100% − 2×16.
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* 8635:2366: px 16 · py 60 (tokens) · gap 40 entre cabeçalho e carrossel */
+  .estudos__inner { gap: 40px; }
+
+  /* 8635:2369: Exo SemiBold 28/1.2 — Figma arredonda a entrelinha (33,6 → 34) */
+  .estudos__heading {
+    font-size: 28px;
+    line-height: 1.2;
+    line-height: round(nearest, 1.2em, 1px);
+  }
+
+  /* Review Text Container (8635:3461): p 20 · gap 20 · stroke direito inside (some sob o do card) */
+  .estudos__text {
+    gap: 20px;
+    padding: 20px;
+    box-shadow: inset -1px 0 0 var(--gray-900);
+  }
+  /* Estudo 4 (sem rodapé): texto centralizado como a variante 8284:168 do desktop, com a altura do
+     menor bloco de texto dos outros estudos (--estudos-text-min, JS) — no 375 = 645 do estudo 1;
+     sem JS fica 645 */
+  .estudos__text--center { min-height: var(--estudos-text-min, 645px); }
+
+  .estudos__meta { font-size: 18px; }  /* 8635:3462: 18/1.3 → 23 */
+  .estudos__title { font-size: 20px; } /* 8635:3464: 20/1.2 → 24 */
+
+  /* Review Header (8635:3466): Instrument Serif 18/1.3 (→ 23); categoria e status quebram linha se não
+     couberem (texto longo do WP também quebra dentro do item, em vez de estourar o card) */
+  .estudos__tags {
+    flex-wrap: wrap;
+    column-gap: 16px; /* 8 do Figma + os 8 que o status devolve com a margem negativa */
+    white-space: normal;
+    font-size: 18px;
+    line-height: 1.3;
+    line-height: round(nearest, 1.3em, 1px);
+    /* Status que quebra para a 2ª linha (320) começa alinhado ao texto (margem −8 = o pl 8) e sem o
+       stroke solto: abaixo da 1ª linha (23) recorta o que fica à esquerda de −4 (o stroke, em −8) —
+       a 1ª linha e as sobras do itálico ficam intactas */
+    clip-path: polygon(-16px -16px, calc(100% + 16px) -16px, calc(100% + 16px) calc(100% + 16px), -4px calc(100% + 16px), -4px 23px, -16px 23px);
+  }
+  /* 8635:3468: x = categoria + 8 continua igual (16 − 8); na 2ª linha o texto fica em x = 0 */
+  .estudos__status { margin-left: -8px; }
+  .estudos__status:first-child { margin-left: 0; }
+
+  /* Right Pattern Container (8635:3470): a coluna 64×573 do desktop vira a faixa 343×32 entre texto e
+     imagem (girada −90°): stroke inside no topo e o padrão 8635:3471 (m-pattern.svg, 1376×64,35 na
+     horizontal) com o centro em x = 50% − 40,5 e y = 0 — só a metade de baixo aparece */
+  .estudos__pattern {
+    display: block;
+    flex: none;
+    height: 32px;
+  }
+  .estudos__pattern::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: var(--gray-900);
+  }
+  .estudos__pattern img {
+    left: calc(50% - 40.5px);
+    top: 0;
+    width: auto;  /* tamanho do próprio SVG (1376 × 64,35) */
+    height: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Review Image (8635:3555): 672/573 (do bloco acima) · pl 16 · pt 16 */
+  .estudos__media { padding: 16px 0 0 16px; }
+
+  /* Container (8635:3557): progresso na largura toda e, 8 abaixo, as setas à esquerda */
+  .estudos__controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .estudos__progress { flex: none; width: 100%; }
+  /* 8635:3559: trecho branco de 164 em 343 no estudo 1 (47,81%), cresce até a largura toda no último */
+  .estudos__progress-fill {
+    width: calc(100% * 164 / 343 + 100% * 179 / 343 * (var(--estudos-step, 1) - 1) / max(var(--estudos-total, 4) - 1, 1));
+  }
+
+  /* primary-butotn (8635:3562 / 8635:3565): desenho 40×40, área de toque 44×44 */
+  .estudos__arrow { position: relative; }
+  .estudos__arrow::after {
+    content: "";
+    position: absolute;
+    inset: -3px; /* 38 (dentro da borda) + 2×3 = 44 */
+    border-radius: 50%;
+  }
+}

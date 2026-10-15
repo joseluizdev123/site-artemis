@@ -1,0 +1,15 @@
+<!-- O que fazemos · mobile — filhos da instância avatar 8635:1996 (get_metadata) -->
+<instance id="8635:1996" name="avatar" x="0" y="0" width="187" height="64">
+  <frame id="I8635:1996;8045:1447" name="willy" x="0" y="0" width="64" height="64">
+    <ellipse id="I8635:1996;8045:1438" name="willy" x="0" y="0" width="64" height="64" />
+  </frame>
+  <frame id="I8635:1996;8045:1448" name="enzo" x="41" y="0" width="64" height="64">
+    <ellipse id="I8635:1996;8045:1439" name="enzo" x="0" y="0" width="64" height="64" />
+  </frame>
+  <frame id="I8635:1996;8045:1449" name="julio" x="82" y="0" width="64" height="64">
+    <ellipse id="I8635:1996;8045:1440" name="julio" x="0" y="0" width="64" height="64" />
+  </frame>
+  <frame id="I8635:1996;8045:1450" name="helio" x="123" y="0" width="64" height="64">
+    <ellipse id="I8635:1996;8045:1441" name="helio" x="0" y="0" width="64" height="64" />
+  </frame>
+</instance>

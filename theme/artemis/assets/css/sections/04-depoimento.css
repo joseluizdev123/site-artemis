@@ -1,0 +1,167 @@
+/* Seção 04 — Depoimento / testmonial (Figma 8186:1160) */
+
+/* Fundo: fill 1 black-100 + fill 2 pattern (fonte 8257:3488 = elipse 1×1 gray-200,
+   escala 0.8, a cada 4px, 8%). A elipse de 0.8px cobre ~metade do pixel → ponto de
+   1px a ~4% (calibrado em 4.4% para dar #191919 sobre #111, igual ao export do Figma). */
+.depoimento {
+  --depoimento-dot: color-mix(in srgb, var(--gray-200) 4.4%, transparent);
+  position: relative;
+  overflow: clip;
+  background-color: var(--black-100);
+  background-image: radial-gradient(circle at .5px .5px, var(--depoimento-dot) .5px, transparent .5px);
+  background-size: 4px 4px;
+}
+
+/* px 32 (container) · py 120 · gap 32 · itens centralizados */
+.depoimento__inner {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: var(--content-gap);
+  padding-block: var(--section-py);
+}
+
+/* Globo pontilhado (8229:2131) — 935×443, bottom 0 / left 0 do frame */
+.depoimento__globe {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 935px;
+  height: 443px;
+  pointer-events: none;
+}
+.depoimento__globe-canvas,
+.depoimento__globe img { display: block; width: 100%; height: 100%; }
+
+/* Eyebrow (8186:1170) e coluna do depoimento (8186:1335): flex 1 cada */
+.depoimento__eyebrow,
+.depoimento__card {
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+.depoimento__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 56px;
+  margin: 0;
+}
+
+.depoimento__quote { width: 100%; margin: 0; } /* 8186:1340 — Exo 600 40/1.2 (.section-title) */
+
+/* Autor (8186:1346): avatar 51 + gap 24 */
+.depoimento__author {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* 8186:1342 — elipse 51×51 com foto: recorte circular também para fotos quadradas do WP */
+.depoimento__avatar {
+  flex-shrink: 0;
+  width: 51px;
+  height: 51px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.depoimento__author-text {
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* 8186:1352 — Cabin 18/1.5: nome SemiBold + cargo Regular */
+.depoimento__name {
+  width: 100%;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--gray-0);
+}
+.depoimento__name strong { font-weight: 600; }
+
+/* 8186:1353 — Cabin Regular 16/1.5 gray-500 */
+.depoimento__company {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-500);
+}
+
+/* --------------------------------------------------------------------------
+   Responsivo — empilha eyebrow e depoimento
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .depoimento__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    padding-block: 80px;
+  }
+  .depoimento__eyebrow,
+  .depoimento__card { flex: none; }
+  .depoimento__card { gap: 40px; }
+  .depoimento__quote .section-title { font-size: clamp(28px, 6vw, 40px); }
+  .depoimento__globe { opacity: .6; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile — Figma 8635:2302 (375×501), vale até 767px
+   Coluna px 16 · py 60 · gap 32: eyebrow (8635:2303) e depoimento (8635:2304, gap 56);
+   autor (8635:2306) em coluna com gap 16: avatar 51 (8635:2307) sobre o texto (8635:2308).
+   Entrelinhas em px inteiro: o Figma arredonda cada linha (18×1.3 → 23; 32×1.2 → 38,
+   caixa do título = 4×38 = 152).
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .depoimento__inner {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 32px;
+    padding-block: var(--section-py);
+  }
+
+  /* 8635:2303 — Instrument Serif italic 18/1.3 gray-300 */
+  .depoimento__eyebrow { font-size: 18px; line-height: 23px; }
+
+  /* 8635:2304 — título + autor, gap 56 */
+  .depoimento__card { gap: 56px; }
+
+  /* 8635:2305 — Exo SemiBold 32/1.2 */
+  .depoimento__quote .section-title { font-size: 32px; line-height: 38px; }
+
+  /* 8635:2306 — avatar em cima, texto embaixo (largura total) */
+  .depoimento__author {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .depoimento__author-text { flex: none; width: 100%; }
+
+  /* Globo (8635:2311) — 800×501, embaixo e centralizado (left 50% − 0.5px); o mesmo vetor
+     676×665 do desktop deslocado (+155, +58) dentro do frame: o JS troca o enquadramento */
+  .depoimento__globe {
+    left: calc(50% - .5px);
+    width: 800px;
+    height: 501px;
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+
+  /* Sem JS: o SVG do desktop (935×443) posicionado com o mesmo deslocamento do vetor */
+  .depoimento__globe img {
+    position: absolute;
+    left: 155px;
+    top: 58px;
+    width: 935px;
+    height: 443px;
+  }
+}

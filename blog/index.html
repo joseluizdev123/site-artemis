@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — O que aprendemos colocando inteligência artificial em produção · Studio Artemis</title>
+  <meta name="description" content="Análises dos sistemas que construímos, guias de implementação e o registro honesto do que funciona e do que não funciona. Escrito por quem entrega, não por quem assiste.">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792059316">
+  <link rel="stylesheet" href="/assets/css/sections/blog-01-hero.css?v=1792061479">
+  <link rel="stylesheet" href="/assets/css/sections/blog-02-destaque.css?v=1792002164">
+  <link rel="stylesheet" href="/assets/css/sections/blog-03-categoria.css?v=1792001021">
+  <link rel="stylesheet" href="/assets/css/sections/newsletter.css?v=1792002457">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+</head>
+<body class="page-blog">
+
+  <!-- Header · 8165:2338 (scroll 8165:2339) · mobile 8635:3579 (scroll 8662:2937) · menu mobile 8662:2946 -->
+  <!-- Variante Blog · 8340:2124 (logo sem ™, selo "BLOG", link "Início", "Blog" atual) · mobile 8673:4443 (= header da Home, sem selo) -->
+  <header class="site-header site-header--blog" data-header>
+    <div class="container site-header__bar">
+      <div class="site-header__inner">
+        <div class="site-header__brand">
+          <a class="site-header__logo" href="/" aria-label="Studio Artemis — página inicial">
+            <picture>
+              <source media="(max-width: 767px)" srcset="/assets/images/logo-artemis.svg" width="137" height="32">
+              <img src="/assets/images/header/logo-blog.svg" width="125" height="32" alt="Artemis">
+            </picture>
+          </a>
+          <span class="site-header__tag"><span>Blog</span></span>
+        </div>
+        <div class="site-header__actions">
+          <nav class="site-nav" aria-label="Principal">
+            <a href="/">Início</a>
+            <a href="/servicos">Serviços</a>
+            <a href="/#estudos">Estudos de impacto</a>
+            <a href="/blog" aria-current="page">Blog</a>
+            <a href="/sobre">Sobre</a>
+          </nav>
+          <span class="site-header__sep" aria-hidden="true"></span>
+          <a class="site-header__cta" href="/contato">Agendar diagnóstico</a>
+        </div>
+      </div>
+      <!-- Mobile (≤767): botão "Menu" (8635:3577) abre a gaveta -->
+      <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-haspopup="dialog" data-menu-open>
+        <span>Menu</span>
+      </button>
+    </div>
+
+    <!-- Menu mobile · 8662:2946 (325 de largura, altura da tela, entra da esquerda em overlay) -->
+    <div class="site-header__drawer" id="site-menu" role="dialog" aria-modal="true" aria-label="Menu" data-menu>
+      <div class="site-header__backdrop" data-menu-close></div>
+      <div class="site-header__panel">
+        <div class="site-header__panel-top">
+          <div class="site-header__panel-head">
+            <button class="site-header__close" type="button" data-menu-close>Fechar</button>
+          </div>
+          <nav class="site-header__menu" aria-label="Principal">
+            <a href="/">Início</a>
+            <a href="/servicos">Serviços</a>
+            <a href="/#estudos">Estudos de impacto</a>
+            <a href="/blog" aria-current="page">Blog</a>
+            <a href="/sobre">Sobre</a>
+            <a href="/contato">Agendar diagnóstico</a>
+          </nav>
+        </div>
+        <div class="site-header__contact">
+          <p class="site-header__contact-label" aria-live="polite" data-copy-status data-copied="E-mail copiado">Fale conosco</p>
+          <a class="site-header__contact-email" href="mailto:contato@studioartemis.co" data-copy-email>contato@studioartemis.co</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Blog — hero + abas de categoria · 8325:2675 · Mobile 8673:3847 -->
+    <section class="blog-hero" aria-labelledby="blog-hero-title">
+      <div class="container">
+        <!-- Main Container · 8325:2732 · Mobile 8673:3848 — stroke 1px gray-900 no layout -->
+        <div class="blog-hero__box">
+          <!-- Main Text Container · 8325:2676 (p 32) · Mobile Text Container 8673:3850 (p 20) -->
+          <div class="blog-hero__intro">
+            <!-- Text Container · 8325:2733 (982, gap 32) -->
+            <div class="blog-hero__text">
+              <div class="blog-hero__heading">
+                <p class="blog-hero__eyebrow eyebrow">Blog</p>
+                <h1 class="blog-hero__title" id="blog-hero-title">O que aprendemos colocando <em>inteligência artificial</em> em produção</h1>
+              </div>
+              <p class="blog-hero__lead body-lg">Análises dos sistemas que construímos, guias de implementação e o registro honesto do que funciona e do que não funciona. Escrito por quem entrega, não por quem assiste.</p>
+            </div>
+          </div>
+
+          <!-- Banner · 8512:5733 · Mobile 8673:4735 — linhas convergentes; as luzes (Light) correm pelas linhas (assets/js/sections/blog-01-hero.js) -->
+          <div class="blog-hero__banner" aria-hidden="true" data-blog-hero-banner>
+            <!-- Lines · 8512:5704 · Mobile 8673:4747: Thin Curved Lines + Thick Curved Lines (espelhada na vertical) -->
+            <div class="blog-hero__lines">
+              <div class="blog-hero__curves">
+                <picture>
+                  <source media="(max-width: 767px)" srcset="/assets/images/blog-01-hero/m-thin-curved-lines.svg">
+                  <img src="/assets/images/blog-01-hero/thin-curved-lines.svg" width="1657" height="194" alt="">
+                </picture>
+              </div>
+              <!-- 8512:5719 · Mobile 8673:4762 (scale-y −1: o Figma reporta y da base, sem medição) -->
+              <div class="blog-hero__curves blog-hero__curves--flip">
+                <picture>
+                  <source media="(max-width: 767px)" srcset="/assets/images/blog-01-hero/m-thick-curved-lines.svg">
+                  <img src="/assets/images/blog-01-hero/thick-curved-lines.svg" width="1657" height="194" alt="">
+                </picture>
+              </div>
+            </div>
+            <!-- Light · 8512:5748 · Mobile 8673:4736 — 10 traços 32×0,8 (mobile 13,692×0,342) blue-300 em degradê; --x/--y desktop, --mx/--my mobile (px, relativos ao grupo) -->
+            <div class="blog-hero__light">
+              <i class="blog-hero__pulse" style="--x:739;--y:160;--mx:95.414;--my:68.459"></i><!-- 8512:5736 · 8673:4737 -->
+              <i class="blog-hero__pulse" style="--x:1117;--y:160;--mx:35.938;--my:68.459"></i><!-- 8512:5739 · 8673:4738 -->
+              <i class="blog-hero__pulse" style="--x:85;--y:160;--mx:36.37;--my:68.459"></i><!-- 8512:5740 · 8673:4739 -->
+              <i class="blog-hero__pulse" style="--x:0;--y:321;--mx:0;--my:137.349"></i><!-- 8512:5753 · 8673:4740 -->
+              <i class="blog-hero__pulse" style="--x:171.8265;--y:340.7705;--mx:73.516;--my:145.812;--r:-9.99deg"></i><!-- 8512:5754 · 8673:4741 -->
+              <i class="blog-hero__pulse" style="--x:207.9445;--y:249.79;--mx:88.9765;--my:106.879;--r:-6.42deg"></i><!-- 8512:5751 · 8673:4742 -->
+              <i class="blog-hero__pulse" style="--x:198;--y:128;--mx:84.72;--my:54.769"></i><!-- 8512:5741 · 8673:4743 -->
+              <i class="blog-hero__pulse" style="--x:100;--y:48;--mx:42.79;--my:20.54"></i><!-- 8512:5747 · 8673:4744 -->
+              <i class="blog-hero__pulse" style="--x:30;--y:0;--mx:12.84;--my:0"></i><!-- 8512:5750 · 8673:4745 -->
+              <i class="blog-hero__pulse" style="--x:1337;--y:160;--mx:130.078;--my:68.459"></i><!-- 8512:5738 · 8673:4746 -->
+            </div>
+          </div>
+
+          <!-- Button Container · 8325:2725 · Mobile 8673:3895 — menu âncora: cada aba leva à seção da categoria (#slug) -->
+          <nav class="blog-hero__tabs" aria-label="Categorias do blog">
+            <a class="blog-hero__tab" href="#analises-de-caso"><span class="blog-hero__tab-label">Análises de caso</span></a>
+            <a class="blog-hero__tab" href="#implementacao-de-ia"><span class="blog-hero__tab-label">Implementação de IA</span></a>
+            <a class="blog-hero__tab" href="#ia-na-operacao"><span class="blog-hero__tab-label">IA na operação</span></a>
+            <a class="blog-hero__tab" href="#seo-e-ai-search"><span class="blog-hero__tab-label">SEO e AI Search</span></a>
+            <a class="blog-hero__tab" href="#marketing-com-ia"><span class="blog-hero__tab-label">Marketing com IA</span></a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog — artigo em destaque · 8314:1380 · Mobile 8673:3901 (post fixado mais recente no WP) -->
+    <section class="blog-destaque" aria-labelledby="blog-destaque-title">
+      <div class="container">
+        <!-- Article Content · 8314:1568 · Mobile 8673:3902 — card inteiro clicável (link do título esticado) -->
+        <article class="blog-destaque__card">
+          <!-- Article Image · 8314:1572 · Mobile 8673:3903 -->
+          <div class="blog-destaque__media">
+            <img class="blog-destaque__img" src="/assets/images/blog-02-destaque/capa-wcontrol.png" width="672" height="573" alt="Tela de estatísticas do WControl: documentos aprovados, reprovados e em processamento" decoding="async">
+          </div>
+
+          <!-- Article Text · 8314:1569 · Mobile 8673:3904 -->
+          <div class="blog-destaque__text">
+            <p class="blog-destaque__tag"><span>Em destaque</span></p>
+
+            <div class="blog-destaque__content">
+              <div class="blog-destaque__head">
+                <p class="blog-destaque__meta">
+                  <span class="blog-destaque__cat">Análises de caso</span>
+                  <span class="blog-destaque__dot" aria-hidden="true">·</span>
+                  <time class="blog-destaque__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <h2 class="blog-destaque__title" id="blog-destaque-title"><a class="blog-destaque__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h2>
+              </div>
+              <p class="blog-destaque__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+            </div>
+
+            <!-- Author Info · 8314:1664 · Mobile 8673:3915 — mesma marcação de artemis_blog_author() no tema -->
+            <div class="blog-destaque__author">
+              <img class="blog-destaque__avatar" src="/assets/images/blog-02-destaque/avatar-autor.png" width="56" height="56" alt="" decoding="async">
+              <p class="blog-destaque__author-details">
+                <span class="blog-destaque__author-name">Nome autor</span>
+                <span class="blog-destaque__author-role">Cargo</span>
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Blog — categoria · 8314:1689 · Mobile 8673:3920 — repetida 5× em src/pages.json (Análises de caso / analises-de-caso); da 2ª em diante, stroke superior (8314:1768 · 8673:4790) -->
+    <section class="blog-cat" id="analises-de-caso" aria-labelledby="analises-de-caso-title">
+      <div class="container blog-cat__inner">
+        <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
+        <h2 class="blog-cat__title" id="analises-de-caso-title">Análises de caso</h2>
+
+        <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
+        <div class="blog-cat__content">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
+          <div class="blog-cat__grid">
+
+            <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Análises de caso</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1928 (strokes laterais) · Mobile 8673:3938 (strokes em cima e embaixo) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Análises de caso</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1942 — não existe no frame Mobile (escondido ≤767) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Análises de caso</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
+          <a class="btn blog-cat__more" href="/blog/categoria/analises-de-caso/" aria-label="Ver todos os artigos de Análises de caso"><span>Ver todos os artigos</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog — categoria · 8314:1689 · Mobile 8673:3920 — repetida 5× em src/pages.json (Implementação de IA / implementacao-de-ia); da 2ª em diante, stroke superior (8314:1768 · 8673:4790) -->
+    <section class="blog-cat" id="implementacao-de-ia" aria-labelledby="implementacao-de-ia-title">
+      <div class="container blog-cat__inner">
+        <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
+        <h2 class="blog-cat__title" id="implementacao-de-ia-title">Implementação de IA</h2>
+
+        <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
+        <div class="blog-cat__content">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
+          <div class="blog-cat__grid">
+
+            <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Implementação de IA</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1928 (strokes laterais) · Mobile 8673:3938 (strokes em cima e embaixo) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Implementação de IA</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1942 — não existe no frame Mobile (escondido ≤767) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Implementação de IA</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
+          <a class="btn blog-cat__more" href="/blog/categoria/implementacao-de-ia/" aria-label="Ver todos os artigos de Implementação de IA"><span>Ver todos os artigos</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog — categoria · 8314:1689 · Mobile 8673:3920 — repetida 5× em src/pages.json (IA na operação / ia-na-operacao); da 2ª em diante, stroke superior (8314:1768 · 8673:4790) -->
+    <section class="blog-cat" id="ia-na-operacao" aria-labelledby="ia-na-operacao-title">
+      <div class="container blog-cat__inner">
+        <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
+        <h2 class="blog-cat__title" id="ia-na-operacao-title">IA na operação</h2>
+
+        <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
+        <div class="blog-cat__content">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
+          <div class="blog-cat__grid">
+
+            <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">IA na operação</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1928 (strokes laterais) · Mobile 8673:3938 (strokes em cima e embaixo) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">IA na operação</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1942 — não existe no frame Mobile (escondido ≤767) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">IA na operação</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
+          <a class="btn blog-cat__more" href="/blog/categoria/ia-na-operacao/" aria-label="Ver todos os artigos de IA na operação"><span>Ver todos os artigos</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog — categoria · 8314:1689 · Mobile 8673:3920 — repetida 5× em src/pages.json (SEO e AI Search / seo-e-ai-search); da 2ª em diante, stroke superior (8314:1768 · 8673:4790) -->
+    <section class="blog-cat" id="seo-e-ai-search" aria-labelledby="seo-e-ai-search-title">
+      <div class="container blog-cat__inner">
+        <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
+        <h2 class="blog-cat__title" id="seo-e-ai-search-title">SEO e AI Search</h2>
+
+        <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
+        <div class="blog-cat__content">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
+          <div class="blog-cat__grid">
+
+            <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">SEO e AI Search</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1928 (strokes laterais) · Mobile 8673:3938 (strokes em cima e embaixo) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">SEO e AI Search</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1942 — não existe no frame Mobile (escondido ≤767) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">SEO e AI Search</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
+          <a class="btn blog-cat__more" href="/blog/categoria/seo-e-ai-search/" aria-label="Ver todos os artigos de SEO e AI Search"><span>Ver todos os artigos</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog — categoria · 8314:1689 · Mobile 8673:3920 — repetida 5× em src/pages.json (Marketing com IA / marketing-com-ia); da 2ª em diante, stroke superior (8314:1768 · 8673:4790) -->
+    <section class="blog-cat" id="marketing-com-ia" aria-labelledby="marketing-com-ia-title">
+      <div class="container blog-cat__inner">
+        <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
+        <h2 class="blog-cat__title" id="marketing-com-ia-title">Marketing com IA</h2>
+
+        <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
+        <div class="blog-cat__content">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
+          <div class="blog-cat__grid">
+
+            <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Marketing com IA</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1928 (strokes laterais) · Mobile 8673:3938 (strokes em cima e embaixo) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Marketing com IA</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article Content · 8314:1942 — não existe no frame Mobile (escondido ≤767) -->
+            <article class="post-card">
+              <div class="post-card__text">
+                <p class="post-card__meta">
+                  <span class="post-card__cat">Marketing com IA</span>
+                  <span class="post-card__dot" aria-hidden="true">·</span>
+                  <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
+                </p>
+                <div class="post-card__info">
+                  <h3 class="post-card__title"><a class="post-card__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h3>
+                  <p class="post-card__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+                </div>
+                <div class="post-card__author">
+                  <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" loading="lazy" decoding="async">
+                  <p class="post-card__author-details">
+                    <span class="post-card__author-name">Nome autor</span>
+                    <span class="post-card__author-role">Cargo</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
+          <a class="btn blog-cat__more" href="/blog/categoria/marketing-com-ia/" aria-label="Ver todos os artigos de Marketing com IA"><span>Ver todos os artigos</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter (componente) · símbolo 8436:2153 · mobile 8673:4986 -->
+    <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+      <!-- Barra de status · 8314:2133 — LED pisca (status online) -->
+      <div class="newsletter__status">
+        <div class="container newsletter__status-inner">
+          <p class="newsletter__status-item">
+            <span class="newsletter__led" aria-hidden="true"></span>
+            <span class="newsletter__status-text">SYSTEM: Artemis DATABASE PLATFORM</span>
+          </p>
+          <span class="newsletter__signal" aria-hidden="true">
+            <span class="newsletter__signal-icon"><img src="/assets/images/newsletter/signal-icon.svg" width="37" height="13.5" alt=""></span>
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <span class="newsletter__signal-icon newsletter__signal-icon--wide"><img src="/assets/images/newsletter/signal-icon-wide.svg" width="55" height="13.5" alt=""></span>
+          </span>
+          <p class="newsletter__status-text">[ Status: online ]</p>
+          <span class="newsletter__signal" aria-hidden="true">
+            <span class="newsletter__signal-icon"><img src="/assets/images/newsletter/signal-icon.svg" width="37" height="13.5" alt=""></span>
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="newsletter__signal-line" src="/assets/images/newsletter/signal-line.svg" width="1" height="13.5" alt="">
+            <span class="newsletter__signal-icon newsletter__signal-icon--wide"><img src="/assets/images/newsletter/signal-icon-wide.svg" width="55" height="13.5" alt=""></span>
+          </span>
+          <p class="newsletter__status-text">[ Connection: stable ]</p>
+        </div>
+      </div>
+
+      <div class="container newsletter__main">
+        <div class="newsletter__content">
+          <div class="newsletter__heading">
+            <p class="eyebrow">Newsletter</p>
+            <h2 class="section-title newsletter__title" id="newsletter-title">Transforme erros caros em atalhos: receba os bastidores da IA na prática.</h2>
+            <p class="body-lg">Receba semanalmente estudos de caso reais, lições sobre custos e arquitetura, e os erros mais comuns de quem já passou pelo processo — direto no seu e-mail.</p>
+          </div>
+        </div>
+
+        <!-- Formulário · 8314:2508 — action configurável no tema (art_newsletter_action); "#" = desativado, avisa ao enviar -->
+        <form class="newsletter__form" action="#" method="post" data-newsletter-form data-unconfigured="Newsletter ainda não configurada.">
+          <label class="newsletter__sr" for="newsletter-email">Seu melhor e-mail</label>
+          <input class="newsletter__input" id="newsletter-email" type="email" name="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+          <button class="btn btn--primary newsletter__submit" type="submit"><span>Enviar</span></button>
+          <p class="newsletter__msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer · 8165:2501 -->
+  <footer class="site-footer">
+    <div class="container site-footer__content">
+      <div class="site-footer__top">
+        <div class="site-footer__intro">
+          <div class="site-footer__brand">
+            <a class="site-footer__logo" href="/" aria-label="Studio Artemis — página inicial"><img src="/assets/images/footer/logo-lockup.svg" width="137" height="32" alt="Artemis"></a>
+            <p class="site-footer__title">Automação aplicada à operação, direto no seu e-mail. <em>Publicamos quando temos algo concreto para dizer.</em></p>
+          </div>
+          <!-- Newsletter — action configurável no tema (art_footer_newsletter_action) -->
+          <form class="site-footer__form" action="#" method="post" data-newsletter>
+            <label class="site-footer__sr" for="footer-email">Seu endereço de e-mail</label>
+            <input class="site-footer__input" id="footer-email" type="email" name="email" placeholder="Seu endereço de e-mail" autocomplete="email" required>
+            <button class="btn btn--primary site-footer__submit" type="submit">Enviar</button>
+            <p class="site-footer__form-msg" role="status" aria-live="polite" hidden></p>
+          </form>
+        </div>
+
+        <div class="site-footer__cols">
+          <nav class="site-footer__col" aria-labelledby="footer-nav-title">
+            <h2 class="site-footer__heading" id="footer-nav-title">Artemis</h2>
+            <ul class="site-footer__links">
+              <li><a class="site-footer__link" href="/servicos">Serviços</a></li>
+              <li><a class="site-footer__link" href="#estudos">Estudos de impacto</a></li>
+              <li><a class="site-footer__link" href="/blog">Blog</a></li>
+              <li><a class="site-footer__link" href="/sobre">Sobre</a></li>
+              <li><a class="site-footer__link" href="/contato">Contato</a></li>
+            </ul>
+          </nav>
+          <nav class="site-footer__col" aria-labelledby="footer-lines-title">
+            <h2 class="site-footer__heading" id="footer-lines-title">Outras linhas</h2>
+            <ul class="site-footer__links">
+              <li><a class="site-footer__link" href="#">Artemis SEO</a></li>
+              <li><a class="site-footer__link" href="#">MktOps</a></li>
+            </ul>
+          </nav>
+          <address class="site-footer__contact">
+            <div class="site-footer__contact-item">
+              <p class="site-footer__label">Fale conosco</p>
+              <a class="site-footer__value site-footer__value--nowrap" href="mailto:contato@studioartemis.co">contato@studioartemis.co</a>
+            </div>
+            <div class="site-footer__contact-item">
+              <p class="site-footer__label">WhatsApp</p>
+              <a class="site-footer__value" href="https://wa.me/554800000000" target="_blank" rel="noopener noreferrer">+55 (48) 0000-0000</a>
+            </div>
+            <div class="site-footer__contact-item">
+              <p class="site-footer__label">Endereço</p>
+              <a class="site-footer__value" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20F%C3%BAlvio%20Aducci%2C%20416%2C%20Florian%C3%B3polis%2C%20SC" target="_blank" rel="noopener noreferrer">R. Fúlvio Aducci, 416 — Florianópolis, SC</a>
+            </div>
+          </address>
+        </div>
+      </div>
+
+      <div class="site-footer__middle">
+        <div class="site-footer__social">
+          <p class="site-footer__label">Social</p>
+          <ul class="site-footer__icons">
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="/assets/images/footer/instagram.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="/assets/images/footer/youtube.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="/assets/images/footer/linkedin.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="Behance"><img src="/assets/images/footer/behance.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><span class="site-footer__glyph site-footer__glyph--dribbble"><img src="/assets/images/footer/dribbble.svg" width="20" height="22" alt=""></span></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><span class="site-footer__glyph site-footer__glyph--x"><img src="/assets/images/footer/x.svg" width="14" height="13" alt=""></span></a></li>
+          </ul>
+        </div>
+        <a class="site-footer__totop" href="#" data-back-to-top>
+          <span class="site-footer__totop-label">Voltar ao topo</span>
+          <span class="site-footer__icon"><img src="/assets/images/footer/chevron-up.svg" width="24" height="24" alt=""></span>
+        </a>
+      </div>
+
+      <div class="site-footer__legal">
+        <p>© 2026 Studio Artemis. Todos os direitos reservados.</p>
+        <ul class="site-footer__legal-links">
+          <li><a class="site-footer__link" href="/politica-de-privacidade">Política de privacidade</a></li>
+          <li><a class="site-footer__link" href="/termos-de-uso">Termos de uso</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pattern · 8193:599 — traços diagonais (2 vetores do Figma, 83 ocorrências) -->
+    <div class="site-footer__pattern" aria-hidden="true">
+      <div class="site-footer__pattern-track">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js?v=1791980106" defer></script>
+  <script src="/assets/js/sections/blog-01-hero.js?v=1792002799" defer></script>
+  <script src="/assets/js/sections/newsletter.js?v=1791998361" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+
+</body>
+</html>

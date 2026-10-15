@@ -1,0 +1,7 @@
+<!-- Blog — categoria (8314:1689 · mobile 8673:3920): filhos das instâncias do botão "Ver todos os artigos" (get_metadata) -->
+<instance id="8325:2696" name="button" x="596.5" y="378" width="183" height="60">
+  <text id="I8325:2696;8044:1369" name="Main Description" x="24" y="18" width="135" height="24" />
+</instance>
+<instance id="8673:3966" name="button" x="0" y="646" width="343" height="60">
+  <text id="I8673:3966;8044:1369" name="Main Description" x="104" y="18" width="135" height="24" />
+</instance>

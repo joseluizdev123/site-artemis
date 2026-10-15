@@ -1,0 +1,17 @@
+<!-- Depoimento (testmonial) mobile · 8635:2302 — filhos via get_metadata (8635:2303, 8635:2304, 8635:2311) -->
+<frame id="8635:2302" name="testmonial" x="0" y="4959" width="375" height="501">
+  <text id="8635:2303" name="Main Heading" x="16" y="60" width="343" height="23" />
+  <frame id="8635:2304" name="Rating Summary" x="16" y="115" width="343" height="326">
+    <text id="8635:2305" name="Main Heading" x="0" y="0" width="343" height="152" />
+    <frame id="8635:2306" name="Reviewer" x="0" y="208" width="343" height="118">
+      <ellipse id="8635:2307" name="Ellipse 3" x="0" y="0" width="51" height="51" />
+      <frame id="8635:2308" name="Reviewer Text" x="0" y="67" width="343" height="51">
+        <text id="8635:2309" name="Main Heading" x="0" y="0" width="343" height="27" />
+        <text id="8635:2310" name="Main Heading" x="0" y="27" width="343" height="24" />
+      </frame>
+    </frame>
+  </frame>
+  <frame id="8635:2311" name="Globe" x="-213" y="0" width="800" height="501">
+    <vector id="8635:2312" name="Globe" x="427" y="74" width="676" height="665" />
+  </frame>
+</frame>

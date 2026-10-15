@@ -1,0 +1,118 @@
+/* Seção 05 — Como funciona (Figma 8307:3380) */
+
+.como-funciona {
+  /* Topo da coluna fixa: header compacto (60px, 8165:2339) + respiro de 32 */
+  --como-funciona-sticky-top: calc(var(--header-h-scrolled) + var(--content-gap));
+  background: var(--black-200);
+  padding-block: var(--section-py);
+}
+
+/* Step blocks (8307:3381) — 564 | 140 | 672 no frame 1440 */
+.como-funciona__blocks {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--content-gap); /* respiro mínimo quando o container encolhe */
+}
+
+/* Left Service Block (8307:3382) — sticky top no Figma */
+.como-funciona__intro {
+  position: sticky;
+  top: var(--como-funciona-sticky-top);
+  flex: 0 1 564px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+.como-funciona__text { width: 100%; display: flex; flex-direction: column; gap: 16px; } /* 8307:3384 */
+.como-funciona__desc { display: flex; flex-direction: column; gap: 16px; } /* 8307:3386 — parágrafos, mb 16 */
+
+/* Main Container (8307:3506) */
+.como-funciona__main {
+  flex: 0 1 672px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Lista de passos (8307:3508) */
+.como-funciona__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Passo (8307:3509) — divisor gray-800 é stroke inside: box-shadow não soma altura */
+.como-funciona__step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding-bottom: 24px;
+  box-shadow: inset 0 -1px 0 var(--gray-800);
+}
+.como-funciona__step:last-child { padding-bottom: 0; box-shadow: none; } /* 8307:3530 sem divisor */
+
+/* Spacer (8307:3510) — quadrado + linha em degradê sob o número */
+.como-funciona__marker {
+  position: absolute;
+  left: 13px;
+  top: 47px;
+}
+
+/* Exo 24/1.3 — o Figma arredonda a linha de 31.2 para 31px (texto 617×31); round() reproduz,
+   e a primeira declaração fica de fallback para navegadores sem round() */
+.como-funciona__num,
+.como-funciona__step-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.3;
+  line-height: round(nearest, 1.3em, 1px);
+}
+
+.como-funciona__num { flex: none; width: 31px; color: var(--blue-300); } /* 8307:3513 */
+
+.como-funciona__body { /* 8307:3514 > 3593 > 3594 */
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.como-funciona__step-title { color: var(--gray-0); } /* 8307:3595 */
+.como-funciona__step-text { font-size: 16px; line-height: 1.5; color: var(--gray-300); } /* 8307:3596 */
+
+/* Abaixo do desktop: colunas empilhadas (gap 32 como no Step blocks mobile 8635:2314), sem sticky */
+@media (max-width: 1023.98px) {
+  .como-funciona__blocks { flex-direction: column; gap: var(--content-gap); }
+  .como-funciona__intro { position: static; flex-basis: auto; width: 100%; }
+  .como-funciona__main { flex-basis: auto; width: 100%; }
+}
+/* ==========================================================================
+   Mobile — Figma "como funciona" 8635:2313 (375 × 1318), vale até 767px
+   - py 60 / px 16 vêm dos tokens --section-py e --section-px (main.css)
+   - Step blocks 8635:2314: coluna única, gap 32 (bloco ≤1023 acima), sem sticky
+   - Left Service Block 8635:2315: gap 24, eyebrow 8635:2316 em largura total
+   - Eyebrows 8635:2316 / 8635:2321: Instrument Serif 18/1.3; título 8635:2318: Exo 28/1.2;
+     o Figma arredonda cada linha (18×1.3 = 23.4 → 23; 28×1.2 = 33.6 → 34), por isso o round()
+   - Passos 8635:2323 / 2333 / 2343 / 2353: título 20/1.3 (26), número 24 (31), texto 16/1.5
+   - Spacer do passo 1 (8635:2324) fica ancorado embaixo (bottom 24 → rente ao fim do texto);
+     nos passos 2 e 3 (8635:2334 / 8635:2344) segue em top 47, igual ao desktop
+   ========================================================================== */
+@media (max-width: 767px) {
+  .como-funciona__intro { align-items: stretch; gap: 24px; } /* 8635:2315 */
+  .como-funciona .eyebrow { font-size: 18px; line-height: round(nearest, 1.3em, 1px); } /* 8635:2316 / 8635:2321 */
+  .como-funciona .section-title { font-size: 28px; line-height: round(nearest, 1.2em, 1px); } /* 8635:2318 */
+  .como-funciona__step-title { font-size: 20px; } /* 8635:2331 / 2341 / 2351 / 2358 */
+  .como-funciona__step:first-child .como-funciona__marker { top: auto; bottom: 24px; } /* 8635:2324 */
+  /* Texto curto vindo do Customizer: o spacer nunca sobe além do top 47 (número 31 + 16).
+     :not(:last-child) — passo único (WP com os outros vazios) não tem spacer nem respiro extra */
+  .como-funciona__step:first-child:not(:last-child) { min-height: calc(31px + 16px + 48px + 24px); }
+}

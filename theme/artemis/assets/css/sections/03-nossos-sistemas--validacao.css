@@ -1,0 +1,10 @@
+/* Ilustração "Validação documental" (Figma 8294:509 · celular 8635:2008) — laser verde de leitura
+   ("Analysis illustration" 8294:534) desce e sobe sobre o documento enquanto o card está tocando.
+   Percurso: 65 de 135 da altura do laser (fica dentro do documento 8294:523). */
+.sistemas__card.is-playing .ilu--validacao .ilu__laser {
+  animation: ilu-laser 3.2s ease-in-out infinite;
+}
+@keyframes ilu-laser {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(48%); }
+}

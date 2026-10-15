@@ -1,0 +1,200 @@
+/* Seção 03 — Nossos sistemas (Figma 8294:500) */
+
+.sistemas {
+  /* Textura dos Description Blocks (8294:574/691/741/799): ponto 1px gray-200 a 4%, passo 4px */
+  --sistemas-dot: color-mix(in srgb, var(--gray-200) 4%, transparent);
+  background: var(--black-200);
+  padding-block: var(--section-py);
+}
+
+.sistemas__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* Service Block (8294:501): título à esquerda, texto 672 à direita, centralizados no eixo Y */
+.sistemas__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--content-gap);
+}
+.sistemas__title-wrap { flex: none; max-width: 100%; }     /* 8294:502 */
+.sistemas__title { width: 367px; max-width: 100%; }        /* 8294:503 */
+.sistemas__intro { flex: 0 1 672px; min-width: 0; }        /* 8294:504 */
+
+/* Service cards (8294:506): grade de cards + legenda, gap 56 */
+.sistemas__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Services (8294:507): 4 colunas de 320 com gap 32 no frame 1440 */
+.sistemas__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--content-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Card (8294:508): ilustração + bloco de descrição; todos com a altura do mais alto */
+.sistemas__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--black-100);
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1), box-shadow .45s ease;
+}
+
+/* Interação: o card vem um pouco para frente quando o cursor entra (a ilustração também anima
+   de novo — ver assets/js/sections/03-nossos-sistemas.js). Sem efeito em telas só de toque. */
+@media (hover: hover) {
+  .sistemas__card:hover {
+    z-index: 1;
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 44px color-mix(in srgb, var(--black-200) 70%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sistemas__card { transition: none; }
+}
+
+/* Ilustrações animadas (cards [data-anim]) — cada uma em 03-nossos-sistemas--<anim>.css, com as camadas
+   em partials/ilustra-<anim>.html. Estados (classes postas pelo JS):
+     padrão (sem JS / movimento reduzido) = quadro final do Figma
+     .sistemas.is-armed .sistemas__card    = quadro inicial
+     .sistemas__card.is-playing            = anima até o quadro final (animation-fill-mode: both)
+     .sistemas__card.is-static             = quadro final, sem animar */
+
+/* Cena em camadas (tools/gen_ilustras.py): frame do Figma (fundo black-200 + stroke inside 1px black-100),
+   camadas posicionadas em % do frame — escala junto com o card. Cena "d" (320) no desktop, "m" (343) no celular. */
+.ilu { position: relative; }
+.ilu__scene {
+  position: relative;
+  overflow: hidden;
+  background: var(--black-200);
+}
+.ilu__scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px var(--black-100);
+  pointer-events: none;
+}
+.ilu__l { position: absolute; display: block; max-width: none; }
+.ilu__route { visibility: hidden; } /* só geometria; a rota visível está na camada "Rota" */
+.ilu__scene--m { display: none; }
+@media (max-width: 767px) {
+  .ilu__scene--d { display: none; }
+  .ilu__scene--m { display: block; }
+}
+
+/* Capas dos segmentos (barra de progresso): no quadro final não aparecem; armado = cobrem os segmentos;
+   tocando = somem uma a uma (--i, passo --ilu-step definido em cada ilustração) */
+.ilu__cover { opacity: 0; }
+.sistemas.is-armed .sistemas__card:not(.is-playing):not(.is-static) .ilu__cover { opacity: 1; }
+.sistemas__card.is-playing .ilu__cover {
+  animation: ilu-cover-out .16s ease-out both;
+  animation-delay: calc(var(--i) * var(--ilu-step, 90ms));
+}
+@keyframes ilu-cover-out { from { opacity: 1; } to { opacity: 0; } }
+
+/* Ilustração (8294:509) — imagem exportada do frame "ilustra" (fundo e stroke inclusos).
+   <picture>: até 767px troca para o recorte do frame mobile (m-*, 8635:2008) */
+.sistemas__media { display: block; flex: none; }
+.sistemas__img {
+  width: 100%;
+  height: auto;
+}
+
+/* Description Block (8294:574): padding 24, ocupa o restante do card.
+   Fundo: grade de pontos 1×1 no canto superior esquerdo de cada célula 4×4, ancorada na origem do bloco */
+.sistemas__body {
+  flex: 1 0 auto;
+  padding: 24px;
+  background: conic-gradient(at 1px 1px, transparent 270deg, var(--sistemas-dot) 0) 0 0 / 4px 4px;
+}
+.sistemas__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-wrap: break-word;
+}
+
+.sistemas__card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--gray-0);
+}
+
+.sistemas__card-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+
+/* Subheading (8294:803) — tipografia de .eyebrow, centralizada */
+.sistemas__caption { text-align: center; }
+
+/* --------------------------------------------------------------------------
+   Responsivo (fora do frame desktop 1440)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1199px) {
+  .sistemas__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 899px) {
+  .sistemas { padding-block: 80px; }
+  .sistemas__inner { gap: 48px; }
+  .sistemas__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .sistemas__intro { flex-basis: auto; }
+  .sistemas__cards { gap: 40px; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (frame 8635:1583) — nossos sistemas 8635:1999, 375 × 2649
+   Vale até 767px; de 320 a 767 tudo é fluido (conteúdo = 100% − 2 × 16).
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* 8635:1999: py 60 (--section-py), gap 40, strokes top/bottom gray-900 inside */
+  .sistemas {
+    padding-block: var(--section-py);
+    box-shadow: inset 0 1px 0 var(--gray-900), inset 0 -1px 0 var(--gray-900);
+  }
+  .sistemas__inner { gap: 40px; }
+
+  /* Service Block 8635:2000: coluna, gap 16, filhos com a largura toda */
+  .sistemas__head {
+    align-items: stretch;
+    gap: 16px;
+  }
+  /* 8635:2002 — Exo SemiBold 28/1.2; o Figma arredonda cada linha: 33,6 → 34 (2 linhas = 68).
+     Quebra comum: no Figma "decidem" fica sozinho na 2ª linha (o pretty do .section-title
+     levaria "sistemas" junto) */
+  .sistemas__title {
+    width: auto;
+    font-size: 28px;
+    line-height: round(nearest, 1.2em, 1px);
+    text-wrap: wrap;
+  }
+
+  /* Service cards 8635:2005: gap 40 · Services 8635:2006: uma coluna, gap 32 */
+  .sistemas__cards { gap: 40px; }
+  .sistemas__list { grid-template-columns: minmax(0, 1fr); }
+
+  /* Description Block 8635:2073: padding 20 · Text Block 8635:2074: gap 8 */
+  .sistemas__body { padding: 20px; }
+  .sistemas__copy { gap: 8px; }
+  .sistemas__card-title { font-size: 20px; } /* 8635:2075 — Exo SemiBold 20/1.3 */
+}

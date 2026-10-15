@@ -1,0 +1,41 @@
+<!-- Header — filhos dos símbolos autofechados em figma-meta.xml (get_metadata).
+     8165:2338 = Header desktop (1440×80) · 8635:3579 = Header mobile (375×60, frame Mobile 8635:1583).
+     O menu aberto (8662:2946) já vem com filhos em figma-meta.xml, fora do frame Mobile. -->
+<symbol id="8165:2338" name="Header" x="0" y="0" width="1440" height="80">
+  <frame id="8165:2315" name="container" x="32" y="24" width="1376" height="32">
+    <instance id="8165:2316" name="Logo / Lockup" x="0" y="0" width="137" height="32" />
+    <frame id="8165:2317" name="Container" x="850" y="4" width="526" height="24">
+      <frame id="8165:2318" name="Navigation Links" x="0" y="0" width="334" height="24">
+        <text id="8165:2319" name="About Link" x="0" y="0" width="57" height="24" />
+        <text id="8165:2320" name="Services Link" x="81" y="0" width="134" height="24" />
+        <text id="8165:2321" name="Cases Link" x="239" y="0" width="30" height="24" />
+        <text id="8165:2322" name="Blog Link" x="293" y="0" width="41" height="24" />
+      </frame>
+      <rounded-rectangle id="8165:2323" name="Separator" x="358" y="10" width="4" height="4" />
+      <text id="8165:2324" name="Schedule a Conversation Link" x="386" y="0" width="140" height="24" />
+    </frame>
+  </frame>
+</symbol>
+<symbol id="8635:3579" name="Header" x="0" y="0" width="375" height="60">
+  <frame id="8635:3289" name="container" x="16" y="16" width="299" height="28">
+    <instance id="8635:3290" name="Logo / Lockup" x="0" y="0" width="120" height="28" />
+    <frame id="8635:3291" name="Container" x="137" y="4" width="526" height="24" hidden="true">
+      <frame id="8635:3292" name="Navigation Links" x="0" y="0" width="334" height="24">
+        <text id="8635:3293" name="About Link" x="0" y="0" width="57" height="24" />
+        <text id="8635:3294" name="Services Link" x="81" y="0" width="134" height="24" />
+        <text id="8635:3295" name="Cases Link" x="239" y="0" width="30" height="24" />
+        <text id="8635:3296" name="Blog Link" x="293" y="0" width="41" height="24" />
+      </frame>
+      <rounded-rectangle id="8635:3297" name="Separator" x="358" y="10" width="4" height="4" />
+      <text id="8635:3298" name="Schedule a Conversation Link" x="386" y="0" width="140" height="24" />
+    </frame>
+  </frame>
+  <frame id="8635:3577" name="Frame 97" x="315" y="16.5" width="44" height="27">
+    <frame id="8635:3573" name="Frame 96" x="0" y="9.5" width="24" height="8" hidden="true">
+      <vector id="8635:3574" name="Vector 298" x="18" y="0" width="6" height="0" />
+      <vector id="8635:3578" name="Vector 299" x="12" y="4" width="12" height="0" />
+      <vector id="8635:3575" name="Vector 297" x="0" y="8" width="24" height="0" />
+    </frame>
+    <text id="8635:3568" name="Main Description" x="0" y="0" width="44" height="27" />
+  </frame>
+</symbol>

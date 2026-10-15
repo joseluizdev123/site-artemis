@@ -1,0 +1,14 @@
+<!-- Header mobile do post · 8693:2102 "Header blog" (375×64, frame 8673:5776): logo sem ™ 125×32 + selo "BLOG" — filhos via API REST -->
+<symbol id="8693:2102" name="Header blog" x="0" y="0" width="375" height="64">
+  <frame id="8673:6193" name="container" x="16" y="16" width="299" height="32">
+    <frame id="8673:6210" name="Frame 101" x="0" y="0" width="184" height="32">
+      <instance id="8673:6194" name="Logo / Lockup" x="0" y="0" width="125" height="32" />
+      <frame id="8673:6211" name="Tag" x="141" y="6" width="43" height="20">
+        <text id="8673:6212" name="About Link" x="6" y="2" width="31" height="16" />
+      </frame>
+    </frame>
+  </frame>
+  <frame id="8673:6203" name="Frame 97" x="315" y="18.5" width="44" height="27">
+    <text id="8673:6208" name="Main Description" x="0" y="0" width="44" height="27" />
+  </frame>
+</symbol>

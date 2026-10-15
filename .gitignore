@@ -1,0 +1,8 @@
+.figma-token
+tmp-figma/
+preview/
+.claude/
+*.orig
+*.bak
+__pycache__/
+_site/

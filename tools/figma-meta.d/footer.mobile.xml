@@ -1,0 +1,175 @@
+<!-- Footer mobile · 8641:1595 (símbolo "Footer container", 375×1459) — filhos via get_metadata -->
+<symbol id="8641:1595" name="Footer container" x="0" y="11703.46875" width="375" height="1459">
+  <frame id="8635:3301" name="Main Container" x="0" y="0" width="375" height="1459">
+    <frame id="8635:3302" name="Content Container" x="0" y="0" width="375" height="1427">
+      <frame id="8635:3303" name="Navigation and Contact" x="16" y="60" width="343" height="952">
+        <frame id="8635:3304" name="Description" x="0" y="0" width="343" height="240">
+          <frame id="8635:3305" name="Container" x="0" y="0" width="343" height="152">
+            <instance id="8635:3306" name="Logo / Lockup" x="0" y="0" width="137" height="32" />
+            <text id="8635:3307" name="Main Heading" x="0" y="56" width="343" height="96" />
+          </frame>
+          <frame id="8635:3308" name="Input and Submit Container" x="0" y="184" width="343" height="56">
+            <frame id="8635:3309" name="primary-butotn" x="0" y="0" width="244" height="56">
+              <text id="8635:3310" name="Main Description" x="24" y="16" width="196" height="24" />
+            </frame>
+            <frame id="8635:3311" name="primary-butotn" x="252" y="0" width="91" height="56">
+              <text id="8635:3312" name="Main Description" x="24" y="16" width="43" height="24" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="8635:3313" name="Links and Contact Sections" x="0" y="280" width="343" height="672">
+          <frame id="8635:3314" name="Navigation Links" x="0" y="0" width="343" height="224">
+            <text id="8635:3315" name="Main Heading" x="0" y="0" width="343" height="24" />
+            <text id="8635:3316" name="Main Heading" x="0" y="40" width="343" height="24" />
+            <text id="8635:3317" name="Main Heading" x="0" y="80" width="343" height="24" />
+            <text id="8635:3318" name="Main Heading" x="0" y="120" width="343" height="24" />
+            <text id="8635:3319" name="Main Heading" x="0" y="160" width="343" height="24" />
+            <text id="8635:3320" name="Main Heading" x="0" y="200" width="343" height="24" />
+          </frame>
+          <frame id="8635:3321" name="Blog Links" x="0" y="256" width="343" height="104">
+            <text id="8635:3322" name="Main Heading" x="0" y="0" width="343" height="24" />
+            <text id="8635:3323" name="Main Heading" x="0" y="40" width="343" height="24" />
+            <text id="8635:3324" name="Main Heading" x="0" y="80" width="343" height="24" />
+          </frame>
+          <frame id="8635:3325" name="Contact Information" x="0" y="392" width="343" height="280">
+            <frame id="8635:3326" name="Email and Description" x="0" y="0" width="343" height="64">
+              <text id="8635:3327" name="Main Heading" x="0" y="0" width="343" height="24" />
+              <text id="8635:3328" name="Main Heading" x="0" y="40" width="343" height="24" />
+            </frame>
+            <frame id="8635:3329" name="WhatsApp and Description" x="0" y="96" width="343" height="64">
+              <text id="8635:3330" name="Main Heading" x="0" y="0" width="343" height="24" />
+              <text id="8635:3331" name="Main Heading" x="0" y="40" width="343" height="24" />
+            </frame>
+            <frame id="8635:3332" name="WhatsApp and Description" x="0" y="192" width="343" height="88">
+              <text id="8635:3333" name="Main Heading" x="0" y="0" width="343" height="24" />
+              <text id="8635:3334" name="Main Heading" x="0" y="40" width="343" height="48" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="8635:3335" name="Container" x="16" y="1052" width="343" height="215">
+        <frame id="8635:3336" name="Text Container" x="0" y="0" width="343" height="88">
+          <text id="8635:3337" name="Main Heading" x="0" y="0" width="343" height="24" />
+          <frame id="8635:3338" name="Icon Container" x="0" y="40" width="343" height="48">
+            <frame id="8635:3339" name="icon" x="0" y="0" width="48" height="48">
+              <frame id="8635:3340" name="ri:instagram-fill" x="12" y="12" width="24" height="24" />
+            </frame>
+            <frame id="8635:3342" name="icon" x="56" y="0" width="48" height="48">
+              <frame id="8635:3343" name="mdi:youtube" x="12" y="12" width="24" height="24" />
+            </frame>
+            <frame id="8635:3345" name="icon" x="112" y="0" width="48" height="48">
+              <frame id="8635:3346" name="mdi:linkedin" x="12" y="12" width="24" height="24" />
+            </frame>
+            <frame id="8635:3348" name="icon" x="168" y="0" width="48" height="48">
+              <frame id="8635:3349" name="ri:behance-fill" x="12" y="12" width="24" height="24" />
+            </frame>
+            <frame id="8635:3351" name="icon" x="224" y="0" width="48" height="48">
+              <frame id="8635:3352" name="mingcute:dribbble-fill" x="12" y="12" width="24" height="24" />
+            </frame>
+            <frame id="8635:3356" name="icon" x="280" y="0" width="48" height="48">
+              <frame id="8635:3357" name="prime:twitter" x="17" y="17" width="14" height="14" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="8635:3364" name="Scroll To Top Container" x="0" y="128" width="343" height="87">
+          <text id="8635:3365" name="Main Heading" x="0" y="0" width="95" height="23" />
+          <frame id="8635:3366" name="icon" x="0" y="39" width="48" height="48">
+            <frame id="8635:3367" name="lucide/chevron-up" x="12" y="12" width="24" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="8635:3369" name="Copyright Notice" x="16" y="1307" width="343" height="104">
+        <text id="8635:3370" name="Main Heading" x="0" y="0" width="343" height="48" />
+        <frame id="8635:3371" name="Footer Links" x="0" y="80" width="343" height="24">
+          <text id="8635:3372" name="Main Heading" x="0" y="0" width="151" height="24" />
+          <text id="8635:3373" name="Main Heading" x="175" y="0" width="99" height="24" />
+        </frame>
+      </frame>
+    </frame>
+    <frame id="8635:3374" name="Pattern" x="0" y="1427" width="375" height="32">
+      <vector id="8635:3375" name="Vector 8" x="-309.5" y="-16" width="24" height="64" />
+      <vector id="8635:3376" name="Vector 10" x="-297.5" y="-16" width="24" height="64" />
+      <vector id="8635:3377" name="Vector 12" x="-285.5" y="-16" width="24" height="64" />
+      <vector id="8635:3378" name="Vector 14" x="-273.5" y="-16" width="24" height="64" />
+      <vector id="8635:3379" name="Vector 16" x="-261.5" y="-16" width="24" height="64" />
+      <vector id="8635:3380" name="Vector 18" x="-249.5" y="-16" width="22" height="64" />
+      <vector id="8635:3381" name="Vector 20" x="-239.5" y="-16" width="24" height="64" />
+      <vector id="8635:3382" name="Vector 22" x="-227.5" y="-16" width="24" height="64" />
+      <vector id="8635:3383" name="Vector 24" x="-215.5" y="-16" width="24" height="64" />
+      <vector id="8635:3384" name="Vector 26" x="-203.5" y="-16" width="24" height="64" />
+      <vector id="8635:3385" name="Vector 28" x="-191.5" y="-16" width="24" height="64" />
+      <vector id="8635:3386" name="Vector 30" x="-179.5" y="-16" width="24" height="64" />
+      <vector id="8635:3387" name="Vector 32" x="-167.5" y="-16" width="24" height="64" />
+      <vector id="8635:3388" name="Vector 34" x="-155.5" y="-16" width="22" height="64" />
+      <vector id="8635:3389" name="Vector 36" x="-145.5" y="-16" width="22" height="64" />
+      <vector id="8635:3390" name="Vector 38" x="-135.5" y="-16" width="24" height="64" />
+      <vector id="8635:3391" name="Vector 40" x="-123.5" y="-16" width="24" height="64" />
+      <vector id="8635:3392" name="Vector 91" x="-111.5" y="-16" width="24" height="64" />
+      <vector id="8635:3393" name="Vector 92" x="-99.5" y="-16" width="24" height="64" />
+      <vector id="8635:3394" name="Vector 93" x="-87.5" y="-16" width="24" height="64" />
+      <vector id="8635:3395" name="Vector 94" x="-75.5" y="-16" width="24" height="64" />
+      <vector id="8635:3396" name="Vector 95" x="-63.5" y="-16" width="24" height="64" />
+      <vector id="8635:3397" name="Vector 96" x="-51.5" y="-16" width="24" height="64" />
+      <vector id="8635:3398" name="Vector 97" x="-39.5" y="-16" width="24" height="64" />
+      <vector id="8635:3399" name="Vector 98" x="-27.5" y="-16" width="24" height="64" />
+      <vector id="8635:3400" name="Vector 99" x="-15.5" y="-16" width="24" height="64" />
+      <vector id="8635:3401" name="Vector 100" x="-3.5" y="-16" width="24" height="64" />
+      <vector id="8635:3402" name="Vector 101" x="8.5" y="-16" width="24" height="64" />
+      <vector id="8635:3403" name="Vector 102" x="20.5" y="-16" width="24" height="64" />
+      <vector id="8635:3404" name="Vector 103" x="32.5" y="-16" width="24" height="64" />
+      <vector id="8635:3405" name="Vector 104" x="44.5" y="-16" width="24" height="64" />
+      <vector id="8635:3406" name="Vector 105" x="56.5" y="-16" width="24" height="64" />
+      <vector id="8635:3407" name="Vector 106" x="68.5" y="-16" width="24" height="64" />
+      <vector id="8635:3408" name="Vector 107" x="80.5" y="-16" width="24" height="64" />
+      <vector id="8635:3409" name="Vector 108" x="92.5" y="-16" width="24" height="64" />
+      <vector id="8635:3410" name="Vector 109" x="104.5" y="-16" width="24" height="64" />
+      <vector id="8635:3411" name="Vector 110" x="116.5" y="-16" width="24" height="64" />
+      <vector id="8635:3412" name="Vector 111" x="128.5" y="-16" width="24" height="64" />
+      <vector id="8635:3413" name="Vector 112" x="140.5" y="-16" width="24" height="64" />
+      <vector id="8635:3414" name="Vector 113" x="152.5" y="-16" width="24" height="64" />
+      <vector id="8635:3415" name="Vector 114" x="164.5" y="-16" width="24" height="64" />
+      <vector id="8635:3416" name="Vector 115" x="176.5" y="-16" width="24" height="64" />
+      <vector id="8635:3417" name="Vector 116" x="188.5" y="-16" width="24" height="64" />
+      <vector id="8635:3418" name="Vector 117" x="200.5" y="-16" width="24" height="64" />
+      <vector id="8635:3419" name="Vector 118" x="212.5" y="-16" width="24" height="64" />
+      <vector id="8635:3420" name="Vector 119" x="224.5" y="-16" width="24" height="64" />
+      <vector id="8635:3421" name="Vector 120" x="236.5" y="-16" width="24" height="64" />
+      <vector id="8635:3422" name="Vector 121" x="248.5" y="-16" width="24" height="64" />
+      <vector id="8635:3423" name="Vector 122" x="260.5" y="-16" width="24" height="64" />
+      <vector id="8635:3424" name="Vector 123" x="272.5" y="-16" width="24" height="64" />
+      <vector id="8635:3425" name="Vector 42" x="284.5" y="-16" width="24" height="64" />
+      <vector id="8635:3426" name="Vector 44" x="296.5" y="-16" width="24" height="64" />
+      <vector id="8635:3427" name="Vector 46" x="308.5" y="-16" width="24" height="64" />
+      <vector id="8635:3428" name="Vector 48" x="320.5" y="-16" width="24" height="64" />
+      <vector id="8635:3429" name="Vector 50" x="332.5" y="-16" width="24" height="64" />
+      <vector id="8635:3430" name="Vector 52" x="344.5" y="-16" width="24" height="64" />
+      <vector id="8635:3431" name="Vector 87" x="356.5" y="-16" width="24" height="64" />
+      <vector id="8635:3432" name="Vector 88" x="368.5" y="-16" width="24" height="64" />
+      <vector id="8635:3433" name="Vector 89" x="380.5" y="-16" width="24" height="64" />
+      <vector id="8635:3434" name="Vector 90" x="392.5" y="-16" width="24" height="64" />
+      <vector id="8635:3435" name="Vector 54" x="404.5" y="-16" width="22" height="64" />
+      <vector id="8635:3436" name="Vector 56" x="414.5" y="-16" width="24" height="64" />
+      <vector id="8635:3437" name="Vector 58" x="426.5" y="-16" width="22" height="64" />
+      <vector id="8635:3438" name="Vector 60" x="436.5" y="-16" width="24" height="64" />
+      <vector id="8635:3439" name="Vector 62" x="448.5" y="-16" width="24" height="64" />
+      <vector id="8635:3440" name="Vector 64" x="460.5" y="-16" width="24" height="64" />
+      <vector id="8635:3441" name="Vector 66" x="472.5" y="-16" width="24" height="64" />
+      <vector id="8635:3442" name="Vector 68" x="484.5" y="-16" width="22" height="64" />
+      <vector id="8635:3443" name="Vector 70" x="494.5" y="-16" width="24" height="64" />
+      <vector id="8635:3444" name="Vector 72" x="506.5" y="-16" width="22" height="64" />
+      <vector id="8635:3445" name="Vector 74" x="516.5" y="-16" width="24" height="64" />
+      <vector id="8635:3446" name="Vector 75" x="528.5" y="-16" width="24" height="64" />
+      <vector id="8635:3447" name="Vector 76" x="540.5" y="-16" width="24" height="64" />
+      <vector id="8635:3448" name="Vector 77" x="552.5" y="-16" width="24" height="64" />
+      <vector id="8635:3449" name="Vector 78" x="564.5" y="-16" width="24" height="64" />
+      <vector id="8635:3450" name="Vector 79" x="576.5" y="-16" width="24" height="64" />
+      <vector id="8635:3451" name="Vector 80" x="588.5" y="-16" width="24" height="64" />
+      <vector id="8635:3452" name="Vector 81" x="600.5" y="-16" width="24" height="64" />
+      <vector id="8635:3453" name="Vector 82" x="612.5" y="-16" width="24" height="64" />
+      <vector id="8635:3454" name="Vector 83" x="624.5" y="-16" width="24" height="64" />
+      <vector id="8635:3455" name="Vector 84" x="636.5" y="-16" width="24" height="64" />
+      <vector id="8635:3456" name="Vector 85" x="648.5" y="-16" width="24" height="64" />
+      <vector id="8635:3457" name="Vector 86" x="660.5" y="-16" width="24" height="64" />
+    </frame>
+  </frame>
+</symbol>

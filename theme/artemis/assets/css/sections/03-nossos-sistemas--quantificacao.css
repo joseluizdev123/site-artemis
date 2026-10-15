@@ -1,0 +1,34 @@
+/* Ilustração "Quantificação de projeto" (Figma 8294:579 · celular 8635:2078) — os 3 marcadores azuis
+   (Tubo 8294:667, Válvula 8294:675, Conexões 8294:683) sobem devagar a partir do plano até a altura do
+   Figma, com a haste crescendo junto. Deslocamento inicial = comprimento da haste, em % do marcador:
+   Tubo 41,9/75 · Válvula 73,4/76,5 · Conexões 27/80 na vertical e −40/72,7 na horizontal (haste inclinada). */
+.ilu--quantificacao .ilu__pin { --dx: 0%; --dy: 56%; }
+.ilu--quantificacao .ilu__pin[style*="--i:1"] { --dy: 96%; }
+.ilu--quantificacao .ilu__pin[style*="--i:2"] { --dx: -55%; --dy: 34%; }
+.ilu--quantificacao .ilu__stem { transform-origin: 0 100%; }
+
+.sistemas.is-armed .sistemas__card:not(.is-playing):not(.is-static) .ilu--quantificacao .ilu__pin {
+  opacity: 0;
+  transform: translate(var(--dx), var(--dy));
+}
+.sistemas.is-armed .sistemas__card:not(.is-playing):not(.is-static) .ilu--quantificacao .ilu__stem {
+  transform: scale(0);
+}
+
+.sistemas__card.is-playing .ilu--quantificacao .ilu__pin {
+  animation: ilu-pin-rise 1.8s cubic-bezier(.22, .7, .2, 1) both;
+  animation-delay: calc(var(--i) * .3s);
+}
+.sistemas__card.is-playing .ilu--quantificacao .ilu__stem {
+  animation: ilu-stem-grow 1.8s cubic-bezier(.22, .7, .2, 1) both;
+  animation-delay: calc(var(--i) * .3s);
+}
+@keyframes ilu-pin-rise {
+  0% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+  15% { opacity: 1; }
+  100% { opacity: 1; transform: translate(0, 0); }
+}
+@keyframes ilu-stem-grow {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}

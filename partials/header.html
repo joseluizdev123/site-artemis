@@ -1,0 +1,69 @@
+<!-- Header · 8165:2338 (scroll 8165:2339) · mobile 8635:3579 (scroll 8662:2937) · menu mobile 8662:2946 -->
+<!--@if page=blog--><!-- Variante Blog · 8340:2124 (logo sem ™, selo "BLOG", link "Início", "Blog" atual) · mobile 8673:4443 (= header da Home, sem selo) -->
+<!--@endif--><!--@if page!=blog|post--><header class="site-header" data-header data-figma-root data-figma="8165:2338" data-figma-m="8635:3579">
+<!--@endif--><!--@if page=blog--><header class="site-header site-header--blog" data-header data-figma-root data-figma-blog="8340:2124" data-figma-blog-m="8673:4443">
+<!--@endif--><!--@if page=post--><!-- Post · desktop 8340:2125 (= variante Blog) · mobile 8693:2102 "Header blog" (375×64: logo sem ™ 125×32 + selo, gap 16) -->
+<header class="site-header site-header--blog site-header--tag-m" data-header data-figma-root data-figma-post-m="8693:2102">
+<!--@endif-->  <div class="container site-header__bar">
+    <div class="site-header__inner" data-figma="8165:2315" data-figma-m="8635:3289" data-figma-blog="8314:2515" data-figma-blog-m="I8673:4443;8635:3289" data-figma-post-m="8673:6193">
+      <!--@if page!=blog|post--><a class="site-header__logo" href="/" aria-label="Studio Artemis — página inicial" data-figma="8165:2316" data-figma-m="8635:3290">
+        <img src="/assets/images/logo-artemis.svg" width="137" height="32" alt="Artemis">
+      </a>
+      <!--@endif--><!--@if page=blog--><div class="site-header__brand" data-figma-blog="8314:2527">
+        <a class="site-header__logo" href="/" aria-label="Studio Artemis — página inicial" data-figma-blog="8314:2516" data-figma-blog-m="I8673:4443;8635:3290">
+          <picture>
+            <source media="(max-width: 767px)" srcset="/assets/images/logo-artemis.svg" width="137" height="32">
+            <img src="/assets/images/header/logo-blog.svg" width="125" height="32" alt="Artemis">
+          </picture>
+        </a>
+        <span class="site-header__tag" data-figma-blog="8314:2542"><span data-figma-blog="8314:2526">Blog</span></span>
+      </div>
+      <!--@endif--><!--@if page=post--><!-- Post: mesmo logo sem ™ + selo também no celular (8693:2102) — sem <source> -->
+      <div class="site-header__brand" data-figma-post-m="8673:6210">
+        <a class="site-header__logo" href="/" aria-label="Studio Artemis — página inicial" data-figma-post-m="8673:6194">
+          <img src="/assets/images/header/logo-blog.svg" width="125" height="32" alt="Artemis">
+        </a>
+        <span class="site-header__tag" data-figma-post-m="8673:6211"><span data-figma-post-m="8673:6212">Blog</span></span>
+      </div>
+      <!--@endif--><div class="site-header__actions" data-figma="8165:2317" data-figma-blog="8314:2517">
+        <nav class="site-nav" aria-label="Principal" data-figma="8165:2318" data-figma-blog="8314:2518">
+          <!--@if page=blog|post--><a href="/" data-figma-blog="8314:2519">Início</a>
+          <!--@endif--><a href="/servicos" data-figma="8165:2319" data-figma-blog="8314:2645">Serviços</a>
+          <!--@if page!=blog|post--><a href="#estudos" data-figma="8165:2320">Estudos de impacto</a><!--@endif--><!--@if page=blog|post--><a href="/#estudos" data-figma-blog="8314:2520">Estudos de impacto</a><!--@endif-->
+          <!--@if page!=blog|post--><a href="/blog" data-figma="8165:2321">Blog</a><!--@endif--><!--@if page=blog--><a href="/blog" aria-current="page" data-figma-blog="8314:2521">Blog</a><!--@endif--><!--@if page=post--><a href="/blog" aria-current="true">Blog</a><!--@endif-->
+          <a href="/sobre" data-figma="8165:2322" data-figma-blog="8314:2522">Sobre</a>
+        </nav>
+        <span class="site-header__sep" aria-hidden="true" data-figma="8165:2323" data-figma-blog="8314:2523"></span>
+        <a class="site-header__cta" href="/contato" data-figma="8165:2324" data-figma-blog="8314:2524">Agendar diagnóstico</a>
+      </div>
+    </div>
+    <!-- Mobile (≤767): botão "Menu" (8635:3577) abre a gaveta -->
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-haspopup="dialog" data-menu-open data-figma-m="8635:3577" data-figma-blog-m="I8673:4443;8635:3577" data-figma-post-m="8673:6203">
+      <span data-figma-m="8635:3568" data-figma-blog-m="I8673:4443;8635:3568" data-figma-post-m="8673:6208">Menu</span>
+    </button>
+  </div>
+
+  <!-- Menu mobile · 8662:2946 (325 de largura, altura da tela, entra da esquerda em overlay) -->
+  <div class="site-header__drawer" id="site-menu" role="dialog" aria-modal="true" aria-label="Menu" data-menu>
+    <div class="site-header__backdrop" data-menu-close></div>
+    <div class="site-header__panel">
+      <div class="site-header__panel-top">
+        <div class="site-header__panel-head">
+          <button class="site-header__close" type="button" data-menu-close>Fechar</button>
+        </div>
+        <nav class="site-header__menu" aria-label="Principal">
+          <!--@if page=blog|post--><a href="/">Início</a>
+          <!--@endif--><a href="/servicos">Serviços</a>
+          <!--@if page!=blog|post--><a href="#estudos">Estudos de impacto</a><!--@endif--><!--@if page=blog|post--><a href="/#estudos">Estudos de impacto</a><!--@endif-->
+          <!--@if page!=blog|post--><a href="/blog">Blog</a><!--@endif--><!--@if page=blog--><a href="/blog" aria-current="page">Blog</a><!--@endif--><!--@if page=post--><a href="/blog" aria-current="true">Blog</a><!--@endif-->
+          <a href="/sobre">Sobre</a>
+          <a href="/contato">Agendar diagnóstico</a>
+        </nav>
+      </div>
+      <div class="site-header__contact">
+        <p class="site-header__contact-label" aria-live="polite" data-copy-status data-copied="E-mail copiado">Fale conosco</p>
+        <a class="site-header__contact-email" href="mailto:contato@studioartemis.co" data-copy-email>contato@studioartemis.co</a>
+      </div>
+    </div>
+  </div>
+</header>

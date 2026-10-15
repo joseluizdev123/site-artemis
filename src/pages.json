@@ -1,0 +1,67 @@
+{
+  "home": {
+    "out": "index.html",
+    "title": "Studio Artemis — Inteligência artificial para cada decisão que a sua operação repete",
+    "description": "Construímos agentes e automações com IA para o trabalho que consome horas de colaboradores sêniores. Cada sistema é medido contra gabarito humano antes de entrar em produção.",
+    "sections": "auto"
+  },
+  "blog": {
+    "out": "blog/index.html",
+    "title": "Blog — O que aprendemos colocando inteligência artificial em produção · Studio Artemis",
+    "description": "Análises dos sistemas que construímos, guias de implementação e o registro honesto do que funciona e do que não funciona. Escrito por quem entrega, não por quem assiste.",
+    "sections": [
+      "blog-01-hero",
+      "blog-02-destaque",
+      {
+        "slug": "blog-03-categoria",
+        "vars": {
+          "CAT_SLUG": "analises-de-caso",
+          "CAT_TITLE": "Análises de caso"
+        }
+      },
+      {
+        "slug": "blog-03-categoria",
+        "vars": {
+          "CAT_SLUG": "implementacao-de-ia",
+          "CAT_TITLE": "Implementação de IA"
+        }
+      },
+      {
+        "slug": "blog-03-categoria",
+        "vars": {
+          "CAT_SLUG": "ia-na-operacao",
+          "CAT_TITLE": "IA na operação"
+        }
+      },
+      {
+        "slug": "blog-03-categoria",
+        "vars": {
+          "CAT_SLUG": "seo-e-ai-search",
+          "CAT_TITLE": "SEO e AI Search"
+        }
+      },
+      {
+        "slug": "blog-03-categoria",
+        "vars": {
+          "CAT_SLUG": "marketing-com-ia",
+          "CAT_TITLE": "Marketing com IA"
+        }
+      },
+      "newsletter"
+    ]
+  },
+  "post": {
+    "out": "blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/index.html",
+    "title": "Anatomia do WControl: como se valida um documento de mil páginas · Blog Studio Artemis",
+    "description": "Um certificado de segurança do trabalho com 1.240 páginas leva 40 minutos para ser conferido à mão. O WControl devolve o veredito em 90 segundos e aponta a página exata do problema.",
+    "assets": [
+      "blog-03-categoria"
+    ],
+    "sections": [
+      "post-01-hero",
+      "post-02-conteudo",
+      "post-03-relacionados",
+      "newsletter"
+    ]
+  }
+}

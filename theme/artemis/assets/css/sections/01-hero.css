@@ -1,0 +1,264 @@
+/* Seção 01 — Hero (Figma 8160:165) + Customer Logos (8160:446) */
+
+/* --------------------------------------------------------------------------
+   Hero (8160:165)
+   -------------------------------------------------------------------------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding-top: 32px;
+  padding-bottom: var(--section-py);
+}
+
+.hero__main {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  height: 630px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hero__row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap; /* abaixo de ~990 os botões descem para baixo do texto */
+  gap: 48px 32px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* 733 no Figma; entre 768 e 1439 encolhe até 480 antes de os botões quebrarem de linha */
+.hero__text { flex: 1 1 480px; max-width: 733px; display: flex; flex-direction: column; gap: 32px; }
+.hero__heading { display: flex; flex-direction: column; gap: 24px; }
+
+.hero__eyebrow {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--gray-300);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 62px;
+  line-height: 1.1;
+  line-height: round(nearest, 1.1em, 1px); /* Figma arredonda 68.2 → 68 (caixa 204 = 3 linhas) */
+  color: var(--gray-0);
+}
+.hero__title em { font-style: normal; color: var(--gray-500); }
+
+.hero__lead {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+
+.hero__actions { display: flex; align-items: center; gap: 16px; }
+
+/* Padrão de traços (8160:174) — 1440 de largura, centralizado no main */
+.hero__pattern {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: calc(50% - 0.5px);
+  transform: translate(-50%, -50%);
+  width: var(--frame-w);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.hero__pattern-group { display: flex; flex-direction: column; gap: 15px; }
+.hero__pattern-group--start { align-items: flex-start; }
+.hero__pattern-group--end { align-items: flex-end; }
+.hero__dash-row { height: 24px; }
+.hero__dash-row svg { overflow: visible; }
+/* --dx: o SVG exportado inclui a sangria do traço à esquerda — desloca só o desenho,
+   e a caixa da linha fica no x do Figma (8635:1825/1845/1859 medem Δ 0 no mobile) */
+.hero__dash-row > * { margin-left: var(--dx, 0px); }
+
+.hero__dash-row path {
+  opacity: var(--o, 1);
+  transition: opacity .35s ease, stroke .35s ease;
+}
+.hero__pattern.is-live .hero__dash-row path {
+  animation: dash-blink var(--d, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+.hero__pattern.is-live .hero__dash-row path.is-lit {
+  animation: none;
+  opacity: 1;
+  stroke: var(--blue-300);
+}
+@keyframes dash-blink {
+  0%, 100% { opacity: var(--o, 1); }
+  50%      { opacity: calc(var(--o, 1) * .25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__pattern.is-live .hero__dash-row path { animation: none; }
+}
+
+/* Logos de clientes (8160:446) */
+.clients { display: flex; flex-direction: column; gap: 24px; }
+
+.clients__grid {
+  container-type: inline-size; /* os logos escalam pela largura da grade (cqi) fora do 1440 */
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  box-shadow: inset 0 0 0 1px var(--gray-900); /* stroke inside — não soma altura */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.clients__cell {
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-shadow: inset 0 -1px 0 var(--gray-900); /* strokes inside — não deslocam o logo */
+}
+.clients__cell:nth-child(2),
+.clients__cell:nth-child(4) {
+  box-shadow: inset 0 -1px 0 var(--gray-900), inset 1px 0 0 var(--gray-900), inset -1px 0 0 var(--gray-900);
+}
+.clients__logo { flex: none; object-fit: cover; }
+/* Logo pintado de branco via máscara (ex.: Orsegups, original azul) — tamanho/offset inline */
+.clients__logo--mask {
+  display: block;
+  background: var(--gray-0);
+  -webkit-mask: var(--logo) center / 100% 100% no-repeat;
+          mask: var(--logo) center / 100% 100% no-repeat;
+}
+
+.clients__pattern {
+  grid-column: 1 / -1;
+  position: relative;
+  height: 64px;
+}
+.clients__pattern img {
+  position: absolute;
+  inset: -0.27% 0;
+  width: 100%;
+  height: 100.54%;
+}
+.clients__hatch { display: none; } /* hachura do mobile (ver bloco ≤767) */
+
+.clients__caption {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--gray-300);
+  text-align: center;
+}
+
+/* 768–1439 — o layout de 1440 se adapta: os logos encolhem na proporção da grade
+   (1376 no Figma). tan(atan2()) transforma a razão de larguras em número para o zoom. */
+@media (min-width: 768px) and (max-width: 1439px) {
+  .clients__logo { zoom: min(1, tan(atan2(100cqi, 1376px))); }
+}
+
+/* ==========================================================================
+   Mobile ≤767 — Figma frame Mobile 8635:1583 · hero 8635:1586 (375 × 1154)
+   De 320 a 767 o layout de 375 se estica: conteúdo = 100% − 2×16.
+   ========================================================================== */
+@media (max-width: 767px) {
+  /* hero 8635:1586 — pt 32 · pb 60 (--section-py) · px 16 (--section-px) · gap 40 */
+  .hero { gap: 40px; }
+
+  /* main container 8635:1587 — 680 de altura com o conteúdo no rodapé; cresce se o texto quebrar mais (320) */
+  .hero__main { height: auto; min-height: 680px; }
+
+  /* Image Container 8635:1588 — texto e botões empilhados, gap 48 */
+  .hero__row { flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: flex-start; gap: 48px; }
+  .hero__text { flex: none; max-width: none; gap: 24px; } /* Main Text Container 8635:1589 */
+  .hero__heading { gap: 16px; }             /* Heading 8635:1590 */
+
+  /* 8635:1591 — Instrument Serif italic 18/1.3, caixa de 247 (quebra em 2 linhas) */
+  .hero__eyebrow {
+    max-width: 247px;
+    font-size: 18px;
+    line-height: round(nearest, 1.3em, 1px); /* Figma arredonda 23.4 → 23 (caixa 46 = 2 linhas) */
+  }
+
+  /* 8635:1592 — Exo SemiBold 32/1.2 */
+  .hero__title {
+    font-size: 32px;
+    line-height: 1.2;
+    line-height: round(nearest, 1.2em, 1px); /* 38.4 → 38 (caixa 114 = 3 linhas) */
+  }
+
+  /* 8635:1593 — Cabin 18/1.4 */
+  .hero__lead {
+    line-height: 1.4;
+    line-height: round(nearest, 1.4em, 1px); /* 25.2 → 25 (caixa 125 = 5 linhas) */
+  }
+
+  /* Container buttons 8635:1594 — botões de largura total (343 × 60), gap 16 */
+  .hero__actions { flex-direction: column; align-items: stretch; gap: 16px; }
+
+  /* Pattern 8635:1597 — o mesmo padrão do desktop (mesmos SVGs) em escala 1134,834 / 1440,
+     centrado (−0,5px) e colado no topo do main container */
+  .hero__pattern {
+    top: 0;
+    left: calc(50% - .5px);
+    transform: translateX(-50%) scale(.788079);
+    transform-origin: 50% 0;
+  }
+
+  /* Customer Logos Container 8635:1870 — 2 colunas de 171 (sobra 1px à direita, como no Figma)
+     + hachura de 32. Abaixo de 375 os logos encolhem junto com a grade (--logo-k). */
+  .clients__grid {
+    --logo-k: min(1px, 100cqi / 343); /* cqi resolve no logo, relativo a esta grade */
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .clients__cell { width: calc(50% - .5px); height: 80px; } /* 8635:1871 … 8635:1900 */
+  .clients__cell:nth-child(5) { box-shadow: inset -1px 0 0 var(--gray-900); } /* 8635:1900: só o stroke da direita */
+
+  /* Tamanho do logo no mobile vem do <li> (--mw/--mh, px sem unidade) e precisa vencer
+     o width/height/transform inline do desktop — por isso o !important */
+  .clients__logo {
+    width: calc(var(--mw) * var(--logo-k)) !important;
+    height: calc(var(--mh) * var(--logo-k)) !important;
+    transform: none !important;
+  }
+
+  /* Pattern 8635:1904 — traços de 24×64 a cada 12px, centrados e cortados em 32 de altura.
+     Stroke de cima inside (box-shadow); os traços têm a mesma cor (gray-900). */
+  .clients__pattern {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: clip;
+    box-shadow: inset 0 1px 0 var(--gray-900);
+  }
+  .clients__pattern > img { display: none; }
+  .clients__hatch { display: flex; flex: none; }
+  .clients__hatch > i {
+    flex: none;
+    width: 24px;
+    height: 64px;
+    margin-right: -12px;
+    background: url(../../images/01-hero/m-diagonal.svg) 50% 50% / 24.9363px 64.3511px no-repeat;
+  }
+  .clients__hatch > i:last-child { margin-right: 0; }
+  .clients__hatch > .clients__hatch-line--narrow {
+    width: 22px;
+    background-image: url(../../images/01-hero/m-diagonal-narrow.svg);
+    background-size: 22.9457px 64.3251px;
+  }
+
+  /* Customer Logos Description 8635:1988 — Instrument Serif italic 18/1.3 */
+  .clients__caption {
+    font-size: 18px;
+    line-height: round(nearest, 1.3em, 1px); /* 23.4 → 23 (caixa 46 = 2 linhas) */
+  }
+}

@@ -1,0 +1,212 @@
+/* Blog 01 — Hero + abas de categoria (Figma 8325:2675 · mobile 8673:3847) */
+
+/* 8325:2675: pt 120 · px 32 · pb 32 (lateral pelo .container) */
+.blog-hero {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-px);
+  background: var(--black-200);
+}
+
+/* Main Container (8325:2732): stroke 1px gray-900 no layout (filhos em x1 y1) */
+.blog-hero__box {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--gray-900);
+  overflow: clip;
+}
+
+/* Main Text Container (8325:2676): p 32 · conteúdo centralizado */
+.blog-hero__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--section-px); /* 32 no frame 1440 */
+}
+
+/* Text Container (8325:2733): 982 · gap 32 · texto centralizado */
+.blog-hero__text {
+  width: 100%;
+  max-width: 982px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+/* Heading (8325:2677): gap 24 */
+.blog-hero__heading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.blog-hero__eyebrow { width: 100%; } /* 8325:2678 · Instrument Serif Italic 20/1.3 gray-300 (.eyebrow) */
+
+/* Main Heading (8325:2679): Exo SemiBold 62/1.1 · trecho em gray-500 */
+.blog-hero__title {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(40px, calc(62 / 1440 * 100vw), 62px); /* 62 no frame 1440 */
+  line-height: 1.1;
+  color: var(--gray-0);
+  text-wrap: pretty;
+}
+.blog-hero__title em { font-style: normal; color: var(--gray-500); }
+
+/* Main Description (8325:2680): Cabin 18/1.5 gray-300 (.body-lg) · 705 */
+.blog-hero__lead { max-width: 705px; }
+
+/* --------------------------------------------------------------------------
+   Banner (8512:5733): black-100 · linhas convergentes (Lines 8512:5704) + luzes (Light 8512:5748)
+   -------------------------------------------------------------------------- */
+.blog-hero__banner {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--black-100);
+}
+
+/* Lines (8512:5704): coluna centralizada — 193 + 193 − 1 = 385 */
+.blog-hero__lines {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Thin / Thick Curved Lines (8512:5705 / 8512:5719): 1657,026 × 193; o SVG (1657,03 × 193,8) vaza 0,4 em cima e embaixo */
+.blog-hero__curves {
+  flex: none;
+  width: 1657.026px;
+  height: 193px;
+}
+.blog-hero__curves:first-child { margin-bottom: -1px; }
+.blog-hero__curves--flip { transform: scaleY(-1); } /* 8512:5719: -scale-y-100 */
+.blog-hero__curves img {
+  width: 1657.03px;
+  height: 193.8px;
+  max-width: none;
+  margin-top: -0.4px;
+}
+
+/* Light (8512:5748): grupo em x5 y32 do banner (1369 × 344,34), ancorado no centro das linhas */
+.blog-hero__light {
+  position: absolute;
+  z-index: 2;
+  top: 32px;
+  left: calc(50% - 682px); /* 5 no banner de 1374 (centro 687) */
+  width: 1369px;
+  height: 344.341px;
+  pointer-events: none;
+}
+
+/* Horizontal Line (8512:5736 …): 32 × 0,8 · degradê blue-300 0 → 100% (cabeça à direita) */
+.blog-hero__pulse {
+  position: absolute;
+  left: calc(var(--x) * 1px);
+  top: calc(var(--y) * 1px);
+  width: 32px;
+  height: 0.8px;
+  background: linear-gradient(to right, transparent, var(--blue-300));
+  transform: rotate(var(--r, 0deg));
+}
+/* Com JS: cada luz corre pela sua linha (posição e ângulo em transform, ver blog-01-hero.js) */
+.blog-hero__light.is-flowing .blog-hero__pulse { left: 0; top: 0; will-change: transform, opacity; }
+
+/* --------------------------------------------------------------------------
+   Abas (Button Container 8325:2725): stroke superior · 5 abas iguais (flex 1) · menu âncora
+   Tab (8510:5616): black-200 · p 32 · Cabin SemiBold 16/1.5 · abas pares com stroke à esquerda e à direita
+   -------------------------------------------------------------------------- */
+.blog-hero__tabs {
+  display: flex;
+  border-top: 1px solid var(--gray-900);
+}
+.blog-hero__tab {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px var(--section-px);
+  background: var(--black-200);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--gray-0);
+  transition: background-color .2s ease, color .2s ease;
+}
+.blog-hero__tab:nth-child(even) {
+  border-left: 1px solid var(--gray-900);
+  border-right: 1px solid var(--gray-900);
+}
+.blog-hero__tab:nth-child(even):last-child { border-right: 0; } /* nº par de abas: o stroke do container fecha a última */
+.blog-hero__tab-label { display: inline-block; text-wrap: balance; }
+
+.blog-hero__tab:hover { background: var(--black-100); }
+.blog-hero__tab:active { background: var(--gray-900); }
+.blog-hero__tab:focus-visible { outline-offset: -3px; } /* contorno por dentro (o container corta o que vaza) */
+
+/* --------------------------------------------------------------------------
+   Mobile (frame 8673:3845 · hero 8673:3847 · 375) — vale até 767px
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* 8673:3847: p 16 em volta (topo também) */
+  .blog-hero { padding-block: 16px; }
+
+  /* Text Container (8673:3850): p 20 · gap 16 · Heading (8673:3851) gap 16 */
+  .blog-hero__intro { padding: 20px; }
+  .blog-hero__text { gap: 16px; }
+  .blog-hero__heading { gap: 16px; }
+  .blog-hero__eyebrow { font-size: 18px; } /* 8673:3852 · 18/1.3 */
+
+  /* 8673:3853: Exo SemiBold 32/1.2 — caixa de 190 no Figma (5 linhas arredondadas para 38) */
+  .blog-hero__title { font-size: 32px; line-height: 38px; }
+  .blog-hero__lead { max-width: none; } /* 8673:3854 · largura total (301) */
+
+  /* Banner (8673:4735) · Lines (8673:4747): linhas alinhadas à esquerda, 709 × 82,58 cada (82,58 + 82,58 − 1 = 164,16) */
+  .blog-hero__lines { align-items: flex-start; }
+  .blog-hero__curves { width: 709px; height: 82.57987px; }
+  .blog-hero__curves img { width: 709px; height: 82.9221px; margin-top: -0.1711px; } /* SVG 709 × 82,92 */
+
+  /* Light (8673:4736): grupo em x5 y7 (143,77 × 147,34) · traços 13,692 × 0,342 */
+  .blog-hero__light { top: 7px; left: 5px; width: 143.766px; height: 147.335px; }
+  .blog-hero__pulse {
+    left: calc(var(--mx) * 1px);
+    top: calc(var(--my) * 1px);
+    width: 13.692px;
+    height: 0.342px;
+  }
+
+  /* Button Container (8673:3895): 2 colunas de 170,5 · Tab p 20 · stroke inferior; colunas pares com stroke à esquerda;
+     a última aba sozinha na linha (8673:3900) troca o inferior pelo da direita */
+  .blog-hero__tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .blog-hero__tab,
+  .blog-hero__tab:nth-child(even) {
+    padding: 20px;
+    border: 0;
+    border-bottom: 1px solid var(--gray-900);
+  }
+  .blog-hero__tab:nth-child(even) { border-left: 1px solid var(--gray-900); }
+  .blog-hero__tab:last-child,
+  .blog-hero__tab:nth-child(odd):nth-last-child(2) { border-bottom: 0; }
+  .blog-hero__tab:nth-child(odd):last-child { border-right: 1px solid var(--gray-900); }
+  /* Texto ocupa a aba e corta com reticências, como no Figma ("Implementação…") */
+  .blog-hero__tab-label {
+    flex: 1 0 0;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-hero__tab { transition: none; }
+}

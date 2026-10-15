@@ -1,0 +1,102 @@
+/* Seção 08 — Stats (Figma 8486:1798) */
+
+/* Raiz: strokes topo/base entram no layout (filhos começam em y=1) → border real */
+.stats {
+  border-block: 1px solid var(--gray-900);
+}
+
+/* --------------------------------------------------------------------------
+   Faixas de padrão (8486:1794 topo · 8497:1583 base): 64 + stroke 1 = 65
+   -------------------------------------------------------------------------- */
+.stats__band { height: 65px; }
+.stats__band--top { border-bottom: 1px solid var(--gray-900); }
+.stats__band--bottom { border-top: 1px solid var(--gray-900); }
+
+/* Pattern (8486:1883): 1376×62, strokes laterais inside, duas metades de 686 centralizadas */
+.stats__pattern {
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* fallback Safari < 16: sem isso as metades de 686 vazam e geram scroll horizontal */
+  overflow: clip;
+  box-shadow: inset 1px 0 0 var(--gray-900), inset -1px 0 0 var(--gray-900);
+}
+.stats__pattern--flip { transform: scaleY(-1); } /* 8497:1585 — base espelhada na vertical */
+
+.stats__ellipses { flex: none; width: 686px; height: 62px; }
+.stats__ellipses--mirror { transform: scaleX(-1); } /* 8486:1884 — rotate(180°) + scaleY(-1) = espelho horizontal */
+
+/* --------------------------------------------------------------------------
+   Números (8486:1552): 4 células de 344×250, stroke esquerdo inside
+   -------------------------------------------------------------------------- */
+.stats__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-shadow: 1px 0 0 var(--gray-900); /* stroke esquerdo da célula vazia 8486:1692 (x = 1408) */
+}
+
+.stats__item {
+  min-height: 250px; /* 250 no Figma; cresce se a legenda do Customizer for mais longa (não invade a faixa de baixo) */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px; /* só age se o conteúdo crescer: no 1440 o space-between já abre 84px */
+  padding: 32px;
+  overflow-wrap: break-word;
+  box-shadow: inset 1px 0 0 var(--gray-900); /* stroke inside — não desloca o texto */
+}
+
+/* Valor (8486:1690): Exo SemiBold 40/1.2 — prefixo/sufixo (R$, /MÊS) em 24 */
+.stats__value {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--gray-0);
+}
+.stats__unit { font-size: 24px; }
+
+/* Legenda (8486:1691): Cabin 18/1.5 gray-300 (.body-lg) */
+.stats__label { width: 100%; text-wrap: pretty; }
+
+/* --------------------------------------------------------------------------
+   Telas intermediárias (768–1023): grade 2×2 fluida entre o desktop e o mobile
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .stats__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats__item { min-height: 220px; }
+  .stats__item:nth-child(-n+2) { box-shadow: inset 1px 0 0 var(--gray-900), inset 0 -1px 0 var(--gray-900); }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile — Figma 8635:2371 (375 × 932), vale até 767px
+   - Faixas 8635:2372 / 8635:2411: 64 + stroke 1; espaçadores "Statistic" de 32
+     (8635:2373/2395, 8635:2412/2434) → Pattern 8635:2374 / 8635:2413 = 100% − 2×32
+   - Números 8635:2396: largura total (sem o respiro de 16), 4 células empilhadas
+     de 375×200 (8635:2398/2401/2404/2407), padding 32, space-between
+   - Strokes inside: base nas células 1–3; a 4ª (8635:2407) só tem o stroke esquerdo
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* No mobile o Pattern não recorta: as elipses passam das bordas e vão até a borda
+     da tela (o recorte é da faixa inteira, como o frame no Figma) */
+  .stats__band { overflow: hidden; overflow: clip; }
+  .stats__band .container { padding-inline: 32px; }
+  .stats__pattern { overflow: visible; }
+
+  .stats > .container { padding-inline: 0; } /* só o container dos números (as faixas têm .stats__band no meio) */
+  .stats__list { grid-template-columns: minmax(0, 1fr); box-shadow: none; }
+
+  .stats__item { min-height: 200px; } /* 200 no Figma; cresce se a legenda do Customizer quebrar em mais linhas */
+  .stats__item:not(:last-child) { box-shadow: inset 0 -1px 0 var(--gray-900); }
+  .stats__item:last-child { box-shadow: inset 1px 0 0 var(--gray-900); }
+
+  /* Valor (8635:2399): Exo SemiBold 24/1.2 — prefixo/sufixo no mesmo corpo do valor */
+  .stats__value { font-size: 24px; }
+  .stats__unit { font-size: inherit; }
+}

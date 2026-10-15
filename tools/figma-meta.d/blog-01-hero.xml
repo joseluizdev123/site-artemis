@@ -1,0 +1,31 @@
+<!-- Blog — hero + abas de categoria · desktop 8325:2675 · mobile 8673:3847 — filhos das instâncias "Tab" via get_metadata (8510:5619…5631, 8673:3896…3900) -->
+<instance id="8510:5619" name="Tab" x="0" y="1" width="274" height="88">
+  <text id="I8510:5619;8510:5612" name="Main Description" x="81" y="32" width="112" height="24" />
+</instance>
+<instance id="8510:5622" name="Tab" x="274" y="1" width="276" height="88">
+  <text id="I8510:5622;8510:5612" name="Main Description" x="64.5" y="32" width="147" height="24" />
+</instance>
+<instance id="8510:5627" name="Tab" x="550" y="1" width="274" height="88">
+  <text id="I8510:5627;8510:5612" name="Main Description" x="86" y="32" width="102" height="24" />
+</instance>
+<instance id="8510:5629" name="Tab" x="824" y="1" width="276" height="88">
+  <text id="I8510:5629;8510:5612" name="Main Description" x="82.5" y="32" width="111" height="24" />
+</instance>
+<instance id="8510:5631" name="Tab" x="1100" y="1" width="274" height="88">
+  <text id="I8510:5631;8510:5612" name="Main Description" x="77" y="32" width="120" height="24" />
+</instance>
+<instance id="8673:3896" name="Tab" x="0" y="1" width="170.5" height="65">
+  <text id="I8673:3896;8510:5612" name="Main Description" x="20" y="20" width="130.5" height="24" />
+</instance>
+<instance id="8673:3897" name="Tab" x="170.5" y="1" width="170.5" height="65">
+  <text id="I8673:3897;8510:5612" name="Main Description" x="21" y="20" width="129.5" height="24" />
+</instance>
+<instance id="8673:3898" name="Tab" x="0" y="66" width="170.5" height="65">
+  <text id="I8673:3898;8510:5612" name="Main Description" x="20" y="20" width="130.5" height="24" />
+</instance>
+<instance id="8673:3899" name="Tab" x="170.5" y="66" width="170.5" height="65">
+  <text id="I8673:3899;8510:5612" name="Main Description" x="21" y="20" width="129.5" height="24" />
+</instance>
+<instance id="8673:3900" name="Tab" x="0" y="131" width="170.5" height="64">
+  <text id="I8673:3900;8510:5612" name="Main Description" x="20" y="20" width="129.5" height="24" />
+</instance>
