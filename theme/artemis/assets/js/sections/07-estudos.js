@@ -12,9 +12,9 @@
        troca na hora e a rolagem compensa a diferença, então setas e imagem ficam paradas
      - estudo sem rodapé (texto centralizado): altura do menor bloco de texto dos outros
        estudos (--estudos-text-min)
-     - troca automática a cada AUTOPLAY ms, só com o carrossel na tela; pausa com o mouse em cima,
-       com foco de teclado dentro, durante o toque e com a aba escondida; navegar à mão recomeça a
-       contagem. Enquanto troca sozinho o aria-live fica "off" (leitor de tela não anuncia a cada troca)
+     - troca automática a cada AUTOPLAY ms, só com o carrossel na tela (mesmo com o mouse em cima);
+       pausa com foco de teclado dentro, durante o toque e com a aba escondida; navegar à mão
+       recomeça a contagem. Enquanto troca sozinho o aria-live fica "off" (leitor de tela não anuncia a cada troca)
      - o estudo que entra ganha .is-entering (pintura com zoom-out leve, captura deslizando no
        sentido da navegação via --estudos-dir, texto subindo em sequência — CSS) */
   var AUTOPLAY = 8000;
@@ -152,9 +152,9 @@
     var prev = root.querySelector('[data-estudos-prev]');
     var next = root.querySelector('[data-estudos-next]');
     // Troca automática
-    var auto = 0, inView = false, hovering = false, focused = false, touching = false;
+    var auto = 0, inView = false, focused = false, touching = false;
     function canPlay() {
-      return inView && !hovering && !focused && !touching && !document.hidden && !reduce.matches;
+      return inView && !focused && !touching && !document.hidden && !reduce.matches;
     }
     function schedule() {
       clearTimeout(auto);
@@ -174,16 +174,6 @@
       }, { threshold: 0.35 }).observe(root);
     }
     document.addEventListener('visibilitychange', schedule);
-    root.addEventListener('pointerenter', function (e) {
-      if (e.pointerType !== 'mouse') return;
-      hovering = true;
-      schedule();
-    });
-    root.addEventListener('pointerleave', function (e) {
-      if (e.pointerType !== 'mouse') return;
-      hovering = false;
-      schedule();
-    });
     // Foco de teclado pausa; o foco que o clique do mouse deixa na seta não
     function syncFocus() {
       var el = document.activeElement;

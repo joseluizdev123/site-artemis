@@ -1,5 +1,5 @@
 /* Seção 08 — Stats: cada número conta de 0 até o valor quando a célula dele entra na tela
-   (desktop: os 4 juntos, em cascata; mobile, empilhados: um a um conforme a rolagem).
+   (desktop: um por vez, da esquerda para a direita; mobile, empilhados: cada um conforme a rolagem).
    Conta o primeiro número de cada valor fora do prefixo/sufixo (.stats__unit), no formato
    brasileiro do próprio texto (40.000 · 97 · 86,3); no fim volta o texto original exato.
    Sem JS / prefers-reduced-motion o valor aparece pronto. */
@@ -10,8 +10,8 @@
   if (!list || !('IntersectionObserver' in window)) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var DURATION = 1800;  // ms de cada contagem
-  var STAGGER = 150;    // ms entre um número e o próximo
+  var DURATION = 2000;  // ms de cada contagem
+  var STAGGER = 1200;   // ms entre um número e o próximo: um por vez — o seguinte começa com o anterior já em ~94%
   var NUM = /\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?/;
 
   function format(v, dec, group) {
@@ -61,7 +61,7 @@
     function step(t) {
       if (!t0) t0 = t + delay;
       var k = Math.max(0, Math.min(1, (t - t0) / DURATION));
-      var e = 1 - Math.pow(1 - k, 4); // easeOutQuart: rápido no começo, assenta devagar no valor
+      var e = 1 - Math.pow(1 - k, 3); // easeOutCubic: desacelera até assentar no valor
       if (k < 1) {
         c.span.textContent = format(c.target * e, c.dec, c.group);
         requestAnimationFrame(step);
