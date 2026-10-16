@@ -64,12 +64,12 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 | 1 | hero                 | `8160:165`  | 1072   | padrão de traços animado + logos        | ✅      |
 | 2 | o que fazemos        | `8183:302`  | 639    | 2-col; fundadores → CPT `art_membro`, nome no hover | ✅ |
 | 3 | nossos sistemas      | `8294:500`  | 1033   | 4 cards → CPT `art_sistema`; ilustrações em camadas animadas (`_art_sistema_ilustra`, `tools/gen_ilustras.py`): laser verde, pinos azuis sobem, segmentos rosa carregam, cubo laranja segue a rota; tocam ao entrar rolando para baixo e no hover (card avança) | ✅      |
-| 4 | testmonial           | `8186:1160` | 443    | → CPT `art_depoimento`; globo em canvas girando no enquadramento do Figma (esfera 594,8/365,1 R 351,3; Atlântico no centro; #CECECE com degradê horizontal 0→50%). Terra = grade do mapa real sem sobreposição; oceano = mesma grade a 16% (globo nunca vazio); velocidade 1 volta/90 s sobre continentes, até 10× sobre oceano aberto (o Pacífico passa em ~5 s). Dados: `assets/data/globe-points.json` (5 KB, `tools/gen_globe_figma.py`) | ✅ |
-| 5 | como funciona        | `8307:3380` | 814    | 4 passos; coluna esquerda sticky        | ✅      |
-| 6 | Diagram              | `8653:2286` | 843    | diagrama POC → MVP → Escala em HTML/CSS | ✅      |
-| 7 | estudos de impacto   | `8195:1063` | 1055   | carrossel 4 estudos → CPT `art_estudo`  | ✅      |
-| 8 | stats                | `8486:1798` | 382    | → Customizer `art_stat_*`               | ✅      |
-| 9 | como trabalhamos     | `8490:2191` | 865    | 5 regras + ilustração isométrica que monta com o scroll (tela sobe 56px, tracejado se desenha, selo aparece) | ✅ |
+| 4 | testmonial           | `8186:1160` | 443    | → CPT `art_depoimento`; globo em canvas girando no enquadramento do Figma (esfera 594,8/365,1 R 351,3; Atlântico no centro; #CECECE com degradê horizontal 0→50%; pontos 40% mais fortes que o Figma a pedido do cliente: `INK = 1.4` → 0→70%). Terra = grade do mapa real sem sobreposição; oceano = mesma grade a 16% (globo nunca vazio); velocidade 1 volta/90 s sobre continentes, até 10× sobre oceano aberto (o Pacífico passa em ~5 s). Dados: `assets/data/globe-points.json` (5 KB, `tools/gen_globe_figma.py`) | ✅ |
+| 5 | como funciona        | `8307:3380` | 814    | 4 passos; coluna esquerda sticky; ao entrar na tela os passos aparecem um por vez (número sobe, depois texto + traço; 600ms por passo, `05-como-funciona.js`) | ✅      |
+| 6 | Diagram              | `8653:2286` | 843    | diagrama POC → MVP → Escala em HTML/CSS; cartão cresce 5% no hover (só mouse) | ✅      |
+| 7 | estudos de impacto   | `8195:1063` | 1055   | carrossel 4 estudos → CPT `art_estudo`; troca sozinho a cada 8 s (só na tela; pausa com mouse em cima, foco de teclado, toque e aba escondida); estudo que entra: pintura com zoom-out leve, captura desliza no sentido da navegação, texto sobe em sequência | ✅      |
+| 8 | stats                | `8486:1798` | 382    | → Customizer `art_stat_*`; número conta de 0 até o valor quando a célula entra na tela (formato BR do próprio texto); no hover o valor cresce 25% para fora do card | ✅      |
+| 9 | como trabalhamos     | `8490:2191` | 865    | 5 regras + ilustração isométrica que monta com o scroll (tela sobe 56px, tracejado se desenha, selo aparece); depois de montada as camadas flutuam (tela/selo descem até 5/4px, código sobe 2px) | ✅ |
 | 10| call to action       | `8160:1628` | 628    | barra de status (estática) + CTA + traços | ✅    |
 | 11| Footer container     | `8165:2501` | 740    | newsletter, links, contato, redes       | ✅      |
 
@@ -90,7 +90,7 @@ Gate: `python tools/diff.py SLUG --mobile --shot` (375 via DevTools, nós `data-
 | como funciona      | `8307:3380` | `8635:2313` | 1318 | sem sticky abaixo de 1024 | ✅ |
 | Diagram            | `8653:2286` | `8653:2599` | 869 | mesmo desenho com rolagem horizontal + barra de progresso `8653:2896`; rótulo "Você testa" (`art_diag_lab_label`) | ✅ |
 | estudos de impacto | `8195:1063` | `8635:2366` | 1321,47 | carrossel com setas, teclado e swipe; estudos 2–4 extrapolados do layout do estudo 1 | ✅ |
-| stats              | `8486:1798` | `8635:2371` | 932 | 4 números empilhados | ✅ |
+| stats              | `8486:1798` | `8635:2371` | 932 | 4 números empilhados; cada um conta quando entra na tela | ✅ |
 | como trabalhamos   | `8490:2191` | `8635:2435` | 1227 | animação de scroll da ilustração mantida; zoom 0,9/0,8 abaixo de 370/341px | ✅ |
 | call to action     | `8160:1628` | `8635:2625` | 576 | barra de status cortada na borda, como no Figma | ✅ |
 | Footer             | `8165:2501` | `8641:1595` | 1459 | em 320 o 6º ícone social desce de linha | ✅ |
@@ -102,6 +102,7 @@ Página inteira (verificada com `node tools/page_check.mjs URL LARGURA`): 375 �
 - "Como funciona": só o marcador do passo 1 (`8635:2324`) está ancorado embaixo no Figma mobile; implementado literalmente.
 - Estudos 2–4 não têm layout mobile no Figma — seguem o do estudo 1.
 - O fundo escurecido atrás da gaveta do menu não está no Figma (leitura da anotação "em overlay").
+- Animações pedidas pelo cliente fora do Figma (passos, hover do diagrama e dos números, contagem, troca automática dos estudos, flutuação da ilustração 09): todas respeitam `prefers-reduced-motion` e, em repouso, a geometria é a do Figma (o `diff.py` mede no meio da entrada dos passos — confira o repouso).
 
 ## Blog — mapa (desktop `8294:1703` 1440×6906 · mobile `8673:3845` 375×8037,41)
 

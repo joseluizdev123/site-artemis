@@ -1,6 +1,7 @@
 /* Seção 09 — Como trabalhamos: ilustração que "monta" com o scroll (8490:2308)
    Grava --p (0 → 1) na ilustração conforme ela sobe na tela; o CSS move a camada
-   da tela, desenha o tracejado e revela o selo. Suavizado para subir devagar. */
+   da tela, desenha o tracejado e revela o selo. Suavizado para subir devagar.
+   Na primeira vez que fica montada (p = 1) ganha .is-floating: as camadas passam a flutuar. */
 (function () {
   'use strict';
 
@@ -14,6 +15,11 @@
 
   var current = 0, target = 0, raf = 0, visible = false;
 
+  function setP() {
+    el.style.setProperty('--p', current.toFixed(4));
+    if (current >= 0.999) el.classList.add('is-floating');
+  }
+
   function measure() {
     var vh = window.innerHeight || document.documentElement.clientHeight;
     var top = el.getBoundingClientRect().top;
@@ -25,7 +31,7 @@
     raf = 0;
     current += (target - current) * EASE;
     if (Math.abs(target - current) < 0.001) current = target;
-    el.style.setProperty('--p', current.toFixed(4));
+    setP();
     if (current !== target) raf = requestAnimationFrame(tick);
   }
 
@@ -37,7 +43,7 @@
   // Começa no estado "encaixado" e já posiciona conforme o scroll atual
   measure();
   current = target;
-  el.style.setProperty('--p', current.toFixed(4));
+  setP();
 
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {

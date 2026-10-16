@@ -247,6 +247,24 @@
   translate: 0 calc((1 - clamp(0, (var(--p) - 0.8) / 0.2, 1)) * 6px);
 }
 
+/* Depois de montada (.is-floating, JS), as camadas flutuam devagar, cada uma no seu ritmo:
+   a tela e o selo descem um pouco e a camada de código sobe — o vão entre elas "respira".
+   Só para dentro da caixa de 190 (a tela e o selo encostam no topo, o código no pé).
+   transform não briga com o translate da montagem. */
+@keyframes como-trabalhamos-float { to { transform: translateY(var(--float)); } }
+.como-trabalhamos__illustration.is-floating .como-trabalhamos__lift {
+  --float: 5px;
+  animation: como-trabalhamos-float 2.8s ease-in-out infinite alternate;
+}
+.como-trabalhamos__illustration.is-floating :is(.como-trabalhamos__base, .como-trabalhamos__iso--code, .como-trabalhamos__iso--tick-code) {
+  --float: -2px;
+  animation: como-trabalhamos-float 3.4s ease-in-out .6s infinite alternate;
+}
+.como-trabalhamos__illustration.is-floating :is(.como-trabalhamos__iso--status, .como-trabalhamos__iso--line) {
+  --float: 4px;
+  animation: como-trabalhamos-float 2.3s ease-in-out .3s infinite alternate;
+}
+
 /* --------------------------------------------------------------------------
    Pattern (8490:2977) — stroke-top inside (não soma altura: diagonais em y=0).
    83 diagonais de 24/22 com margem −7,366 (Figma). O layout do navegador arredonda

@@ -24,6 +24,7 @@
   // a x=272 (50%), cor #CECECE — em coordenadas do frame desktop.
   var GRAD_FROM = 948, GRAD_TO = 272, GRAD_STOP = 0.175, GRAD_MAX = 0.5;
   var COLOR = '#cecece';
+  var INK = 1.4;                 // pontos 40% mais fortes que o Figma (pedido do cliente): opacidade máx. 0,5 → 0,7
   var DOT_D = 2.95;              // diâmetro do ponto no centro do disco (bbox de 3,3 do Figma sem o antialias)
   var DOT_EXP = 0.85;            // encolhimento rumo à borda (calibrado pelo brilho por faixa de raio do export)
   var OCEAN = 0.16;              // intensidade dos pontos de oceano em relação aos de terra
@@ -133,7 +134,7 @@
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = COLOR;
     for (var k = 0; k < BUCKETS; k++) {
-      ctx.globalAlpha = GRAD_MAX * (k + 0.5) / BUCKETS;
+      ctx.globalAlpha = Math.min(1, INK * GRAD_MAX * (k + 0.5) / BUCKETS);
       ctx.fill(paths[k]);
     }
     ctx.globalAlpha = 1;

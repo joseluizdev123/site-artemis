@@ -89,6 +89,27 @@
 .como-funciona__step-title { color: var(--gray-0); } /* 8307:3595 */
 .como-funciona__step-text { font-size: 16px; line-height: 1.5; color: var(--gray-300); } /* 8307:3596 */
 
+/* Entrada dos passos (assets/js/sections/05-como-funciona.js): um passo por vez, a cada 600ms —
+   o número sobe, 250ms depois o texto sobe e o traço se desenha de cima para baixo.
+   --i = ordem do passo (JS). Sem .is-armed (sem JS / movimento reduzido) fica o desenho do Figma.
+   As transições ficam só no .is-in: esconder ao carregar é instantâneo. */
+.como-funciona__steps.is-armed .como-funciona__num,
+.como-funciona__steps.is-armed .como-funciona__body { opacity: 0; translate: 0 24px; }
+.como-funciona__steps.is-armed .como-funciona__marker { scale: 1 0; transform-origin: top; }
+
+.como-funciona__steps.is-in .como-funciona__num,
+.como-funciona__steps.is-in .como-funciona__body {
+  opacity: 1;
+  translate: none;
+  transition: opacity .5s ease, translate .7s cubic-bezier(.2, .7, .2, 1);
+}
+.como-funciona__steps.is-in .como-funciona__num { transition-delay: calc(var(--i, 0) * 600ms); }
+.como-funciona__steps.is-in .como-funciona__body { transition-delay: calc(var(--i, 0) * 600ms + 250ms); }
+.como-funciona__steps.is-in .como-funciona__marker {
+  scale: none;
+  transition: scale .6s cubic-bezier(.2, .7, .2, 1) calc(var(--i, 0) * 600ms + 300ms);
+}
+
 /* Abaixo do desktop: colunas empilhadas (gap 32 como no Step blocks mobile 8635:2314), sem sticky */
 @media (max-width: 1023.98px) {
   .como-funciona__blocks { flex-direction: column; gap: var(--content-gap); }

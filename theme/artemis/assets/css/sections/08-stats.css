@@ -62,6 +62,21 @@
 }
 .stats__unit { font-size: 24px; }
 
+/* Número que conta (assets/js/sections/08-stats.js): segura a largura final enquanto conta */
+.stats__count { display: inline-block; }
+
+/* Hover (mouse): o valor cresce 25% a partir da esquerda e "salta" para fora do card,
+   por cima da célula vizinha */
+@media (hover: hover) and (pointer: fine) {
+  .stats__item { position: relative; }
+  .stats__item:hover { z-index: 1; }
+  .stats__value {
+    transform-origin: 0 50%;
+    transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+  }
+  .stats__item:hover .stats__value { transform: scale(1.25); } /* 1,25: o "R$ 40.000 /MÊS" ainda não encosta no vizinho */
+}
+
 /* Legenda (8486:1691): Cabin 18/1.5 gray-300 (.body-lg) */
 .stats__label { width: 100%; text-wrap: pretty; }
 
