@@ -124,7 +124,7 @@
       from.classList.add('is-leaving');
       to.classList.add('is-entering');
       clearTimeout(animTimer);
-      animTimer = setTimeout(function () { from.classList.remove('is-leaving'); to.classList.remove('is-entering'); }, 1800);
+      animTimer = setTimeout(function () { from.classList.remove('is-leaving'); to.classList.remove('is-entering'); }, 2600);
     }
 
     function go(index, dir) {
