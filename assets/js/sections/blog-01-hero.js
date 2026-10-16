@@ -1,6 +1,9 @@
 /* Blog 01 — Hero: luzes correndo pelas linhas convergentes do banner (Figma Light 8512:5748 sobre Lines 8512:5704)
    - cada luz parte da posição do Figma, segue a linha mais próxima até o fim e recomeça do início de outra linha
+   - além das 10 do Figma, o JS acende mais luzes automáticas (AUTO no total), em pontos sorteados das linhas
    - a geometria vem do mesmo SVG que o <img> exibe (currentSrc: desktop ou mobile), lido sem editar o arquivo
+   - clique (ou toque) no banner: nasce mais uma luz no ponto da linha mais próximo, corre até o fim e some;
+     as automáticas continuam como estão
    - sem JS ou com prefers-reduced-motion: luzes paradas nas posições do Figma (CSS) */
 (function () {
   'use strict';
@@ -17,10 +20,13 @@
   var LOOP = 14;     // segundos, em média, para uma luz percorrer a linha inteira
   var STEP = 3;      // amostragem do caminho, em unidades do SVG
   var FADE = 0.035;  // fração do comprimento em que a luz acende/apaga nas pontas
+  var AUTO = 30;      // luzes automáticas no total (as 10 do Figma + as criadas aqui)
+  var BORN_IN = 0.4; // segundos para acender uma luz criada pelo JS (extra ou do clique)
+  var CLICK_MAX = 24; // luzes de clique ao mesmo tempo (a mais antiga sai)
 
   var paths = [];    // { layer, pts: [[x, y], …] em unidades do SVG, len }
   var maps = [];     // por camada: { ox, oy, sx, sy, h, flip } — SVG → coordenadas do grupo Light
-  var runs = [];     // por luz: { el, path, s, speed, w, h }
+  var runs = [];     // por luz: { el, path, s, speed, w, h } — criadas pelo JS têm age (s); as do clique, once: true
   var layersInfo = null; // SVGs carregados (viewBox + amostras), para remedir no resize
   var sources = '';
   var raf = 0, last = 0, visible = false, busy = false;
@@ -82,6 +88,18 @@
     return { x: m.ox + x * m.sx, y: m.oy + y * m.sy, a: Math.atan2(dy, dx) * 180 / Math.PI };
   }
 
+  /* Luz nova criada pelo JS (extra automática ou do clique), com o tamanho do traço da tela atual */
+  function born(path, s, once) {
+    var el = document.createElement('i');
+    el.className = 'blog-hero__pulse';
+    light.appendChild(el);
+    var cs = getComputedStyle(el);
+    return {
+      el: el, path: path, s: s, w: parseFloat(cs.width), h: parseFloat(cs.height),
+      speed: 1 / (LOOP * (0.8 + Math.random() * 0.45)), age: 0, once: !!once
+    };
+  }
+
   /* Ponto do caminho mais próximo do centro da luz (posição estática do Figma) */
   function nearest(cx, cy) {
     var best = { d: Infinity, path: paths[0], s: 0 };
@@ -101,6 +119,7 @@
     var p = at(run.path, run.s);
     var f = FADE * run.path.len;
     var o = Math.max(0, Math.min(1, run.s / f, (run.path.len - run.s) / f));
+    if (run.age != null) o *= Math.min(1, run.age / BORN_IN);
     run.el.style.transform = 'translate(' + (p.x - run.w / 2).toFixed(2) + 'px,' + (p.y - run.h / 2).toFixed(2) + 'px) rotate(' + p.a.toFixed(2) + 'deg)';
     run.el.style.opacity = o.toFixed(3);
   }
@@ -109,13 +128,16 @@
     raf = 0;
     var dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
     last = now;
-    runs.forEach(function (run) {
+    runs = runs.filter(function (run) {
       run.s += run.speed * run.path.len * dt;
-      if (run.s >= run.path.len) { // fim da linha: recomeça do início de outra linha
-        run.path = paths[Math.floor(Math.random() * paths.length)];
+      if (run.s >= run.path.len) {
+        if (run.once) { run.el.remove(); return false; } // luz do clique: some no fim da linha
+        run.path = paths[Math.floor(Math.random() * paths.length)]; // fim da linha: recomeça do início de outra linha
         run.s = 0;
       }
+      if (run.age != null) run.age += dt;
       place(run);
+      return true;
     });
     if (visible) raf = requestAnimationFrame(frame);
   }
@@ -133,7 +155,9 @@
   /* Volta às posições do Figma (CSS) */
   function rest() {
     stop();
+    runs.forEach(function (run) { if (run.age != null) run.el.remove(); }); // extras e cliques
     light.classList.remove('is-flowing');
+    banner.classList.remove('is-clickable');
     pulses.forEach(function (el) { el.style.transform = ''; el.style.opacity = ''; });
     runs = [];
   }
@@ -159,11 +183,29 @@
         var hit = nearest(parseFloat(cs.left) + w / 2, parseFloat(cs.top) + h / 2);
         return { el: el, path: hit.path, s: hit.s, w: w, h: h, speed: 1 / (LOOP * (0.8 + Math.random() * 0.45)) };
       });
-      runs.forEach(place);
       light.classList.add('is-flowing');
+      for (var n = runs.length; n < AUTO; n++) { // extras: linha e ponto sorteados
+        var path = paths[Math.floor(Math.random() * paths.length)];
+        runs.push(born(path, Math.random() * path.len));
+      }
+      runs.forEach(place);
+      banner.classList.add('is-clickable');
       start();
     }).catch(function () { busy = false; rest(); }); // sem rede: luzes paradas
   }
+
+  /* Clique no banner: uma luz a mais, no ponto da linha mais próximo do clique */
+  banner.addEventListener('click', function (e) {
+    if (!runs.length || reduce.matches) return; // linhas ainda não medidas ou movimento reduzido: nada
+    var lb = light.getBoundingClientRect();
+    var hit = nearest(e.clientX - lb.left, e.clientY - lb.top);
+    var clicks = runs.filter(function (run) { return run.once; });
+    if (clicks.length >= CLICK_MAX) { clicks[0].el.remove(); runs.splice(runs.indexOf(clicks[0]), 1); }
+    var run = born(hit.path, hit.s, true);
+    runs.push(run);
+    place(run);
+    start();
+  });
 
   var resizeTimer = 0;
   window.addEventListener('resize', function () {

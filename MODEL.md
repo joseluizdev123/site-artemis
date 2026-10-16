@@ -119,6 +119,15 @@ Estático: `blog/index.html` (`src/pages.json` → página `blog`). WP: `home.ph
 
 Validação mobile (375, 2026-10-15): página 375×8038 = Figma `8673:3845`; gates por seção só com larguras de texto ≤1px (métrica da fonte) (título do hero com entrelinha arredondada para 38, como a caixa do Figma: gate 0 — revalidado após a página do artigo). Diferenças intencionais: rótulo de categoria nos cards = categoria real do post (Figma repete "Análises de caso"); placeholder da newsletter sem o espaço duplo do Figma. Sem rolagem horizontal de 320 a 767; abas do hero param logo abaixo do header (`section[id] { scroll-margin-top }`); favicon = marca "A" (`assets/images/favicon.svg`; no WP só se não houver Ícone do site).
 
+Interações pedidas pelo cliente, fora do Figma (2026-10-16). Valem no estático e no tema, que usam o mesmo CSS e JS.
+- **Luzes do banner** (`blog-01-hero.js`): 30 luzes automáticas (`AUTO`). São as 10 do Figma mais 20 em pontos sorteados das linhas, que acendem em 0,4 s.
+- **Clique ou toque no banner**: cria mais uma luz no ponto da linha mais próximo. Ela corre até o fim da linha e some. Ficam no máximo 24 de uma vez (`CLICK_MAX`) e o banner mostra o cursor de clique (`.is-clickable`).
+- **Movimento reduzido ou sem JS**: as 10 luzes do Figma ficam paradas, como antes.
+- **Hover nos artigos**: só com mouse (`hover: hover`); o foco do teclado tem o mesmo efeito.
+  - O card em destaque aumenta 2% (`scale(1.02)`).
+  - Os cards das categorias aumentam 4% e ganham fundo `black-100` e borda `gray-800` por cima dos vizinhos.
+  - O "Continue lendo" do artigo (`.blog-cat--related`) fica de fora.
+
 ### Blog — modelo de dados
 
 | Conteúdo | Tipo | Slug WP | Campos |

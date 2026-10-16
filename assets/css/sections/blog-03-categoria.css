@@ -110,6 +110,27 @@
 .post-card:has(.post-card__link:focus-visible) { outline: 2px solid var(--blue-400); outline-offset: -2px; }
 .post-card:hover .post-card__title { color: var(--gray-300); }
 
+/* Blog (fora do "Continue lendo" do artigo, .blog-cat--related): o card aumenta com o cursor ou o foco do teclado —
+   ganha fundo black-100 e stroke gray-800 próprios e passa por cima dos vizinhos e do stroke da grade.
+   Só com mouse (hover: hover): no toque o tap não deixa o card preso aumentado. */
+.blog-cat:not(.blog-cat--related) .post-card {
+  transition: transform .35s cubic-bezier(.2, .7, .2, 1), background-color .2s ease, box-shadow .2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .blog-cat:not(.blog-cat--related) .post-card:hover {
+    z-index: 2;
+    transform: scale(1.04);
+    background: var(--black-100);
+    box-shadow: inset 0 0 0 1px var(--gray-800);
+  }
+}
+.blog-cat:not(.blog-cat--related) .post-card:has(.post-card__link:focus-visible) {
+  z-index: 2;
+  transform: scale(1.04);
+  background: var(--black-100);
+  box-shadow: inset 0 0 0 1px var(--gray-800);
+}
+
 /* 8314:1925 · Cabin Regular 16/1.5 gray-300 */
 .post-card__excerpt { font-size: 16px; line-height: 1.5; color: var(--gray-300); }
 
@@ -157,7 +178,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .post-card__title { transition: none; }
+  .post-card__title,
+  .blog-cat:not(.blog-cat--related) .post-card { transition: none; }
+  .blog-cat:not(.blog-cat--related) .post-card:hover,
+  .blog-cat:not(.blog-cat--related) .post-card:has(.post-card__link:focus-visible) { transform: none; }
 }
 
 /* --------------------------------------------------------------------------

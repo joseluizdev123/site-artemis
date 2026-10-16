@@ -123,18 +123,26 @@
 .blog-destaque__author-name { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--gray-0); } /* 8314:1663 */
 .blog-destaque__author-role { font-size: 16px; color: var(--gray-300); }                                                   /* 8314:1665 */
 
-/* Hover / foco do card: imagem aproxima, título clareia; foco do teclado contorna o card inteiro */
+/* Hover / foco do card: o card inteiro aumenta (cabe no respiro de 32 da seção), a imagem aproxima e o título clareia;
+   foco do teclado contorna o card. O aumento só vale com mouse (hover: hover): no toque o tap não deixa o card preso. */
+.blog-destaque__card { transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .blog-destaque__card:hover { transform: scale(1.02); }
+}
 .blog-destaque__card:hover .blog-destaque__img { transform: scale(1.04); }
 .blog-destaque__card:hover .blog-destaque__title { color: var(--gray-300); }
 @supports selector(:has(*)) {
   .blog-destaque__link:focus-visible { outline: none; }
-  .blog-destaque__card:has(.blog-destaque__link:focus-visible) { outline: 2px solid var(--blue-400); outline-offset: 3px; }
+  .blog-destaque__card:has(.blog-destaque__link:focus-visible) { outline: 2px solid var(--blue-400); outline-offset: 3px; transform: scale(1.02); }
   .blog-destaque__card:has(.blog-destaque__link:focus-visible) .blog-destaque__img { transform: scale(1.04); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .blog-destaque__card,
   .blog-destaque__img,
   .blog-destaque__title { transition: none; }
+  .blog-destaque__card:hover,
+  .blog-destaque__card:has(.blog-destaque__link:focus-visible),
   .blog-destaque__card:hover .blog-destaque__img,
   .blog-destaque__card:has(.blog-destaque__link:focus-visible) .blog-destaque__img { transform: none; }
 }
