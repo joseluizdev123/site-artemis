@@ -1,0 +1,25 @@
+/* Artemis SEO — o problema (Figma 8393:1582 · mobile 8704:6597) */
+
+/* 8393:1582: px 32 · py 120 · título (672) | texto (672), gap 32 · strokes gray-900 em cima e embaixo, sobre o conteúdo */
+.seo-problema {
+  padding-block: var(--section-py);
+  background: var(--black-200);
+  box-shadow: inset 0 1px 0 var(--gray-900), inset 0 -1px 0 var(--gray-900);
+}
+.seo-problema__inner { display: flex; justify-content: space-between; gap: 32px; }
+.seo-problema__head,
+.seo-problema__text { flex: 0 1 672px; min-width: 0; }
+/* 8393:1590 · Cabin 18/1.5 gray-300, parágrafos com 16 */
+.seo-problema__text { display: flex; flex-direction: column; gap: 16px; }
+.seo-problema__text p { font-size: 18px; line-height: 1.5; color: var(--gray-300); }
+
+@media (max-width: 1023px) {
+  .seo-problema__inner { flex-direction: column; gap: 24px; }
+  .seo-problema__head,
+  .seo-problema__text { flex: none; }
+}
+
+/* Mobile 8704:6597 (375×464): py 60 · gap 24 · título Exo 28 (caixa 34) */
+@media (max-width: 767px) {
+  .seo-problema .section-title { font-size: 28px; line-height: 34px; }
+}

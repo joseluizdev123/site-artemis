@@ -156,6 +156,103 @@ A imagem do topo (`8331:1153` · `8673:5793`) está oculta no Figma — não imp
 
 Validação (2026-10-15): página 1440×6048 e 375×8416 = Figma, Δ 0 em todos os blocos; conteúdo mobile Δ 0; demais diferenças só larguras de texto ≤1px (métrica da fonte). O texto do post usa `text-wrap: pretty` (o Figma marca `textWrapStyle: PRETTY`); as quebras de algumas linhas variam entre o algoritmo do Chrome e o do Figma sem mudar alturas. Cabin (corpo) é desenhada 1px acima do Figma dentro da mesma caixa — métrica vertical da fonte, igual no site todo. A imagem do artigo no Figma é a mesma capa de 672×573 ampliada — pedir ao cliente a versão em alta.
 
+## Serviços — mapa (desktop `8340:1700` 1440×3523 · mobile `8699:4921` 375×6599)
+
+Estático: `servicos/index.html` (`src/pages.json` → página `servicos`). WP: página de slug `servicos` → `page-servicos.php` → `template-parts/servicos/*.php` + `template-parts/home/10-cta.php`.
+
+| # | Seção | Desktop | Mobile | Partial / template | Status |
+|---|-------|---------|--------|--------------------|--------|
+| 0 | Header (o da Home; "Serviços" atual, "Estudos de impacto" → `/#estudos`) | `8340:2111` | `8700:6155` | `partials/header.html` (`page=servicos`) · `header.php` | ✅ |
+| 1 | topo (título com trecho cinza, texto, botão) | `8340:2096` (611) | `8699:4923` (450) | `servicos-01-hero` · `template-parts/servicos/01-hero.php` | ✅ |
+| — | "formas de contratar" | `8575:2269` | — | oculto no Figma — não implementado | — |
+| 2 | as três etapas: abas (selo azul + barra de progresso, avançam a cada 9 s, param ao clicar), ilustração, painel da etapa ativa · mobile: etapas abertas em sequência + ilustração | `8587:2376` (instância de `8573:1797`: 593 · 569 · 496 por etapa) | `8709:5717` (869) · `8709:5588` (869) · `8709:5463` (539) · `8709:5854` (421) | `servicos-02-etapas` · `template-parts/servicos/02-etapas.php` | ✅ |
+| 3 | o que não fazemos (4 cards, faixa de traços, nota Artemis SEO / MktOps) | `8348:2419` (871) | `8699:5244` (1304) | `servicos-03-nao-fazemos` · `template-parts/servicos/03-nao-fazemos.php` | ✅ |
+| 4 | chamada final (a da Home; no celular 628 de altura → `10-cta--servicos.css`) | `8348:2636` (628) | `8699:5366` (628) | `10-cta` · `template-parts/home/10-cta.php` | ✅ |
+| 5 | Footer | `8340:1926` | `8700:5995` | `footer` | ✅ |
+
+### Serviços — modelo de dados
+
+| Conteúdo | Tipo | Chave | Campos |
+|----------|------|-------|--------|
+| Topo | Customizer | `art_srv_title` / `_lead` / `_cta` | título com {trecho em cinza}, texto, rótulo do botão (link = `art_contact_cta_url`) |
+| Etapas | CPT | `art_etapa` (ordem = `menu_order`, selo "Etapa N" pela posição) | título · `_art_etapa_quem` (um item por linha) · `_art_etapa_b2_icon` (arquivo/cifrão) · `_art_etapa_b2_label` · `_art_etapa_b2_text` · `_art_etapa_duracao` (vazio esconde) |
+| O que não fazemos | Customizer | `art_srv_nao_*` | título com {destaque}, texto, 4 cards (título + texto), nota |
+| Ilustração, ícones, faixa de traços | arquivos do tema | `assets/images/servicos-02-etapas`, `servicos-03-nao-fazemos` | exportados do Figma (SVG, texto em curvas) |
+
+Validação (2026-10-16): 1440×3523 e 375×6599 = Figma com Δ 0 em todos os blocos; gates das seções 1–3 com 0 diferenças (só a largura do texto do botão do topo, métrica da fonte); as 3 variantes das abas conferidas (posições das etapas, barra em 182/297/374, alturas 593/569/496). Fiel ao Figma: no celular a última etapa tem o ícone ao lado do texto (as outras, em cima) e só a lista da etapa 1 usa quebra "pretty" — parecem inconsistências do design; cada uma é uma regra de CSS em `servicos-02-etapas.css`.
+
+## Sobre — mapa (desktop `8348:3076` 1440×7855,45 · mobile `8689:1932` 375×10334,67)
+
+Estático: `sobre/index.html` (`src/pages.json` → página `sobre`, `assets: sobre-02-porque` = `.sobre-split` e `.sobre-note` compartilhados). WP: página de slug `sobre` → `page-sobre.php` → `template-parts/sobre/*.php`.
+
+| # | Seção | Desktop | Mobile | Partial / template | Status |
+|---|-------|---------|--------|--------------------|--------|
+| 0 | Header (o da Home; "Sobre" atual) | `8348:3077` | `8693:2103` | `partials/header.html` (`page=sobre`) | ✅ |
+| 1 | topo (título com trecho cinza, texto, círculos ao fundo) | `8355:1920` (522) | `8689:1935` (342) | `sobre-01-hero` · `01-hero.php` | ✅ |
+| 2 | foto da equipe + "Por que existimos" | `8497:2188` (917) | `8689:1946` (734) | `sobre-02-porque` · `02-porque.php` | ✅ |
+| 3 | "Três coisas que se repetem" (01/02/03) | `8355:1946` (765) | `8689:1956` (1004) | `sobre-03-tres-coisas` · `03-tres-coisas.php` | ✅ |
+| 4 | "O sistema audita a sua operação de graça" | `8355:1996` (434) | `8689:1992` (560) | `sobre-04-audita` · `04-audita.php` | ✅ |
+| 5 | "Quem está por trás" — versão A: 4 cards + nota | `8355:2000` (1051,67) | `8689:1996` (2780,33) | `sobre-05-equipe` · `05-equipe.php` | ✅ |
+| 6 | "Quem está por trás" — versão B: título e bio fixos, fotos na rolagem (a do centro acende, a bio troca) · mobile: 1ª foto, bio, demais fotos | `8355:3485` (2629,78) | `8689:2027` (2678,33) | `sobre-06-socios` · `06-socios.php` · `sobre-06-socios.js` | ✅ |
+| 7 | "Onde estamos" (texto, botão, forma, mapa Google real + faixa de traços) | `8355:3565` (716) | `8689:2043` (717) | `sobre-07-onde` · `07-onde.php` | ✅ |
+| 8 | Footer | `8348:3655` | `8693:2591` | `footer` | ✅ |
+
+Decisões (2026-10-16, com o usuário): as duas versões da equipe entram, como no Figma; o mapa é o Google Maps real (iframe) no lugar do print.
+
+### Sobre — modelo de dados
+
+| Conteúdo | Tipo | Chave | Campos |
+|----------|------|-------|--------|
+| Foto da equipe | imagem destacada da página Sobre | — | sem ela, `assets/images/sobre/equipe.jpg` |
+| Textos | Customizer | `art_sobre_*` | topo, "Por que existimos", 3 itens, "O sistema audita", títulos/texto/nota da equipe, "Onde estamos" (texto, botão, endereço do mapa) — linha em branco separa parágrafos |
+| Sócios | CPT `art_membro` (o da Home) | `_art_membro_foto_sobre` · `_art_membro_ordem_sobre` | retrato 3:4 desta página, ordem própria (a da Home não muda); nome = título, `_art_membro_cargo`, bio = conteúdo do editor |
+
+Validação (2026-10-16): 1440×7855 e 375×10335 = Figma (Δ ≤ 0,03 por bloco); gates das 7 seções com 0 diferenças, salvo larguras de texto ≤ 0,94 px (métrica da fonte). No Figma: "Nome"/"Cargo" e a bio da versão B são provisórios (o estático mantém; o WP usa os dados dos sócios); os cards (A) e as fotos (B) estão em ordens diferentes; no mobile o marcador do item 01 está 67 px mais abaixo que os outros — mantive os três iguais. Retratos 3 e 4 atribuídos a Enzo e Willy por palpite (a confirmar).
+
+## Contato — mapa (desktop `8348:3835` 1440×2075 · mobile `8693:2761` 375×2934)
+
+Estático: `contato/index.html` (`src/pages.json` → página `contato`). WP: página de slug `contato` → `page-contato.php` → `template-parts/contato/*.php`.
+
+| # | Seção | Desktop | Mobile | Partial / template | Status |
+|---|-------|---------|--------|--------------------|--------|
+| 0 | Header (o da Home; "Agendar diagnóstico" atual) | `8348:3836` | `8693:3062` | `partials/header.html` (`page=contato`) · `header.php` | ✅ |
+| 1 | contatos · formulário · ilustração (mobile: formulário + faixa de 16 da ilustração, contatos embaixo) | `8370:1542` (1191) | `8693:2763` (1383) | `contato-01-form` · `01-form.php` · `contato-01-form.js` | ✅ |
+| 2 | faixa de traços (strokes em cima e embaixo) | `8370:1696` (64) | `8693:2807` (32) | `contato-02-faixa` · `02-faixa.php` | ✅ |
+| 3 | Footer | `8348:3837` | `8693:3078` | `footer` | ✅ |
+
+### Contato — modelo de dados
+
+| Conteúdo | Tipo | Chave | Campos |
+|----------|------|-------|--------|
+| E-mail, WhatsApp, endereço | Customizer (os do rodapé) | `art_contact_email` / `_whatsapp` / `_address` | — |
+| Formulário | Customizer | `art_contato_*` | título com {cinza}, texto, botão, nota, mensagem de confirmação, quem recebe (`_to`, vazio = e-mail do site), envio externo opcional (`_action`) |
+| Envio | tema | `admin-post.php?action=artemis_contato` | nonce + campo-isca; `wp_mail()` com Reply-To de quem escreveu; volta com `?contato=ok|erro|dados`. No estático (sem servidor): avisa "Formulário ainda não configurado.", como a newsletter |
+
+Validação (2026-10-16): 1440×2075 e 375×2934 = Figma com Δ 0 em todos os blocos; gates das 2 seções com 0 diferenças. A ilustração é a imagem como o Figma a renderiza (a pintura esticada na vertical) — exportada do nó, não do arquivo original.
+
+## Artemis SEO — mapa (desktop `8348:4008` 1440×3463,51 · mobile `8704:6450` 375×5860)
+
+Estático: `artemis-seo/index.html` (`src/pages.json` → página `seo`, `assets: 10-cta`). WP: página de slug `artemis-seo` → `page-artemis-seo.php` → `template-parts/seo/*.php`. O link "Artemis SEO" do rodapé aponta para cá.
+
+| # | Seção | Desktop | Mobile | Partial / template | Status |
+|---|-------|---------|--------|--------------------|--------|
+| 0 | Header (o da Home) | `8348:4009` | `8704:7178` | `partials/header.html` | ✅ |
+| 1 | topo: título com trecho cinza, 2 botões, pintura ao fundo e o navegador com a resposta de IA (imagem exportada) | `8388:1923` (1081,51) | `8704:6452` (1237) | `seo-01-hero` · `01-hero.php` | ✅ |
+| 2 | "O problema" | `8393:1582` (418) | `8704:6597` (464) | `seo-02-problema` · `02-problema.php` | ✅ |
+| 3 | "Duas formas de contratar": acordeão Plataforma / SEO’Ops (selo de preço, texto, "Para quem", barra de progresso que avança a cada 9 s, imagem da opção) · mobile: os dois estados em sequência | `8396:3370` (682; variantes em `8396:3369`) | `8704:7347` (1051) + `8704:7536` (1066) | `seo-03-formas` · `03-formas.php` · `seo-03-formas.js` | ✅ |
+| 4 | "Por que conosco" (barra de status e traços da chamada da Home) | `8399:1455` (462) | `8704:6603` (523) | `seo-04-cta` · `04-cta.php` (+ `10-cta.css/js`) | ✅ |
+| 5 | Footer | `8348:4010` | `8704:7179` | `footer` | ✅ |
+
+### Artemis SEO — modelo de dados
+
+| Conteúdo | Tipo | Chave | Campos |
+|----------|------|-------|--------|
+| Topo, problema, fim | Customizer | `art_seo_*` | título com {cinza}, texto, 2 botões (texto + link, usados no topo e no fim), "O problema", "Por que conosco" |
+| Formas de contratar | Customizer | `art_seo_formas_title` · `art_seo_opt{1,2}_name/_tag/_desc/_para` | nome, selo de preço, texto, "Para quem" de cada opção |
+| Imagens | arquivos do tema | `assets/images/seo` | navegador (PNG), pintura do topo, imagens das opções como o Figma renderiza |
+
+Validação (2026-10-16): 1440×3464 e 375×5860 = Figma (Δ ≤ 0,01); gates das 4 seções com 0 diferenças, salvo larguras de texto ≤ 1,06 px; variante SEO’Ops conferida após o clique (título 120, linha 261, SEO’Ops 286, texto 331, "Para quem" 471, barra 560, altura 682). No Figma: o retângulo branco nas imagens das opções é o lugar da tela do produto (mantido); no celular as duas opções usam a mesma pintura (no desktop, cada uma tem a sua) — mantido como está.
+
 ## Arquitetura (estático ⇄ tema, por seção)
 
 | Camada            | Estático                                   | Tema WP (`theme/artemis/`)                        |

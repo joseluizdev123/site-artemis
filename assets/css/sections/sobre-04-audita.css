@@ -1,0 +1,21 @@
+/* Sobre — o sistema audita a sua operação (Figma 8355:1996 · mobile 8689:1992)
+   Layout .sobre-split (sobre-02-porque.css): título à esquerda, texto em 672 à direita */
+
+/* 8355:1996: px 32 · py 120 · strokes gray-900 em cima e embaixo, sobre o conteúdo (434 = 120 + 194 + 120) */
+.sobre-audita {
+  padding-block: var(--section-py);
+  background: var(--black-200);
+  box-shadow: inset 0 1px 0 var(--gray-900), inset 0 -1px 0 var(--gray-900);
+}
+/* Container 8355:1997 (672) com o título numa caixa de 449: "operação de graça" vai para a 2ª linha */
+.sobre-audita__head { flex: 0 1 672px; align-self: stretch; min-width: 0; } /* 672×194: acompanha a altura do texto */
+.sobre-audita__title { max-width: 449px; text-wrap: pretty; }
+
+@media (max-width: 1023px) {
+  .sobre-audita__head { flex: none; width: 100%; }
+}
+
+/* Mobile 8689:1992 (375×560): py 60 · gap 16 · título Exo 28 (caixa 34) na largura toda */
+@media (max-width: 767px) {
+  .sobre-audita__title { max-width: none; font-size: 28px; line-height: 34px; }
+}

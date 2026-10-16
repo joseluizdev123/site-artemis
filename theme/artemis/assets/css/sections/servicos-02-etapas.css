@@ -1,0 +1,245 @@
+/* Serviços — as três etapas (Figma "Tabs" 8573:1797, instância 8587:2376 · mobile 8709:5717 / 5588 / 5463 + 8709:5854)
+   Ordem no HTML: cabeçalho 1, painel 1, cabeçalho 2, painel 2, cabeçalho 3, painel 3, ilustração —
+   no desktop a grade põe os cabeçalhos na coluna 1, a ilustração na 2 e o painel ativo na 3; ≤1023 fica tudo em sequência. */
+
+/* 8587:2376: strokes gray-900 em cima e embaixo, desenhados sobre o conteúdo (não somam altura) */
+.srv-steps {
+  position: relative;
+  background: var(--black-200);
+}
+.srv-steps::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  box-shadow: inset 0 1px 0 var(--gray-900), inset 0 -1px 0 var(--gray-900);
+  pointer-events: none;
+}
+
+/* Colunas 572 · 296 · 572 (frame de 1440); a 4ª linha (1fr) recebe a sobra quando o painel é mais alto que a lista */
+.srv-steps__grid {
+  max-width: var(--frame-w);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 572fr) minmax(0, 296fr) minmax(0, 572fr);
+  grid-template-rows: auto auto auto 1fr;
+}
+
+/* --------------------------------------------------------------------------
+   Lista de etapas (Section 8573:1619: p 120/32, gap 32) — cada cabeçalho é um botão que abre o painel
+   -------------------------------------------------------------------------- */
+.srv-step__head {
+  grid-column: 1;
+  grid-row: var(--step);
+  position: relative;
+  margin-inline: var(--section-px);
+}
+.srv-step__head:nth-child(1) { margin-top: 120px; }
+/* 8573:1624 / 8573:1632: stroke superior gray-900 de 508, 32 abaixo da etapa anterior, texto 24 abaixo do stroke */
+.srv-step__head:not(:nth-child(1)) {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-900);
+}
+.srv-step__head:nth-child(5) { margin-bottom: 120px; }
+
+.srv-step__heading { margin: 0; }
+
+/* Platform Header 8573:1620: selo + título, gap 24, centralizados na vertical */
+.srv-step__tab {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.srv-step__tab:focus-visible { outline: 2px solid var(--blue-400); outline-offset: 4px; }
+
+/* Tag 8573:1621 / Etapa 8573:1629: p 2/6 · Cabin Bold 12/1.3 (caixa 16) maiúsculo — inativa black-100, ativa blue-300 */
+.srv-step__tag {
+  flex: none;
+  padding: 2px 6px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: var(--gray-0);
+  background: var(--black-100);
+  transition: background-color .3s ease, color .3s ease;
+}
+.srv-step__tab[aria-expanded="true"] .srv-step__tag { color: var(--black-200); background: var(--blue-300); }
+
+/* 8573:1623 · Exo SemiBold 24/1.2 (caixa 29 por linha) */
+.srv-step__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(--gray-0);
+  text-wrap: pretty;
+  transition: color .2s ease;
+}
+.srv-step__tab[aria-expanded="false"]:hover .srv-step__title { color: var(--gray-300); }
+
+/* Divider Line 8573:1625: trilho gray-400 de 2 com a parte branca = progresso da etapa ativa (62 de 508 no Figma) */
+.srv-step__bar {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gray-400);
+}
+.srv-step__bar--end { top: auto; bottom: 0; }
+.srv-step__bar i {
+  display: block;
+  height: 100%;
+  background: var(--gray-0);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, .122));
+}
+
+/* Posição da barra e respiros de cada variante do Figma (etapa 1 · 2 · 3) */
+[data-active="1"] .srv-step__head:nth-child(3) { padding-top: 34px; }               /* 2 da barra + 32 */
+[data-active="1"] .srv-step__head:nth-child(3) .srv-step__bar:not(.srv-step__bar--end) { display: block; }
+[data-active="2"] .srv-step__head:nth-child(5) { padding-top: 26px; }               /* 2 da barra + 24 */
+[data-active="2"] .srv-step__head:nth-child(5) .srv-step__bar:not(.srv-step__bar--end) { display: block; }
+[data-active="3"] .srv-step__head:nth-child(5) { padding-bottom: 26px; }            /* 24 + barra no pé */
+[data-active="3"] .srv-step__head:nth-child(5) .srv-step__bar--end { display: block; }
+
+/* --------------------------------------------------------------------------
+   Painel da etapa (Section 8573:1636) — 3 blocos (2 na etapa 3): ícone 24 + gap 24 + texto, p 32
+   -------------------------------------------------------------------------- */
+.srv-step__panel {
+  grid-column: 3;
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+}
+.srv-step__panel[hidden] { display: none; }
+
+.srv-info {
+  display: flex;
+  gap: 24px;
+  padding: 32px;
+}
+/* 8573:1643: strokes gray-900 em cima e embaixo do 2º bloco, no layout (149 = 147 + 2); sem 3º bloco, só em cima (8573:1767) */
+.srv-info:nth-child(2) { border-block: 1px solid var(--gray-900); }
+.srv-info:nth-child(2):last-child { border-bottom: 0; }
+
+.srv-info__icon { flex: none; width: 24px; height: 24px; }
+.srv-info__content {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* 8573:1641 · Cabin Bold 18/1.5 */
+.srv-info__label {
+  margin: 0;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gray-0);
+}
+/* 8573:1642 · Cabin 16/1.5 gray-300 — lista com marcador, 6 entre itens, texto 24 à direita do início */
+.srv-info__text,
+.srv-info__list li {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray-300);
+  text-wrap: pretty;
+}
+.srv-info__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.srv-info__list li { position: relative; padding-left: 24px; text-wrap: wrap; }
+/* No Figma só a lista da etapa 1 usa quebra "pretty" (8573:1642 · 8709:5830); as das etapas 2 e 3 quebram normal */
+.srv-step__panel:nth-child(2) .srv-info__list li { text-wrap: pretty; }
+.srv-info__list li::before {
+  content: "•";
+  position: absolute;
+  left: 9px;
+  color: var(--gray-300);
+}
+
+/* --------------------------------------------------------------------------
+   Ilustração (Frame 109): coluna black-100 de 296, desenho cortado nas bordas como no Figma
+   -------------------------------------------------------------------------- */
+.srv-steps__art {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / -1;
+  overflow: hidden;
+  background: var(--black-100);
+}
+.srv-steps__art picture { display: block; }
+/* fora do fluxo: a coluna acompanha a altura da seção (593 · 569 · 496 conforme a etapa), o desenho não a define */
+.srv-steps__art img { position: absolute; top: 0; left: 0; width: 296px; max-width: none; height: auto; }
+
+/* --------------------------------------------------------------------------
+   ≤1023: etapas em sequência, todas abertas; ilustração no fim
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .srv-steps::after { content: none; }
+  .srv-steps__grid { display: flex; flex-direction: column; }
+
+  .srv-step__head,
+  .srv-step__head:not(:nth-child(1)),
+  [data-active] .srv-step__head:nth-child(n) {
+    margin: 0;
+    padding: 24px var(--section-px) 16px;
+    border-top: 0;
+  }
+  .srv-step__bar,
+  [data-active] .srv-step__bar { display: none !important; }
+
+  .srv-step__tab { flex-direction: column; align-items: flex-start; cursor: default; }
+  .srv-step__tab .srv-step__tag,
+  .srv-step__tab[aria-expanded] .srv-step__tag { color: var(--black-200); background: var(--blue-300); }
+  .srv-step__tab[aria-expanded="false"]:hover .srv-step__title { color: var(--gray-0); }
+  .srv-step__title { flex: none; align-self: stretch; }
+
+  /* Tabs 8709:5717: stroke inferior sobre o fim do painel */
+  .srv-step__panel,
+  .srv-step__panel[hidden] { display: flex; box-shadow: inset 0 -1px 0 var(--gray-900); }
+
+  .srv-steps__art picture { width: min(100%, 560px); margin-inline: auto; }
+  .srv-steps__art img { position: static; width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767) · Tabs 8709:5717 (375×869): cabeçalho p 24/16/16, selo e título empilhados (gap 24),
+   blocos com o ícone em cima (gap 16, p 24/16) — na última etapa (8709:5573) o ícone fica ao lado, como no Figma
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* 8709:5722 · Exo SemiBold 20/1.2 */
+  .srv-step__title { font-size: 20px; line-height: 24px; }
+
+  .srv-info { flex-direction: column; gap: 16px; padding: 24px var(--section-px); }
+  .srv-step__panel:nth-last-child(2) .srv-info { flex-direction: row; gap: 24px; }
+
+  /* Frame 109 · 8709:5854: ilustração 375×421 na largura toda */
+  .srv-steps__art picture { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .srv-step__tag,
+  .srv-step__title { transition: none; }
+}

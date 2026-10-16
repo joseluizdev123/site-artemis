@@ -1,0 +1,5 @@
+/* Chamada final na página Serviços — mobile 8699:5366 (375×628): main container 8699:5459 com 578 de altura
+   (na Home, 526). Com justify-between e o padrão centralizado, a nota fica 108 acima do conteúdo e o padrão em y 62. */
+@media (max-width: 767px) {
+  .page-servicos .cta__main { min-height: 578px; }
+}

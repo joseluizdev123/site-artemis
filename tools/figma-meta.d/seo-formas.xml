@@ -1,0 +1,38 @@
+<!-- Artemis SEO — formas de contratar 8396:3370 (instância de 8396:3369, variante Plataforma) — filhos via API REST -->
+<instance id="8396:3370" name="formas de contratar" x="0" y="1579.5140380859375" width="1440" height="682">
+  <frame id="I8396:3370;8396:3343" name="Heading" x="0" y="29.5" width="720" height="623">
+    <text id="I8396:3370;8396:3344" name="Main Heading" x="32" y="120" width="656" height="48" />
+    <frame id="I8396:3370;8396:3345" name="Platform Content" x="32" y="200" width="656" height="215">
+      <frame id="I8396:3370;8396:3346" name="Platform Details" x="0" y="0" width="656" height="126">
+        <frame id="I8396:3370;8396:3347" name="Platform Header" x="0" y="0" width="656" height="29">
+          <text id="I8396:3370;8396:3348" name="Main Heading" x="0" y="0" width="127" height="29" />
+          <frame id="I8396:3370;8396:3349" name="Tag" x="151" y="4.5" width="147" height="20">
+            <text id="I8396:3370;8396:3350" name="About Link" x="6" y="2" width="135" height="16" />
+          </frame>
+        </frame>
+        <text id="I8396:3370;8396:3352" name="Main Description" x="0" y="45" width="656" height="81" />
+      </frame>
+      <frame id="I8396:3370;8396:3353" name="Audience" x="0" y="158" width="656" height="57">
+        <frame id="I8396:3370;8396:3354" name="lucide/circle-user-round" x="0" y="0" width="24" height="24">
+          <vector id="I8396:3370;8396:3355" name="Vector" x="2" y="2" width="20" height="20" />
+        </frame>
+        <frame id="I8396:3370;8396:3356" name="Audience Details" x="48" y="0" width="608" height="57">
+          <text id="I8396:3370;8396:3357" name="Main Heading" x="0" y="0" width="608" height="22" />
+          <text id="I8396:3370;8396:3358" name="Main Description" x="0" y="30" width="608" height="27" />
+        </frame>
+      </frame>
+    </frame>
+    <frame id="I8396:3370;8396:3359" name="SEO’Ops Content" x="32" y="447" width="656" height="56">
+      <frame id="I8396:3370;8396:3360" name="Divider Lines Container" x="0" y="1" width="656" height="2">
+        <rectangle id="I8396:3370;8396:3361" name="Line" x="0" y="0" width="62" height="2" />
+        <rectangle id="I8396:3370;8396:3362" name="Line" x="62" y="0" width="594" height="2" />
+      </frame>
+      <frame id="I8396:3370;8399:1444" name="SEO’Ops Audience" x="0" y="27" width="656" height="29">
+        <text id="I8396:3370;8396:3363" name="Main Heading" x="0" y="0" width="93" height="29" />
+      </frame>
+    </frame>
+  </frame>
+  <frame id="I8396:3370;8396:3364" name="Platform Image" x="720" y="0" width="720" height="682">
+    <rectangle id="I8396:3370;8396:3365" name="Platform Rectangle" x="164" y="97" width="392" height="488" />
+  </frame>
+</instance>

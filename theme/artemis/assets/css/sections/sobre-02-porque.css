@@ -1,0 +1,56 @@
+/* Sobre — foto da equipe + "Por que existimos" (Figma 8497:2188 · mobile 8689:1946)
+   .sobre-split = título à esquerda e texto na coluna de 672 à direita — também em "O sistema audita" (8355:1996) */
+
+/* 8497:2188: px 32 · pt 0 · pb 120 · gap 48 · stroke inferior gray-900 no layout (917 = 916 + 1) */
+.sobre-porque {
+  padding-bottom: var(--section-py);
+  border-bottom: 1px solid var(--gray-900);
+  background: var(--black-200);
+}
+.sobre-porque__inner { display: flex; flex-direction: column; gap: 48px; }
+
+/* Frame 66 · 8497:2193: 1376×570 (foto já recortada como o STRETCH do Figma) */
+.sobre-porque__photo { margin: 0; }
+.sobre-porque__photo img { width: 100%; height: auto; }
+
+/* Título + texto (8497:2218 · 8355:1996): texto em 672, colado à direita */
+.sobre-split {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+}
+.sobre-split > .section-title { flex: 0 1 auto; text-wrap: pretty; }
+.sobre-split__text {
+  flex: 0 1 672px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sobre-split__text p { font-size: 18px; line-height: 1.5; color: var(--gray-300); }
+
+/* Nota sobre as outras linhas (8355:3444 · 8355:3517) — Instrument Serif Italic 20/1.3 gray-300, centralizada em 740 */
+.sobre-note {
+  max-width: 740px;
+  margin-inline: auto;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--gray-300);
+}
+
+/* 768–1023: título em cima do texto */
+@media (max-width: 1023px) {
+  .sobre-split { flex-direction: column; gap: 16px; }
+  .sobre-split__text { flex: none; width: 100%; }
+}
+
+/* Mobile 8689:1946 (375×734): pb 60 · gap 40 · foto 343×229 · título continua Exo 40 (8689:1954) */
+@media (max-width: 767px) {
+  .sobre-porque__inner { gap: 40px; }
+  /* 8689:2026 · Instrument Serif 18/1.3 (caixa 23 por linha) na largura toda */
+  .sobre-note { max-width: none; font-size: 18px; line-height: 23px; }
+}

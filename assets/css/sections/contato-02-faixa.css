@@ -1,0 +1,14 @@
+/* Contato — faixa de traços diagonais (Figma 8370:1696 · mobile 8693:2807): 64 de altura (32 no Mobile),
+   strokes gray-900 em cima e embaixo já no desenho; repete na horizontal em telas maiores que 1440 */
+.contato-faixa {
+  height: 64px;
+  background: var(--black-200) url(../../images/contato/faixa.svg) repeat-x 50% 0 / 1441px 65px;
+}
+@media (max-width: 767px) {
+  .contato-faixa {
+    height: 32px;
+    background-image: url(../../images/contato/m-faixa.svg);
+    background-position: 0 0;
+    background-size: 375px 32px;
+  }
+}

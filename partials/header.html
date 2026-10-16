@@ -28,13 +28,13 @@
       <!--@endif--><div class="site-header__actions" data-figma="8165:2317" data-figma-blog="8314:2517">
         <nav class="site-nav" aria-label="Principal" data-figma="8165:2318" data-figma-blog="8314:2518">
           <!--@if page=blog|post--><a href="/" data-figma-blog="8314:2519">Início</a>
-          <!--@endif--><a href="/servicos" data-figma="8165:2319" data-figma-blog="8314:2645">Serviços</a>
-          <!--@if page!=blog|post--><a href="#estudos" data-figma="8165:2320">Estudos de impacto</a><!--@endif--><!--@if page=blog|post--><a href="/#estudos" data-figma-blog="8314:2520">Estudos de impacto</a><!--@endif-->
+          <!--@endif--><!--@if page!=servicos--><a href="/servicos" data-figma="8165:2319" data-figma-blog="8314:2645">Serviços</a><!--@endif--><!--@if page=servicos--><a href="/servicos" aria-current="page" data-figma="8165:2319">Serviços</a><!--@endif-->
+          <!--@if page=home--><a href="#estudos" data-figma="8165:2320">Estudos de impacto</a><!--@endif--><!--@if page!=home--><a href="/#estudos" data-figma="8165:2320" data-figma-blog="8314:2520">Estudos de impacto</a><!--@endif-->
           <!--@if page!=blog|post--><a href="/blog" data-figma="8165:2321">Blog</a><!--@endif--><!--@if page=blog--><a href="/blog" aria-current="page" data-figma-blog="8314:2521">Blog</a><!--@endif--><!--@if page=post--><a href="/blog" aria-current="true">Blog</a><!--@endif-->
-          <a href="/sobre" data-figma="8165:2322" data-figma-blog="8314:2522">Sobre</a>
+          <!--@if page!=sobre--><a href="/sobre" data-figma="8165:2322" data-figma-blog="8314:2522">Sobre</a><!--@endif--><!--@if page=sobre--><a href="/sobre" aria-current="page" data-figma="8165:2322">Sobre</a><!--@endif-->
         </nav>
         <span class="site-header__sep" aria-hidden="true" data-figma="8165:2323" data-figma-blog="8314:2523"></span>
-        <a class="site-header__cta" href="/contato" data-figma="8165:2324" data-figma-blog="8314:2524">Agendar diagnóstico</a>
+        <!--@if page!=contato--><a class="site-header__cta" href="/contato" data-figma="8165:2324" data-figma-blog="8314:2524">Agendar diagnóstico</a><!--@endif--><!--@if page=contato--><a class="site-header__cta" href="/contato" aria-current="page" data-figma="8165:2324">Agendar diagnóstico</a><!--@endif-->
       </div>
     </div>
     <!-- Mobile (≤767): botão "Menu" (8635:3577) abre a gaveta -->
@@ -53,11 +53,11 @@
         </div>
         <nav class="site-header__menu" aria-label="Principal">
           <!--@if page=blog|post--><a href="/">Início</a>
-          <!--@endif--><a href="/servicos">Serviços</a>
-          <!--@if page!=blog|post--><a href="#estudos">Estudos de impacto</a><!--@endif--><!--@if page=blog|post--><a href="/#estudos">Estudos de impacto</a><!--@endif-->
+          <!--@endif--><!--@if page!=servicos--><a href="/servicos">Serviços</a><!--@endif--><!--@if page=servicos--><a href="/servicos" aria-current="page">Serviços</a><!--@endif-->
+          <!--@if page=home--><a href="#estudos">Estudos de impacto</a><!--@endif--><!--@if page!=home--><a href="/#estudos">Estudos de impacto</a><!--@endif-->
           <!--@if page!=blog|post--><a href="/blog">Blog</a><!--@endif--><!--@if page=blog--><a href="/blog" aria-current="page">Blog</a><!--@endif--><!--@if page=post--><a href="/blog" aria-current="true">Blog</a><!--@endif-->
-          <a href="/sobre">Sobre</a>
-          <a href="/contato">Agendar diagnóstico</a>
+          <!--@if page!=sobre--><a href="/sobre">Sobre</a><!--@endif--><!--@if page=sobre--><a href="/sobre" aria-current="page">Sobre</a><!--@endif-->
+          <!--@if page!=contato--><a href="/contato">Agendar diagnóstico</a><!--@endif--><!--@if page=contato--><a href="/contato" aria-current="page">Agendar diagnóstico</a><!--@endif-->
         </nav>
       </div>
       <div class="site-header__contact">

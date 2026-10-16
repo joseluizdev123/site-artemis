@@ -1,0 +1,70 @@
+/* Artemis SEO — topo (Figma 8388:1923 · mobile 8704:6452) */
+
+/* 8388:1923: px 32 · pt 120 · pb 32 · gap 80 · pintura (8409:1728) de 480 a partir de y 603, atrás do navegador */
+.seo-hero {
+  position: relative;
+  overflow: hidden;
+  padding: var(--section-py) 0 32px;
+  background: var(--black-200);
+}
+.seo-hero__bg {
+  position: absolute;
+  top: 603px;
+  left: 0;
+  width: 100%;
+  height: 480px;
+}
+.seo-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+.seo-hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+/* Article 8388:1924: 984 de largura, gap 32, centralizado */
+.seo-hero__article {
+  width: 100%;
+  max-width: 984px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+.seo-hero__heading { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+/* 8388:1926 · Exo SemiBold 62/1.1 (caixa 136 = 2 × 68) · "Ele pergunta para uma IA." em gray-500 */
+.seo-hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 62px;
+  line-height: 68px;
+  color: var(--gray-0);
+}
+.seo-hero__title em { font-style: normal; color: var(--gray-500); }
+/* 8389:1945 · Cabin 18/1.5 gray-300 — caixa de 592 */
+.seo-hero__lead { max-width: 592px; font-size: 18px; line-height: 1.5; color: var(--gray-300); }
+/* Container buttons 8389:1938: gap 16 */
+.seo-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+/* Main Container 8409:1710: navegador de 906 (stroke superior e faixa de traços já no desenho) */
+.seo-hero__mockup { display: block; width: 100%; max-width: 906px; }
+.seo-hero__mockup img { width: 100%; height: auto; aspect-ratio: 906 / 543.51; }
+
+@media (max-width: 1023px) {
+  .seo-hero__title { font-size: 48px; line-height: 1.1; }
+}
+
+/* Mobile 8704:6452 (375×1237): pt 60 · pb 16 · gap 40 · título Exo 32 (caixa 4 × 38) · botões empilhados ·
+   navegador 343×669 · pintura 375×598 a partir de y 639 */
+@media (max-width: 767px) {
+  .seo-hero { padding-bottom: 16px; }
+  .seo-hero__bg { top: 639px; height: 598px; }
+  .seo-hero__inner { gap: 40px; }
+  .seo-hero__title { font-size: 32px; line-height: 38px; text-wrap: pretty; }
+  .seo-hero__lead { max-width: none; }
+  .seo-hero__actions { flex-direction: column; align-self: stretch; }
+  .seo-hero__mockup { max-width: none; }
+  .seo-hero__mockup img { aspect-ratio: 343 / 669; }
+}

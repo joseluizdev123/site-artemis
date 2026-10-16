@@ -1,0 +1,59 @@
+/* Sobre — onde estamos (Figma 8355:3565 · mobile 8689:2043) */
+
+/* 8355:3565: fundo black-100 · pt 120, pb 32, px 32 · gap 80 · stroke superior gray-900 sobre o conteúdo */
+.sobre-onde {
+  position: relative;
+  padding: 120px 0 32px;
+  background: var(--black-100);
+  box-shadow: inset 0 1px 0 var(--gray-900);
+}
+.sobre-onde__inner { display: flex; flex-direction: column; gap: 80px; }
+
+/* Container 8374:1798: texto (474) à esquerda, botão à direita centralizado na vertical; a forma 8374:1890
+   (270×270, gray-900) fica atrás, a 706 da borda esquerda, e passa por baixo do mapa */
+.sobre-onde__head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+.sobre-onde__shape {
+  position: absolute;
+  top: 0;
+  left: 706px;
+  width: 270px;
+  height: 270px;
+  pointer-events: none;
+}
+.sobre-onde__text {
+  position: relative;
+  max-width: 474px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sobre-onde__cta { position: relative; flex: none; }
+
+/* Container 8374:1889: stroke 1px gray-900 no layout · mapa 300 de altura · faixa de traços 64 */
+.sobre-onde__map { position: relative; border: 1px solid var(--gray-900); background: var(--black-100); }
+.sobre-onde__frame { display: block; width: 100%; height: 300px; border: 0; }
+.sobre-onde__pattern { height: 64px; overflow: hidden; }
+.sobre-onde__pattern picture { display: block; }
+.sobre-onde__pattern img { width: 1375px; max-width: none; height: 65px; }
+
+@media (max-width: 1023px) {
+  .sobre-onde__shape { display: none; }
+}
+
+/* Mobile 8689:2043 (375×717): py 60 · gap 40 · texto em cima do botão (gap 32), título Exo 28 (caixa 34), botão na largura toda;
+   a forma fica fora da tela no Figma · faixa 341×32 */
+@media (max-width: 767px) {
+  .sobre-onde { padding-block: var(--section-py); }
+  .sobre-onde__inner { gap: 40px; }
+  .sobre-onde__head { flex-direction: column; align-items: stretch; gap: 32px; }
+  .sobre-onde__title { font-size: 28px; line-height: 34px; }
+  .sobre-onde__text { max-width: none; }
+  .sobre-onde__pattern { height: 32px; }
+  .sobre-onde__pattern img { width: 341px; height: 32px; }
+}

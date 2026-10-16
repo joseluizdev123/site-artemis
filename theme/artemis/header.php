@@ -57,7 +57,7 @@ $artemis_inicio   = $artemis_blog ? sprintf( '<a href="%s">%s</a>', esc_url( hom
 					<?php wp_nav_menu( array_merge( $artemis_nav_args, array( 'walker' => new Artemis_Flat_Nav_Walker() ) ) ); ?>
 				</nav>
 				<span class="site-header__sep" aria-hidden="true"></span>
-				<a class="site-header__cta" href="<?php echo esc_url( $artemis_cta_url ); ?>"><?php esc_html_e( 'Agendar diagnóstico', 'artemis' ); ?></a>
+				<a class="site-header__cta" href="<?php echo esc_url( $artemis_cta_url ); ?>"<?php echo is_page( 'contato' ) ? ' aria-current="page"' : ''; ?>><?php esc_html_e( 'Agendar diagnóstico', 'artemis' ); ?></a>
 			</div>
 		</div>
 		<?php /* Mobile (≤767): botão "Menu" (8635:3577) abre a gaveta */ ?>

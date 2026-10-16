@@ -1,0 +1,66 @@
+<!-- Sobre — quem está por trás (versão B: fotos na rolagem) · 8355:3485 · Mobile 8689:2027
+     Desktop: título (esquerda) e bio (direita) fixos enquanto as fotos passam no meio; a foto no centro da tela acende (as outras a 20%)
+     e a bio troca para essa pessoa (assets/js/sections/sobre-06-socios.js). Mobile: 1ª foto, bio do Hélio e as outras fotos, como no Figma.
+     Bio provisória no Figma (lorem ipsum); no WordPress vem do CPT art_membro. -->
+<section class="sobre-socios" aria-labelledby="sobre-socios-title" data-figma-root data-figma="8355:3485" data-figma-m="8689:2027">
+  <div class="container sobre-socios__inner">
+    <!-- Team Members List · 8355:3490 (3 colunas de 405,33, gap 80) · Mobile 8689:2028 -->
+    <div class="sobre-socios__list" data-socios data-figma="8355:3490" data-figma-m="8689:2028">
+      <div class="sobre-socios__intro" data-figma="8355:3557" data-figma-m="8689:2029">
+        <h2 class="section-title sobre-socios__title" id="sobre-socios-title" data-figma="8355:3559" data-figma-m="8689:2030">Quem está por trás</h2>
+        <p class="sobre-socios__lead body-lg" data-figma="8355:3560" data-figma-m="8689:2031">Fundada por Hélio Costa Jr. em Florianópolis, com sócios que operam as áreas de engenharia, delivery e comercial.</p>
+      </div>
+      <!-- Team Member · 8355:3491 (fotos 405,33×540,44, gap 32) -->
+      <div class="sobre-socios__photos" data-figma="8355:3491">
+        <figure class="sobre-socios__photo is-active" data-socio="0" data-figma="8355:3493" data-figma-m="8689:2033"><img src="/assets/images/sobre/socio-1.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></figure>
+        <figure class="sobre-socios__photo" data-socio="1" data-figma="8355:3499" data-figma-m="8689:2034"><img src="/assets/images/sobre/socio-2.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></figure>
+        <figure class="sobre-socios__photo" data-socio="2" data-figma="8355:3511" data-figma-m="8689:2035"><img src="/assets/images/sobre/socio-3.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></figure>
+        <figure class="sobre-socios__photo" data-socio="3" data-figma="8355:3505" data-figma-m="8689:2036"><img src="/assets/images/sobre/socio-4.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></figure>
+      </div>
+      <!-- Team Member Info · 8355:3522 · Mobile 8693:2585 -->
+      <div class="sobre-socios__info" aria-live="polite" data-figma="8355:3522" data-figma-m="8693:2585">
+        <article class="sobre-socios__member is-active" data-socio="0">
+          <div class="sobre-socios__text" data-figma="8355:3518" data-figma-m="8693:2586">
+            <h3 class="sobre-socios__name" data-figma="8355:3519" data-figma-m="8693:2587">Hélio Costa Jr.</h3>
+            <p class="sobre-socios__role" data-figma="8355:3520" data-figma-m="8693:2588">Cargo</p>
+          </div>
+          <div class="sobre-socios__bio" data-figma="8355:3516" data-figma-m="8693:2589">
+            <p>Quisque risus convallis. venenatis vel non. tincidunt non, In sodales. nec diam eget odio faucibus faucibus Ut sodales. volutpat consectetur eget quis venenatis sit faucibus tincidunt convallis. ac lacus, at Morbi risus ac elit id dui id.</p>
+            <p>ipsum elit ex non gravida risus placerat. sapien volutpat Quisque luctus maximus diam elit convallis. tempor sit nec.</p>
+          </div>
+        </article>
+        <article class="sobre-socios__member" data-socio="1" aria-hidden="true">
+          <div class="sobre-socios__text">
+            <h3 class="sobre-socios__name">Nome</h3>
+            <p class="sobre-socios__role">Cargo</p>
+          </div>
+          <div class="sobre-socios__bio">
+            <p>Quisque risus convallis. venenatis vel non. tincidunt non, In sodales. nec diam eget odio faucibus faucibus Ut sodales. volutpat consectetur eget quis venenatis sit faucibus tincidunt convallis. ac lacus, at Morbi risus ac elit id dui id.</p>
+            <p>ipsum elit ex non gravida risus placerat. sapien volutpat Quisque luctus maximus diam elit convallis. tempor sit nec.</p>
+          </div>
+        </article>
+        <article class="sobre-socios__member" data-socio="2" aria-hidden="true">
+          <div class="sobre-socios__text">
+            <h3 class="sobre-socios__name">Nome</h3>
+            <p class="sobre-socios__role">Cargo</p>
+          </div>
+          <div class="sobre-socios__bio">
+            <p>Quisque risus convallis. venenatis vel non. tincidunt non, In sodales. nec diam eget odio faucibus faucibus Ut sodales. volutpat consectetur eget quis venenatis sit faucibus tincidunt convallis. ac lacus, at Morbi risus ac elit id dui id.</p>
+            <p>ipsum elit ex non gravida risus placerat. sapien volutpat Quisque luctus maximus diam elit convallis. tempor sit nec.</p>
+          </div>
+        </article>
+        <article class="sobre-socios__member" data-socio="3" aria-hidden="true">
+          <div class="sobre-socios__text">
+            <h3 class="sobre-socios__name">Nome</h3>
+            <p class="sobre-socios__role">Cargo</p>
+          </div>
+          <div class="sobre-socios__bio">
+            <p>Quisque risus convallis. venenatis vel non. tincidunt non, In sodales. nec diam eget odio faucibus faucibus Ut sodales. volutpat consectetur eget quis venenatis sit faucibus tincidunt convallis. ac lacus, at Morbi risus ac elit id dui id.</p>
+            <p>ipsum elit ex non gravida risus placerat. sapien volutpat Quisque luctus maximus diam elit convallis. tempor sit nec.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <p class="sobre-note" data-figma="8355:3517" data-figma-m="8689:2042">A empresa opera outras duas linhas, com públicos e problemas diferentes: Artemis SEO, para captação orgânica, e MktOps, que instala capacidade de marketing com IA dentro do cliente.</p>
+  </div>
+</section>

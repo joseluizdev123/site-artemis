@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serviços — Implementação de inteligência artificial em três etapas · Studio Artemis</title>
+  <meta name="description" content="Do diagnóstico ao sistema em produção, com a prova de assertividade em cada fase: diagnóstico de operação, implementação do protótipo à produção, manutenção e evolução.">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792059316">
+  <link rel="stylesheet" href="/assets/css/sections/servicos-01-hero.css?v=1792151715">
+  <link rel="stylesheet" href="/assets/css/sections/servicos-02-etapas.css?v=1792152484">
+  <link rel="stylesheet" href="/assets/css/sections/servicos-03-nao-fazemos.css?v=1792152321">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1791992993">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792152372">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+</head>
+<body class="page-servicos">
+
+  <!-- Header · 8165:2338 (scroll 8165:2339) · mobile 8635:3579 (scroll 8662:2937) · menu mobile 8662:2946 -->
+  <header class="site-header" data-header>
+    <div class="container site-header__bar">
+      <div class="site-header__inner">
+        <a class="site-header__logo" href="/" aria-label="Studio Artemis — página inicial">
+          <img src="/assets/images/logo-artemis.svg" width="137" height="32" alt="Artemis">
+        </a>
+        <div class="site-header__actions">
+          <nav class="site-nav" aria-label="Principal">
+            <a href="/servicos" aria-current="page">Serviços</a>
+            <a href="/#estudos">Estudos de impacto</a>
+            <a href="/blog">Blog</a>
+            <a href="/sobre">Sobre</a>
+          </nav>
+          <span class="site-header__sep" aria-hidden="true"></span>
+          <a class="site-header__cta" href="/contato">Agendar diagnóstico</a>
+        </div>
+      </div>
+      <!-- Mobile (≤767): botão "Menu" (8635:3577) abre a gaveta -->
+      <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-haspopup="dialog" data-menu-open>
+        <span>Menu</span>
+      </button>
+    </div>
+
+    <!-- Menu mobile · 8662:2946 (325 de largura, altura da tela, entra da esquerda em overlay) -->
+    <div class="site-header__drawer" id="site-menu" role="dialog" aria-modal="true" aria-label="Menu" data-menu>
+      <div class="site-header__backdrop" data-menu-close></div>
+      <div class="site-header__panel">
+        <div class="site-header__panel-top">
+          <div class="site-header__panel-head">
+            <button class="site-header__close" type="button" data-menu-close>Fechar</button>
+          </div>
+          <nav class="site-header__menu" aria-label="Principal">
+            <a href="/servicos" aria-current="page">Serviços</a>
+            <a href="/#estudos">Estudos de impacto</a>
+            <a href="/blog">Blog</a>
+            <a href="/sobre">Sobre</a>
+            <a href="/contato">Agendar diagnóstico</a>
+          </nav>
+        </div>
+        <div class="site-header__contact">
+          <p class="site-header__contact-label" aria-live="polite" data-copy-status data-copied="E-mail copiado">Fale conosco</p>
+          <a class="site-header__contact-email" href="mailto:contato@studioartemis.co" data-copy-email>contato@studioartemis.co</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Serviços — topo · 8340:2096 · Mobile 8699:4923 — título centralizado com o trecho final em cinza, texto e CTA
+         (o padrão de traços 8475:1807 está oculto no Figma) -->
+    <section class="srv-hero" aria-labelledby="srv-hero-title">
+      <div class="container srv-hero__inner">
+        <!-- Article · 8340:2097 (893, gap 32) · Mobile 8699:4924 (gap 16) -->
+        <div class="srv-hero__article">
+          <h1 class="srv-hero__title" id="srv-hero-title">Implementação de inteligência artificial em três etapas. <em>Todas começam medindo.</em></h1>
+          <p class="srv-hero__lead">Do diagnóstico ao sistema em produção, com a prova de assertividade em cada fase.</p>
+        </div>
+        <a class="btn btn--primary srv-hero__cta" href="/contato">Agendar diagnóstico</a>
+      </div>
+    </section>
+
+    <!-- Serviços — as três etapas · 8587:2376 (instância de "Tabs" 8573:1797: variantes etapa 1/2/3) · Mobile: 8709:5717, 8709:5588, 8709:5463 + ilustração 8709:5854
+         Desktop: 3 colunas — etapas (abas: selo azul + barra de progresso na etapa ativa, avançam sozinhas), ilustração e detalhes da etapa ativa.
+         Mobile: as três etapas abertas em sequência e a ilustração no fim (assets/js/sections/servicos-02-etapas.js). -->
+    <section class="srv-steps" aria-label="Etapas do serviço">
+      <div class="srv-steps__grid" data-steps data-active="1">
+
+        <!-- Etapa 1 -->
+        <div class="srv-step__head" style="--step:1">
+          <h2 class="srv-step__heading"><button class="srv-step__tab" type="button" id="srv-tab-1" aria-expanded="true" aria-controls="srv-panel-1">
+            <span class="srv-step__tag">Etapa 1</span>
+            <span class="srv-step__title">Diagnóstico de operação</span>
+          </button></h2>
+        </div>
+        <div class="srv-step__panel" id="srv-panel-1" role="region" aria-labelledby="srv-tab-1" style="--step:1">
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-para-quem.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">Para quem</h3>
+              <ul class="srv-info__list">
+                <li>Você sabe que existe hora sênior queimada em tarefa repetitiva, mas não sabe onde atacar primeiro.</li>
+                <li>Um dia dentro da operação, com as pessoas que decidem</li>
+                <li>Mapeamento dos processos com maior custo de hora especializada</li>
+                <li>Quantificação do custo mensal de cada um</li>
+                <li>Protótipo funcionando no problema mais caro, no mesmo dia</li>
+                <li>Plano de implementação por fase, com estimativa de retorno</li>
+              </ul>
+            </div>
+          </div>
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-arquivo.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">O que você leva</h3>
+              <p class="srv-info__text">O mapa, a quantificação e o protótipo. Mesmo que não siga com a gente.</p>
+            </div>
+          </div>
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-calendario.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">Duração</h3>
+              <p class="srv-info__text">4 a 6 semanas, com a imersão presencial no início.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Etapa 2 -->
+        <div class="srv-step__head" style="--step:2">
+          <h2 class="srv-step__heading"><button class="srv-step__tab" type="button" id="srv-tab-2" aria-expanded="false" aria-controls="srv-panel-2">
+            <span class="srv-step__tag">Etapa 2</span>
+            <span class="srv-step__title">Implementação: do protótipo à produção</span>
+          </button></h2>
+          <span class="srv-step__bar" aria-hidden="true"><i></i></span>
+        </div>
+        <div class="srv-step__panel" id="srv-panel-2" role="region" aria-labelledby="srv-tab-2" style="--step:2" hidden>
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-para-quem.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">Para quem</h3>
+              <ul class="srv-info__list">
+                <li>O problema já está identificado e quantificado. Falta construir e provar.</li>
+                <li>Construção da base de casos com gabarito humano</li>
+                <li>Desenvolvimento dos agentes de IA e das automações que sustentam a decisão</li>
+                <li>Laboratório de teste entregue como módulo seu</li>
+                <li>Iteração até o nível de assertividade que você definir</li>
+                <li>Entrada em produção com monitoramento</li>
+              </ul>
+            </div>
+          </div>
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-cifrao.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">Como cobramos</h3>
+              <p class="srv-info__text">Por projeto, com escopo e fase declarados.</p>
+            </div>
+          </div>
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-calendario.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">Duração</h3>
+              <p class="srv-info__text">8 a 12 semanas, variando com a complexidade da regra.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Etapa 3 -->
+        <div class="srv-step__head" style="--step:3">
+          <h2 class="srv-step__heading"><button class="srv-step__tab" type="button" id="srv-tab-3" aria-expanded="false" aria-controls="srv-panel-3">
+            <span class="srv-step__tag">Etapa 3</span>
+            <span class="srv-step__title">Manutenção e evolução</span>
+          </button></h2>
+          <span class="srv-step__bar" aria-hidden="true"><i></i></span>
+          <span class="srv-step__bar srv-step__bar--end" aria-hidden="true"><i></i></span>
+        </div>
+        <div class="srv-step__panel" id="srv-panel-3" role="region" aria-labelledby="srv-tab-3" style="--step:3" hidden>
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-para-quem.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">Para quem</h3>
+              <ul class="srv-info__list">
+                <li>O sistema está em produção e precisa acompanhar a operação que muda.</li>
+                <li>Monitoramento de assertividade em produção</li>
+                <li>Ajuste de critério quando a regra do negócio muda</li>
+                <li>Novos módulos sobre a base já construída</li>
+                <li>Relatório mensal de impacto</li>
+              </ul>
+            </div>
+          </div>
+          <div class="srv-info">
+            <img class="srv-info__icon" src="/assets/images/servicos-02-etapas/icon-cifrao.svg" width="24" height="24" alt="">
+            <div class="srv-info__content">
+              <h3 class="srv-info__label">Como cobramos</h3>
+              <p class="srv-info__text">Mensalidade</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 109 · I8587:2376;8709:4560 (296 de largura, black-100) · Mobile 8709:5854 (375×421) — ilustração isométrica (tela + validação pendente) -->
+        <div class="srv-steps__art" aria-hidden="true">
+          <picture>
+            <source media="(max-width: 767px)" srcset="/assets/images/servicos-02-etapas/m-ilustra.svg" width="375" height="421">
+            <img src="/assets/images/servicos-02-etapas/ilustra.svg" width="296" height="593" alt="" loading="lazy" decoding="async">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <!-- Serviços — o que não fazemos · 8348:2419 · Mobile 8699:5244 — título + texto, 4 cards com X (empilhados no Mobile),
+         faixa de traços diagonais e a nota sobre Artemis SEO / MktOps -->
+    <section class="srv-nao" aria-labelledby="srv-nao-title">
+      <div class="container srv-nao__inner">
+        <!-- Left Service Block · 8348:2420 (gap 16) -->
+        <div class="srv-nao__head">
+          <h2 class="section-title srv-nao__title" id="srv-nao-title">O que <em>não</em> fazemos</h2>
+          <p class="body-lg">Ser específico sobre o que não fazemos economiza o tempo de todo mundo.</p>
+        </div>
+
+        <!-- Left Service Block · 8348:2539 (stroke 1px gray-900): cards + faixa de traços -->
+        <div class="srv-nao__box">
+          <ul class="srv-nao__grid">
+            <li class="srv-nao__card">
+              <span class="srv-nao__icon"><img src="/assets/images/servicos-03-nao-fazemos/icon-x.svg" width="24" height="24" alt=""></span>
+              <div class="srv-nao__text">
+                <h3 class="srv-nao__card-title">Não implementamos ERP nem CRM.</h3>
+                <p class="srv-nao__card-text">Trabalhamos em cima do que você já tem.</p>
+              </div>
+            </li>
+            <li class="srv-nao__card">
+              <span class="srv-nao__icon"><img src="/assets/images/servicos-03-nao-fazemos/icon-x.svg" width="24" height="24" alt=""></span>
+              <div class="srv-nao__text">
+                <h3 class="srv-nao__card-title">Não fazemos chatbot de atendimento.</h3>
+                <p class="srv-nao__card-text">O que automatizamos é decisão técnica, não conversa.</p>
+              </div>
+            </li>
+            <li class="srv-nao__card">
+              <span class="srv-nao__icon"><img src="/assets/images/servicos-03-nao-fazemos/icon-x.svg" width="24" height="24" alt=""></span>
+              <div class="srv-nao__text">
+                <h3 class="srv-nao__card-title">Não vendemos licença de software.</h3>
+                <p class="srv-nao__card-text">O que construímos é seu, adaptado ao seu processo.</p>
+              </div>
+            </li>
+            <li class="srv-nao__card">
+              <span class="srv-nao__icon"><img src="/assets/images/servicos-03-nao-fazemos/icon-x.svg" width="24" height="24" alt=""></span>
+              <div class="srv-nao__text">
+                <h3 class="srv-nao__card-title">Não começamos sem medir.</h3>
+                <p class="srv-nao__card-text">Se não dá para quantificar o custo do erro, ainda não é hora.</p>
+              </div>
+            </li>
+          </ul>
+          <!-- Pattern · 8348:2540 (1374×64, stroke superior) · Mobile 8699:5275 (341×32) -->
+          <div class="srv-nao__pattern" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 767px)" srcset="/assets/images/servicos-03-nao-fazemos/m-pattern.svg" width="341" height="32">
+              <img src="/assets/images/servicos-03-nao-fazemos/pattern.svg" width="1375" height="65" alt="" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
+
+        <!-- Footer Block · 8350:1429 (gap 16) · Mobile 8699:5359 (empilhado) -->
+        <div class="srv-nao__note">
+          <span class="srv-nao__marks">
+            <img src="/assets/images/servicos-03-nao-fazemos/marca-mktops.svg" width="64" height="64" alt="MktOps">
+            <img src="/assets/images/servicos-03-nao-fazemos/marca-seo.svg" width="64" height="64" alt="Artemis SEO">
+          </span>
+          <p class="srv-nao__note-text">Não somos agência de marketing. Captação orgânica é com a Artemis SEO; operação de marketing, com o MktOps.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to action · 8160:1628 -->
+    <section class="cta" id="diagnostico" aria-labelledby="cta-title">
+      <!-- Barra de status · 8160:1629 — LED pisca (status online) -->
+      <div class="cta__status">
+        <div class="container cta__status-inner">
+          <p class="cta__status-item">
+            <span class="cta__led" aria-hidden="true"></span>
+            <span class="cta__status-text">SYSTEM: Artemis DATABASE PLATFORM</span>
+          </p>
+          <span class="cta__signal" aria-hidden="true">
+            <span class="cta__signal-icon"><img src="/assets/images/10-cta/signal-icon.svg" width="37" height="13.5" alt=""></span>
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <span class="cta__signal-icon cta__signal-icon--wide"><img src="/assets/images/10-cta/signal-icon-wide.svg" width="55" height="13.5" alt=""></span>
+          </span>
+          <p class="cta__status-text">[ Status: online ]</p>
+          <span class="cta__signal" aria-hidden="true">
+            <span class="cta__signal-icon"><img src="/assets/images/10-cta/signal-icon.svg" width="37" height="13.5" alt=""></span>
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <img class="cta__signal-line" src="/assets/images/10-cta/signal-line.svg" width="1" height="13.5" alt="">
+            <span class="cta__signal-icon cta__signal-icon--wide"><img src="/assets/images/10-cta/signal-icon-wide.svg" width="55" height="13.5" alt=""></span>
+          </span>
+          <p class="cta__status-text">[ Connection: stable ]</p>
+        </div>
+      </div>
+
+      <div class="container cta__main">
+        <div class="cta__note-row">
+          <p class="eyebrow cta__note">Resposta em até 1 dia útil. Atendimento remoto em todo o Brasil, presencial quando o diagnóstico exigir.</p>
+        </div>
+
+        <div class="cta__content">
+          <div class="cta__body">
+            <div class="cta__heading">
+              <h2 class="cta__title" id="cta-title">Comece pelo diagnóstico</h2>
+              <p class="body-lg cta__text">Um dia dentro da sua operação, com o time que decide. Saímos de lá com o mapa dos processos que mais consomem hora sênior, o custo estimado de cada um e um protótipo funcionando no problema mais caro.  Se não fizer sentido seguir, você fica com o mapa.</p>
+            </div>
+            <a class="btn btn--primary cta__button" href="/contato/">Agendar diagnóstico</a>
+          </div>
+        </div>
+
+        <!-- Pattern · 8160:1729 — traços piscam em loop e acendem perto do cursor (mesmo padrão do hero) -->
+        <div class="cta__pattern" aria-hidden="true" data-cta-pattern>
+          <div class="cta__pattern-group cta__pattern-group--start">
+            <div class="cta__dash-slot"><div class="cta__dash-row" style="width:610.5px"><img src="/assets/images/10-cta/dash-row-0.svg" alt=""></div></div>
+            <div class="cta__dash-slot"><div class="cta__dash-row" style="width:610.5px"><img src="/assets/images/10-cta/dash-row-1.svg" alt=""></div></div>
+            <div class="cta__dash-slot"><div class="cta__dash-row" style="width:610.5px"><img src="/assets/images/10-cta/dash-row-2.svg" alt=""></div></div>
+            <div class="cta__dash-slot"><div class="cta__dash-row" style="width:702px"><img src="/assets/images/10-cta/dash-row-3.svg" alt=""></div></div>
+            <div class="cta__dash-slot"><div class="cta__dash-row" style="width:702px"><img src="/assets/images/10-cta/dash-row-4.svg" alt=""></div></div>
+            <div class="cta__dash-slot"><div class="cta__dash-row" style="width:1038px"><img src="/assets/images/10-cta/dash-row-5.svg" alt=""></div></div>
+          </div>
+          <div class="cta__pattern-group cta__pattern-group--end">
+            <div class="cta__dash-slot" style="width:519px"><div class="cta__dash-row" style="width:516.75px"><img src="/assets/images/10-cta/dash-row-6.svg" alt=""></div></div>
+            <div class="cta__dash-slot" style="width:610.5px"><div class="cta__dash-row" style="width:605.25px"><img src="/assets/images/10-cta/dash-row-7.svg" alt=""></div></div>
+            <div class="cta__dash-slot" style="width:610.5px"><div class="cta__dash-row" style="width:605.25px"><img src="/assets/images/10-cta/dash-row-8.svg" alt=""></div></div>
+            <div class="cta__dash-slot" style="width:610.5px"><div class="cta__dash-row" style="width:516px;--l:-0.19%"><img src="/assets/images/10-cta/dash-row-9.svg" alt=""></div></div>
+            <div class="cta__dash-slot" style="width:428.25px"><div class="cta__dash-row" style="width:339px;--l:-0.15%;--r:-0.15%"><img src="/assets/images/10-cta/dash-row-10.svg" alt=""></div></div>
+            <div class="cta__dash-slot" style="width:522px"><div class="cta__dash-row" style="width:251.25px;--l:-0.2%;--r:-0.2%"><img src="/assets/images/10-cta/dash-row-11.svg" alt=""></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer · 8165:2501 -->
+  <footer class="site-footer">
+    <div class="container site-footer__content">
+      <div class="site-footer__top">
+        <div class="site-footer__intro">
+          <div class="site-footer__brand">
+            <a class="site-footer__logo" href="/" aria-label="Studio Artemis — página inicial"><img src="/assets/images/footer/logo-lockup.svg" width="137" height="32" alt="Artemis"></a>
+            <p class="site-footer__title">Automação aplicada à operação, direto no seu e-mail. <em>Publicamos quando temos algo concreto para dizer.</em></p>
+          </div>
+          <!-- Newsletter — action configurável no tema (art_footer_newsletter_action) -->
+          <form class="site-footer__form" action="#" method="post" data-newsletter>
+            <label class="site-footer__sr" for="footer-email">Seu endereço de e-mail</label>
+            <input class="site-footer__input" id="footer-email" type="email" name="email" placeholder="Seu endereço de e-mail" autocomplete="email" required>
+            <button class="btn btn--primary site-footer__submit" type="submit">Enviar</button>
+            <p class="site-footer__form-msg" role="status" aria-live="polite" hidden></p>
+          </form>
+        </div>
+
+        <div class="site-footer__cols">
+          <nav class="site-footer__col" aria-labelledby="footer-nav-title">
+            <h2 class="site-footer__heading" id="footer-nav-title">Artemis</h2>
+            <ul class="site-footer__links">
+              <li><a class="site-footer__link" href="/servicos">Serviços</a></li>
+              <li><a class="site-footer__link" href="#estudos">Estudos de impacto</a></li>
+              <li><a class="site-footer__link" href="/blog">Blog</a></li>
+              <li><a class="site-footer__link" href="/sobre">Sobre</a></li>
+              <li><a class="site-footer__link" href="/contato">Contato</a></li>
+            </ul>
+          </nav>
+          <nav class="site-footer__col" aria-labelledby="footer-lines-title">
+            <h2 class="site-footer__heading" id="footer-lines-title">Outras linhas</h2>
+            <ul class="site-footer__links">
+              <li><a class="site-footer__link" href="/artemis-seo/">Artemis SEO</a></li>
+              <li><a class="site-footer__link" href="#">MktOps</a></li>
+            </ul>
+          </nav>
+          <address class="site-footer__contact">
+            <div class="site-footer__contact-item">
+              <p class="site-footer__label">Fale conosco</p>
+              <a class="site-footer__value site-footer__value--nowrap" href="mailto:contato@studioartemis.co">contato@studioartemis.co</a>
+            </div>
+            <div class="site-footer__contact-item">
+              <p class="site-footer__label">WhatsApp</p>
+              <a class="site-footer__value" href="https://wa.me/554800000000" target="_blank" rel="noopener noreferrer">+55 (48) 0000-0000</a>
+            </div>
+            <div class="site-footer__contact-item">
+              <p class="site-footer__label">Endereço</p>
+              <a class="site-footer__value" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20F%C3%BAlvio%20Aducci%2C%20416%2C%20Florian%C3%B3polis%2C%20SC" target="_blank" rel="noopener noreferrer">R. Fúlvio Aducci, 416 — Florianópolis, SC</a>
+            </div>
+          </address>
+        </div>
+      </div>
+
+      <div class="site-footer__middle">
+        <div class="site-footer__social">
+          <p class="site-footer__label">Social</p>
+          <ul class="site-footer__icons">
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="/assets/images/footer/instagram.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="/assets/images/footer/youtube.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="/assets/images/footer/linkedin.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="Behance"><img src="/assets/images/footer/behance.svg" width="24" height="24" alt=""></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><span class="site-footer__glyph site-footer__glyph--dribbble"><img src="/assets/images/footer/dribbble.svg" width="20" height="22" alt=""></span></a></li>
+            <li><a class="site-footer__icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><span class="site-footer__glyph site-footer__glyph--x"><img src="/assets/images/footer/x.svg" width="14" height="13" alt=""></span></a></li>
+          </ul>
+        </div>
+        <a class="site-footer__totop" href="#" data-back-to-top>
+          <span class="site-footer__totop-label">Voltar ao topo</span>
+          <span class="site-footer__icon"><img src="/assets/images/footer/chevron-up.svg" width="24" height="24" alt=""></span>
+        </a>
+      </div>
+
+      <div class="site-footer__legal">
+        <p>© 2026 Studio Artemis. Todos os direitos reservados.</p>
+        <ul class="site-footer__legal-links">
+          <li><a class="site-footer__link" href="/politica-de-privacidade">Política de privacidade</a></li>
+          <li><a class="site-footer__link" href="/termos-de-uso">Termos de uso</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pattern · 8193:599 — traços diagonais (2 vetores do Figma, 83 ocorrências) -->
+    <div class="site-footer__pattern" aria-hidden="true">
+      <div class="site-footer__pattern-track">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag site-footer__diag--22" src="/assets/images/footer/diagonal-22.svg" width="23" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+        <img class="site-footer__diag" src="/assets/images/footer/diagonal-24.svg" width="25" height="64" alt="">
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js?v=1791980106" defer></script>
+  <script src="/assets/js/sections/servicos-02-etapas.js?v=1792152119" defer></script>
+  <script src="/assets/js/sections/10-cta.js?v=1791922306" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+
+</body>
+</html>

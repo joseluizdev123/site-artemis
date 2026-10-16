@@ -63,5 +63,56 @@
       "post-03-relacionados",
       "newsletter"
     ]
+  },
+  "servicos": {
+    "out": "servicos/index.html",
+    "title": "Serviços — Implementação de inteligência artificial em três etapas · Studio Artemis",
+    "description": "Do diagnóstico ao sistema em produção, com a prova de assertividade em cada fase: diagnóstico de operação, implementação do protótipo à produção, manutenção e evolução.",
+    "sections": [
+      "servicos-01-hero",
+      "servicos-02-etapas",
+      "servicos-03-nao-fazemos",
+      "10-cta"
+    ]
+  },
+  "sobre": {
+    "out": "sobre/index.html",
+    "title": "Sobre — Uma empresa que automatiza a própria operação antes de automatizar a sua · Studio Artemis",
+    "description": "Artemis: inteligência artificial e automações para indústria, construção e operação B2B. Por que existimos, o que se repete em todo projeto, quem está por trás e onde estamos.",
+    "sections": [
+      "sobre-01-hero",
+      "sobre-02-porque",
+      "sobre-03-tres-coisas",
+      "sobre-04-audita",
+      "sobre-05-equipe",
+      "sobre-06-socios",
+      "sobre-07-onde"
+    ],
+    "assets": [
+      "sobre-02-porque"
+    ]
+  },
+  "contato": {
+    "out": "contato/index.html",
+    "title": "Contato — Vamos começar pelo diagnóstico · Studio Artemis",
+    "description": "Fale com a Artemis: conte qual processo consome mais hora especializada hoje. Respondemos em até 1 dia útil; atendimento remoto em todo o Brasil.",
+    "sections": [
+      "contato-01-form",
+      "contato-02-faixa"
+    ]
+  },
+  "seo": {
+    "out": "artemis-seo/index.html",
+    "title": "Artemis SEO — Seu cliente parou de pesquisar no Google. Ele pergunta para uma IA. · Studio Artemis",
+    "description": "E a IA responde citando alguém. Trabalhamos para que seja você, no orgânico do Google e dentro do ChatGPT, do Perplexity e dos AI Overviews.",
+    "assets": [
+      "10-cta"
+    ],
+    "sections": [
+      "seo-01-hero",
+      "seo-02-problema",
+      "seo-03-formas",
+      "seo-04-cta"
+    ]
   }
 }

@@ -46,8 +46,10 @@ def main():
         shutil.rmtree(out)
     shutil.copytree(os.path.join(ROOT, 'assets'), os.path.join(out, 'assets'))
 
-    pages = ['index.html'] + [os.path.relpath(os.path.join(d, f), ROOT)
-                              for d, _, fs in os.walk(os.path.join(ROOT, 'blog')) for f in fs if f.endswith('.html')]
+    # todas as páginas do build (campo "out" de src/pages.json): index.html, blog/, servicos/, sobre/…
+    import json
+    spec = json.load(open(os.path.join(ROOT, 'src', 'pages.json'), encoding='utf-8'))
+    pages = [p['out'].replace('/', os.sep) for p in spec.values()]
     for rel in pages:
         html = open(os.path.join(ROOT, rel), encoding='utf-8').read()
         html = ATTR_RE.sub(lambda m: rewrite_attr(m, base), html)

@@ -20,7 +20,23 @@ const mobile = width < 768;
 // No desktop o header fixo (80) fica sobre o topo do hero; no Figma ele ocupa os 80 primeiros px.
 const BLOG = /\/blog\b/.test(url);
 const POST = /\/blog\/[^/?#]+/.test(url); // post: desktop 8331:321 (6048) · mobile 8673:5776 (8416)
-const FIGMA = POST ? (mobile
+const SERVICOS = /\/servicos\b/.test(url); // serviços: desktop 8340:1700 (3523) · mobile 8699:4921 (6599)
+const SOBRE = /\/sobre\b/.test(url); // sobre: desktop 8348:3076 (7855,45) · mobile 8689:1932 (10334,67)
+const CONTATO = /\/contato\b/.test(url); // contato: desktop 8348:3835 (2075) · mobile 8693:2761 (2934)
+const SEO = /\/artemis-seo\b/.test(url); // artemis seo: desktop 8348:4008 (3463,51) · mobile 8704:6450 (5860)
+const FIGMA = SEO ? (mobile
+  ? [['header', 60], ['hero', 1237], ['problema', 464], ['formas', 2117], ['cta', 523], ['footer', 1459]]
+  : [['header', 80], ['hero', 1081.51], ['problema', 418], ['formas', 682], ['cta', 462], ['footer', 740]])
+  : CONTATO ? (mobile
+  ? [['header', 60], ['contato', 1383], ['faixa', 32], ['footer', 1459]]
+  : [['header', 80], ['contato', 1191], ['faixa', 64], ['footer', 740]])
+  : SOBRE ? (mobile
+  ? [['header', 60], ['hero', 342], ['por que', 734], ['tres coisas', 1004], ['audita', 560], ['equipe A', 2780.33], ['equipe B', 2678.33], ['onde', 717], ['footer', 1459]]
+  : [['header', 80], ['hero', 522], ['por que', 917], ['tres coisas', 765], ['audita', 434], ['equipe A', 1051.67], ['equipe B', 2629.78], ['onde', 716], ['footer', 740]])
+  : SERVICOS ? (mobile
+  ? [['header', 60], ['hero', 450], ['etapas', 2698], ['nao fazemos', 1304], ['cta', 628], ['footer', 1459]]
+  : [['header', 80], ['hero', 611], ['etapas', 593], ['nao fazemos', 871], ['cta', 628], ['footer', 740]])
+  : POST ? (mobile
   ? [['header', 64], ['hero', 611], ['conteudo', 4913], ['continue lendo', 809], ['newsletter', 560], ['footer', 1459]]
   : [['header', 80], ['hero', 691], ['conteudo', 3324], ['continue lendo', 715], ['newsletter', 498], ['footer', 740]])
   : BLOG ? (mobile

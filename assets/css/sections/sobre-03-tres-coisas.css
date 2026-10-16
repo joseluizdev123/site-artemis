@@ -1,0 +1,79 @@
+/* Sobre — três coisas que se repetem (Figma 8355:1946 · mobile 8689:1956) */
+
+/* 8355:1946: px 32 · py 120 · título 510 à esquerda, lista 672 à direita */
+.sobre-tres {
+  padding-block: var(--section-py);
+  background: var(--black-200);
+}
+.sobre-tres__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+}
+/* 8355:1951 · Exo 40/1.2 · caixa de 510 · "em todo projeto" em gray-500 */
+.sobre-tres__title { flex: 0 1 510px; text-wrap: pretty; }
+
+/* Section 8355:1955: gap 24 */
+.sobre-tres__list {
+  flex: 0 1 672px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+/* Column 8355:1956: número (31) + gap 24 + texto · pb 24 · stroke inferior gray-800 sobre o conteúdo (não soma) */
+.sobre-tres__item {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  padding-bottom: 24px;
+  box-shadow: inset 0 -1px 0 var(--gray-800);
+}
+.sobre-tres__item:last-child { padding-bottom: 0; box-shadow: none; }
+
+/* 8355:1960 · Exo SemiBold 24/1.3 blue-300 (caixa 31×31) */
+.sobre-tres__num {
+  flex: none;
+  align-self: flex-start;
+  width: 31px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 31px;
+  color: var(--blue-300);
+}
+/* Spacer 8355:1957: quadrado blue-300 de 4 + traço em degradê de 48, 13 à direita e 47 abaixo do número */
+.sobre-tres__mark {
+  position: absolute;
+  top: 47px;
+  left: 13px;
+  width: 4px;
+  height: 48px;
+}
+
+/* Text Block 8355:1963: gap 16 · título Exo 24/1.3 (caixa 31) · texto Cabin 16/1.5 gray-300 */
+.sobre-tres__text { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.sobre-tres__item-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 31px;
+  color: var(--gray-0);
+}
+.sobre-tres__item-text { font-size: 16px; line-height: 1.5; color: var(--gray-300); }
+
+@media (max-width: 1023px) {
+  .sobre-tres__inner { flex-direction: column; gap: 16px; }
+  .sobre-tres__title,
+  .sobre-tres__list { flex: none; width: 100%; }
+}
+
+/* Mobile 8689:1956 (375×1004): py 60 · título Exo 28 (caixa 34) + gap 16 + lista · título do item Exo 20/1.3 */
+@media (max-width: 767px) {
+  .sobre-tres__title { font-size: 28px; line-height: 34px; }
+  .sobre-tres__item-title { font-size: 20px; line-height: 26px; }
+}

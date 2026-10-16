@@ -69,6 +69,9 @@ function artemis_nav_fallback() {
 	);
 	foreach ( $links as $label => $url ) {
 		$current = ( 'Blog' === $label && artemis_is_blog() ) ? ( is_home() ? ' aria-current="page"' : ' aria-current="true"' ) : '';
+		if ( ( 'Serviços' === $label && is_page( 'servicos' ) ) || ( 'Sobre' === $label && is_page( 'sobre' ) ) ) {
+			$current = ' aria-current="page"';
+		}
 		printf( '<a href="%s"%s>%s</a>', esc_url( $url ), $current, esc_html( $label ) );
 	}
 }

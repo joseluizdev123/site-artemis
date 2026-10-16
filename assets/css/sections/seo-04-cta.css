@@ -1,0 +1,31 @@
+/* Artemis SEO — por que conosco (Figma 8399:1455 · mobile 8704:6603)
+   Barra de status e padrão de traços = chamada final da Home (10-cta.css); aqui só o conteúdo */
+
+/* main container 8399:1548: py 120, sem altura mínima (412 = 120 + 172 + 120) */
+.cta--seo .cta__main { min-height: 0; justify-content: center; }
+
+/* Content Section 8399:1549: texto (410, gap 16) à esquerda, botões (gap 16) à direita, alinhados embaixo */
+.seo-cta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+.seo-cta__box { max-width: 410px; display: flex; flex-direction: column; gap: 16px; }
+.seo-cta__actions { display: flex; flex-wrap: wrap; gap: 16px; }
+/* 8399:1568: botão secundário com fundo black-100 (a cor da seção) */
+.seo-cta__secondary { background: var(--black-100); }
+
+@media (max-width: 1023px) {
+  .seo-cta { flex-direction: column; align-items: flex-start; }
+}
+
+/* Mobile 8704:6603 (375×523): main 473 (py 60) · texto em cima dos botões (gap 32), botões na largura toda */
+@media (max-width: 767px) {
+  .cta--seo .cta__main { min-height: 0; gap: 0; }
+  .seo-cta { align-items: stretch; }
+  .seo-cta__box { max-width: none; }
+  .seo-cta__actions { flex-direction: column; }
+}

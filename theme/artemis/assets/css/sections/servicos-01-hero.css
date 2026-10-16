@@ -1,0 +1,51 @@
+/* Serviços — topo (Figma 8340:2096 · mobile 8699:4923) */
+
+/* 8340:2096: px 32 · py 120 · coluna centralizada, gap 48 entre o texto e o botão */
+.srv-hero {
+  padding-block: var(--section-py);
+  background: var(--black-200);
+}
+.srv-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+/* Article 8340:2097: 893 de largura, gap 32, texto centralizado */
+.srv-hero__article {
+  width: 100%;
+  max-width: 893px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  text-align: center;
+}
+
+/* 8340:2103 · Exo SemiBold 62/1.1 (caixa 204 = 3 linhas de 68) · "Todas começam medindo." em gray-500 */
+.srv-hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 62px;
+  line-height: 68px;
+  color: var(--gray-0);
+}
+.srv-hero__title em { font-style: normal; color: var(--gray-500); }
+
+/* 8340:2104 · Cabin 18/1.5 gray-300 */
+.srv-hero__lead { font-size: 18px; line-height: 1.5; color: var(--gray-300); }
+
+/* 768–1023: o título de 62 quebra em palavras soltas */
+@media (max-width: 1023px) {
+  .srv-hero__title { font-size: 48px; line-height: 1.1; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767) · 8699:4923 (375×450): px 16 · py 60 · gap 16 · título Exo 32 (caixa 4 × 38) · botão na largura toda
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .srv-hero__article { gap: 16px; }
+  .srv-hero__title { font-size: 32px; line-height: 38px; }
+  .srv-hero__lead { text-wrap: pretty; }
+  .srv-hero__cta { align-self: stretch; }
+}

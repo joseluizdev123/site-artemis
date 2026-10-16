@@ -1,0 +1,156 @@
+/* Contato — contatos + formulário + ilustração (Figma 8370:1542 · mobile 8693:2763) */
+
+/* Main container 8370:1542: px 32 · py 120 · contatos 232 | formulário 672 | ilustração 232, gap 120 */
+.contato {
+  padding-block: var(--section-py);
+  background: var(--black-200);
+}
+.contato__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 232fr) minmax(0, 672fr) minmax(0, 232fr);
+  grid-template-areas: "info main art";
+  column-gap: 120px;
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   Contatos (8370:1581): gap 32 entre itens, pb 120 · rótulo Instrument Serif 20/1.3 + valor Exo 18/1.2 (caixa 22), gap 16
+   -------------------------------------------------------------------------- */
+.contato-info {
+  grid-area: info;
+  margin: 0;
+  padding: 0 0 120px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.contato-info__item { display: flex; flex-direction: column; gap: 16px; }
+.contato-info__label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--gray-300);
+}
+.contato-info__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--gray-0);
+  overflow-wrap: anywhere;
+}
+a.contato-info__value { transition: color .2s ease; }
+a.contato-info__value:hover { color: var(--gray-300); }
+
+/* --------------------------------------------------------------------------
+   Formulário (Form container 8370:1552): gap 80 entre o cabeçalho e os campos
+   -------------------------------------------------------------------------- */
+.contato__main { grid-area: main; min-width: 0; display: flex; flex-direction: column; gap: 80px; }
+
+/* Form heading 8370:1546: texto (533, gap 16) + seta (8374:1793) na borda direita, 21 abaixo do topo */
+.contato__head { position: relative; }
+.contato__heading { max-width: 533px; display: flex; flex-direction: column; gap: 16px; }
+/* 8370:1540 · Exo SemiBold 62/1.1 (caixa 136 = 2 × 68) · "pelo diagnóstico" em gray-500 */
+.contato__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 62px;
+  line-height: 68px;
+  color: var(--gray-0);
+  text-wrap: pretty;
+}
+.contato__title em { font-style: normal; color: var(--gray-500); }
+/* 8370:1543 · Cabin 18/1.5 gray-300 */
+.contato__lead { font-size: 18px; line-height: 1.5; color: var(--gray-300); text-wrap: pretty; }
+.contato__arrow { position: absolute; top: 21px; right: -4px; width: 8px; height: 33px; }
+
+/* Campos (8370:1580: gap 32 · 8370:1579: gap 24) */
+.contato-form { display: flex; flex-direction: column; gap: 32px; }
+.contato-form__fields { display: flex; flex-direction: column; gap: 24px; }
+/* Container 8370:1547: rótulo Exo SemiBold 14/1.5 + campo, gap 12 */
+.contato-form__field { display: flex; flex-direction: column; gap: 12px; }
+.contato-form__label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-0);
+}
+/* Input 8370:1549: 52 de altura, fundo black-100, p 14/16, texto Cabin 16/1.5 — placeholder gray-500 */
+.contato-form__input {
+  display: block;
+  width: 100%;
+  height: 52px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 0;
+  background: var(--black-100);
+  font-family: var(--font-body);
+  font-variation-settings: "wdth" 100;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--gray-0);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.contato-form__input::placeholder { color: var(--gray-500); opacity: 1; }
+.contato-form__input:focus-visible { outline: 2px solid var(--blue-400); outline-offset: 0; }
+/* Input 8370:1567: área de texto de 104 */
+.contato-form__input--area { height: 104px; min-height: 104px; resize: vertical; }
+
+/* Submit button container 8370:1574: botão (225) + nota, gap 32, centralizados */
+.contato-form__submit { display: flex; align-items: center; gap: 32px; }
+.contato-form__button { flex: none; }
+/* 8370:1576 · Instrument Serif Italic 20/1.3 gray-300 */
+.contato-form__note {
+  flex: 1 1 0;
+  min-width: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--gray-300);
+}
+/* Campo-isca contra spam (só no WordPress): fora da tela e do fluxo */
+.contato-form__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contato-form__msg { font-size: 16px; line-height: 1.5; color: var(--gray-300); }
+.contato-form__msg:empty { display: none; }
+.contato-form__msg--ok { color: var(--green-300); }
+
+/* Illustration 8370:1600: 232 × altura do formulário (951) — imagem exportada do Figma (a pintura esticada na vertical) */
+.contato__art { grid-area: art; align-self: stretch; display: block; min-height: 0; }
+.contato__art img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --------------------------------------------------------------------------
+   ≤1023 (e Mobile 8693:2763): formulário com a ilustração em faixa de 16 à direita (Frame 103, gap 32), contatos embaixo (gap 40)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .contato__grid {
+    grid-template-columns: minmax(0, 1fr) 16px;
+    grid-template-areas: "main art" "info info";
+    column-gap: 32px;
+    row-gap: 40px;
+  }
+  .contato-info { padding-bottom: 0; }
+}
+
+@media (max-width: 767px) {
+  /* 8693:2774: gap 40 · título Exo 32 (caixa 2 × 38) · texto (4 linhas) · campos com gap 20 e rótulo → campo 8 */
+  .contato__main { gap: 40px; }
+  .contato__title { font-size: 32px; line-height: 38px; }
+  .contato__heading { max-width: none; }
+  .contato-form__fields { gap: 20px; }
+  .contato-form__field { gap: 8px; }
+  /* 8693:2803: botão na largura toda, nota embaixo (gap 32) · Instrument Serif 18/1.3 (caixa 23 por linha) */
+  .contato-form__submit { flex-direction: column; align-items: stretch; }
+  .contato-form__note { flex: none; font-size: 18px; line-height: 23px; }
+  /* 8693:2765: rótulo → valor 8 */
+  .contato-info__item { gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.contato-info__value { transition: none; }
+}

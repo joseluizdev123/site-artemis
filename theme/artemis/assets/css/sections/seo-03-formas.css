@@ -1,0 +1,155 @@
+/* Artemis SEO — duas formas de contratar (Figma "formas de contratar" 8396:3369 · instância 8396:3370 · mobile 8704:7347 + 8704:7536) */
+
+/* 8396:3370: stroke superior gray-900 sobre o conteúdo · texto (720) | imagem (720×682) */
+.seo-formas {
+  position: relative;
+  background: var(--black-200);
+  box-shadow: inset 0 1px 0 var(--gray-900);
+}
+.seo-formas__desk {
+  max-width: var(--frame-w);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.seo-formas__mob { display: none; }
+
+/* Heading 8396:3343: p 120/32, gap 32, centralizado na altura da imagem (623 na variante Plataforma, 682 na SEO’Ops) */
+.seo-formas__left {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 120px var(--section-px);
+}
+.seo-formas__title { text-wrap: pretty; }
+
+/* --------------------------------------------------------------------------
+   Opções (Platform Content 8396:3345 · SEO’Ops Content 8396:3359)
+   -------------------------------------------------------------------------- */
+.seo-opt { position: relative; display: flex; flex-direction: column; }
+/* 2ª opção: stroke superior gray-900; aberta tem 24 até o título, fechada 2 (barra) + 24 */
+.seo-opt + .seo-opt { border-top: 1px solid var(--gray-900); padding-top: 24px; }
+
+.seo-opt__heading { margin: 0; }
+/* Platform Header 8396:3347: nome + selo, gap 24 */
+.seo-opt__tab {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+button.seo-opt__tab { cursor: pointer; }
+button.seo-opt__tab:focus-visible { outline: 2px solid var(--blue-400); outline-offset: 4px; }
+/* 8396:3348 · Exo SemiBold 24/1.2 (caixa 29) */
+.seo-opt__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(--gray-0);
+  transition: color .2s ease;
+}
+button.seo-opt__tab[aria-expanded="false"]:hover .seo-opt__name { color: var(--gray-300); }
+/* Tag 8396:3349: p 2/6 · Cabin Bold 12/1.3 (caixa 16) maiúsculo · blue-300 (Plataforma) / green-300 (SEO’Ops) · só na aberta */
+.seo-opt__tag {
+  display: none;
+  flex: none;
+  padding: 2px 6px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: var(--black-200);
+  background: var(--blue-300);
+}
+.seo-opt--verde .seo-opt__tag { background: var(--green-300); }
+.seo-opt__tab[aria-expanded="true"] .seo-opt__tag,
+.seo-opt.is-open .seo-opt__tag { display: block; }
+
+/* Detalhes: título → texto 16, texto → "Para quem" 32 */
+.seo-opt__body,
+.seo-fm__body { display: flex; flex-direction: column; gap: 32px; margin-top: 16px; }
+.seo-opt__body[hidden] { display: none; }
+/* 8396:3352 · Cabin 18/1.5 gray-300 */
+.seo-opt__desc { font-size: 18px; line-height: 1.5; color: var(--gray-300); }
+/* Audience 8396:3353: ícone 24 (blue-300 / green-300) + gap 24 + texto (gap 8) */
+.seo-opt__aud { display: flex; gap: 24px; }
+.seo-opt__icon { flex: none; width: 24px; height: 24px; }
+.seo-opt__aud-text { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+/* 8396:3357 · Cabin SemiBold 18/1.2 (caixa 22) */
+.seo-opt__aud-label { font-weight: 600; font-size: 18px; line-height: 22px; color: var(--gray-0); }
+.seo-opt__aud-desc { font-size: 18px; line-height: 1.5; color: var(--gray-300); }
+
+/* Divider Lines Container 8396:3360: trilho gray-400 de 2 com o progresso branco (62 de 656 no Figma) */
+.seo-opt__bar {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gray-400);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.seo-opt__bar--end { top: auto; bottom: 0; }
+.seo-opt__bar i {
+  display: block;
+  height: 100%;
+  background: var(--gray-0);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, .0945));
+}
+/* Variante Plataforma: barra no topo da 2ª opção (2 + 24 até o título) · variante SEO’Ops: barra no pé, 32 depois de "Para quem" */
+[data-active="1"] .seo-opt + .seo-opt { padding-top: 26px; }
+[data-active="1"] .seo-opt + .seo-opt .seo-opt__bar:not(.seo-opt__bar--end) { display: block; }
+[data-active="2"] .seo-opt + .seo-opt { padding-bottom: 34px; }
+[data-active="2"] .seo-opt + .seo-opt .seo-opt__bar--end { display: block; }
+
+/* Imagem da opção (8396:3364): 720×682, uma por opção no mesmo lugar — o retângulo branco é o espaço da tela do produto */
+.seo-formas__media { position: relative; display: grid; }
+.seo-formas__img {
+  grid-area: 1 / 1;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s ease, visibility 0s linear .5s;
+}
+.seo-formas__img.is-active { opacity: 1; visibility: visible; transition: opacity .5s ease; }
+.seo-formas__img img { display: block; width: 100%; height: 100%; aspect-ratio: 720 / 682; object-fit: cover; }
+
+/* ≤1023: imagem embaixo do texto */
+@media (max-width: 1023px) {
+  .seo-formas__desk { grid-template-columns: minmax(0, 1fr); }
+  .seo-formas__left { padding-block: 80px 40px; }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767): os dois estados do Figma em sequência (8704:7347 · 8704:7536), cada um com a sua imagem
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .seo-formas { box-shadow: none; }
+  .seo-formas__desk { display: none; }
+  .seo-formas__mob { display: block; }
+  /* formas de contratar 8704:7347: stroke superior · Heading 8704:7348: p 60/16, gap 32 */
+  .seo-fm { box-shadow: inset 0 1px 0 var(--gray-900); }
+  .seo-fm__text { display: flex; flex-direction: column; gap: 32px; padding: 60px var(--section-px); }
+  /* 8704:7349 · Exo 28 (caixa 34) · nome Exo 20/1.2 (caixa 24) */
+  .seo-formas__title { font-size: 28px; line-height: 34px; }
+  .seo-opt__name { font-size: 20px; line-height: 24px; }
+  .seo-fm__img { display: block; width: 100%; height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seo-opt__name,
+  .seo-formas__img,
+  .seo-formas__img.is-active { transition: none; }
+}

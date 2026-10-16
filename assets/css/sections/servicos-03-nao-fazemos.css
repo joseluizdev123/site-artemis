@@ -1,0 +1,108 @@
+/* Serviços — o que não fazemos (Figma 8348:2419 · mobile 8699:5244) */
+
+/* 8348:2419: px 32 · py 120 · gap 80 */
+.srv-nao {
+  padding-block: var(--section-py);
+  background: var(--black-200);
+}
+.srv-nao__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* 8348:2420: título (Exo 40/1.2, "não" em gray-500) + texto, gap 16 */
+.srv-nao__head { display: flex; flex-direction: column; gap: 16px; }
+.srv-nao__title { text-wrap: pretty; }
+
+/* 8348:2539: caixa com stroke 1px gray-900 no layout (316 = 1 + 250 + 64 + 1) */
+.srv-nao__box { border: 1px solid var(--gray-900); }
+
+/* Horizontal Container 8348:2423: 4 cards iguais (342,75) — os strokes entre eles somam à largura, como no Figma */
+.srv-nao__grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+/* Service Card 8348:2424: p 32 · gap 32 (ícone, texto) */
+.srv-nao__card {
+  box-sizing: content-box;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px;
+}
+.srv-nao__card:nth-child(2) { border-inline: 1px solid var(--gray-900); } /* 8348:2430 */
+.srv-nao__card:nth-child(3) { border-right: 1px solid var(--gray-900); }  /* 8348:2436 */
+
+/* Icon Container 8348:2425: 24×28 (pt 4) */
+.srv-nao__icon { align-self: flex-start; display: block; padding-top: 4px; }
+.srv-nao__icon img { width: 24px; height: 24px; }
+
+/* Text Block 8348:2427: gap 16 · título Exo 24/1.3 (caixa 31 por linha) · texto Cabin 16/1.5 gray-300 */
+.srv-nao__text { display: flex; flex-direction: column; gap: 16px; }
+.srv-nao__card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 31px;
+  color: var(--gray-0);
+  text-wrap: pretty;
+}
+.srv-nao__card-text { font-size: 16px; line-height: 1.5; color: var(--gray-300); text-wrap: pretty; }
+
+/* Pattern 8348:2540: 64 de altura, traços diagonais (com o stroke superior) cortados na largura disponível */
+.srv-nao__pattern { height: 64px; overflow: hidden; }
+.srv-nao__pattern picture { display: block; }
+.srv-nao__pattern img { width: 1375px; max-width: none; height: 65px; }
+
+/* Footer Block 8350:1429: marcas (2 círculos de 64 sobrepostos 16) + nota, gap 16, centralizados */
+.srv-nao__note { align-self: flex-start; display: flex; align-items: center; gap: 16px; }
+.srv-nao__marks { flex: none; display: flex; }
+.srv-nao__marks img { width: 64px; height: 64px; }
+.srv-nao__marks img + img { margin-left: -16px; }
+/* 8350:1430 · Instrument Serif Italic 20/1.3 gray-300 — caixa de 421 */
+.srv-nao__note-text {
+  max-width: 421px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--gray-300);
+}
+
+/* 768–1023: 2 × 2 cards */
+@media (max-width: 1023px) {
+  .srv-nao__grid { flex-wrap: wrap; }
+  .srv-nao__card { flex: 1 1 calc(50% - 66px); }
+  .srv-nao__card:nth-child(n) { border: 0; }
+  .srv-nao__card:nth-child(odd) { border-right: 1px solid var(--gray-900); }
+  .srv-nao__card:nth-child(-n+2) { border-bottom: 1px solid var(--gray-900); }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (≤767) · 8699:5244 (375×1304): py 60 · gap 40 · cards empilhados (p 24, gap 24, stroke inferior)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .srv-nao__inner { gap: 40px; }
+  /* 8699:5246 · Exo 28/1.2 (caixa 34) */
+  .srv-nao__title { font-size: 28px; line-height: 34px; }
+
+  .srv-nao__grid { flex-direction: column; }
+  .srv-nao__card,
+  .srv-nao__card:nth-child(n) { flex: none; gap: 24px; padding: 24px; border: 0; }
+  .srv-nao__card:not(:last-child) { border-bottom: 1px solid var(--gray-900); }
+  /* 8699:5255 · Exo 20/1.3 (caixa 26 por linha) */
+  .srv-nao__card-title { font-size: 20px; line-height: 26px; }
+
+  /* Pattern 8699:5275: 341×32 */
+  .srv-nao__pattern { height: 32px; }
+  .srv-nao__pattern img { width: 341px; height: 32px; }
+
+  /* Footer Block 8699:5359: marcas em cima da nota (gap 16) · nota Instrument Serif 18/1.3 (caixa 23 por linha) */
+  .srv-nao__note { flex-direction: column; align-items: flex-start; }
+  .srv-nao__note-text { max-width: none; font-size: 18px; line-height: 23px; }
+}

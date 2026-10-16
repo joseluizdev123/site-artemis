@@ -1,0 +1,59 @@
+/* Sobre — topo (Figma 8355:1920 · mobile 8689:1935) */
+
+/* 8355:1920: px 32 · py 120 · círculos concêntricos de 1920 centralizados atrás do texto */
+.sobre-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--section-py);
+  background: var(--black-200);
+}
+.sobre-hero__circles {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1920px;
+  max-width: none;
+  height: 522px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.sobre-hero__inner { position: relative; }
+
+/* Article 8355:1921: 871 de largura, gap 24, centralizado */
+.sobre-hero__article {
+  max-width: 871px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+/* 8355:1923 · Exo SemiBold 62/1.1 (caixa 204 = 3 × 68) · "antes de automatizar a sua." em gray-500 */
+.sobre-hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 62px;
+  line-height: 68px;
+  color: var(--gray-0);
+}
+.sobre-hero__title em { font-style: normal; color: var(--gray-500); }
+/* 8355:1924 · Cabin 18/1.5 gray-300 — caixa de 424 (2 linhas) */
+.sobre-hero__lead {
+  max-width: 424px;
+  margin-inline: auto;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+
+@media (max-width: 1023px) {
+  .sobre-hero__title { font-size: 48px; line-height: 1.1; }
+}
+
+/* Mobile 8689:1935 (375×342): py 60 · gap 16 · título Exo 32 (caixa 4 × 38) · círculos em y −30 (8689:1940) */
+@media (max-width: 767px) {
+  .sobre-hero__circles { top: -30px; }
+  .sobre-hero__article { gap: 16px; }
+  .sobre-hero__title { font-size: 32px; line-height: 38px; }
+  .sobre-hero__lead { max-width: none; }
+}

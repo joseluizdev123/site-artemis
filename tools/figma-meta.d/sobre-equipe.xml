@@ -1,0 +1,49 @@
+<!-- Sobre — blocos de texto dos cards da equipe (8355:2000 · 8689:1996): filhos via API REST (o get_metadata os traz autofechados) -->
+<frame id="8355:2043" name="Description Block" x="0" y="426.67" width="320" height="119">
+  <frame id="8355:2044" name="Text Block" x="24" y="24" width="272" height="71">
+    <text id="8355:2045" name="Heading" x="0" y="0" width="272" height="31" />
+    <text id="8355:2046" name="Description" x="0" y="47" width="272" height="24" />
+  </frame>
+</frame>
+<frame id="8355:2047" name="Description Block" x="0" y="426.67" width="320" height="119">
+  <frame id="8355:2048" name="Text Block" x="24" y="24" width="272" height="71">
+    <text id="8355:2049" name="Heading" x="0" y="0" width="272" height="31" />
+    <text id="8355:2050" name="Description" x="0" y="47" width="272" height="24" />
+  </frame>
+</frame>
+<frame id="8355:2038" name="Description Block" x="0" y="426.67" width="320" height="119">
+  <frame id="8355:2039" name="Text Block" x="24" y="24" width="272" height="71">
+    <text id="8355:2040" name="Heading" x="0" y="0" width="272" height="31" />
+    <text id="8355:2041" name="Description" x="0" y="47" width="272" height="24" />
+  </frame>
+</frame>
+<frame id="8355:2033" name="Description Block" x="0" y="426.67" width="320" height="119">
+  <frame id="8355:2034" name="Text Block" x="24" y="24" width="272" height="71">
+    <text id="8355:2035" name="Heading" x="0" y="0" width="272" height="31" />
+    <text id="8355:2036" name="Description" x="0" y="47" width="272" height="24" />
+  </frame>
+</frame>
+<frame id="8689:2004" name="Description Block" x="0" y="457.33" width="343" height="106">
+  <frame id="8689:2005" name="Text Block" x="24" y="24" width="295" height="58">
+    <text id="8689:2006" name="Heading" x="0" y="0" width="295" height="26" />
+    <text id="8689:2007" name="Description" x="0" y="34" width="295" height="24" />
+  </frame>
+</frame>
+<frame id="8689:2010" name="Description Block" x="0" y="457.33" width="343" height="106">
+  <frame id="8689:2011" name="Text Block" x="24" y="24" width="295" height="58">
+    <text id="8689:2012" name="Heading" x="0" y="0" width="295" height="26" />
+    <text id="8689:2013" name="Description" x="0" y="34" width="295" height="24" />
+  </frame>
+</frame>
+<frame id="8689:2016" name="Description Block" x="0" y="457.33" width="343" height="106">
+  <frame id="8689:2017" name="Text Block" x="24" y="24" width="295" height="58">
+    <text id="8689:2018" name="Heading" x="0" y="0" width="295" height="26" />
+    <text id="8689:2019" name="Description" x="0" y="34" width="295" height="24" />
+  </frame>
+</frame>
+<frame id="8689:2022" name="Description Block" x="0" y="457.33" width="343" height="106">
+  <frame id="8689:2023" name="Text Block" x="24" y="24" width="295" height="58">
+    <text id="8689:2024" name="Heading" x="0" y="0" width="295" height="26" />
+    <text id="8689:2025" name="Description" x="0" y="34" width="295" height="24" />
+  </frame>
+</frame>
