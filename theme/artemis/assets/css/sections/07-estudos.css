@@ -205,25 +205,36 @@
 /* Um estudo só: sem controles (WP) */
 .estudos__carousel.is-single .estudos__controls { display: none; }
 
-/* Troca de estudo (.is-entering, JS): enquanto o anterior some no fade, o novo entra em camadas —
-   a pintura assenta com um zoom-out leve, a captura desliza 40px no sentido da navegação
-   (--estudos-dir: 1 próximo, −1 anterior) e o texto sobe em sequência */
+/* Troca de estudo (JS): o texto do estudo que sai sobe na diagonal e some (.is-leaving); o do
+   estudo que entra sobe na diagonal, de baixo e da esquerda, um bloco por vez — meta, título,
+   cada parágrafo, rodapé (.is-entering). Na imagem, a pintura assenta com um zoom-out leve e a
+   captura desliza 40px no sentido da navegação (--estudos-dir: 1 próximo, −1 anterior). */
+.estudos__card.is-leaving :is(.estudos__meta, .estudos__title, .estudos__body > *, .estudos__tags) {
+  animation: estudos-text-out .35s cubic-bezier(.4, 0, 1, 1) both;
+}
+.estudos__card.is-entering :is(.estudos__meta, .estudos__title, .estudos__body > *, .estudos__tags) {
+  animation: estudos-text-in .8s cubic-bezier(.2, .7, .2, 1) .15s both;
+}
+.estudos__card.is-entering .estudos__title { animation-delay: .23s; }
+.estudos__card.is-entering .estudos__body > :nth-child(1) { animation-delay: .31s; }
+.estudos__card.is-entering .estudos__body > :nth-child(2) { animation-delay: .37s; }
+.estudos__card.is-entering .estudos__body > :nth-child(n+3) { animation-delay: .43s; }
+.estudos__card.is-entering .estudos__tags { animation-delay: .51s; }
 .estudos__card.is-entering .estudos__bg { animation: estudos-bg-in 1.6s cubic-bezier(.2, .7, .2, 1) both; }
 .estudos__card.is-entering .estudos__shot { animation: estudos-shot-in .9s cubic-bezier(.2, .7, .2, 1) .1s both; }
-.estudos__card.is-entering .estudos__text > * { animation: estudos-text-in .7s cubic-bezier(.2, .7, .2, 1) both; }
-.estudos__card.is-entering .estudos__text > :nth-child(2) { animation-delay: .08s; }
-.estudos__card.is-entering .estudos__text > :nth-child(3) { animation-delay: .16s; }
 
+@keyframes estudos-text-in { from { opacity: 0; transform: translate(var(--estudos-text-x, -36px), 28px); } }
+@keyframes estudos-text-out { to { opacity: 0; transform: translate(24px, -18px); } }
 @keyframes estudos-bg-in { from { transform: scale(1.08); } }
 @keyframes estudos-shot-in { from { opacity: 0; transform: translateX(calc(var(--estudos-dir, 1) * 40px)); } }
-@keyframes estudos-text-in { from { opacity: 0; transform: translateY(16px); } }
 
 @media (prefers-reduced-motion: reduce) {
   .estudos__slides,
   .estudos__card,
   .estudos__card:not(.is-active),
   .estudos__progress-fill { transition: none; }
-  .estudos__card.is-entering * { animation: none; }
+  .estudos__card.is-entering *,
+  .estudos__card.is-leaving * { animation: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -253,6 +264,9 @@
     line-height: 1.2;
     line-height: round(nearest, 1.2em, 1px);
   }
+
+  /* Entrada do texto na troca: diagonal mais curta — com p 20, os 36px do desktop passariam da borda */
+  .estudos__card { --estudos-text-x: -14px; }
 
   /* Review Text Container (8635:3461): p 20 · gap 20 · stroke direito inside (some sob o do card) */
   .estudos__text {

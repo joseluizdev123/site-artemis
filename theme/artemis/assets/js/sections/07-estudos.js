@@ -12,12 +12,16 @@
        troca na hora e a rolagem compensa a diferença, então setas e imagem ficam paradas
      - estudo sem rodapé (texto centralizado): altura do menor bloco de texto dos outros
        estudos (--estudos-text-min)
-     - troca automática a cada AUTOPLAY ms, só com o carrossel na tela (mesmo com o mouse em cima);
-       pausa com foco de teclado dentro, durante o toque e com a aba escondida; navegar à mão
-       recomeça a contagem. Enquanto troca sozinho o aria-live fica "off" (leitor de tela não anuncia a cada troca)
-     - o estudo que entra ganha .is-entering (pintura com zoom-out leve, captura deslizando no
-       sentido da navegação via --estudos-dir, texto subindo em sequência — CSS) */
+     - troca automática, só com o carrossel na tela: a cada AUTOPLAY ms com o cursor fora e a cada
+       AUTOPLAY_HOVER ms com o cursor em cima (tempo de ler — entrar/sair do carrossel só troca o
+       prazo, sem zerar a contagem); pausa com foco de teclado dentro, durante o toque e com a aba
+       escondida; navegar à mão recomeça a contagem. Enquanto troca sozinho o aria-live fica "off"
+       (leitor de tela não anuncia a cada troca)
+     - o estudo que sai ganha .is-leaving (texto sobe na diagonal e some) e o que entra ganha
+       .is-entering (texto sobe na diagonal em sequência, pintura com zoom-out leve, captura
+       deslizando no sentido da navegação via --estudos-dir — CSS) */
   var AUTOPLAY = 8000;
+  var AUTOPLAY_HOVER = 20000;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-estudos]'), function (root) {
@@ -111,21 +115,22 @@
       track.style.height = '';
     }
 
-    var enterTimer = 0;
-    function enter(card, dir) {
-      cards.forEach(function (c) { c.classList.remove('is-entering'); });
+    var animTimer = 0;
+    function animate(from, to, dir) {
+      cards.forEach(function (c) { c.classList.remove('is-entering', 'is-leaving'); });
       if (reduce.matches) return;
-      card.style.setProperty('--estudos-dir', dir);
-      void card.offsetWidth; // reinicia as animações se o mesmo estudo voltar logo
-      card.classList.add('is-entering');
-      clearTimeout(enterTimer);
-      enterTimer = setTimeout(function () { card.classList.remove('is-entering'); }, 1800);
+      to.style.setProperty('--estudos-dir', dir);
+      void to.offsetWidth; // reinicia as animações se o mesmo estudo voltar logo
+      from.classList.add('is-leaving');
+      to.classList.add('is-entering');
+      clearTimeout(animTimer);
+      animTimer = setTimeout(function () { from.classList.remove('is-leaving'); to.classList.remove('is-entering'); }, 1800);
     }
 
     function go(index, dir) {
       index = (index + total) % total;
       if (index === current) return;
-      enter(cards[index], dir || (index > current ? 1 : -1));
+      animate(cards[current], cards[index], dir || (index > current ? 1 : -1));
       var from = track.offsetHeight;
       var pin = controls && track.getBoundingClientRect().top < headerOffset();
       var pinTop = pin ? controls.getBoundingClientRect().top : 0;
@@ -152,13 +157,18 @@
     var prev = root.querySelector('[data-estudos-prev]');
     var next = root.querySelector('[data-estudos-next]');
     // Troca automática
-    var auto = 0, inView = false, focused = false, touching = false;
+    var auto = 0, shownAt = Date.now(), inView = false, hovering = false, focused = false, touching = false;
     function canPlay() {
       return inView && !focused && !touching && !document.hidden && !reduce.matches;
     }
-    function schedule() {
+    // keep = true: só troca o prazo (cursor entrou/saiu), sem zerar o tempo já passado no estudo
+    function schedule(keep) {
       clearTimeout(auto);
-      auto = canPlay() ? setTimeout(function () { show(current + 1, 1, false); }, AUTOPLAY) : 0;
+      auto = 0;
+      if (keep !== true) shownAt = Date.now();
+      if (!canPlay()) return;
+      var wait = (hovering ? AUTOPLAY_HOVER : AUTOPLAY) - (Date.now() - shownAt);
+      auto = setTimeout(function () { show(current + 1, 1, false); }, Math.max(1500, wait));
     }
     function show(index, dir, manual) {
       track.setAttribute('aria-live', manual ? 'polite' : 'off');
@@ -173,7 +183,17 @@
         schedule();
       }, { threshold: 0.35 }).observe(root);
     }
-    document.addEventListener('visibilitychange', schedule);
+    document.addEventListener('visibilitychange', function () { schedule(); });
+    root.addEventListener('pointerenter', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      hovering = true;
+      schedule(true);
+    });
+    root.addEventListener('pointerleave', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      hovering = false;
+      schedule(true);
+    });
     // Foco de teclado pausa; o foco que o clique do mouse deixa na seta não
     function syncFocus() {
       var el = document.activeElement;
