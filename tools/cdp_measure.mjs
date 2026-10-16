@@ -6,9 +6,9 @@
 // Imprime o JSON gravado pelo medidor do preview (#__measure). Com png-saida, salva a
 // screenshot da página do topo até altura-png (captura além do viewport).
 import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { makeProfile, removeProfile } from './chrome_profile.mjs';
 
 const [url, widthArg, shotPath, shotHeightArg] = process.argv.slice(2);
 const width = Number(widthArg || 1440);
@@ -19,7 +19,7 @@ const CHROME = [
 if (!CHROME) { console.error('Chrome/Edge não encontrado'); process.exit(2); }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const prof = mkdtempSync(join(tmpdir(), 'artemis-cdp-'));
+const prof = makeProfile('cdp');
 const chrome = spawn(CHROME, [
   '--headless=new', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check',
   '--remote-debugging-port=0', '--user-data-dir=' + prof, '--window-size=1440,900', 'about:blank',
@@ -30,7 +30,7 @@ function cleanup() {
     if (process.platform === 'win32') execFileSync('taskkill', ['/PID', String(chrome.pid), '/T', '/F'], { stdio: 'ignore' });
     else chrome.kill('SIGKILL');
   } catch { /* já saiu */ }
-  for (let i = 0; i < 5; i++) { try { rmSync(prof, { recursive: true, force: true }); break; } catch { /* arquivos presos — tenta de novo */ } }
+  removeProfile(prof);
 }
 
 try {

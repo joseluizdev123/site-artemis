@@ -6,9 +6,9 @@
 // imagens, e imprime: largura/altura do documento, rolagem horizontal e o y/altura de
 // cada bloco (header, seções de <main>, footer) com o Δ contra o frame do Figma.
 import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { makeProfile, removeProfile } from './chrome_profile.mjs';
 
 const url = process.argv[2] || 'http://localhost:5500/';
 const width = Number(process.argv[3] || 1440);
@@ -52,7 +52,7 @@ const FIGMA = MKTOPS ? (mobile
 
 const CHROME = ['C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'].find(existsSync);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const prof = mkdtempSync(join(tmpdir(), 'artemis-page-'));
+const prof = makeProfile('page');
 const chrome = spawn(CHROME, ['--headless=new', '--hide-scrollbars', '--no-first-run', '--remote-debugging-port=0', '--user-data-dir=' + prof, 'about:blank'], { stdio: 'ignore' });
 
 try {
@@ -108,5 +108,5 @@ try {
   console.error(String(e && e.message || e)); process.exitCode = 1;
 } finally {
   try { execFileSync('taskkill', ['/PID', String(chrome.pid), '/T', '/F'], { stdio: 'ignore' }); } catch { /* já saiu */ }
-  for (let i = 0; i < 5; i++) { try { rmSync(prof, { recursive: true, force: true }); break; } catch { await sleep(300); } }
+  removeProfile(prof);
 }
