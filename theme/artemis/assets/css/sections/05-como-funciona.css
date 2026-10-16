@@ -110,6 +110,12 @@
   transition: scale .6s cubic-bezier(.2, .7, .2, 1) calc(var(--i, 0) * 600ms + 300ms);
 }
 
+/* Impressão / PDF sem ter rolado até a seção: passos no estado final */
+@media print {
+  .como-funciona__steps.is-armed :is(.como-funciona__num, .como-funciona__body) { opacity: 1; translate: none; transition: none; }
+  .como-funciona__steps.is-armed .como-funciona__marker { scale: none; transition: none; }
+}
+
 /* Abaixo do desktop: colunas empilhadas (gap 32 como no Step blocks mobile 8635:2314), sem sticky */
 @media (max-width: 1023.98px) {
   .como-funciona__blocks { flex-direction: column; gap: var(--content-gap); }

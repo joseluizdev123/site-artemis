@@ -67,13 +67,13 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 | 4 | testmonial           | `8186:1160` | 443    | → CPT `art_depoimento`; globo em canvas girando no enquadramento do Figma (esfera 594,8/365,1 R 351,3; Atlântico no centro; #CECECE com degradê horizontal 0→50%; pontos 40% mais fortes que o Figma a pedido do cliente: `INK = 1.4` → 0→70%). Terra = grade do mapa real sem sobreposição; oceano = mesma grade a 16% (globo nunca vazio); velocidade 1 volta/90 s sobre continentes, até 10× sobre oceano aberto (o Pacífico passa em ~5 s). Dados: `assets/data/globe-points.json` (5 KB, `tools/gen_globe_figma.py`) | ✅ |
 | 5 | como funciona        | `8307:3380` | 814    | 4 passos; coluna esquerda sticky; ao entrar na tela os passos aparecem um por vez (número sobe, depois texto + traço; 600ms por passo, `05-como-funciona.js`) | ✅      |
 | 6 | Diagram              | `8653:2286` | 843    | diagrama POC → MVP → Escala em HTML/CSS; cartão cresce 5% no hover (só mouse) | ✅      |
-| 7 | estudos de impacto   | `8195:1063` | 1055   | carrossel 4 estudos → CPT `art_estudo`; troca sozinho só na tela: a cada 8 s com o cursor fora e 20 s com o cursor em cima (entrar/sair só troca o prazo); pausa com foco de teclado, toque e aba escondida. Na troca o texto que sai sobe na diagonal e some; o que entra sobe na diagonal (de baixo/esquerda) bloco a bloco; pintura com zoom-out leve e captura deslizando no sentido da navegação | ✅      |
-| 8 | stats                | `8486:1798` | 382    | → Customizer `art_stat_*`; número conta de 0 até o valor quando a célula entra na tela, um por vez (2 s cada, o seguinte 1,2 s depois; formato BR do próprio texto); no hover o valor cresce 25% para fora do card | ✅      |
+| 7 | estudos de impacto   | `8195:1063` | 1055 → 1127 | carrossel 4 estudos → CPT `art_estudo`; troca sozinho só na tela: a cada 8 s com o cursor fora e 20 s com o cursor em cima (entrar/sair só troca o prazo); segura durante o toque e com a aba escondida. Para de vez com o botão Pausar/Reproduzir (fora do Figma, WCAG 2.2.2: antes das setas, primeiro focável do carrossel), com qualquer navegação à mão e com o foco de teclado entrando; Reproduzir retoma. Altura reservada = estudo mais alto (`--estudos-h`, JS): a troca não empurra o conteúdo de baixo (CLS) — por isso a seção tem 1127 em vez de 1055 e a sobra dos estudos mais baixos fica no texto, com o rodapé no pé. Na troca o texto que sai sobe na diagonal e some; o que entra sobe na diagonal bloco a bloco; pintura com zoom-out leve e captura deslizando no sentido da navegação | ✅      |
+| 8 | stats                | `8486:1798` | 382    | → Customizer `art_stat_*`; número conta de 0 até o valor quando a célula entra na tela, um por vez (2 s cada, o seguinte 1,2 s depois; formato BR do próprio texto); no hover o valor cresce 25% para fora do card (só com mouse e sem movimento reduzido; caixa encolhe para o texto no hover e `.stats` corta na horizontal — sem rolagem lateral). O número que conta é `aria-hidden` e o valor real fica em `.stats__sr` (leitor de tela); largura medida com a Exo carregada, sufixo parado; impressão sai com o valor final | ✅      |
 | 9 | como trabalhamos     | `8490:2191` | 865    | 5 regras + ilustração isométrica que monta com o scroll (tela sobe 56px, tracejado se desenha, selo aparece); depois de montada as camadas flutuam (tela/selo descem até 5/4px, código sobe 2px) | ✅ |
 | 10| call to action       | `8160:1628` | 628    | barra de status (estática) + CTA + traços | ✅    |
 | 11| Footer container     | `8165:2501` | 740    | newsletter, links, contato, redes       | ✅      |
 
-Página inteira (1440, sem scrollbar): altura 8594 = Figma; empilhamento Δ ≤ 0,8px. Diferenças restantes = largura de texto por métrica de fonte web (≤ 1,9px) e glifos ~1px mais altos (métrica vertical do Google Fonts).
+Página inteira (1440, sem scrollbar): altura 8594 no Figma → 8666 no código (+72 da altura reservada dos estudos, ver seção 7); demais seções Δ ≤ 0,8px. Diferenças restantes = largura de texto por métrica de fonte web (≤ 1,9px) e glifos ~1px mais altos (métrica vertical do Google Fonts).
 
 ## Home mobile — mapa (frame `8635:1583`, 375 × 13162)
 
@@ -89,20 +89,20 @@ Gate: `python tools/diff.py SLUG --mobile --shot` (375 via DevTools, nós `data-
 | testmonial         | `8186:1160` | `8635:2302` | 501 | globo com enquadramento próprio no mobile (`FRAMES.mobile` em `04-depoimento.js`) | ✅ |
 | como funciona      | `8307:3380` | `8635:2313` | 1318 | sem sticky abaixo de 1024 | ✅ |
 | Diagram            | `8653:2286` | `8653:2599` | 869 | mesmo desenho com rolagem horizontal + barra de progresso `8653:2896`; rótulo "Você testa" (`art_diag_lab_label`) | ✅ |
-| estudos de impacto | `8195:1063` | `8635:2366` | 1321,47 | carrossel com setas, teclado e swipe; estudos 2–4 extrapolados do layout do estudo 1 | ✅ |
+| estudos de impacto | `8195:1063` | `8635:2366` | 1321,47 → 1442,47 | carrossel com Pausar/Reproduzir, setas, teclado e swipe; estudos 2–4 extrapolados do layout do estudo 1; altura reservada do estudo mais alto (+121 em 375) | ✅ |
 | stats              | `8486:1798` | `8635:2371` | 932 | 4 números empilhados; cada um conta quando entra na tela | ✅ |
 | como trabalhamos   | `8490:2191` | `8635:2435` | 1227 | animação de scroll da ilustração mantida; zoom 0,9/0,8 abaixo de 370/341px | ✅ |
 | call to action     | `8160:1628` | `8635:2625` | 576 | barra de status cortada na borda, como no Figma | ✅ |
 | Footer             | `8165:2501` | `8641:1595` | 1459 | em 320 o 6º ícone social desce de linha | ✅ |
 
-Página inteira (verificada com `node tools/page_check.mjs URL LARGURA`): 375 → 375×13162, todas as seções com Δ 0,00 contra o frame Mobile; 1440 → 1440×8594, Δ ≤ 0,19. Sem rolagem horizontal em 320/375/390/414/768/1024/1280/1440.
+Página inteira (verificada com `node tools/page_check.mjs URL LARGURA`): 375 → 375×13283 (Figma 13162: +121 da altura reservada dos estudos; as outras seções com Δ 0,00); 1440 → 1440×8666 (Figma 8594: +72 dos estudos; demais Δ ≤ 0,19). Sem rolagem horizontal em 320/375/390/414/768/1024/1280/1440.
 
 ### Mobile — a confirmar com cliente/designer
 - Placeholder do e-mail no Figma mobile com espaço duplo ("Seu endereço  de e-mail") — o código usa espaço simples.
 - "Como funciona": só o marcador do passo 1 (`8635:2324`) está ancorado embaixo no Figma mobile; implementado literalmente.
 - Estudos 2–4 não têm layout mobile no Figma — seguem o do estudo 1.
 - O fundo escurecido atrás da gaveta do menu não está no Figma (leitura da anotação "em overlay").
-- Animações pedidas pelo cliente fora do Figma (passos, hover do diagrama e dos números, contagem, troca automática dos estudos, flutuação da ilustração 09): todas respeitam `prefers-reduced-motion` e, em repouso, a geometria é a do Figma (o `diff.py` mede no meio da entrada dos passos — confira o repouso).
+- Animações pedidas pelo cliente fora do Figma (passos, hover do diagrama e dos números, contagem, troca automática dos estudos, flutuação da ilustração 09): todas respeitam `prefers-reduced-motion` (inclusive os zooms de hover) e saem no estado final na impressão. Em repouso a geometria é a do Figma, exceto os estudos: altura do mais alto e o botão Pausar/Reproduzir (+48 nos controles). O `diff.py` mede no meio da entrada dos passos — confira o repouso.
 
 ## Blog — mapa (desktop `8294:1703` 1440×6906 · mobile `8673:3845` 375×8037,41)
 

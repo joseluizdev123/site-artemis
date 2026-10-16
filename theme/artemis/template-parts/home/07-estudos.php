@@ -70,6 +70,10 @@ $artemis_estudos_total = count( $artemis_estudos );
 					<span class="estudos__progress-rest"></span>
 				</div>
 				<div class="estudos__nav">
+					<?php // Pausar/Reproduzir a troca automática (fora do Figma: WCAG 2.2.2) — o JS mostra quando há troca automática. ?>
+					<button class="estudos__arrow estudos__toggle" type="button" aria-controls="estudos-slides" aria-label="<?php esc_attr_e( 'Pausar a troca automática dos estudos', 'artemis' ); ?>" data-label-pause="<?php esc_attr_e( 'Pausar a troca automática dos estudos', 'artemis' ); ?>" data-label-play="<?php esc_attr_e( 'Retomar a troca automática dos estudos', 'artemis' ); ?>" data-estudos-toggle hidden>
+						<svg class="estudos__toggle-icon estudos__toggle-icon--pause" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 4v8M10.5 4v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="estudos__toggle-icon estudos__toggle-icon--play" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.8v8.4L12 8z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+					</button>
 					<button class="estudos__arrow" type="button" aria-controls="estudos-slides" aria-label="<?php esc_attr_e( 'Estudo anterior', 'artemis' ); ?>" data-estudos-prev>
 						<img src="<?php echo esc_url( artemis_asset( 'images/07-estudos/chevron-left.svg' ) ); ?>" width="16" height="16" alt="">
 					</button>

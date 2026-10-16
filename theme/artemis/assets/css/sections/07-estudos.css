@@ -40,6 +40,12 @@
   transition: opacity .55s ease, visibility 0s linear .55s; /* cobre a saída do texto (.5s) */
 }
 
+/* Altura reservada (JS: --estudos-h = altura do estudo mais alto): trocar de estudo não empurra
+   o conteúdo de baixo. Nos estudos mais baixos a sobra fica no bloco de texto, com o rodapé
+   (categoria | status) no pé; a imagem acompanha a altura. Sem JS cada estudo tem a sua altura. */
+.estudos__card { min-height: var(--estudos-h, 0px); }
+.estudos__tags { margin-top: auto; }
+
 /* Review Text Container (8201:3595): 640 · p 48 · gap 32 · stroke direito inside */
 .estudos__text {
   flex: 0 0 calc((100% - 64px) * 640 / 1312); /* 640 : 672 ao redor do padrão de 64 */
@@ -202,6 +208,15 @@
 .estudos__arrow:active { background: var(--gray-900); }
 .estudos__arrow img { width: 16px; height: 16px; }
 
+/* Pausar/Reproduzir a troca automática (fora do Figma, WCAG 2.2.2): mesmo desenho das setas,
+   antes delas; ícone de pausa trocando sozinho, de play parado (.is-paused, JS) */
+.estudos__toggle { color: var(--gray-0); }
+.estudos__toggle[hidden] { display: none; }
+.estudos__toggle-icon { display: block; width: 16px; height: 16px; }
+.estudos__toggle-icon--play,
+.estudos__toggle.is-paused .estudos__toggle-icon--pause { display: none; }
+.estudos__toggle.is-paused .estudos__toggle-icon--play { display: block; }
+
 /* Um estudo só: sem controles (WP) */
 .estudos__carousel.is-single .estudos__controls { display: none; }
 
@@ -243,7 +258,8 @@
 @media (max-width: 1023px) {
   .estudos__inner { gap: 48px; }
   .estudos__card { flex-direction: column; }
-  .estudos__text { flex: none; padding: 32px 24px; box-shadow: inset 0 -1px 0 var(--gray-900); }
+  .estudos__text { flex: 1 0 auto; padding: 32px 24px; box-shadow: inset 0 -1px 0 var(--gray-900); } /* cresce com a altura reservada */
+  .estudos__card { --estudos-text-x: -20px; } /* entrada na diagonal: até o padding de 24, sem passar da borda */
   /* Estudo sem rodapé: altura do menor bloco de texto dos outros estudos (JS) */
   .estudos__text--center { min-height: var(--estudos-text-min, 0px); }
   .estudos__pattern { display: none; }

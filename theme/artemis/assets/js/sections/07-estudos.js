@@ -6,17 +6,19 @@
      - teclado: ← → Home End com o foco dentro do carrossel
      - toque: arrastar na horizontal troca de estudo
      - barra de progresso (8201:3694): 164px por estudo, via --estudos-step
-     - a altura acompanha o estudo ativo (Gascat é mais alto), com transição
-     - quem já rolou para dentro do estudo (topo escondido sob o header — sempre no mobile
-       8635:3459, onde o estudo é mais alto que a tela) não vê as setas pularem: a altura
-       troca na hora e a rolagem compensa a diferença, então setas e imagem ficam paradas
+     - altura reservada: todos os estudos ficam com a altura do mais alto (--estudos-h, medida a
+       cada mudança de largura e quando as fontes carregam), então trocar de estudo — sozinho ou à
+       mão — não empurra o conteúdo de baixo. Sem a medida (sem JS), a altura acompanha o estudo
+       ativo com transição, e quem já rolou para dentro do estudo (topo sob o header) não vê as
+       setas pularem: a rolagem compensa a diferença
      - estudo sem rodapé (texto centralizado): altura do menor bloco de texto dos outros
        estudos (--estudos-text-min)
      - troca automática, só com o carrossel na tela: a cada AUTOPLAY ms com o cursor fora e a cada
        AUTOPLAY_HOVER ms com o cursor em cima (tempo de ler — entrar/sair do carrossel só troca o
-       prazo, sem zerar a contagem); pausa com foco de teclado dentro, durante o toque e com a aba
-       escondida; navegar à mão recomeça a contagem. Enquanto troca sozinho o aria-live fica "off"
-       (leitor de tela não anuncia a cada troca)
+       prazo, sem zerar a contagem); segura durante o toque e com a aba escondida. Para de vez com
+       o botão Pausar (primeiro elemento focável do carrossel, WCAG 2.2.2), com qualquer navegação à
+       mão (seta, teclado, toque, arrasto) e quando o foco de teclado entra no carrossel; o botão
+       Reproduzir retoma. Trocando sozinho, aria-live "off"; parado, "polite"
      - o estudo que sai ganha .is-leaving (texto sobe na diagonal e some) e o que entra ganha
        .is-entering (texto sobe na diagonal em sequência, pintura com zoom-out leve, captura
        deslizando no sentido da navegação via --estudos-dir — CSS) */
@@ -57,27 +59,42 @@
       if (card.classList.contains('is-active')) current = i;
     });
 
-    /* Estudo sem rodapé (texto centralizado, 8284:168): o bloco de texto fica com a altura do
-       menor bloco de texto dos outros estudos (--estudos-text-min; o CSS usa abaixo de 1440) —
-       no 375 = 645 do estudo 1 (8635:3461), no 1440 = 573. Assim ele não fica mais alto que os
-       outros (768) nem mais baixo (320, 1024) e as setas andam o mínimo entre os estudos. */
+    /* Medidas, sempre sem a altura reservada (senão cada medida inflaria a seguinte):
+       1. Estudo sem rodapé (texto centralizado, 8284:168): o bloco de texto fica com a altura do
+          menor bloco de texto dos outros estudos (--estudos-text-min; o CSS usa abaixo de 1440) —
+          no 375 = 645 do estudo 1 (8635:3461), no 1440 = 573. Assim ele não fica mais alto que os
+          outros (768) nem mais baixo (320, 1024).
+       2. Altura reservada (--estudos-h): a do estudo mais alto. */
     var texts = cards.map(function (card) { return card.querySelector('.estudos__text'); });
     var centered = texts.filter(function (t) { return t && t.classList.contains('estudos__text--center'); });
     var others = texts.filter(function (t) { return t && !t.classList.contains('estudos__text--center'); });
-    if (centered.length && others.length) {
-      var syncTextMin = function () {
+    function measure() {
+      root.style.removeProperty('--estudos-h');
+      if (centered.length && others.length) {
         var min = Infinity;
         others.forEach(function (t) { min = Math.min(min, t.getBoundingClientRect().height); });
         if (min > 0 && min < Infinity) root.style.setProperty('--estudos-text-min', min + 'px');
-      };
-      syncTextMin();
-      if ('ResizeObserver' in window) {
-        var ro = new ResizeObserver(syncTextMin);
-        others.forEach(function (t) { ro.observe(t); });
-      } else {
-        window.addEventListener('resize', syncTextMin);
       }
+      var max = 0;
+      cards.forEach(function (c) { max = Math.max(max, c.getBoundingClientRect().height); });
+      if (max > 0) root.style.setProperty('--estudos-h', max + 'px');
     }
+    measure();
+    var lastW = root.clientWidth;
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(function () {
+        if (root.clientWidth === lastW) return; // só a largura muda a quebra das linhas
+        lastW = root.clientWidth;
+        measure();
+      }).observe(root);
+    } else {
+      window.addEventListener('resize', measure);
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure);
+      if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', measure);
+    }
+    window.addEventListener('load', measure); // fontes e imagens que chegaram depois
 
     function setState(card, active) {
       card.classList.toggle('is-active', active);
@@ -116,15 +133,23 @@
     }
 
     var animTimer = 0;
-    function animate(from, to, dir) {
+    function clearAnim() {
       cards.forEach(function (c) { c.classList.remove('is-entering', 'is-leaving'); });
+    }
+    function animate(from, to, dir) {
+      // Estudo que sai antes de terminar de entrar (duas trocas seguidas): segue com a entrada
+      // enquanto o card some no fade — trocar para a saída faria o texto, ainda invisível, piscar
+      var interrupted = from.classList.contains('is-entering');
+      cards.forEach(function (c) {
+        if (c !== from || !interrupted) c.classList.remove('is-entering', 'is-leaving');
+      });
       if (reduce.matches) return;
       to.style.setProperty('--estudos-dir', dir);
       void to.offsetWidth; // reinicia as animações se o mesmo estudo voltar logo
-      from.classList.add('is-leaving');
+      if (!interrupted) from.classList.add('is-leaving');
       to.classList.add('is-entering');
       clearTimeout(animTimer);
-      animTimer = setTimeout(function () { from.classList.remove('is-leaving'); to.classList.remove('is-entering'); }, 2600);
+      animTimer = setTimeout(clearAnim, 2600);
     }
 
     function go(index, dir) {
@@ -156,10 +181,23 @@
 
     var prev = root.querySelector('[data-estudos-prev]');
     var next = root.querySelector('[data-estudos-next]');
+    var toggle = root.querySelector('[data-estudos-toggle]');
     // Troca automática
-    var auto = 0, shownAt = Date.now(), inView = false, hovering = false, focused = false, touching = false;
+    var playing = !reduce.matches;
+    var auto = 0, shownAt = Date.now(), inView = false, hovering = false, touching = false;
     function canPlay() {
-      return inView && !focused && !touching && !document.hidden && !reduce.matches;
+      return playing && inView && !touching && !document.hidden;
+    }
+    function syncToggle() {
+      track.setAttribute('aria-live', playing ? 'off' : 'polite');
+      if (!toggle) return;
+      toggle.classList.toggle('is-paused', !playing);
+      toggle.setAttribute('aria-label', toggle.getAttribute(playing ? 'data-label-pause' : 'data-label-play'));
+    }
+    function setPlaying(on) {
+      playing = on;
+      syncToggle();
+      schedule();
     }
     // keep = true: só troca o prazo (cursor entrou/saiu), sem zerar o tempo já passado no estudo
     function schedule(keep) {
@@ -170,12 +208,20 @@
       var wait = (hovering ? AUTOPLAY_HOVER : AUTOPLAY) - (Date.now() - shownAt);
       auto = setTimeout(function () { show(current + 1, 1, false); }, Math.max(1500, wait));
     }
+    // Navegação à mão para a troca automática de vez (o anúncio "polite" nunca é cortado)
     function show(index, dir, manual) {
-      track.setAttribute('aria-live', manual ? 'polite' : 'off');
+      if (manual && playing) {
+        playing = false;
+        syncToggle();
+      }
       go(index, dir);
       schedule();
     }
-    track.setAttribute('aria-live', 'off');
+    if (toggle && !reduce.matches) {
+      toggle.hidden = false;
+      toggle.addEventListener('click', function () { setPlaying(!playing); });
+    }
+    syncToggle();
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
@@ -194,27 +240,31 @@
       hovering = false;
       schedule(true);
     });
-    // Foco de teclado pausa; o foco que o clique do mouse deixa na seta não
-    function syncFocus() {
-      var el = document.activeElement;
+    // Foco de teclado entrando no carrossel para a troca (o foco que o clique do mouse deixa na
+    // seta não conta); lá dentro, o botão Reproduzir retoma
+    root.addEventListener('focusin', function (e) {
+      if (!playing || (e.relatedTarget && root.contains(e.relatedTarget))) return;
       var kb = true;
-      try { kb = el.matches(':focus-visible'); } catch (err) { /* navegador sem :focus-visible */ }
-      focused = root.contains(el) && kb;
-      schedule();
-    }
-    root.addEventListener('focusin', syncFocus);
-    root.addEventListener('focusout', function () { setTimeout(syncFocus, 0); });
+      try { kb = e.target.matches(':focus-visible'); } catch (err) { /* navegador sem :focus-visible */ }
+      if (kb) setPlaying(false);
+    });
+    // Toque: segura enquanto o dedo está na tela; o toque que termina sem virar rolagem é
+    // interação com o carrossel e para a troca de vez (o botão cuida de si mesmo)
     root.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse') return;
       touching = true;
       schedule();
     });
-    ['pointerup', 'pointercancel'].forEach(function (type) {
-      root.addEventListener(type, function (e) {
-        if (e.pointerType === 'mouse' || !touching) return;
-        touching = false;
-        schedule();
-      });
+    root.addEventListener('pointerup', function (e) {
+      if (e.pointerType === 'mouse' || !touching) return;
+      touching = false;
+      if (playing && !(toggle && toggle.contains(e.target))) setPlaying(false);
+      else schedule();
+    });
+    root.addEventListener('pointercancel', function (e) {
+      if (e.pointerType === 'mouse' || !touching) return;
+      touching = false; // virou rolagem da página: retoma
+      schedule();
     });
 
     if (prev) prev.addEventListener('click', function () { show(current - 1, -1, true); });

@@ -18,10 +18,10 @@
   <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--roteirizacao.css?v=1792179881">
   <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--validacao.css?v=1792179881">
   <link rel="stylesheet" href="/assets/css/sections/04-depoimento.css?v=1792179881">
-  <link rel="stylesheet" href="/assets/css/sections/05-como-funciona.css?v=1792181110">
-  <link rel="stylesheet" href="/assets/css/sections/06-diagrama.css?v=1792180821">
-  <link rel="stylesheet" href="/assets/css/sections/07-estudos.css?v=1792182993">
-  <link rel="stylesheet" href="/assets/css/sections/08-stats.css?v=1792181377">
+  <link rel="stylesheet" href="/assets/css/sections/05-como-funciona.css?v=1792190739">
+  <link rel="stylesheet" href="/assets/css/sections/06-diagrama.css?v=1792190720">
+  <link rel="stylesheet" href="/assets/css/sections/07-estudos.css?v=1792190666">
+  <link rel="stylesheet" href="/assets/css/sections/08-stats.css?v=1792190719">
   <link rel="stylesheet" href="/assets/css/sections/09-como-trabalhamos.css?v=1792180871">
   <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1792179881">
   <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792179881">
@@ -694,6 +694,10 @@
               <span class="estudos__progress-rest"></span>
             </div>
             <div class="estudos__nav">
+              <!-- Pausar/Reproduzir a troca automática (fora do Figma: WCAG 2.2.2) — o JS mostra quando há troca automática -->
+              <button class="estudos__arrow estudos__toggle" type="button" aria-controls="estudos-slides" aria-label="Pausar a troca automática dos estudos" data-label-pause="Pausar a troca automática dos estudos" data-label-play="Retomar a troca automática dos estudos" data-estudos-toggle hidden>
+                <svg class="estudos__toggle-icon estudos__toggle-icon--pause" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 4v8M10.5 4v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="estudos__toggle-icon estudos__toggle-icon--play" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.8v8.4L12 8z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </button>
               <button class="estudos__arrow" type="button" aria-controls="estudos-slides" aria-label="Estudo anterior" data-estudos-prev>
                 <img src="/assets/images/07-estudos/chevron-left.svg" width="16" height="16" alt="">
               </button>
@@ -1204,10 +1208,10 @@
   <script src="/assets/js/sections/03-nossos-sistemas.js?v=1792179885" defer></script>
   <script src="/assets/js/sections/03-nossos-sistemas--roteirizacao.js?v=1792179885" defer></script>
   <script src="/assets/js/sections/04-depoimento.js?v=1792180541" defer></script>
-  <script src="/assets/js/sections/05-como-funciona.js?v=1792180810" defer></script>
+  <script src="/assets/js/sections/05-como-funciona.js?v=1792190739" defer></script>
   <script src="/assets/js/sections/06-diagrama.js?v=1792179885" defer></script>
-  <script src="/assets/js/sections/07-estudos.js?v=1792182993" defer></script>
-  <script src="/assets/js/sections/08-stats.js?v=1792182375" defer></script>
+  <script src="/assets/js/sections/07-estudos.js?v=1792190719" defer></script>
+  <script src="/assets/js/sections/08-stats.js?v=1792190719" defer></script>
   <script src="/assets/js/sections/09-como-trabalhamos.js?v=1792180871" defer></script>
   <script src="/assets/js/sections/10-cta.js?v=1792179885" defer></script>
   <script src="/assets/js/sections/footer.js?v=1792179885" defer></script>

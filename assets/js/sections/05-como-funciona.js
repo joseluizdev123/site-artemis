@@ -1,6 +1,7 @@
 /* Seção 05 — Como funciona: os passos entram um por vez quando a lista chega na tela —
    o número sobe, depois o texto (e o traço sob o número se desenha), até o último.
-   Sem JS / prefers-reduced-motion os passos aparecem prontos (o CSS só esconde com .is-armed). */
+   Sem JS / prefers-reduced-motion os passos aparecem prontos (o CSS só esconde com .is-armed);
+   na impressão também. */
 (function () {
   'use strict';
 
@@ -20,4 +21,10 @@
     list.classList.add('is-in');
   }, { rootMargin: '0px 0px -20% 0px' });
   io.observe(list);
+
+  // Impressão / PDF antes de rolar até aqui: passos visíveis (o CSS de print também garante)
+  window.addEventListener('beforeprint', function () {
+    io.disconnect();
+    list.classList.add('is-in');
+  });
 })();
