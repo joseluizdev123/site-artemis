@@ -24,7 +24,11 @@ const SERVICOS = /\/servicos\b/.test(url); // serviços: desktop 8340:1700 (3523
 const SOBRE = /\/sobre\b/.test(url); // sobre: desktop 8348:3076 (7855,45) · mobile 8689:1932 (10334,67)
 const CONTATO = /\/contato\b/.test(url); // contato: desktop 8348:3835 (2075) · mobile 8693:2761 (2934)
 const SEO = /\/artemis-seo\b/.test(url); // artemis seo: desktop 8348:4008 (3463,51) · mobile 8704:6450 (5860)
-const FIGMA = SEO ? (mobile
+const MKTOPS = /\/mktops\b/.test(url); // mktops: desktop 8348:4181 (5137) · mobile 8695:3268 (7468,08)
+const FIGMA = MKTOPS ? (mobile
+  ? [['header', 60], ['hero', 1500.08], ['problema', 671], ['instalado', 1506], ['niveis', 1644], ['cta', 628], ['footer', 1459]]
+  : [['header', 80], ['hero', 864], ['problema', 966], ['instalado', 911], ['niveis', 948], ['cta', 628], ['footer', 740]])
+  : SEO ? (mobile
   ? [['header', 60], ['hero', 1237], ['problema', 464], ['formas', 2117], ['cta', 523], ['footer', 1459]]
   : [['header', 80], ['hero', 1081.51], ['problema', 418], ['formas', 682], ['cta', 462], ['footer', 740]])
   : CONTATO ? (mobile

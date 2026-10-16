@@ -1,0 +1,62 @@
+/* MktOps — topo (Figma 8425:3827 · mobile 8695:3271) */
+
+/* 8425:3827: px 32 · pt 120 · pb 0 · gap 80 (texto → diagrama) */
+.mk-hero {
+  padding-top: var(--section-py);
+  background: var(--black-200);
+  overflow: hidden;
+}
+.mk-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+/* Article 8425:4101: 984 de largura, gap 32, centralizado */
+.mk-hero__article {
+  width: 100%;
+  max-width: 984px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+.mk-hero__heading { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+/* 8425:4103 · Exo SemiBold 62/1.1 (caixa 204 = 3 × 68) · "Não terceirizamos seu marketing." em gray-500 */
+.mk-hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 62px;
+  line-height: 68px;
+  color: var(--gray-0);
+}
+.mk-hero__title em { font-style: normal; color: var(--gray-500); }
+/* 8425:4104 · Cabin 18/1.5 gray-300 — caixa de 592 */
+.mk-hero__lead { max-width: 592px; font-size: 18px; line-height: 1.5; color: var(--gray-300); }
+/* Container buttons 8425:4105: gap 16 · os dois botões com 170 (8425:4107: texto de 112 centralizado) */
+.mk-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.mk-hero__actions .btn { min-width: 170px; justify-content: center; } /* 8425:4106/4107: 170 cada */
+
+/* Main Container 8453:9443: 1184×290 — pastas, linhas, marca e o padrão (cortado embaixo) num SVG só */
+.mk-hero__diagram { margin: 0; width: 100%; max-width: 1184px; }
+.mk-hero__diagram img { width: 100%; height: auto; aspect-ratio: 1184 / 290; }
+
+@media (max-width: 1023px) {
+  .mk-hero__title { font-size: 48px; line-height: 1.1; }
+}
+
+/* Mobile 8695:3271 (375×1500,08): py 60 · Article 8695:3272 com gap 40 entre título, botões e diagrama ·
+   título Exo 32/1.2 (caixa 4 × 38) · botões empilhados de 343 · diagrama vertical 155,6×880,08 (8696:4910),
+   SVG de 208 porque as etiquetas MCP (−18,06) e Pipelines passam das bordas */
+@media (max-width: 767px) {
+  .mk-hero { padding-bottom: var(--section-py); }
+  .mk-hero__inner,
+  .mk-hero__article { gap: 40px; }
+  .mk-hero__title { font-size: 32px; line-height: 38px; }
+  .mk-hero__lead { max-width: none; }
+  .mk-hero__actions { flex-direction: column; align-self: stretch; }
+  .mk-hero__diagram { width: 155.6px; height: 880.08px; }
+  .mk-hero__diagram img { width: 208px; max-width: none; height: 881px; aspect-ratio: auto; margin-left: -18.07px; }
+}

@@ -28,7 +28,7 @@ add_filter( 'artemis_customizer_defaults', function ( $d ) {
 		'art_footer_newsletter_title'  => 'Automação aplicada à operação, direto no seu e-mail. {Publicamos quando temos algo concreto para dizer.}',
 		'art_footer_newsletter_action' => '',
 		'art_footer_newsletter_field'  => 'email',
-		'art_footer_lines'             => "Artemis SEO | /artemis-seo/\nMktOps | #",
+		'art_footer_lines'             => "Artemis SEO | /artemis-seo/\nMktOps | /mktops/",
 		'art_footer_copyright'         => '© [ano] Studio Artemis. Todos os direitos reservados.',
 		'art_footer_privacy_url'       => '/politica-de-privacidade',
 		'art_footer_terms_url'         => '/termos-de-uso',

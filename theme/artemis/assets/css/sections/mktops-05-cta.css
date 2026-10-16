@@ -1,0 +1,20 @@
+/* MktOps — garantias (Figma 8436:2565 · mobile 8695:3733)
+   Barra de status, padrão de traços e layout = chamada final da Home (10-cta.css); aqui só as medidas do conteúdo */
+
+/* Content Container 8436:2662: 587 · nota 8436:2660: 390 */
+.cta--mktops .cta__body { width: 587px; }
+.cta--mktops .cta__note { width: 390px; }
+/* 8436:2945 · Cabin 18/1.5 gray-300 · primeira frase Bold branca */
+.mk-cta__text { white-space: pre-wrap; } /* preserva o espaço duplo do Figma depois da 1ª frase */
+.mk-cta__text strong { font-weight: 700; color: var(--gray-0); }
+
+/* Mobile 8695:3826: main container com 578 (na Home, 526) */
+@media (max-width: 767px) {
+  .cta--mktops .cta__main { min-height: 578px; }
+  .cta--mktops .cta__body { width: 100%; }
+  .cta--mktops .cta__note { width: auto; }
+}
+
+/* Padrão 8436:2668: os mesmos traços da Home em green-300 (assets/images/mktops/dash-row-N.svg); aceso = mais claro */
+.cta--mktops .cta__pattern.is-live .cta__dash-row path.is-lit { stroke: color-mix(in srgb, var(--green-300) 45%, var(--gray-0)); }
+.cta--mktops .cta__button { min-width: 170px; justify-content: center; } /* 8436:2666: 170 */

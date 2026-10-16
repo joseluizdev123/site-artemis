@@ -114,5 +114,20 @@
       "seo-03-formas",
       "seo-04-cta"
     ]
+  },
+  "mktops": {
+    "out": "mktops/index.html",
+    "title": "MktOps — Instalamos a operação de marketing com IA dentro da sua empresa · Studio Artemis",
+    "description": "Não terceirizamos seu marketing: instalamos ferramentas, sistema de produção com IA e um operador treinado dentro da sua empresa. Três níveis: Solo, Squad e Enterprise.",
+    "assets": [
+      "10-cta"
+    ],
+    "sections": [
+      "mktops-01-hero",
+      "mktops-02-problema",
+      "mktops-03-instalado",
+      "mktops-04-niveis",
+      "mktops-05-cta"
+    ]
   }
 }

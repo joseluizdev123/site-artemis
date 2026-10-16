@@ -45,7 +45,8 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 - E-mail: Figma mostra `contato@studioartemis.co`, o default do tema é `contato@studioartemis.com.br`.
 - Regra 4 ("A ferramenta se adapta ao seu processo"): texto truncado no Figma — "…para caber no nosso".
 - Estudo Gascat: rodapé "Validação de documentos · Em produção" igual ao estudo 1 (provável copy-paste).
-- WhatsApp `+55 (48) 0000-0000`, links de redes sociais e de "Outras linhas" (Artemis SEO, MktOps) são placeholders.
+- WhatsApp `+55 (48) 0000-0000` e links de redes sociais são placeholders.
+- MktOps: o texto do topo repete o da Artemis SEO ("E a IA responde citando alguém…") — parece copy-paste no Figma; mantido. O botão "Rodar o SpyOps" aponta para `/contato/` até existir o destino.
 - Cargos/bios dos fundadores (Willy, Enzo, Julio, Helio): seed usa "Sócio-fundador".
 
 ## Páginas no Figma (frames desktop 1440)
@@ -252,6 +253,32 @@ Estático: `artemis-seo/index.html` (`src/pages.json` → página `seo`, `assets
 | Imagens | arquivos do tema | `assets/images/seo` | navegador (PNG), pintura do topo, imagens das opções como o Figma renderiza |
 
 Validação (2026-10-16): 1440×3464 e 375×5860 = Figma (Δ ≤ 0,01); gates das 4 seções com 0 diferenças, salvo larguras de texto ≤ 1,06 px; variante SEO’Ops conferida após o clique (título 120, linha 261, SEO’Ops 286, texto 331, "Para quem" 471, barra 560, altura 682). No Figma: o retângulo branco nas imagens das opções é o lugar da tela do produto (mantido); no celular as duas opções usam a mesma pintura (no desktop, cada uma tem a sua) — mantido como está.
+
+## MktOps — mapa (desktop `8348:4181` 1440×5137 · mobile `8695:3268` 375×7468,08)
+
+Estático: `mktops/index.html` (`src/pages.json` → página `mktops`, `assets: 10-cta`). WP: página de slug `mktops` → `page-mktops.php` → `template-parts/mktops/*.php`. O link "MktOps" do rodapé aponta para cá.
+
+| # | Seção | Desktop | Mobile | Partial / template | Status |
+|---|-------|---------|--------|--------------------|--------|
+| 0 | Header (o da Home) | `8348:4182` | `8695:4281` | `partials/header.html` | ✅ |
+| 1 | topo: título com trecho cinza, 2 botões, diagrama MktOps (Skills, MCP, Pipelines, Infra → marca; SVG exportado, vertical no mobile) | `8425:3827` (864) | `8695:3271` (1500,08) | `mktops-01-hero` · `01-hero.php` | ✅ |
+| 2 | "O problema" + foto | `8425:4174` (966) | `8695:3456` (671) | `mktops-02-problema` · `02-problema.php` | ✅ |
+| 3 | "O que é instalado": 5 itens com arquivo (1 grande + 2×2) e faixa da comunidade com ilustração cortada | `8502:4262` (911) | `8695:3463` (1506) | `mktops-03-instalado` · `03-instalado.php` | ✅ |
+| 4 | "Os três níveis": Solo / Squad (selo Popular) / Enterprise, 5 linhas cada | `8502:3101` (948) | `8695:3548` (1644) | `mktops-04-niveis` · `04-niveis.php` | ✅ |
+| 5 | "Garantias" (barra de status e traços da chamada da Home, traços em green-300) | `8436:2565` (628) | `8695:3733` (628) | `mktops-05-cta` · `05-cta.php` (+ `10-cta.css/js`) | ✅ |
+| 6 | Footer | `8348:4183` | `8695:4282` | `footer` | ✅ |
+
+### MktOps — modelo de dados
+
+| Conteúdo | Tipo | Chave | Campos |
+|----------|------|-------|--------|
+| Topo e problema | Customizer | `art_mk_title/_lead/_btn{1,2}/_btn{1,2}_url/_problema_*` | título com {cinza}, texto, 2 botões, "O problema" (linha em branco separa parágrafos) |
+| O que é instalado | Customizer | `art_mk_inst_title` · `art_mk_item{1..5}` · `art_mk_comunidade` | texto de cada item com {cinza}; o desenho do arquivo (Tools, Brand, DNA, Template, Guide) é fixo pela posição |
+| Planos | Customizer | `art_mk_plano{1..3}_name/_tag/_rows` | nome, selo (vazio esconde), linhas "Rótulo \| Valor" |
+| Garantias | Customizer | `art_mk_cta_note/_title/_bold/_text/_btn/_btn_url` | nota, título, frase em negrito, texto, botão |
+| Imagens | arquivos do tema | `assets/images/mktops` | diagramas (SVG), foto do problema, arquivos, comunidade, desenhos dos planos, traços verdes |
+
+Validação (2026-10-16): 1440×5137 e 375×7468,08 = Figma (Δ 0 em todos os blocos); gates das 5 seções com 0 diferenças, salvo larguras de texto ≤ 0,95 px (nome dos planos, selo). Template PHP renderizado com o tema = mesmo texto e classes do estático. 768–1023: planos empilhados (em 3 colunas o desenho cobria nome e selo).
 
 ## Arquitetura (estático ⇄ tema, por seção)
 

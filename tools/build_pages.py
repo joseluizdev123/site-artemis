@@ -7,6 +7,9 @@ caminhos relativos e são copiados como estão.
 
     python tools/build_pages.py [--base /site-artemis] [--out _site]
 
+Páginas fora do Pages: EXCLUDE (chave de src/pages.json → pastas de imagem só dela). A página, o CSS/JS das seções
+que só ela usa e essas pastas não são copiados; links para ela viram "#".
+
 Rode depois de python tools/build.py (o workflow .github/workflows/pages.yml faz os dois).
 """
 import argparse
@@ -16,6 +19,7 @@ import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ATTR_RE = re.compile(r'(\s(?:href|src|srcset|content|action|poster|data-[\w-]+)=")([^"]*)(")')
+EXCLUDE = {'seo': ['images/seo']}  # Artemis SEO: fica no projeto e no tema, não vai para o Pages
 URL_RE = re.compile(r"""url\((["']?)/(?!/)""")
 
 
@@ -44,14 +48,31 @@ def main():
     out = os.path.join(ROOT, a.out)
     if os.path.isdir(out):
         shutil.rmtree(out)
-    shutil.copytree(os.path.join(ROOT, 'assets'), os.path.join(out, 'assets'))
-
-    # todas as páginas do build (campo "out" de src/pages.json): index.html, blog/, servicos/, sobre/…
     import json
     spec = json.load(open(os.path.join(ROOT, 'src', 'pages.json'), encoding='utf-8'))
-    pages = [p['out'].replace('/', os.sep) for p in spec.values()]
+
+    def slugs(p):
+        return {x if isinstance(x, str) else x['slug'] for x in (p['sections'] if isinstance(p['sections'], list) else [])} | set(p.get('assets', []))
+
+    kept = {k: p for k, p in spec.items() if k not in EXCLUDE}
+    used = set().union(*(slugs(p) for p in kept.values()))
+    drop = {os.path.normpath(d) for k in EXCLUDE if k in spec for d in EXCLUDE[k]}
+    for k in EXCLUDE:
+        for sl in slugs(spec.get(k, {'sections': []})) - used:
+            drop |= {os.path.normpath('css/sections/%s.css' % sl), os.path.normpath('js/sections/%s.js' % sl)}
+    dead = ['/' + os.path.dirname(spec[k]['out']).replace(os.sep, '/') + '/' for k in EXCLUDE if k in spec]
+
+    def ignore(d, names):
+        rel = os.path.relpath(d, os.path.join(ROOT, 'assets'))
+        return [n for n in names if os.path.normpath(os.path.join(rel, n)) in drop]
+    shutil.copytree(os.path.join(ROOT, 'assets'), os.path.join(out, 'assets'), ignore=ignore)
+
+    # páginas do build (campo "out" de src/pages.json) menos as de EXCLUDE: index.html, blog/, servicos/, sobre/…
+    pages = [p['out'].replace('/', os.sep) for p in kept.values()]
     for rel in pages:
         html = open(os.path.join(ROOT, rel), encoding='utf-8').read()
+        for u in dead:  # link para página fora do Pages
+            html = html.replace('href="%s"' % u, 'href="#"')
         html = ATTR_RE.sub(lambda m: rewrite_attr(m, base), html)
         html = URL_RE.sub(lambda m: 'url(' + m.group(1) + base + '/', html)  # url(/assets/…) em style=""
         dest = os.path.join(out, rel)
