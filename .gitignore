@@ -6,3 +6,4 @@ preview/
 *.bak
 __pycache__/
 _site/
+*.tmp
