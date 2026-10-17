@@ -89,8 +89,9 @@
 .como-funciona__step-title { color: var(--gray-0); } /* 8307:3595 */
 .como-funciona__step-text { font-size: 16px; line-height: 1.5; color: var(--gray-300); } /* 8307:3596 */
 
-/* Entrada dos passos (assets/js/sections/05-como-funciona.js): um passo por vez, a cada 600ms —
-   o número sobe, 250ms depois o texto sobe e o traço se desenha de cima para baixo.
+/* Entrada dos passos (assets/js/sections/05-como-funciona.js): um passo por vez, a cada 1,1 s —
+   o número sobe, 0,5 s depois o texto sobe e o traço se desenha de cima para baixo (devagar o
+   bastante para se perceber: a sequência toda leva ~5 s).
    --i = ordem do passo (JS). Sem .is-armed (sem JS / movimento reduzido) fica o desenho do Figma.
    As transições ficam só no .is-in: esconder ao carregar é instantâneo. */
 .como-funciona__steps.is-armed .como-funciona__num,
@@ -101,13 +102,13 @@
 .como-funciona__steps.is-in .como-funciona__body {
   opacity: 1;
   translate: none;
-  transition: opacity .5s ease, translate .7s cubic-bezier(.2, .7, .2, 1);
+  transition: opacity 1s ease, translate 1.3s cubic-bezier(.25, .6, .3, 1);
 }
-.como-funciona__steps.is-in .como-funciona__num { transition-delay: calc(var(--i, 0) * 600ms); }
-.como-funciona__steps.is-in .como-funciona__body { transition-delay: calc(var(--i, 0) * 600ms + 250ms); }
+.como-funciona__steps.is-in .como-funciona__num { transition-delay: calc(var(--i, 0) * 1100ms); }
+.como-funciona__steps.is-in .como-funciona__body { transition-delay: calc(var(--i, 0) * 1100ms + 500ms); }
 .como-funciona__steps.is-in .como-funciona__marker {
   scale: none;
-  transition: scale .6s cubic-bezier(.2, .7, .2, 1) calc(var(--i, 0) * 600ms + 300ms);
+  transition: scale 1.1s cubic-bezier(.25, .6, .3, 1) calc(var(--i, 0) * 1100ms + 600ms);
 }
 
 /* Impressão / PDF sem ter rolado até a seção: passos no estado final */
