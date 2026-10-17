@@ -54,6 +54,31 @@
 }
 .srv-nao__card-text { font-size: 16px; line-height: 1.5; color: var(--gray-300); text-wrap: pretty; }
 
+/* Hover (mouse): o card sobe 12px, como um bloco que descola da grade — uma superfície black-100 com contorno
+   gray-800 e sombra (::before) sobe junto com o conteúdo; os divisores (bordas dos cards) ficam no lugar. */
+@media (hover: hover) and (pointer: fine) {
+  .srv-nao__card { position: relative; }
+  .srv-nao__card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--black-100);
+    box-shadow: 0 0 0 1px var(--gray-800), 0 18px 40px rgb(0 0 0 / .45);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .srv-nao__card::before,
+  .srv-nao__card > * { transition: translate .45s cubic-bezier(.2, .7, .2, 1), opacity .3s ease; }
+  .srv-nao__card > * { position: relative; }
+  .srv-nao__card:hover { z-index: 1; }
+  .srv-nao__card:hover::before { opacity: 1; translate: 0 -12px; }
+  .srv-nao__card:hover > * { translate: 0 -12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .srv-nao__card::before,
+  .srv-nao__card > * { transition: none; }
+}
+
 /* Pattern 8348:2540: 64 de altura, traços diagonais (com o stroke superior) cortados na largura disponível */
 .srv-nao__pattern { height: 64px; overflow: hidden; }
 .srv-nao__pattern picture { display: block; }

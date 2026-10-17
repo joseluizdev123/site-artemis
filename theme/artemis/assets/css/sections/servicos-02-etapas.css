@@ -189,9 +189,108 @@
   overflow: hidden;
   background: var(--black-100);
 }
-.srv-steps__art picture { display: block; }
-/* fora do fluxo: a coluna acompanha a altura da seção (593 · 569 · 496 conforme a etapa), o desenho não a define */
-.srv-steps__art img { position: absolute; top: 0; left: 0; width: 296px; max-width: none; height: auto; }
+/* Quadro do Figma (296×593), fora do fluxo: a coluna acompanha a altura da seção (593 · 569 · 496 conforme a etapa),
+   o desenho não a define. 4 camadas do tamanho do quadro, empilhadas: base de código, tela, tracejado, selo —
+   tiradas do export de cada recorte (desktop ilustra-*.svg · celular m-ilustra-*.svg, 375×421). */
+.srv-art {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 296px;
+  aspect-ratio: 296 / 593;
+}
+.srv-art__layer { position: absolute; inset: 0; }
+.srv-art__layer img { display: block; width: 100%; max-width: none; height: 100%; }
+
+/* --------------------------------------------------------------------------
+   Montagem com o scroll — a mesma da Home (09-como-trabalhamos), na escala deste desenho (×1,5608)
+   --p vai de 0 → 1 conforme a ilustração sobe na tela (assets/js/sections/servicos-02-etapas.js).
+   Padrão 1 = desenho do Figma (sem JS / prefers-reduced-motion aparece pronta).
+   Medidas em unidades do desenho (iguais nos dois exports) divididas pela altura do quadro (--h) → % da camada,
+   que vale em qualquer escala (768–1023 o quadro do desktop cresce até 560 de largura).
+   1. A tela começa encaixada sobre a camada de código (87,406 = 349,46 − 262,054, topo dos dois tampos)
+      e sobe até a posição do Figma.
+   2. O tracejado (69,708 de altura a partir de --line-y) se desenha de baixo para cima enquanto a tela sobe.
+   3. O selo "Validação / Pendente" surge quando o tracejado chega nele, subindo 9,36 (6 × 1,5608).
+   -------------------------------------------------------------------------- */
+.srv-art { --p: 1; --h: 593; --line-y: 136.125; }
+
+.srv-art__layer--screen {
+  translate: 0 calc((1 - var(--p)) * 87.406 / var(--h) * 100%);
+  will-change: translate;
+}
+
+.srv-art__layer--line { /* desenha de 15% a 85% do progresso — janela de 1,5 além do traço em cima e embaixo */
+  clip-path: inset(
+    calc((var(--line-y) - 1.5 + (1 - clamp(0, (var(--p) - 0.15) / 0.7, 1)) * 72.708) / var(--h) * 100%)
+    0
+    calc((var(--h) - var(--line-y) - 71.208) / var(--h) * 100%)
+    0
+  );
+}
+
+.srv-art__layer--badge { /* aparece nos últimos 20% */
+  opacity: clamp(0, (var(--p) - 0.8) / 0.2, 1);
+  translate: 0 calc((1 - clamp(0, (var(--p) - 0.8) / 0.2, 1)) * 9.365 / var(--h) * 100%);
+}
+
+/* Depois de montada (.is-floating, JS), as camadas flutuam devagar como na Home: a tela desce 7,8 (5 × 1,5608),
+   o selo e o tracejado 6,24, a camada de código sobe 3,12 — o vão entre elas "respira".
+   transform não briga com o translate da montagem. */
+@keyframes srv-art-float { to { transform: translateY(var(--float)); } }
+.srv-art.is-floating .srv-art__layer--screen {
+  --float: calc(7.804 / var(--h) * 100%);
+  animation: srv-art-float 2.8s ease-in-out infinite alternate;
+}
+.srv-art.is-floating .srv-art__layer--base {
+  --float: calc(-3.122 / var(--h) * 100%);
+  animation: srv-art-float 3.4s ease-in-out .6s infinite alternate;
+}
+.srv-art.is-floating :is(.srv-art__layer--badge, .srv-art__layer--line) {
+  --float: calc(6.243 / var(--h) * 100%);
+  animation: srv-art-float 2.3s ease-in-out .3s infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   Hover (mouse): a etapa e o texto sob o cursor "saltam" para fora, como os números da Home (08-stats).
+   A etapa cresce 10% a partir da esquerda, por cima da ilustração; cada texto do painel, 6%.
+   -------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .srv-step__tab,
+  .srv-info__label,
+  .srv-info__text,
+  .srv-info__list li {
+    transform-origin: 0 50%;
+    transition: scale .45s cubic-bezier(.2, .7, .2, 1);
+  }
+  .srv-info__label:hover,
+  .srv-info__text:hover,
+  .srv-info__list li:hover { scale: 1.06; }
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .srv-step__head:hover { z-index: 2; }
+  .srv-step__tab:hover { scale: 1.1; }
+}
+
+/* --------------------------------------------------------------------------
+   Entrada dos textos (JS arma com .is-armed): sobem na diagonal, de baixo e da esquerda, como os estudos da Home.
+   Etapas: uma por vez quando a lista chega na tela (.is-in). Painel: um item por vez (--i) quando chega na tela
+   e a cada troca de etapa (.is-entering). Só com "backwards": terminada a entrada, o hover volta a valer.
+   -------------------------------------------------------------------------- */
+@keyframes srv-text-in { from { opacity: 0; transform: translate(var(--srv-in-x, -32px), 24px); } }
+
+.srv-steps.is-armed .srv-step__head:not(.is-in) .srv-step__tab,
+.srv-steps.is-armed .srv-step__panel:not(.is-entering) :is(.srv-info__icon, .srv-info__label, .srv-info__text, .srv-info__list li) { opacity: 0; }
+
+.srv-step__head.is-in .srv-step__tab {
+  animation: srv-text-in 1s cubic-bezier(.25, .6, .3, 1) backwards;
+}
+.srv-step__panel.is-entering :is(.srv-info__icon, .srv-info__label, .srv-info__text, .srv-info__list li) {
+  animation: srv-text-in .8s cubic-bezier(.25, .6, .3, 1) calc(.1s + var(--i, 0) * 60ms) backwards;
+}
+@media (min-width: 1024px) { /* no desktop as três etapas chegam juntas: uma depois da outra */
+  .srv-step__head.is-in .srv-step__tab { animation-delay: calc((var(--step) - 1) * 150ms); }
+}
 
 /* --------------------------------------------------------------------------
    ≤1023: etapas em sequência, todas abertas; ilustração no fim
@@ -220,8 +319,11 @@
   .srv-step__panel,
   .srv-step__panel[hidden] { display: flex; box-shadow: inset 0 -1px 0 var(--gray-900); }
 
-  .srv-steps__art picture { width: min(100%, 560px); margin-inline: auto; }
-  .srv-steps__art img { position: static; width: 100%; }
+  /* quadro do desktop (296×593) em escala, até 560 de largura */
+  .srv-art { position: relative; width: min(100%, 560px); margin-inline: auto; overflow: hidden; }
+
+  /* Entrada do texto: diagonal mais curta — com p 16, os 32px do desktop passariam da borda */
+  .srv-steps { --srv-in-x: -14px; }
 }
 
 /* --------------------------------------------------------------------------
@@ -235,11 +337,18 @@
   .srv-info { flex-direction: column; gap: 16px; padding: 24px var(--section-px); }
   .srv-step__panel:nth-last-child(2) .srv-info { flex-direction: row; gap: 24px; }
 
-  /* Frame 109 · 8709:5854: ilustração 375×421 na largura toda */
-  .srv-steps__art picture { width: 100%; }
+  /* Frame 109 · 8709:5854: ilustração 375×421 na largura toda (camadas m-ilustra-*: o desenho 39,62 / 49 acima e à esquerda) */
+  .srv-art { width: 100%; aspect-ratio: 375 / 421; --h: 421; --line-y: 87.125; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .srv-step__tag,
-  .srv-step__title { transition: none; }
+  .srv-step__title,
+  .srv-step__tab,
+  .srv-info__label,
+  .srv-info__text,
+  .srv-info__list li { transition: none; }
+  .srv-art__layer,
+  .srv-step__tab,
+  .srv-step__panel * { animation: none !important; }
 }

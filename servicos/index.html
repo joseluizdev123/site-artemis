@@ -9,13 +9,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css?v=1792059316">
-  <link rel="stylesheet" href="/assets/css/sections/servicos-01-hero.css?v=1792151715">
-  <link rel="stylesheet" href="/assets/css/sections/servicos-02-etapas.css?v=1792152484">
-  <link rel="stylesheet" href="/assets/css/sections/servicos-03-nao-fazemos.css?v=1792152321">
-  <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1791992993">
-  <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792152372">
-  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792179901">
+  <link rel="stylesheet" href="/assets/css/sections/servicos-01-hero.css?v=1792179901">
+  <link rel="stylesheet" href="/assets/css/sections/servicos-02-etapas.css?v=1792258419">
+  <link rel="stylesheet" href="/assets/css/sections/servicos-03-nao-fazemos.css?v=1792258723">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1792179901">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792179901">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1792179901">
 </head>
 <body class="page-servicos">
 
@@ -196,12 +196,16 @@
           </div>
         </div>
 
-        <!-- Frame 109 · I8587:2376;8709:4560 (296 de largura, black-100) · Mobile 8709:5854 (375×421) — ilustração isométrica (tela + validação pendente) -->
+        <!-- Frame 109 · I8587:2376;8709:4560 (296 de largura, black-100) · Mobile 8709:5854 (375×421) — ilustração isométrica (tela + validação pendente)
+             Em 4 camadas do tamanho do quadro (base de código, tela, tracejado, selo), tiradas do export de cada recorte,
+             para montar com o scroll e flutuar como a da Home (09-como-trabalhamos). -->
         <div class="srv-steps__art" aria-hidden="true">
-          <picture>
-            <source media="(max-width: 767px)" srcset="/assets/images/servicos-02-etapas/m-ilustra.svg" width="375" height="421">
-            <img src="/assets/images/servicos-02-etapas/ilustra.svg" width="296" height="593" alt="" loading="lazy" decoding="async">
-          </picture>
+          <div class="srv-art" data-rise>
+            <picture class="srv-art__layer srv-art__layer--base"><source media="(max-width: 767px)" srcset="/assets/images/servicos-02-etapas/m-ilustra-base.svg" width="375" height="421"><img src="/assets/images/servicos-02-etapas/ilustra-base.svg" width="296" height="593" alt="" decoding="async"></picture>
+            <picture class="srv-art__layer srv-art__layer--screen"><source media="(max-width: 767px)" srcset="/assets/images/servicos-02-etapas/m-ilustra-tela.svg" width="375" height="421"><img src="/assets/images/servicos-02-etapas/ilustra-tela.svg" width="296" height="593" alt="" decoding="async"></picture>
+            <picture class="srv-art__layer srv-art__layer--line"><source media="(max-width: 767px)" srcset="/assets/images/servicos-02-etapas/m-ilustra-tracejado.svg" width="375" height="421"><img src="/assets/images/servicos-02-etapas/ilustra-tracejado.svg" width="296" height="593" alt="" decoding="async"></picture>
+            <picture class="srv-art__layer srv-art__layer--badge"><source media="(max-width: 767px)" srcset="/assets/images/servicos-02-etapas/m-ilustra-selo.svg" width="375" height="421"><img src="/assets/images/servicos-02-etapas/ilustra-selo.svg" width="296" height="593" alt="" decoding="async"></picture>
+          </div>
         </div>
       </div>
     </section>
@@ -538,10 +542,10 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=1791980106" defer></script>
-  <script src="/assets/js/sections/servicos-02-etapas.js?v=1792152119" defer></script>
-  <script src="/assets/js/sections/10-cta.js?v=1791922306" defer></script>
-  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+  <script src="/assets/js/main.js?v=1792179904" defer></script>
+  <script src="/assets/js/sections/servicos-02-etapas.js?v=1792258165" defer></script>
+  <script src="/assets/js/sections/10-cta.js?v=1792179904" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1792179904" defer></script>
 
 </body>
 </html>

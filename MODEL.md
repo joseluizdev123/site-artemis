@@ -167,8 +167,8 @@ Estático: `servicos/index.html` (`src/pages.json` → página `servicos`). WP: 
 | 0 | Header (o da Home; "Serviços" atual, "Estudos de impacto" → `/#estudos`) | `8340:2111` | `8700:6155` | `partials/header.html` (`page=servicos`) · `header.php` | ✅ |
 | 1 | topo (título com trecho cinza, texto, botão) | `8340:2096` (611) | `8699:4923` (450) | `servicos-01-hero` · `template-parts/servicos/01-hero.php` | ✅ |
 | — | "formas de contratar" | `8575:2269` | — | oculto no Figma — não implementado | — |
-| 2 | as três etapas: abas (selo azul + barra de progresso, avançam a cada 9 s, param ao clicar), ilustração, painel da etapa ativa · mobile: etapas abertas em sequência + ilustração | `8587:2376` (instância de `8573:1797`: 593 · 569 · 496 por etapa) | `8709:5717` (869) · `8709:5588` (869) · `8709:5463` (539) · `8709:5854` (421) | `servicos-02-etapas` · `template-parts/servicos/02-etapas.php` | ✅ |
-| 3 | o que não fazemos (4 cards, faixa de traços, nota Artemis SEO / MktOps) | `8348:2419` (871) | `8699:5244` (1304) | `servicos-03-nao-fazemos` · `template-parts/servicos/03-nao-fazemos.php` | ✅ |
+| 2 | as três etapas: abas (selo azul + barra de progresso; avançam sozinhas a cada 6 s, ou 20 s com o cursor/foco de teclado na seção; o clique troca na hora e o avanço segue), ilustração em 4 camadas que monta com o scroll e flutua (a da Home, seção 9), painel da etapa ativa · hover: a etapa cresce 10% e cada texto do painel 6% · textos entram na diagonal (etapas ao chegar na tela, itens do painel um por vez a cada troca) · mobile: etapas abertas em sequência + ilustração | `8587:2376` (instância de `8573:1797`: 593 · 569 · 496 por etapa) | `8709:5717` (869) · `8709:5588` (869) · `8709:5463` (539) · `8709:5854` (421) | `servicos-02-etapas` · `template-parts/servicos/02-etapas.php` | ✅ |
+| 3 | o que não fazemos (4 cards — no hover o card sobe 12px —, faixa de traços, nota Artemis SEO / MktOps) | `8348:2419` (871) | `8699:5244` (1304) | `servicos-03-nao-fazemos` · `template-parts/servicos/03-nao-fazemos.php` | ✅ |
 | 4 | chamada final (a da Home; no celular 628 de altura → `10-cta--servicos.css`) | `8348:2636` (628) | `8699:5366` (628) | `10-cta` · `template-parts/home/10-cta.php` | ✅ |
 | 5 | Footer | `8340:1926` | `8700:5995` | `footer` | ✅ |
 
@@ -179,9 +179,11 @@ Estático: `servicos/index.html` (`src/pages.json` → página `servicos`). WP: 
 | Topo | Customizer | `art_srv_title` / `_lead` / `_cta` | título com {trecho em cinza}, texto, rótulo do botão (link = `art_contact_cta_url`) |
 | Etapas | CPT | `art_etapa` (ordem = `menu_order`, selo "Etapa N" pela posição) | título · `_art_etapa_quem` (um item por linha) · `_art_etapa_b2_icon` (arquivo/cifrão) · `_art_etapa_b2_label` · `_art_etapa_b2_text` · `_art_etapa_duracao` (vazio esconde) |
 | O que não fazemos | Customizer | `art_srv_nao_*` | título com {destaque}, texto, 4 cards (título + texto), nota |
-| Ilustração, ícones, faixa de traços | arquivos do tema | `assets/images/servicos-02-etapas`, `servicos-03-nao-fazemos` | exportados do Figma (SVG, texto em curvas) |
+| Ilustração, ícones, faixa de traços | arquivos do tema | `assets/images/servicos-02-etapas`, `servicos-03-nao-fazemos` | exportados do Figma (SVG, texto em curvas). A ilustração vem em 4 camadas do tamanho do quadro — `ilustra-{base,tela,tracejado,selo}.svg` (desktop, I8587:2376;8709:4560, 296×593) e `m-ilustra-*.svg` (celular, 8709:5854, 375×421) —, separadas do export de cada nó pela ordem de pintura: base de código até o tique, tela (parede `#09090B` com stroke 1,56081) até o tique, tracejado `#CECECE`, selo. O export do desktop omite o que passa de x = 296 (por isso um export por recorte). |
 
 Validação (2026-10-16): 1440×3523 e 375×6599 = Figma com Δ 0 em todos os blocos; gates das seções 1–3 com 0 diferenças (só a largura do texto do botão do topo, métrica da fonte); as 3 variantes das abas conferidas (posições das etapas, barra em 182/297/374, alturas 593/569/496). Fiel ao Figma: no celular a última etapa tem o ícone ao lado do texto (as outras, em cima) e só a lista da etapa 1 usa quebra "pretty" — parecem inconsistências do design; cada uma é uma regra de CSS em `servicos-02-etapas.css`.
+
+Animações (2026-10-17, pedido do cliente): ilustração das etapas montada (sem JS / movimento reduzido) = os exports antigos pixel a pixel (máx. 9/255 no desktop, 2/255 no celular, antialiasing); alturas 3523 / 6599 inalteradas; ritmos medidos em headless (fora 6 s, dentro 20 s, volta ao rápido quando o cursor sai mesmo com o foco no botão clicado); hovers sem rolagem horizontal. Medidas da montagem em `servicos-02-etapas.css` em unidades do desenho ÷ `--h` (593 · 421).
 
 ## Sobre — mapa (desktop `8348:3076` 1440×7855,45 · mobile `8689:1932` 375×10334,67)
 
