@@ -1,9 +1,7 @@
 /* MktOps — o que é instalado: ilustração da comunidade (partials/mktops-03-comunidade.html · Figma 8512:5774).
-   - Sobe com o scroll: grava --p (0 → 1) na ilustração enquanto a faixa sobe na tela (topo da faixa de 95% a 55% da
-     altura da tela), suavizado. Rolando de volta para cima ela desce de novo.
-   - Luz nas arestas: cada peça (path) ganha uma cópia .mk-com__run com --len = comprimento do path; o CSS corre um
-     segmento verde por ela, cada uma no seu ritmo (mesma velocidade, início diferente). Para fora da tela (.is-paused).
-   Sem JS / prefers-reduced-motion: o quadro do Figma (ilustração no lugar, sem luz). */
+   Fixa na posição do Figma; luz nas arestas: cada peça (path) ganha uma cópia .mk-com__run com --len = comprimento do
+   path, e o CSS corre um segmento verde por ela, cada uma no seu ritmo (mesma velocidade, início diferente).
+   Para fora da tela (.is-paused). Sem JS / prefers-reduced-motion: o quadro do Figma, sem luz. */
 (function () {
   'use strict';
 
@@ -33,48 +31,9 @@
   });
   illus.appendChild(runs);
 
-  // Subida com o scroll
-  var START = 0.95, END = 0.55, EASE = 0.1;
-  var current = 0, target = 0, raf = 0;
-
-  function setP() { illus.style.setProperty('--p', current.toFixed(4)); }
-  function measure() {
-    var vh = window.innerHeight || document.documentElement.clientHeight;
-    var top = band.getBoundingClientRect().top;
-    var p = (vh * START - top) / (vh * (START - END));
-    target = p < 0 ? 0 : p > 1 ? 1 : p;
-  }
-  function tick() {
-    raf = 0;
-    current += (target - current) * EASE;
-    if (Math.abs(target - current) < 0.001) current = target;
-    setP();
-    if (current !== target) raf = requestAnimationFrame(tick);
-  }
-  function update() {
-    measure();
-    if (!raf) raf = requestAnimationFrame(tick);
-  }
-
-  // Começa já na posição do scroll atual (quem recarrega com a faixa acima da tela a vê no lugar)
-  measure();
-  current = target;
-  setP();
-
-  var visible = false;
-  function onScroll() { if (visible) update(); }
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
-      visible = entries[0].isIntersecting;
-      illus.classList.toggle('is-paused', !visible);
-      update();
+      illus.classList.toggle('is-paused', !entries[0].isIntersecting);
     }).observe(band);
-  } else {
-    visible = true;
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', update);
-
-  // Impressão / PDF: no lugar
-  window.addEventListener('beforeprint', function () { current = target = 1; setP(); });
 })();

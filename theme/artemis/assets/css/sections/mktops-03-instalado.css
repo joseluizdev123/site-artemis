@@ -74,10 +74,8 @@
     filter: drop-shadow(0 18px 22px rgb(0 0 0 / .55));
   }
 }
-/* Comunidade: a ilustração sobe de dentro da faixa conforme a faixa entra rolando para baixo (--p 0 → 1, JS;
-   escondida embaixo em 0, posição do Figma em 1) */
-.mk-inst__illus { transform: translateY(calc((1 - var(--p, 1)) * 100%)); }
-/* Uma luz por peça (cópia de cada path, .mk-com__run): segmento de 22 com brilho correndo pelas arestas.
+/* Comunidade: ilustração fixa na posição do Figma; uma luz por peça (cópia de cada path, .mk-com__run): segmento de 22
+   com brilho correndo pelas arestas.
    --len = comprimento do path (JS): o padrão tem período = comprimento, então a luz dá a volta sem emenda */
 .mk-com__run {
   stroke-width: 1.4;
