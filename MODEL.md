@@ -295,7 +295,7 @@ Sem JS ou com `prefers-reduced-motion` fica o quadro do Figma em todas.
 | Desenhos dos planos | cursor no plano: o desenho sobe 8, cresce 6% e ganha sombra | `mktops-04-niveis.css` |
 | Linhas dos planos | entram de leve quando o plano chega na tela: rótulo e valor sobem 10 e aparecem, linha a linha e plano a plano (o fundo não se mexe) | `mktops-04-niveis.css/.js` |
 
-Medição: `tools/diff.py` abre a página com as animações ligadas (as linhas ainda 10 abaixo, a ilustração no meio da subida); os gates desta página foram rodados sem os JS da MktOps — topo e instalado com 0 diferenças, níveis só com as larguras de texto de sempre.
+Validação (2026-10-17, `diff.py` já com movimento reduzido): topo e instalado com 0 diferenças (desktop e mobile), níveis só com as larguras de texto de sempre; `page_check` 1440 e 375 com Δ 0 em todos os blocos.
 
 ## Regra de hover (2026-10-18, pedido do cliente)
 
