@@ -61,6 +61,34 @@
 .mk-plano__name,
 .mk-plano__title { position: relative; z-index: 1; }
 
+/* Com o cursor no plano, o desenho vem para frente (sobe, cresce e ganha sombra), como os arquivos de
+   "O que é instalado" e os cards da Home; continua cortado pelo cabeçalho */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .mk-plano__deco {
+    transform-origin: 50% 100%;
+    transition: transform .45s cubic-bezier(.2, .7, .2, 1), filter .45s ease;
+  }
+  .mk-plano:hover .mk-plano__deco {
+    transform: translateY(-8px) scale(1.06);
+    filter: drop-shadow(0 14px 18px rgb(0 0 0 / .6));
+  }
+}
+
+/* Linhas entram de leve quando o plano chega na tela (assets/js/sections/mktops-04-niveis.js): rótulo e valor sobem
+   10 px e aparecem, linha a linha (--r) e plano a plano (--c). O fundo das linhas não se mexe. Sem .is-armed (sem JS /
+   movimento reduzido) fica o desenho do Figma; esconder é instantâneo, só a entrada tem transição */
+.mk-niveis__grid.is-armed .mk-plano__row > * { opacity: 0; translate: 0 10px; }
+.mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__row > * {
+  opacity: 1;
+  translate: none;
+  transition: opacity .7s ease, translate .8s cubic-bezier(.25, .6, .3, 1);
+  transition-delay: calc(var(--c, 0) * 90ms + var(--r, 0) * 110ms);
+}
+.mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__row > dd { transition-delay: calc(var(--c, 0) * 90ms + var(--r, 0) * 110ms + 70ms); }
+@media print {
+  .mk-niveis__grid.is-armed .mk-plano__row > * { opacity: 1; translate: none; transition: none; }
+}
+
 /* 768–1023: três colunas ficam estreitas demais para o desenho — planos empilhados, como no Mobile */
 @media (max-width: 1023px) {
   .mk-niveis__grid { grid-template-columns: minmax(0, 1fr); }

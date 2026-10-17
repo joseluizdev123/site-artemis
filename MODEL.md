@@ -264,9 +264,9 @@ Estático: `mktops/index.html` (`src/pages.json` → página `mktops`, `assets: 
 | # | Seção | Desktop | Mobile | Partial / template | Status |
 |---|-------|---------|--------|--------------------|--------|
 | 0 | Header (o da Home) | `8348:4182` | `8695:4281` | `partials/header.html` | ✅ |
-| 1 | topo: título com trecho cinza, 2 botões, diagrama MktOps (Skills, MCP, Pipelines, Infra → marca; SVG exportado, vertical no mobile) | `8425:3827` (864) | `8695:3271` (1500,08) | `mktops-01-hero` · `01-hero.php` | ✅ |
+| 1 | topo: título com trecho cinza, 2 botões, diagrama MktOps (Skills, MCP, Pipelines, Infra → marca; SVG inline em camadas, vertical no mobile, animado) | `8425:3827` (864) | `8695:3271` (1500,08) | `mktops-01-hero` (+ `mktops-01-diagrama`) · `01-hero.php` (+ `svg/diagrama.php`) | ✅ |
 | 2 | "O problema" + foto | `8425:4174` (966) | `8695:3456` (671) | `mktops-02-problema` · `02-problema.php` | ✅ |
-| 3 | "O que é instalado": 5 itens com arquivo (1 grande + 2×2) e faixa da comunidade com ilustração cortada | `8502:4262` (911) | `8695:3463` (1506) | `mktops-03-instalado` · `03-instalado.php` | ✅ |
+| 3 | "O que é instalado": 5 itens com arquivo (1 grande + 2×2) e faixa da comunidade com ilustração cortada (SVG inline, animada) | `8502:4262` (911) | `8695:3463` (1506) | `mktops-03-instalado` (+ `mktops-03-comunidade`) · `03-instalado.php` (+ `svg/comunidade.php`) | ✅ |
 | 4 | "Os três níveis": Solo / Squad (selo Popular) / Enterprise, 5 linhas cada | `8502:3101` (948) | `8695:3548` (1644) | `mktops-04-niveis` · `04-niveis.php` | ✅ |
 | 5 | "Garantias" (barra de status e traços da chamada da Home, traços em green-300) | `8436:2565` (628) | `8695:3733` (628) | `mktops-05-cta` · `05-cta.php` (+ `10-cta.css/js`) | ✅ |
 | 6 | Footer | `8348:4183` | `8695:4282` | `footer` | ✅ |
@@ -279,9 +279,23 @@ Estático: `mktops/index.html` (`src/pages.json` → página `mktops`, `assets: 
 | O que é instalado | Customizer | `art_mk_inst_title` · `art_mk_item{1..5}` · `art_mk_comunidade` | texto de cada item com {cinza}; o desenho do arquivo (Tools, Brand, DNA, Template, Guide) é fixo pela posição |
 | Planos | Customizer | `art_mk_plano{1..3}_name/_tag/_rows` | nome, selo (vazio esconde), linhas "Rótulo \| Valor" |
 | Garantias | Customizer | `art_mk_cta_note/_title/_bold/_text/_btn/_btn_url` | nota, título, frase em negrito, texto, botão |
-| Imagens | arquivos do tema | `assets/images/mktops` | diagramas (SVG), foto do problema, arquivos, comunidade, desenhos dos planos, traços verdes |
+| Imagens | arquivos do tema | `assets/images/mktops` | padrão do chão do diagrama (`hero-padrao.svg`), foto do problema, arquivos, desenhos dos planos, traços verdes. O diagrama e a ilustração da comunidade são SVG inline: `partials/mktops-01-diagrama.html` e `partials/mktops-03-comunidade.html`, com cópia igual (sem os `data-figma`) em `template-parts/mktops/svg/*.php` — mexeu num, copie no outro |
 
 Validação (2026-10-16): 1440×5137 e 375×7468,08 = Figma (Δ 0 em todos os blocos); gates das 5 seções com 0 diferenças, salvo larguras de texto ≤ 0,95 px (nome dos planos, selo). Template PHP renderizado com o tema = mesmo texto e classes do estático. 768–1023: planos empilhados (em 3 colunas o desenho cobria nome e selo).
+
+### MktOps — animações (pedido do cliente, 2026-10-17)
+
+Sem JS ou com `prefers-reduced-motion` fica o quadro do Figma em todas.
+
+| Onde | O quê | Arquivos |
+|------|-------|----------|
+| Diagrama do topo | ciclo de 5 s: luz sai de Skills e de MCP (contorno da pasta acende) → no MktOps o contorno acende e um traço verde contorna a borda (Skills por cima, MCP por baixo; no celular pelas laterais) → luz segue para Pipelines (de Skills) e Infra (de MCP), que acendem na chegada. Pastas flutuam (vertical no desktop, horizontal no celular, ao longo da borda onde a linha encosta). Etiquetas entram uma por vez quando a pasta chega na tela (escondidas só com `@media (scripting: enabled)`, sem piscar no carregamento). Para fora da tela / aba escondida | `mktops-01-hero.css/.js`, `mktops-01-diagrama.html` |
+| Arquivos (instalado) | cursor no item: o documento sobe 10, cresce 6% e ganha sombra (como os cards da Home) | `mktops-03-instalado.css` |
+| Comunidade | a ilustração sobe de dentro da faixa conforme a faixa entra rolando para baixo (`--p`: topo da faixa de 95% a 55% da tela; desce de novo rolando para cima); cada peça tem uma luz verde correndo pelas arestas (cópia `.mk-com__run` de cada path, mesma velocidade, início diferente) | `mktops-03-instalado.css/.js`, `mktops-03-comunidade.html` |
+| Desenhos dos planos | cursor no plano: o desenho sobe 8, cresce 6% e ganha sombra | `mktops-04-niveis.css` |
+| Linhas dos planos | entram de leve quando o plano chega na tela: rótulo e valor sobem 10 e aparecem, linha a linha e plano a plano (o fundo não se mexe) | `mktops-04-niveis.css/.js` |
+
+Medição: `tools/diff.py` abre a página com as animações ligadas (as linhas ainda 10 abaixo, a ilustração no meio da subida); os gates desta página foram rodados sem os JS da MktOps — topo e instalado com 0 diferenças, níveis só com as larguras de texto de sempre.
 
 ## Regra de hover (2026-10-18, pedido do cliente)
 

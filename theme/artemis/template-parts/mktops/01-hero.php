@@ -19,11 +19,9 @@ defined( 'ABSPATH' ) || exit;
 				<?php endif; ?>
 			</div>
 		</div>
-		<figure class="mk-hero__diagram">
-			<picture>
-				<source media="(max-width: 767px)" srcset="<?php echo esc_url( artemis_asset( 'images/mktops/m-hero-diagrama.svg' ) ); ?>" width="208" height="881">
-				<img src="<?php echo esc_url( artemis_asset( 'images/mktops/hero-diagrama.svg' ) ); ?>" width="1184" height="290" alt="<?php esc_attr_e( 'Diagrama do MktOps: Skills, MCP, Pipelines e Infra conectados à operação no centro', 'artemis' ); ?>" decoding="async">
-			</picture>
+		<figure class="mk-hero__diagram" role="img" aria-label="<?php esc_attr_e( 'Diagrama do MktOps: Skills, MCP, Pipelines e Infra conectados à operação no centro', 'artemis' ); ?>">
+			<img class="mk-hero__floor" src="<?php echo esc_url( artemis_asset( 'images/mktops/hero-padrao.svg' ) ); ?>" width="1184" height="290" alt="" decoding="async">
+			<?php get_template_part( 'template-parts/mktops/svg/diagrama' ); // diagrama em camadas, animado por mktops-01-hero.js. ?>
 		</figure>
 	</div>
 </section>

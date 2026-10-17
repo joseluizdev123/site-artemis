@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 			</ul>
 			<div class="mk-inst__community">
 				<p class="mk-inst__text"><?php echo esc_html( artemis_mod( 'art_mk_comunidade' ) ); ?></p>
-				<img class="mk-inst__illus" src="<?php echo esc_url( artemis_asset( 'images/mktops/comunidade.svg' ) ); ?>" width="232" height="232" alt="" loading="lazy">
+				<?php get_template_part( 'template-parts/mktops/svg/comunidade' ); // sobe com o scroll e tem luz nas arestas (mktops-03-instalado.js). ?>
 			</div>
 		</div>
 	</div>
