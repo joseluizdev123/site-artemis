@@ -51,6 +51,8 @@ try {
   const send = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
 
   await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 768 });
+  // Mede o estado de repouso: com movimento reduzido as entradas animadas (passos, planos, ilustrações) já estão no lugar
+  await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   await send('Page.enable');
   await send('Page.navigate', { url });
 
