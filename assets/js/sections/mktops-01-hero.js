@@ -37,6 +37,7 @@
     mo.observe(title, { attributes: true, attributeFilter: ['class'] });
     to = setTimeout(go, 2500); // garantia
   }
+  var nextLabel = 0; // s (performance.now) a partir do qual a próxima etiqueta pode entrar
   var folderIO = new IntersectionObserver(function (entries) {
     var batch = entries.filter(function (e) { return e.isIntersecting; })
       .map(function (e) { return e.target; })
@@ -44,8 +45,11 @@
     batch.forEach(function (folder) { folderIO.unobserve(folder); });
     if (!batch.length) return;
     afterHeroText(function () {
-      batch.forEach(function (folder, n) {
-        folder.style.setProperty('--delay', (0.1 + n * 0.45).toFixed(2) + 's');
+      batch.forEach(function (folder) {
+        // fila única: cada etiqueta pelo menos 0,45 s depois da anterior, mesmo que as pastas cheguem em lotes
+        var now = performance.now() / 1000, delay = Math.max(0.1, nextLabel - now);
+        nextLabel = now + delay + 0.45;
+        folder.style.setProperty('--delay', delay.toFixed(2) + 's');
         folder.classList.add('is-in');
       });
     });
