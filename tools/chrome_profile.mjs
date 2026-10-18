@@ -20,6 +20,7 @@ export const CHROME_FLAGS = [
   '--disable-component-update', '--disable-background-networking', '--disable-extensions', '--disable-default-apps',
   '--disable-sync', '--disable-crash-reporter', '--disable-breakpad', '--no-pings', '--metrics-recording-only',
   '--disk-cache-size=1', '--media-cache-size=1', '--disable-gpu-shader-disk-cache',
+  '--window-size=1440,900', // janela inicial conhecida antes do Emulation.setDeviceMetricsOverride (uma medição saiu inflada sem isso)
 ];
 
 const STALE_MS = 20 * 60 * 1000;
