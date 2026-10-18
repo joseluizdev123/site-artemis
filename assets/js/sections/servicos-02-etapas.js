@@ -148,7 +148,9 @@
 
 /* Ilustração das etapas (.srv-art[data-rise]) — "monta" com o scroll, como a da Home (09-como-trabalhamos.js).
    Grava --p (0 → 1) conforme ela sobe na tela; o CSS sobe a camada da tela, desenha o tracejado e revela o selo.
-   Suavizado para subir devagar. Na primeira vez que fica montada (p = 1) ganha .is-floating: as camadas flutuam. */
+   Suavizado para subir devagar. Na primeira vez que fica montada (p = 1) ganha data-loop: a biblioteca
+   (assets/js/motion.js) liga .is-looping por 5 s agora e a cada nova entrada na tela, e as camadas flutuam um ciclo.
+   O data-loop entra só aqui (e não no HTML) para os 5 s começarem com a ilustração montada, não antes de rolar. */
 (function () {
   'use strict';
 
@@ -164,7 +166,10 @@
 
   function setP() {
     el.style.setProperty('--p', current.toFixed(4));
-    if (current >= 0.999) el.classList.add('is-floating');
+    if (current >= 0.999 && !el.hasAttribute('data-loop')) {
+      el.setAttribute('data-loop', '');
+      if (window.ArtemisMotion) window.ArtemisMotion.refresh(el.parentNode); // observa o novo data-loop
+    }
   }
 
   function measure() {

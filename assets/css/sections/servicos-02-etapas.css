@@ -234,21 +234,23 @@
   translate: 0 calc((1 - clamp(0, (var(--p) - 0.8) / 0.2, 1)) * 9.365 / var(--h) * 100%);
 }
 
-/* Depois de montada (.is-floating, JS), as camadas flutuam devagar como na Home: a tela desce 7,8 (5 × 1,5608),
-   o selo e o tracejado 6,24, a camada de código sobe 3,12 — o vão entre elas "respira".
-   transform não briga com o translate da montagem. */
-@keyframes srv-art-float { to { transform: translateY(var(--float)); } }
-.srv-art.is-floating .srv-art__layer--screen {
+/* Depois de montada, as camadas flutuam devagar como na Home — só por 5 s a cada entrada na tela (WCAG 2.2.2):
+   o JS liga data-loop quando a montagem termina e a biblioteca (assets/js/motion.js) põe .is-looping por 5 s.
+   Cada camada faz UM ciclo completo (repouso → deslocada → repouso) que acaba antes dos 5 s, então nunca para no meio:
+   fora do loop é o quadro do Figma. A tela desce 7,8 (5 × 1,5608), o selo e o tracejado 6,24, a camada de código
+   sobe 3,12 — o vão entre elas "respira". transform não briga com o translate da montagem. */
+@keyframes srv-art-float { 50% { transform: translateY(var(--float)); } }
+.srv-art.is-looping .srv-art__layer--screen {          /* 0 → 4,8 s */
   --float: calc(7.804 / var(--h) * 100%);
-  animation: srv-art-float 2.8s ease-in-out infinite alternate;
+  animation: srv-art-float 4.8s ease-in-out;
 }
-.srv-art.is-floating .srv-art__layer--base {
+.srv-art.is-looping .srv-art__layer--base {            /* 0,6 → 4,6 s */
   --float: calc(-3.122 / var(--h) * 100%);
-  animation: srv-art-float 3.4s ease-in-out .6s infinite alternate;
+  animation: srv-art-float 4s ease-in-out .6s;
 }
-.srv-art.is-floating :is(.srv-art__layer--badge, .srv-art__layer--line) {
+.srv-art.is-looping :is(.srv-art__layer--badge, .srv-art__layer--line) { /* 0,3 → 4,7 s */
   --float: calc(6.243 / var(--h) * 100%);
-  animation: srv-art-float 2.3s ease-in-out .3s infinite alternate;
+  animation: srv-art-float 4.4s ease-in-out .3s;
 }
 
 /* --------------------------------------------------------------------------
