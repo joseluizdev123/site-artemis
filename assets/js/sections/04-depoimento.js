@@ -5,8 +5,8 @@
    - Terra: grade do mapa real (Natural Earth), cada ponto uma vez — sem continentes sobrepostos.
    - Oceano: o resto da grade, bem fraco — o globo nunca fica vazio.
    - Velocidade variável: sobre o oceano (pouco continente no lado visível) acelera até MAX_BOOST×.
-   - Gira só com o data-loop da biblioteca Motion ligado (até 5 s a cada entrada na tela, eventos
-     motion:loop-start/stop); ao parar, volta suave à orientação inicial — o quadro do Figma — e para de desenhar. */
+   - Gira sem parar enquanto está na tela (data-loop da biblioteca Motion, eventos motion:loop-start/stop); fora
+     da tela ou com a aba oculta, para e volta na hora à orientação inicial — o quadro do Figma. */
 (function () {
   'use strict';
 
@@ -39,8 +39,6 @@
   var ctx = canvas.getContext('2d');
   var view = null, land = null, sea = null;
   var looping = false, raf = 0, last = 0, spin = 0, speed = 1; // spin = quanto já girou (°)
-  var settleFrom = null, settleTo = 0, settleT0 = 0;            // volta ao quadro inicial
-  var SETTLE_MS = 1200;
   var landInk = 0, refInk = 0;   // "quanto continente aparece" no quadro atual / no 1º quadro
   var W, H, OX, OY, sized = '';
 
@@ -156,14 +154,6 @@
   function frame() {
     var t = performance.now();
     raf = 0;
-    if (settleFrom !== null) {                  // voltando ao quadro inicial (easeOutCubic)
-      var k = Math.min(1, (t - settleT0) / SETTLE_MS);
-      spin = settleFrom + (settleTo - settleFrom) * (1 - Math.pow(1 - k, 3));
-      draw();
-      if (k < 1) raf = requestAnimationFrame(frame);
-      else { settleFrom = null; spin = 0; speed = 1; last = 0; }
-      return;
-    }
     if (last) {
       var dt = Math.min(t - last, 100);         // salto máx. 100ms ao voltar de aba
       speed += (targetSpeed() - speed) * Math.min(1, dt / 350);
@@ -175,22 +165,19 @@
   }
 
   function start() {
-    if (!land || reduced) return;
-    settleFrom = null;
-    if (raf) return;
+    if (!land || reduced || raf) return;
     last = 0;
     raf = requestAnimationFrame(frame);
   }
 
-  // Fim do loop: volta pelo caminho mais curto até a orientação inicial (múltiplo de 360°)
+  // Fim do loop (fora da tela / aba oculta): para e redesenha o quadro inicial — ninguém vê o salto
   function settle() {
-    if (!land) return;
-    var m = spin % 360;
-    if (Math.abs(m) < 0.01) { spin = 0; return; }
-    settleFrom = m;
-    settleTo = Math.abs(m) > 180 ? (m < 0 ? -360 : 360) : 0;
-    settleT0 = performance.now();
-    if (!raf) raf = requestAnimationFrame(frame);
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    spin = 0;
+    speed = 1;
+    last = 0;
+    if (land) draw();
   }
 
   function redraw() { if (resize() && land) draw(); }

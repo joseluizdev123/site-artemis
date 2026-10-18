@@ -62,17 +62,41 @@
 }
 .stats__unit { font-size: 24px; }
 
-/* Número que conta (assets/js/sections/08-stats.js): durante a contagem fica numa caixa com a
-   largura do valor final (em, JS), alinhado à direita — o sufixo não anda; um valor intermediário
-   mais largo passa para a esquerda (flex-end transborda para o início) */
-.stats__count.is-counting {
+/* Contador de rolo (assets/js/sections/08-stats.js): cada dígito numa coluna com máscara da altura da linha
+   (--odo-lh, em) e a largura do dígito final; a fita (0–9 repetidos, terminando no dígito) sobe até o fim com
+   easing suave. Pontuação parada (.stats__odo-sep). No fim o JS devolve o texto original. */
+.stats__odo {
   display: inline-flex;
-  justify-content: flex-end;
+  align-items: flex-start;
+  vertical-align: top;
   white-space: nowrap;
 }
-/* Valor real para leitor de tela enquanto o número visual (aria-hidden) conta */
+.stats__odo-col {
+  display: inline-block;
+  height: var(--odo-lh);
+  overflow: clip;
+  text-align: center;
+}
+.stats__odo-reel { display: block; }
+.stats__odo-reel > span,
+.stats__odo-sep {
+  display: block;
+  height: var(--odo-lh);
+  line-height: var(--odo-lh);
+}
+.stats__odo-sep { display: inline-block; }
+.stats__odo.is-rolling .stats__odo-reel {
+  translate: 0 var(--odo-to);
+  transition: translate var(--odo-dur, 1.3s) cubic-bezier(.2, .75, .25, 1) var(--odo-delay, 0ms);
+}
+
+/* Valor real para leitor de tela enquanto as colunas (aria-hidden) rolam — preso ao valor (posicionado):
+   solto, o absolute escaparia e poderia alargar a página no celular */
+.stats__value { position: relative; }
 .stats__sr {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 1px;
   height: 1px;
   margin: -1px;
@@ -83,10 +107,11 @@
   border: 0;
 }
 
-/* Faixa de baixo (8497:1585): abre do centro (motion.js, data-wipe="out") quando a última contagem termina —
-   o 08-stats.js põe o data-wipe; até lá fica fechada, só com o movimento liberado */
-.motion-on .stats__pattern[data-stats-band-end]:not([data-wipe]) { clip-path: inset(0 50% 0 50%); }
-@media print { .stats__pattern[data-stats-band-end] { clip-path: none !important; } }
+/* Faixa de baixo (8497:1585): fechada até o último número parar; abre do centro (.is-opening, keyframe
+   m-wipe-out do motion.css) e fica aberta (.is-open). Só com o movimento liberado; impressão: aberta */
+.motion-on .stats__pattern[data-stats-band-end]:not(.is-open) { clip-path: inset(0 50% 0 50%); }
+.motion-on .stats__pattern[data-stats-band-end].is-opening { animation: m-wipe-out 1s var(--motion-ease) both; }
+@media print { .stats__pattern[data-stats-band-end] { clip-path: none !important; animation: none !important; } }
 
 /* Legenda (8486:1691): Cabin 18/1.5 gray-300 (.body-lg) */
 .stats__label { width: 100%; text-wrap: pretty; }

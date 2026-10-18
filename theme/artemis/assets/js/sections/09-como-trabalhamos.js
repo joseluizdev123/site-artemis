@@ -1,9 +1,10 @@
 /* Seção 09 — Como trabalhamos: ilustração que "monta" com o scroll (8490:2308)
    Grava --p (0 → 1) na ilustração conforme ela sobe na tela; o CSS move a camada
    da tela, desenha o tracejado e revela o selo. Suavizado para subir devagar.
-   Montada (p = 1) e com o data-loop da biblioteca Motion ligado (até 5 s a cada entrada na tela, eventos
-   motion:loop-start/stop), ganha .is-floating: as camadas flutuam. Ao parar, cada camada termina a volta
-   em que está e assenta no quadro do Figma (sem salto). */
+   A montagem acompanha a rolagem (repete sozinha quando a ilustração volta à tela). Montada (p = 1) e com
+   o data-loop da biblioteca Motion ligado (enquanto está na tela, eventos motion:loop-start/stop), ganha
+   .is-floating: as camadas flutuam sem parar. Fora da tela a flutuação para na hora (quadro do Figma) e,
+   na volta, só recomeça depois de montar de novo. */
 (function () {
   'use strict';
 
@@ -27,17 +28,14 @@
     el.classList.add('is-floating');
   }
 
-  // alternate: a ida é a volta ímpar; terminar num número par de voltas devolve a camada ao 0
+  // Fora da tela (ou aba oculta): para na hora — ninguém vê o salto — e a próxima flutuação espera montar de novo
   function stopFloat() {
-    if (!floating) return;
     floating = false;
-    if (!el.getAnimations) { el.classList.remove('is-floating'); return; }
-    el.getAnimations({ subtree: true }).forEach(function (a) {
-      if (a.animationName !== 'como-trabalhamos-float') return;
-      var it = a.effect.getComputedTiming().currentIteration;
-      if (it == null) { a.cancel(); return; } // ainda no atraso: nem saiu do lugar
-      a.effect.updateTiming({ iterations: Math.ceil((it + 1) / 2) * 2 });
-    });
+    el.classList.remove('is-floating');
+    measure();                 // fora da tela: a montagem assenta na posição da rolagem (repete ao voltar)
+    current = target;
+    el.style.setProperty('--p', current.toFixed(4));
+    assembled = current >= 0.999;
   }
 
   el.addEventListener('motion:loop-start', function () { looping = true; startFloat(); });
