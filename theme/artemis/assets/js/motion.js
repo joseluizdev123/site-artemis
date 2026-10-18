@@ -467,7 +467,7 @@
   var loopIO = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       var el = e.target;
-      if (e.isIntersecting && !document.hidden) startLoop(el);
+      if (e.isIntersecting && !document.hidden && !reduceMQ.matches) startLoop(el);
       else stopLoop(el);
     });
   }, { threshold: 0 });
@@ -555,7 +555,8 @@
     pxNear.clear();
   }
 
-  function onReduce() { if (reduceMQ.matches) { finishAll(); root.classList.remove('motion-on'); } }
+  // Movimento reduzido ligado com a página aberta: tudo ao repouso e nenhum loop/parallax volta a ligar
+  function onReduce() { if (reduceMQ.matches) { finishAll(); loopIO.disconnect(); pxIO.disconnect(); root.classList.remove('motion-on'); } }
   if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', onReduce);
   window.addEventListener('beforeprint', finishAll);
 
