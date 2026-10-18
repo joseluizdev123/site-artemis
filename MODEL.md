@@ -280,7 +280,7 @@ Animações (2026-10-18, biblioteca Motion — atributos no partial e no templat
 | Seção | Entrada |
 |-------|---------|
 | 1 topo | ao carregar: círculos em pop lento (1,6 s, `sobre-01-hero.css` — a mesma animação vale em `.is-in` e `.is-done`, então segue até o fim depois que o motion.js troca a classe), título por linhas (200 ms), texto sobe (500 ms); na rolagem os círculos descem até 24 px (`data-parallax="0.12"`). Os círculos centralizam com `margin-left: -960px` (não `transform`), para o pop crescer do centro |
-| 2 por que | título por linhas, parágrafos sobem (grupo, +150 ms); foto com cortina para cima + assentamento só se abrir abaixo da dobra (`sobre-02-porque.js` põe o `data-wipe`); visível ao abrir (1440×900: topo em 602; 375: em 402) fica parada |
+| 2 por que | título por linhas, parágrafos sobem (grupo, +150 ms); foto com cortina para cima + assentamento: o `sobre-02-porque.js` põe o `data-wipe` quando ela está fora da tela por inteiro — abaixo da dobra ao abrir (tela baixa) já entra; visível ao abrir (1440×900: topo em 602; 375: em 402) fica parada e entra na 1ª vez que sai da tela; daí em diante repete a cada volta, como as outras entradas |
 | 3 três coisas | título por linhas; lista em grupo a cada 75 ms: número sobe → marcador cresce de cima → título → texto, item a item (~1,7 s) |
 | 4 audita | título por linhas, parágrafos sobem (grupo, +150 ms) |
 | 5 equipe A | título por linhas, texto sobe; cada card é um grupo (+0/120/240/360 ms): foto (`.sobre-card__media`) com cortina para cima e assentamento, nome (+350) e cargo (+450) sobem; nota em fade. Sem hover |
