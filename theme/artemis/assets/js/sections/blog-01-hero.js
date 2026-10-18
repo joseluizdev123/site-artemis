@@ -1,11 +1,12 @@
 /* Blog 01 — Hero: luzes correndo pelas linhas convergentes do banner (Figma Light 8512:5748 sobre Lines 8512:5704)
    - em repouso as 10 luzes ficam nas posições do Figma (CSS)
-   - o banner tem data-loop: o motion.js liga .is-looping por até 5 s a cada entrada na tela (WCAG 2.2.2). Nesse tempo
-     as 10 do Figma partem da sua posição e o JS acende mais luzes (AUTO no total), em pontos sorteados das linhas;
-     cada luz segue a linha até o fim e recomeça do início de outra
+   - o banner tem data-loop: enquanto o motion.js mantém .is-looping, as 10 do Figma partem da sua posição e o JS
+     acende mais luzes (AUTO no total), em pontos sorteados das linhas; cada luz segue a linha até o fim e recomeça do
+     início de outra
    - quando o loop acaba, as automáticas apagam (SETTLE) e as 10 do Figma reacendem no lugar do repouso
-   - clique (ou toque) no banner, a qualquer momento: nasce uma luz no ponto da linha mais próximo, corre até o fim e
-     some (ação da pessoa, fora do limite de 5 s)
+   - clique (ou toque) no banner, a qualquer momento, durante o loop ou fora dele: o "tiro" da pessoa. Um anel abre no
+     ponto da linha mais próximo e dali sai uma luz mais longa, grossa e brilhante que as automáticas (--shot), que
+     acende na hora, corre SHOT_SPEED× mais rápido até o fim da linha e some
    - a geometria vem do mesmo SVG que o <img> exibe (currentSrc: desktop ou mobile), lido sem editar o arquivo
    - sem JS, sem o motion.js, com prefers-reduced-motion e na impressão: luzes paradas nas posições do Figma */
 (function () {
@@ -24,8 +25,10 @@
   var STEP = 3;      // amostragem do caminho, em unidades do SVG
   var FADE = 0.035;  // fração do comprimento em que a luz acende/apaga nas pontas
   var AUTO = 30;      // luzes automáticas no total (as 10 do Figma + as criadas aqui)
-  var BORN_IN = 0.4; // segundos para acender uma luz criada pelo JS (extra ou do clique)
-  var CLICK_MAX = 24; // luzes de clique ao mesmo tempo (a mais antiga sai)
+  var BORN_IN = 0.4; // segundos para acender uma luz extra
+  var CLICK_MAX = 24; // tiros ao mesmo tempo (o mais antigo sai)
+  var SHOT_IN = 0.06; // segundos para o tiro acender (na hora, para a pessoa ver que foi ela)
+  var SHOT_SPEED = 3; // o tiro corre 3× mais rápido que as automáticas
   var SETTLE = 0.6;  // segundos para as automáticas apagarem quando o loop acaba
 
   var paths = [];    // { layer, pts: [[x, y], …] em unidades do SVG, len }
@@ -96,17 +99,29 @@
     return { x: m.ox + x * m.sx, y: m.oy + y * m.sy, a: Math.atan2(dy, dx) * 180 / Math.PI };
   }
 
-  /* Luz nova criada pelo JS (extra automática ou do clique), com o tamanho do traço da tela atual */
+  /* Luz nova criada pelo JS (extra automática ou tiro do clique), com o tamanho do traço da tela atual */
   function born(path, s, once) {
     var el = document.createElement('i');
-    el.className = 'blog-hero__pulse blog-hero__pulse--js';
+    el.className = 'blog-hero__pulse blog-hero__pulse--js' + (once ? ' blog-hero__pulse--shot' : '');
     el.style.opacity = '0';
     light.appendChild(el);
     var cs = getComputedStyle(el);
     return {
       el: el, path: path, s: s, w: parseFloat(cs.width), h: parseFloat(cs.height),
-      speed: speed(), age: 0, once: !!once
+      speed: speed() * (once ? SHOT_SPEED : 1), age: 0, once: !!once
     };
+  }
+
+  /* Anel que abre no ponto de partida do tiro (some sozinho) */
+  function ring(p) {
+    var el = document.createElement('i');
+    el.className = 'blog-hero__ring';
+    el.style.left = p.x.toFixed(2) + 'px';
+    el.style.top = p.y.toFixed(2) + 'px';
+    light.appendChild(el);
+    var gone = function () { el.remove(); };
+    el.addEventListener('animationend', gone);
+    setTimeout(gone, 1200);
   }
 
   function speed() { return 1 / (LOOP * (0.8 + Math.random() * 0.45)); }
@@ -130,7 +145,7 @@
     var p = at(run.path, run.s);
     var f = FADE * run.path.len;
     var o = Math.max(0, Math.min(1, run.s / f, (run.path.len - run.s) / f)) * k;
-    if (run.age != null) o *= Math.min(1, run.age / BORN_IN);
+    if (run.age != null) o *= Math.min(1, run.age / (run.once ? SHOT_IN : BORN_IN));
     run.el.style.transform = 'translate(' + (p.x - run.w / 2).toFixed(2) + 'px,' + (p.y - run.h / 2).toFixed(2) + 'px) rotate(' + p.a.toFixed(2) + 'deg)';
     run.el.style.opacity = o.toFixed(3);
   }
@@ -255,11 +270,11 @@
     }).catch(function () { busy = false; reset(); }); // sem rede: luzes paradas
   }
 
-  /* Loop do motion.js (data-loop): .is-looping por até 5 s a cada entrada na tela */
+  /* Loop do motion.js (data-loop): as automáticas correm só com .is-looping */
   banner.addEventListener('motion:loop-start', sync);
   banner.addEventListener('motion:loop-stop', sync);
 
-  /* Clique no banner: uma luz a mais, no ponto da linha mais próximo do clique */
+  /* Clique ou toque no banner: o tiro da pessoa, do ponto da linha mais próximo do clique */
   banner.addEventListener('click', function (e) {
     if (!ready || reduce.matches) return; // linhas ainda não medidas ou movimento reduzido: nada
     var lb = light.getBoundingClientRect();
@@ -268,6 +283,7 @@
     var run = born(hit.path, hit.s, true);
     clicks.push(run);
     place(run, 1);
+    ring(at(hit.path, hit.s));
     kick();
   });
 
@@ -282,12 +298,13 @@
   });
 
   var onReduce = function () { if (reduce.matches) reset(); else init(); };
-  // Impressão: o quadro do Figma na hora (sem apagar em SETTLE, sem reacender, sem as luzes do clique)
+  // Impressão: o quadro do Figma na hora (sem apagar em SETTLE, sem reacender, sem os tiros)
   window.addEventListener('beforeprint', function () {
     stop();
     toRest(true);
     clicks.forEach(function (run) { run.el.remove(); });
     clicks = [];
+    Array.prototype.forEach.call(light.querySelectorAll('.blog-hero__ring'), function (el) { el.remove(); });
     light.classList.remove('is-back');
   });
   if (reduce.addEventListener) reduce.addEventListener('change', onReduce); else if (reduce.addListener) reduce.addListener(onReduce);
