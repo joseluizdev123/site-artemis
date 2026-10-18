@@ -55,7 +55,8 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } } /* âncoras (#estudos, abas do Blog) */
 
 body {
   margin: 0;
@@ -67,7 +68,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-main { padding-top: var(--header-h); } /* altura do header fixo (estado inicial) */
+main { padding-top: var(--header-h); overflow-x: clip; } /* altura do header fixo (estado inicial) · clip: rede contra rolagem lateral das entradas (não cria contêiner de rolagem, sticky continua) */
 section[id] { scroll-margin-top: var(--header-h-scrolled); } /* âncoras (#estudos, abas do Blog) param logo abaixo do header fixo */
 .is-preview main { padding-top: 0; } /* preview isolado de seção (tools/build.py --preview) */
 

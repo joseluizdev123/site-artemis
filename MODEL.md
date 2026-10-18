@@ -287,6 +287,25 @@ Validação (2026-10-16): 1440×5137 e 375×7468,08 = Figma (Δ 0 em todos os bl
 
 Efeito de passar o mouse que mexe no elemento (crescer, subir, zoom, sombra, texto que avança) só em link ou botão: em card ou texto que não é clicável dá a impressão de link. Removidos: cards dos sistemas e do diagrama e números das stats (Home), textos do painel e cards "o que não fazemos" (Serviços). Mantidos: links, cards do Blog (o card inteiro é link), abas de Serviços, setas e pausa dos Estudos. Animações de imagem, de entrada e de rolagem continuam.
 
+## Motion (2026-10-18) — biblioteca global
+
+Arquivos: `assets/js/motion.js` + `assets/css/motion.css` (carregados em todas as páginas: `src/index.template.html` e `functions.php`; o `<head>` liga `html.motion-on` antes da 1ª pintura). Referência: técnicas da galeria Animation do Awwwards (plano em scratchpad/motion-plan.txt). Princípio: em repouso, sem JS, com movimento reduzido e na impressão a página é o Figma; toda entrada termina com `.is-done` e sem spans auxiliares.
+
+| Atributo | Efeito |
+|---|---|
+| `data-reveal="up\|diag\|fade\|pop\|rise\|grow-x\|grow-y"` (+ `data-origin`) | entra uma vez ao chegar na tela |
+| `data-split="lines"` | título por linhas (máscara por palavra; quebras do repouso medidas antes e fixadas; HTML original volta no fim) |
+| `data-wipe="right\|left\|up\|down\|out"` (+ `data-wipe-zoom`) | recorte que abre (clip-path) e imagem que assenta 1,06→1 |
+| `data-count` | número conta de 0 ao valor (formato BR; aria-hidden + valor real para leitor de tela) |
+| `data-type` / `data-type-group` | texto digitado (barra de status) |
+| `data-parallax="0.12"` (+ `data-parallax-max="24"`) | desloca na rolagem; 0 com a página no topo |
+| `data-loop` (+ `data-loop-max="5"`) | `.is-looping` por até 5 s a cada entrada na tela (WCAG 2.2.2) — as seções ligam o loop infinito só com essa classe |
+| `data-reveal-group[="variante"]` (+ `data-stagger`) | dispara os itens em sequência (máx. 1,2 s acumulado) |
+| `data-motion-delay="ms"` · `data-motion-start="load"` | atraso · toca ao carregar (topo) |
+
+Automático (sem atributo no markup): rótulo que rola no hover de todo `.btn` (só mouse); sublinhado no hover dos links do header e legais do rodapé (e `data-hover="line"`); CTA (status digitado, traços acendendo, nota, título por linhas, texto e botões); newsletter; traços do rodapé; links da gaveta do celular em sequência; transição entre páginas (View Transitions); LED e traços do CTA/newsletter só 5 s por entrada. Não usar: rolagem suave que substitui a nativa, WebGL, cursor próprio, marquee/loop infinito, preloader, seção presa com scrub, hover que mexe em não clicável.
+Validação: `node tools/motion_check.mjs URL [largura]` (movimento liberado: tudo termina em repouso, sem sobras, sem rolagem lateral, sem erro de JS) + `page_check`/`diff.py` (movimento reduzido = repouso = Figma).
+
 ## Arquitetura (estático ⇄ tema, por seção)
 
 | Camada            | Estático                                   | Tema WP (`theme/artemis/`)                        |

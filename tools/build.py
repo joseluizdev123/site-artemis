@@ -175,6 +175,7 @@ def render(header, main, footer, slugs, preview, page='home'):
     meta = pages()[page]
     out = read(TEMPLATE)
     out = out.replace('{{MAIN_CSS}}', ver('/assets/css/main.css')).replace('{{MAIN_JS}}', ver('/assets/js/main.js'))
+    out = out.replace('{{MOTION_CSS}}', ver('/assets/css/motion.css')).replace('{{MOTION_JS}}', ver('/assets/js/motion.js'))
     out = out.replace('{{TITLE}}', meta['title'] + (' · preview' if preview else ''))
     out = out.replace('{{DESCRIPTION}}', meta['description'])
     out = out.replace('{{CSS}}', css)

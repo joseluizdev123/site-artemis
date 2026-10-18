@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{MAIN_CSS}}">
+  <link rel="stylesheet" href="{{MOTION_CSS}}">
+  <!-- Motion: liga html.motion-on antes da 1ª pintura (só com movimento liberado); volta sozinho se o motion.js não carregar -->
+  <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
 {{CSS}}
 </head>
 <body{{BODY_ATTRS}}>
@@ -23,6 +26,7 @@
 {{FOOTER}}
 
   <script src="{{MAIN_JS}}" defer></script>
+  <script src="{{MOTION_JS}}" defer></script>
 {{JS}}
 {{MEASURE}}
 </body>
