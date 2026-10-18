@@ -476,6 +476,10 @@
     entries.forEach(function (e) {
       var el = e.target;
       if (e.isIntersecting || reduceMQ.matches || !el.__mPlayed || watching.has(el)) return;
+      // No Chrome a interseção considera o clip-path do próprio alvo: no início do data-wipe (inset 100%) ela zera e a
+      // imagem "sairia da tela" a cada quadro, reiniciando sem parar. Vale a caixa: ainda na tela, não reinicia.
+      var r = e.boundingClientRect;
+      if (r.bottom > 0 && r.top < window.innerHeight) return;
       resetRoot(el);
       watch(el);
     });
