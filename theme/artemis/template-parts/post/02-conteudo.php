@@ -18,7 +18,7 @@ $artemis_toc_t   = (string) artemis_mod( 'art_post_toc_title' );
 					<p class="post-toc__title" id="post-toc-title"><?php echo esc_html( $artemis_toc_t ); ?></p>
 					<ol class="post-toc__list">
 						<?php foreach ( $artemis_content['toc'] as $artemis_item ) : ?>
-							<li><a class="post-toc__link" href="#<?php echo esc_attr( $artemis_item[1] ); ?>"><?php echo esc_html( $artemis_item[0] ); ?></a></li>
+							<li><a class="post-toc__link" data-hover="line" href="#<?php echo esc_attr( $artemis_item[1] ); ?>"><?php echo esc_html( $artemis_item[0] ); ?></a></li>
 						<?php endforeach; ?>
 					</ol>
 				</nav>
