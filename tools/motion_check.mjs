@@ -53,13 +53,13 @@ try {
   // 2) ArtemisMotion.finish() (o que a impressão/movimento reduzido usam): a página inteira em repouso.
   const COLLECT = `(() => {
     const T = '[data-reveal],[data-split],[data-wipe],[data-count],[data-type]';
-    const vis = (e) => { const r = e.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; };
+    const vis = (e) => { const r = e.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight * 0.88 - 2 && r.width > 0; }; // mesma linha de disparo do motion.js (12% de baixo ainda não toca)
     const name = (e) => (e.className || e.tagName).toString().split(' ')[0] + '[' + [...e.attributes].filter((a) => a.name.startsWith('data-') && !a.name.startsWith('data-figma')).map((a) => a.name).join(',') + ']';
     const all = [...document.querySelectorAll(T)];
     return {
       targets: all.length,
       pendingVis: all.filter((e) => vis(e) && !e.classList.contains('is-done')).map(name),
-      leftoversVis: [...document.querySelectorAll('.m-w, .m-c, .m-count, .m-sr, .m-br')].filter(vis).length,
+      leftoversVis: [...document.querySelectorAll('.m-w, .m-c, .m-count, .m-sr, .m-br')].filter((e) => { const t = e.parentElement.closest('[data-split],[data-type],[data-count]'); return t ? vis(t) : vis(e); }).length,
       pendingAll: all.filter((e) => !e.classList.contains('is-done')).map(name),
       leftoversAll: document.querySelectorAll('.m-w, .m-c, .m-count, .m-sr, .m-br').length,
       rolls: document.querySelectorAll('.m-roll').length,
@@ -67,14 +67,25 @@ try {
     };
   })()`;
   const atEnd = await evaluate(COLLECT);
+  // Ida e volta (repetição): volta ao meio de um salto, depois sobe em passos até o topo — o que está na tela em cada
+  // parada precisa terminar a entrada (pega reinício preso, cortina invisível, laço de reinício)
+  const stops = [];
+  await evaluate("document.documentElement.style.scrollBehavior='auto'");
+  await evaluate(`window.scrollTo(0, ${Math.round(H * 0.4)})`); await sleep(3500);
+  stops.push(await evaluate(COLLECT));
+  for (let y = Math.round(H * 0.4); y >= 0; y -= 400) { await evaluate(`window.scrollTo(0, ${y})`); await sleep(120); }
+  await evaluate('window.scrollTo(0, 0)'); await sleep(3500);
+  stops.push(await evaluate(COLLECT));
+  const backPending = stops.flatMap((st, i) => st.pendingVis.map((n) => (i ? 'topo:' : 'meio:') + n));
+  const backLeft = stops.reduce((n, st) => n + st.leftoversVis, 0);
   await evaluate('window.ArtemisMotion && window.ArtemisMotion.finish()');
   await sleep(300);
   const fin = await evaluate(COLLECT);
   const out = {
     targets: atEnd.targets, rolls: atEnd.rolls, docW: Math.max(atEnd.docW, fin.docW), vw: atEnd.vw, docH: atEnd.docH,
-    pending: atEnd.pendingVis.concat(fin.pendingAll.map((n) => 'finish:' + n)).slice(0, 12),
-    pendingCount: atEnd.pendingVis.length + fin.pendingAll.length,
-    leftovers: atEnd.leftoversVis + fin.leftoversAll,
+    pending: atEnd.pendingVis.concat(backPending, fin.pendingAll.map((n) => 'finish:' + n)).slice(0, 12),
+    pendingCount: atEnd.pendingVis.length + backPending.length + fin.pendingAll.length,
+    leftovers: atEnd.leftoversVis + backLeft + fin.leftoversAll,
   };
   ws.close();
   // compara com a largura emulada: no celular o Chrome reduz o zoom e innerWidth acompanha a página larga

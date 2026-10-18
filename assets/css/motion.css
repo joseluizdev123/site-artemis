@@ -56,26 +56,23 @@
 @keyframes m-line { from { translate: 0 110%; } }
 
 /* --------------------------------------------------------------------------
-   Recorte — data-wipe (clip-path) · data-wipe-zoom assenta a 1ª imagem
+   Cortina — data-wipe (máscara que abre na direção pedida) · data-wipe-zoom assenta a 1ª imagem
+   Máscara, não clip-path: no Chrome a IntersectionObserver aplica o clip-path do próprio alvo — com o recorte
+   fechado o elemento contava como fora da tela e, depois de voltar ao início (repetição), nunca mais tocava.
    -------------------------------------------------------------------------- */
-.motion-on [data-wipe]:not(.is-in):not(.is-done) { clip-path: inset(0 100% 0 0); }
-.motion-on [data-wipe="left"]:not(.is-in):not(.is-done) { clip-path: inset(0 0 0 100%); }
-.motion-on [data-wipe="up"]:not(.is-in):not(.is-done) { clip-path: inset(100% 0 0 0); }
-.motion-on [data-wipe="down"]:not(.is-in):not(.is-done) { clip-path: inset(0 0 100% 0); }
-.motion-on [data-wipe="out"]:not(.is-in):not(.is-done) { clip-path: inset(0 50% 0 50%); }
-
-.motion-on [data-wipe].is-in { animation: m-wipe-right 1s var(--motion-ease) var(--m-delay, 0ms) both; }
-.motion-on [data-wipe="left"].is-in { animation-name: m-wipe-left; }
-.motion-on [data-wipe="up"].is-in { animation-name: m-wipe-up; }
-.motion-on [data-wipe="down"].is-in { animation-name: m-wipe-down; }
-.motion-on [data-wipe="out"].is-in { animation-name: m-wipe-out; }
+.motion-on [data-wipe] { --m-mpos: 0 0; --m-mfrom: 0% 100%; }        /* right: abre da esquerda para a direita */
+.motion-on [data-wipe="left"] { --m-mpos: 100% 0; }
+.motion-on [data-wipe="up"] { --m-mpos: 0 100%; --m-mfrom: 100% 0%; } /* abre de baixo para cima */
+.motion-on [data-wipe="down"] { --m-mfrom: 100% 0%; }
+.motion-on [data-wipe="out"] { --m-mpos: 50% 0; }                    /* abre do centro para as bordas */
+.motion-on [data-wipe]:not(.is-done) {
+  -webkit-mask: linear-gradient(#000, #000) var(--m-mpos) / var(--m-mfrom) no-repeat;
+  mask: linear-gradient(#000, #000) var(--m-mpos) / var(--m-mfrom) no-repeat;
+}
+.motion-on [data-wipe].is-in { animation: m-wipe 1s var(--motion-ease) var(--m-delay, 0ms) both; }
 .motion-on [data-wipe-zoom].is-in img { animation: m-settle 1.3s var(--motion-ease) var(--m-delay, 0ms) both; }
 
-@keyframes m-wipe-right { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
-@keyframes m-wipe-left { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0); } }
-@keyframes m-wipe-up { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
-@keyframes m-wipe-down { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
-@keyframes m-wipe-out { from { clip-path: inset(0 50% 0 50%); } to { clip-path: inset(0); } }
+@keyframes m-wipe { to { -webkit-mask-size: 100% 100%; mask-size: 100% 100%; } }
 @keyframes m-settle { from { scale: 1.06; } }
 
 /* --------------------------------------------------------------------------
@@ -171,5 +168,5 @@
   .motion-on [data-wipe],
   .motion-on [data-wipe] img,
   .motion-on .m-w__i,
-  .motion-on .m-c { opacity: 1 !important; translate: none !important; scale: none !important; clip-path: none !important; animation: none !important; }
+  .motion-on .m-c { opacity: 1 !important; translate: none !important; scale: none !important; clip-path: none !important; -webkit-mask: none !important; mask: none !important; animation: none !important; }
 }
