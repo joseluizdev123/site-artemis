@@ -73,6 +73,21 @@ add_action( 'init', function () {
 	) );
 } );
 
+/* Imagem "Recorte do layout" entra com recorte de baixo para cima e assenta (motion.js: data-wipe + data-wipe-zoom),
+   como a figura do estático (8331:1213). */
+add_filter( 'render_block_core/image', function ( $html, $block ) {
+	$class = isset( $block['attrs']['className'] ) ? (string) $block['attrs']['className'] : '';
+	if ( ! preg_match( '/\bis-style-recorte\b/', $class ) ) {
+		return $html;
+	}
+	$tags = new WP_HTML_Tag_Processor( $html );
+	if ( $tags->next_tag( 'figure' ) && null === $tags->get_attribute( 'data-wipe' ) ) {
+		$tags->set_attribute( 'data-wipe', 'up' );
+		$tags->set_attribute( 'data-wipe-zoom', true );
+	}
+	return $tags->get_updated_html();
+}, 10, 2 );
+
 /* --------------------------------------------------------------------------
    Meta do artigo + caixa "Detalhes do artigo"
    -------------------------------------------------------------------------- */
@@ -181,7 +196,8 @@ add_action( 'save_post_post', function ( $post_id ) {
 } );
 
 /* --------------------------------------------------------------------------
-   [artemis_numeros] — Statistics 8331:1248 (mesma marcação do estático)
+   [artemis_numeros] — Statistics 8331:1248 (mesma marcação do estático). Entrada (motion.js): rótulo em fade e os
+   valores contam um por vez (240 ms entre itens, 800 ms por contagem), cada descrição em fade depois do seu valor.
    -------------------------------------------------------------------------- */
 add_shortcode( 'artemis_numeros', function () {
 	$num   = artemis_post_numeros();
@@ -191,9 +207,9 @@ add_shortcode( 'artemis_numeros', function () {
 	if ( ! $items ) {
 		return '';
 	}
-	$html = '<div class="post-numeros">';
+	$html = '<div class="post-numeros" data-reveal-group data-stagger="240">';
 	if ( '' !== $num['label'] ) {
-		$html .= '<p class="post-numeros__label eyebrow">' . esc_html( $num['label'] ) . '</p>';
+		$html .= '<p class="post-numeros__label eyebrow" data-reveal="fade">' . esc_html( $num['label'] ) . '</p>';
 	}
 	$html .= '<dl class="post-numeros__grid">';
 	foreach ( $items as $row ) {
@@ -204,8 +220,8 @@ add_shortcode( 'artemis_numeros', function () {
 		if ( '' !== $row['suf'] ) {
 			$valor .= ' <small>' . esc_html( $row['suf'] ) . '</small>';
 		}
-		$html .= '<div class="post-numeros__item"><dt class="post-numeros__value">' . $valor . '</dt>';
-		$html .= '<dd class="post-numeros__desc">' . esc_html( $row['desc'] ) . '</dd></div>';
+		$html .= '<div class="post-numeros__item"><dt class="post-numeros__value" data-count data-count-duration="800">' . $valor . '</dt>';
+		$html .= '<dd class="post-numeros__desc" data-reveal="fade">' . esc_html( $row['desc'] ) . '</dd></div>';
 	}
 	return $html . '</dl></div>';
 } );
@@ -215,7 +231,7 @@ add_shortcode( 'artemis_numeros', function () {
    -------------------------------------------------------------------------- */
 
 /**
- * Texto do artigo já filtrado (the_content), com id em todo H2 que não tiver, e o índice:
+ * Texto do artigo já filtrado (the_content), com id em todo H2 que não tiver (e entrada por linhas, data-split), e o índice:
  * array( 'html' => string, 'toc' => array( array( texto, id ) ) ). O índice pula títulos "Destaque".
  */
 function artemis_post_content( $post = null ) {
@@ -242,6 +258,9 @@ function artemis_post_content( $post = null ) {
 			$attrs .= ' id="' . esc_attr( $anchor ) . '"';
 		}
 		$used[ $anchor ] = true;
+		if ( ! preg_match( '/\sdata-split=/i', $attrs ) ) {
+			$attrs .= ' data-split="lines"';
+		}
 		if ( '' !== $text && ! preg_match( '/\bis-style-destaque\b/', $attrs ) ) {
 			$toc[] = array( $text, $anchor );
 		}

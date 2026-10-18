@@ -7,9 +7,9 @@
       <nav class="post-toc__nav" aria-labelledby="post-toc-title" data-figma="8331:1264" data-figma-m="8673:5834">
         <p class="post-toc__title" id="post-toc-title" data-figma="8331:1262" data-figma-m="8673:5835">Neste artigo</p>
         <ol class="post-toc__list" data-figma="8331:1272" data-figma-m="8673:5836">
-          <li><a class="post-toc__link" href="#por-que-o-pipeline-e-proprio" data-figma="8331:1266" data-figma-m="8673:5837">Por que o pipeline é próprio</a></li>
-          <li><a class="post-toc__link" href="#onde-a-ia-errou-primeiro" data-figma="8331:1267" data-figma-m="8673:5838">Onde a IA errou primeiro</a></li>
-          <li><a class="post-toc__link" href="#como-medimos-os-97" data-figma="8331:1268" data-figma-m="8673:5839">Como medimos os 97%</a></li>
+          <li data-figma="8331:1266" data-figma-m="8673:5837"><a class="post-toc__link" data-hover="line" href="#por-que-o-pipeline-e-proprio">Por que o pipeline é próprio</a></li>
+          <li data-figma="8331:1267" data-figma-m="8673:5838"><a class="post-toc__link" data-hover="line" href="#onde-a-ia-errou-primeiro">Onde a IA errou primeiro</a></li>
+          <li data-figma="8331:1268" data-figma-m="8673:5839"><a class="post-toc__link" data-hover="line" href="#como-medimos-os-97">Como medimos os 97%</a></li>
         </ol>
       </nav>
     </aside>
@@ -21,11 +21,11 @@
         <p>O primeiro documento que o sistema reprovou tinha assinatura digital válida, carimbo de tempo correto e um problema que ninguém tinha visto: a ART anexada era de outro engenheiro, de outra obra, de dois anos antes. O analista havia aprovado o mesmo documento na semana anterior.</p>
         <p>Não é falha de atenção. É volume. A área recebia certificados de segurança, olerites, cartões de ponto e programas de gerenciamento de risco de centenas de fornecedores, alguns com mais de mil páginas, e a validação de um dependia do que estava escrito no outro.</p>
 
-        <h2 class="wp-block-heading is-style-destaque" id="o-pedido-nao-era-validar-documento" data-figma="8331:1185" data-figma-m="8673:5801">O pedido não era validar documento</h2>
+        <h2 class="wp-block-heading is-style-destaque" id="o-pedido-nao-era-validar-documento" data-split="lines" data-figma="8331:1185" data-figma-m="8673:5801">O pedido não era validar documento</h2>
         <p>O pedido que chegou foi "acelerar a conferência de documentação de fornecedor". O diagnóstico mostrou outra coisa: o gargalo não estava na leitura, estava na validação cruzada — conferir se o nome do responsável técnico no certificado bate com o da ART, se a data de emissão cobre o período do contrato, se o CNPJ é o mesmo dos três anexos.</p>
         <p>Quem fazia isso tinha o critério na cabeça. Não estava no procedimento, não estava no sistema, e mudava de fornecedor para fornecedor. Extrair esse critério e escrevê-lo com rigor levou mais tempo que construir o software.</p>
 
-        <h2 class="wp-block-heading" id="por-que-o-pipeline-e-proprio" data-figma="8331:1188" data-figma-m="8673:5804">Por que o pipeline é próprio</h2>
+        <h2 class="wp-block-heading" id="por-que-o-pipeline-e-proprio" data-split="lines" data-figma="8331:1188" data-figma-m="8673:5804">Por que o pipeline é próprio</h2>
         <p>Mil páginas não entram em uma janela de contexto de forma útil. Testamos duas abordagens antes da que ficou: mandar o documento inteiro e pedir o veredito, e depois quebrar em páginas independentes. A primeira alucinava datas; a segunda perdia exatamente a informação que estava em duas páginas ao mesmo tempo.</p>
         <p>O pipeline que ficou tem quatro etapas:</p>
         <ol class="wp-block-list">
@@ -37,9 +37,9 @@
         <p>O registro da página em cada campo é o que permite a única coisa que o analista pediu explicitamente: clicar no motivo da reprovação e cair na folha onde ela está.</p>
 
         <!-- Image · 8331:1213 (859×600) · Mobile 8673:5806 (343×292) — preenchimento FILL centralizado = object-fit: cover -->
-        <figure class="wp-block-image is-style-recorte" data-figma="8331:1213" data-figma-m="8673:5806"><img src="/assets/images/blog-02-destaque/capa-wcontrol.png" width="672" height="573" alt="Tela de estatísticas do WControl: documentos aprovados, reprovados e em processamento" loading="lazy" decoding="async"></figure>
+        <figure class="wp-block-image is-style-recorte" data-wipe="up" data-wipe-zoom data-figma="8331:1213" data-figma-m="8673:5806"><img src="/assets/images/blog-02-destaque/capa-wcontrol.png" width="672" height="573" alt="Tela de estatísticas do WControl: documentos aprovados, reprovados e em processamento" loading="lazy" decoding="async"></figure>
 
-        <h2 class="wp-block-heading" id="onde-a-ia-errou-primeiro" data-figma="8331:1216" data-figma-m="8673:5808">Onde a IA errou primeiro</h2>
+        <h2 class="wp-block-heading" id="onde-a-ia-errou-primeiro" data-split="lines" data-figma="8331:1216" data-figma-m="8673:5808">Onde a IA errou primeiro</h2>
         <p>Assinatura digital foi o erro mais caro do começo. O sistema tratava a presença do certificado como prova de validade, e havia documento com assinatura expirada no momento da emissão. A correção não foi de modelo: passamos a validar a assinatura contra a API do Gov.br e a comparar a imagem da assinatura manuscrita com as anteriores do mesmo signatário.</p>
         <p>O segundo erro foi de critério, não de leitura. O sistema reprovava olerite sem o campo de insalubridade — porque o especialista reprovava. Ao revisar caso a caso, o próprio especialista concluiu que a regra dele estava errada para dois cargos. Esses casos saíram da base.</p>
         <ul class="wp-block-list">
@@ -47,24 +47,26 @@
           <li>Quando o humano errou, o caso saiu do gabarito — com registro de quem decidiu e por quê.</li>
         </ul>
 
-        <h2 class="wp-block-heading" id="como-medimos-os-97" data-figma="8331:1228" data-figma-m="8673:5811">Como medimos os 97%</h2>
+        <h2 class="wp-block-heading" id="como-medimos-os-97" data-split="lines" data-figma="8331:1228" data-figma-m="8673:5811">Como medimos os 97%</h2>
         <p>Antes da primeira linha de código, montamos uma base de casos reais com a resposta que o especialista daria. Cada versão do sistema roda contra essa base e cada divergência é analisada uma por uma. Assertividade aqui não é uma nota de prova: é a taxa em que o sistema concorda com o gabarito humano nos casos que já sabemos julgar.</p>
 
-        <!-- Statistics · 8331:1248 (strokes em cima e embaixo, py 32, gap 32) · Mobile 8673:5813 — no WordPress: [artemis_numeros] -->
-        <div class="post-numeros" data-figma="8331:1248" data-figma-m="8673:5813">
-          <p class="post-numeros__label eyebrow" data-figma="8331:1249" data-figma-m="8673:5814">Números</p>
+        <!-- Statistics · 8331:1248 (strokes em cima e embaixo, py 32, gap 32) · Mobile 8673:5813 — no WordPress: [artemis_numeros]
+             Entrada (motion.js): rótulo em fade e os valores contam um por vez (240 ms entre itens, 800 ms por contagem:
+             o seguinte começa com o anterior em ~94%), cada descrição em fade logo depois do seu valor -->
+        <div class="post-numeros" data-reveal-group data-stagger="240" data-figma="8331:1248" data-figma-m="8673:5813">
+          <p class="post-numeros__label eyebrow" data-reveal="fade" data-figma="8331:1249" data-figma-m="8673:5814">Números</p>
           <dl class="post-numeros__grid" data-figma="8331:1250" data-figma-m="8673:5815">
             <div class="post-numeros__item" data-figma="8331:1251" data-figma-m="8673:5816">
-              <dt class="post-numeros__value" data-figma="8331:1252" data-figma-m="8673:5817"><small>R$</small> 40.000 <small>/MÊS</small></dt>
-              <dd class="post-numeros__desc" data-figma="8331:1253" data-figma-m="8673:5818">economizados em um único tipo de documento</dd>
+              <dt class="post-numeros__value" data-count data-count-duration="800" data-figma="8331:1252" data-figma-m="8673:5817"><small>R$</small> 40.000 <small>/MÊS</small></dt>
+              <dd class="post-numeros__desc" data-reveal="fade" data-figma="8331:1253" data-figma-m="8673:5818">economizados em um único tipo de documento</dd>
             </div>
             <div class="post-numeros__item" data-figma="8331:1254" data-figma-m="8673:5819">
-              <dt class="post-numeros__value" data-figma="8331:1255" data-figma-m="8673:5820">97%</dt>
-              <dd class="post-numeros__desc" data-figma="8331:1256" data-figma-m="8673:5821">de assertividade medida contra gabarito humano</dd>
+              <dt class="post-numeros__value" data-count data-count-duration="800" data-figma="8331:1255" data-figma-m="8673:5820">97%</dt>
+              <dd class="post-numeros__desc" data-reveal="fade" data-figma="8331:1256" data-figma-m="8673:5821">de assertividade medida contra gabarito humano</dd>
             </div>
             <div class="post-numeros__item" data-figma="8331:1257" data-figma-m="8673:5822">
-              <dt class="post-numeros__value" data-figma="8331:1258" data-figma-m="8673:5823">1.240</dt>
-              <dd class="post-numeros__desc" data-figma="8331:1259" data-figma-m="8673:5824">páginas no maior documento processado até aqui</dd>
+              <dt class="post-numeros__value" data-count data-count-duration="800" data-figma="8331:1258" data-figma-m="8673:5823">1.240</dt>
+              <dd class="post-numeros__desc" data-reveal="fade" data-figma="8331:1259" data-figma-m="8673:5824">páginas no maior documento processado até aqui</dd>
             </div>
           </dl>
         </div>

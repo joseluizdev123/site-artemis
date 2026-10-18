@@ -196,6 +196,19 @@ A imagem do topo (`8331:1153` · `8673:5793`) está oculta no Figma — não imp
 
 Validação (2026-10-15): página 1440×6048 e 375×8416 = Figma, Δ 0 em todos os blocos; conteúdo mobile Δ 0; demais diferenças só larguras de texto ≤1px (métrica da fonte). O texto do post usa `text-wrap: pretty` (o Figma marca `textWrapStyle: PRETTY`); as quebras de algumas linhas variam entre o algoritmo do Chrome e o do Figma sem mudar alturas. Cabin (corpo) é desenhada 1px acima do Figma dentro da mesma caixa — métrica vertical da fonte, igual no site todo. A imagem do artigo no Figma é a mesma capa de 672×573 ampliada — pedir ao cliente a versão em alta.
 
+### Post — motion (2026-10-18, biblioteca global › Motion)
+
+| Onde | Atributos | Estático | WordPress |
+|---|---|---|---|
+| Topo, ao carregar | `.post-hero__article` `data-reveal-group data-motion-start="load"`: meta `fade`, h1 `data-split`, abertura `up`, autor `up` (90 ms entre itens, 80 ms por linha: termina em ~1,15 s no desktop e ~1,23 s no celular, 4 linhas) | `post-01-hero` | `01-hero.php` (autor de `artemis_blog_author()` ganha o atributo via `WP_HTML_Tag_Processor`) |
+| Categoria do topo e links do índice | `data-hover="line"` (sublinhado; o link atual do índice fica sem) — o link do índice é `inline` para a linha acompanhar o texto à direita; a caixa do Figma (largura toda) é o `<li>` | `post-01-hero`, `post-02-conteudo` | `01-hero.php`, `02-conteudo.php` |
+| Títulos H2 do texto | `data-split="lines"` | `post-02-conteudo` | `artemis_post_content()` acrescenta em todo H2 |
+| Imagem "Recorte do layout" | `data-wipe="up" data-wipe-zoom` | `post-02-conteudo` | filtro `render_block_core/image` (classe `is-style-recorte`) |
+| Números | `.post-numeros` `data-reveal-group data-stagger="240"`: rótulo e descrições `fade`, valores `data-count data-count-duration="800"` (um por vez: o seguinte começa com o anterior em ~94%) | `post-02-conteudo` | `[artemis_numeros]` |
+| Continue lendo | título `data-split`, `.blog-cat__grid` `data-reveal-group="up"` (cards em sequência; no celular o 3º fica oculto); no hover só o título muda de cor | `post-03-relacionados` | `03-relacionados.php` |
+
+Chamada final do texto (`.post-cta`) sem entrada: só o rótulo que rola dos botões (automático). Validação: `motion_check` 1440 e 375 — pendentes 0, sobras 0, erros 0, página 1440×6048 / 375×8416; `page_check` Δ 0 em todos os blocos; `diff.py` das 3 seções com as mesmas diferenças de antes (larguras de texto ≤1px).
+
 ## Serviços — mapa (desktop `8340:1700` 1440×3523 · mobile `8699:4921` 375×6599)
 
 Estático: `servicos/index.html` (`src/pages.json` → página `servicos`). WP: página de slug `servicos` → `page-servicos.php` → `template-parts/servicos/*.php` + `template-parts/home/10-cta.php`.

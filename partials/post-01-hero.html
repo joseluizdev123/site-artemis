@@ -2,20 +2,21 @@
      (meta e autor reaproveitam o componente .post-card__* de blog-03-categoria.css). A imagem 8331:1153 está oculta no Figma. -->
 <section class="post-hero" aria-labelledby="post-title" data-figma-root data-figma="8331:338" data-figma-m="8673:5779">
   <div class="container">
-    <!-- Article · 8331:341 (859, gap 32) · Mobile 8673:5780 (gap 24) -->
-    <div class="post-hero__article" data-figma="8331:341" data-figma-m="8673:5780">
+    <!-- Article · 8331:341 (859, gap 32) · Mobile 8673:5780 (gap 24) — entrada ao carregar, em sequência (motion.js):
+         meta em fade, título por linhas, abertura e autor sobem; tudo termina antes de 1,3 s -->
+    <div class="post-hero__article" data-reveal-group data-motion-start="load" data-figma="8331:341" data-figma-m="8673:5780">
       <!-- Heading · 8331:342 (gap 24) -->
       <div class="post-hero__heading" data-figma="8331:342" data-figma-m="8673:5781">
-        <p class="post-card__meta" data-figma="8331:1123" data-figma-m="8673:5782">
-          <a class="post-card__cat post-hero__cat" href="/blog/#analises-de-caso" data-figma="8331:1124" data-figma-m="8673:5783">Análises de caso</a>
+        <p class="post-card__meta" data-reveal="fade" data-figma="8331:1123" data-figma-m="8673:5782">
+          <a class="post-card__cat post-hero__cat" href="/blog/#analises-de-caso" data-hover="line" data-figma="8331:1124" data-figma-m="8673:5783">Análises de caso</a>
           <span class="post-card__dot" aria-hidden="true" data-figma="8331:1125" data-figma-m="8673:5784">·</span>
           <time class="post-card__date" datetime="2026-03-13" data-figma="8331:1126" data-figma-m="8673:5785">13 de março, 2026</time>
         </p>
-        <h1 class="post-hero__title" id="post-title" data-figma="8331:344" data-figma-m="8673:5786">Anatomia do WControl: como se valida um documento de mil páginas</h1>
+        <h1 class="post-hero__title" id="post-title" data-split="lines" data-figma="8331:344" data-figma-m="8673:5786">Anatomia do WControl: como se valida um documento de mil páginas</h1>
       </div>
-      <p class="post-hero__lead body-lg" data-figma="8331:345" data-figma-m="8673:5787">Um certificado de segurança do trabalho com 1.240 páginas leva 40 minutos para ser conferido à mão, folha por folha. O WControl devolve o veredito em 90 segundos e aponta a página exata do problema. Este é o desenho por dentro — inclusive as duas versões que jogamos fora.</p>
+      <p class="post-hero__lead body-lg" data-reveal="up" data-figma="8331:345" data-figma-m="8673:5787">Um certificado de segurança do trabalho com 1.240 páginas leva 40 minutos para ser conferido à mão, folha por folha. O WControl devolve o veredito em 90 segundos e aponta a página exata do problema. Este é o desenho por dentro — inclusive as duas versões que jogamos fora.</p>
       <!-- Author Info · 8331:1169 -->
-      <div class="post-card__author" data-figma="8331:1169" data-figma-m="8673:5788">
+      <div class="post-card__author" data-reveal="up" data-figma="8331:1169" data-figma-m="8673:5788">
         <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" decoding="async" data-figma="8331:1170" data-figma-m="8673:5789">
         <p class="post-card__author-details" data-figma="8331:1171" data-figma-m="8673:5790">
           <span class="post-card__author-name" data-figma="8331:1172" data-figma-m="8673:5791">Nome autor</span>

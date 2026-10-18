@@ -9,16 +9,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css?v=1792348249">
-  <link rel="stylesheet" href="/assets/css/motion.css?v=1792348229">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792349816">
+  <link rel="stylesheet" href="/assets/css/motion.css?v=1792349816">
   <!-- Motion: liga html.motion-on antes da 1ª pintura (só com movimento liberado); volta sozinho se o motion.js não carregar -->
   <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
-  <link rel="stylesheet" href="/assets/css/sections/blog-03-categoria.css?v=1792001021">
-  <link rel="stylesheet" href="/assets/css/sections/post-01-hero.css?v=1792059362">
-  <link rel="stylesheet" href="/assets/css/sections/post-02-conteudo.css?v=1792060142">
-  <link rel="stylesheet" href="/assets/css/sections/post-03-relacionados.css?v=1792059910">
-  <link rel="stylesheet" href="/assets/css/sections/newsletter.css?v=1792002457">
-  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+  <link rel="stylesheet" href="/assets/css/sections/blog-03-categoria.css?v=1792179886">
+  <link rel="stylesheet" href="/assets/css/sections/post-01-hero.css?v=1792179886">
+  <link rel="stylesheet" href="/assets/css/sections/post-02-conteudo.css?v=1792351613">
+  <link rel="stylesheet" href="/assets/css/sections/post-03-relacionados.css?v=1792179886">
+  <link rel="stylesheet" href="/assets/css/sections/newsletter.css?v=1792179886">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1792179886">
 </head>
 <body class="page-post">
 
@@ -82,20 +82,21 @@
          (meta e autor reaproveitam o componente .post-card__* de blog-03-categoria.css). A imagem 8331:1153 está oculta no Figma. -->
     <section class="post-hero" aria-labelledby="post-title">
       <div class="container">
-        <!-- Article · 8331:341 (859, gap 32) · Mobile 8673:5780 (gap 24) -->
-        <div class="post-hero__article">
+        <!-- Article · 8331:341 (859, gap 32) · Mobile 8673:5780 (gap 24) — entrada ao carregar, em sequência (motion.js):
+             meta em fade, título por linhas, abertura e autor sobem; tudo termina antes de 1,3 s -->
+        <div class="post-hero__article" data-reveal-group data-motion-start="load">
           <!-- Heading · 8331:342 (gap 24) -->
           <div class="post-hero__heading">
-            <p class="post-card__meta">
-              <a class="post-card__cat post-hero__cat" href="/blog/#analises-de-caso">Análises de caso</a>
+            <p class="post-card__meta" data-reveal="fade">
+              <a class="post-card__cat post-hero__cat" href="/blog/#analises-de-caso" data-hover="line">Análises de caso</a>
               <span class="post-card__dot" aria-hidden="true">·</span>
               <time class="post-card__date" datetime="2026-03-13">13 de março, 2026</time>
             </p>
-            <h1 class="post-hero__title" id="post-title">Anatomia do WControl: como se valida um documento de mil páginas</h1>
+            <h1 class="post-hero__title" id="post-title" data-split="lines">Anatomia do WControl: como se valida um documento de mil páginas</h1>
           </div>
-          <p class="post-hero__lead body-lg">Um certificado de segurança do trabalho com 1.240 páginas leva 40 minutos para ser conferido à mão, folha por folha. O WControl devolve o veredito em 90 segundos e aponta a página exata do problema. Este é o desenho por dentro — inclusive as duas versões que jogamos fora.</p>
+          <p class="post-hero__lead body-lg" data-reveal="up">Um certificado de segurança do trabalho com 1.240 páginas leva 40 minutos para ser conferido à mão, folha por folha. O WControl devolve o veredito em 90 segundos e aponta a página exata do problema. Este é o desenho por dentro — inclusive as duas versões que jogamos fora.</p>
           <!-- Author Info · 8331:1169 -->
-          <div class="post-card__author">
+          <div class="post-card__author" data-reveal="up">
             <img class="post-card__avatar" src="/assets/images/blog-03-categoria/avatar-autor.png" width="56" height="56" alt="" decoding="async">
             <p class="post-card__author-details">
               <span class="post-card__author-name">Nome autor</span>
@@ -115,9 +116,9 @@
           <nav class="post-toc__nav" aria-labelledby="post-toc-title">
             <p class="post-toc__title" id="post-toc-title">Neste artigo</p>
             <ol class="post-toc__list">
-              <li><a class="post-toc__link" href="#por-que-o-pipeline-e-proprio">Por que o pipeline é próprio</a></li>
-              <li><a class="post-toc__link" href="#onde-a-ia-errou-primeiro">Onde a IA errou primeiro</a></li>
-              <li><a class="post-toc__link" href="#como-medimos-os-97">Como medimos os 97%</a></li>
+              <li><a class="post-toc__link" data-hover="line" href="#por-que-o-pipeline-e-proprio">Por que o pipeline é próprio</a></li>
+              <li><a class="post-toc__link" data-hover="line" href="#onde-a-ia-errou-primeiro">Onde a IA errou primeiro</a></li>
+              <li><a class="post-toc__link" data-hover="line" href="#como-medimos-os-97">Como medimos os 97%</a></li>
             </ol>
           </nav>
         </aside>
@@ -129,11 +130,11 @@
             <p>O primeiro documento que o sistema reprovou tinha assinatura digital válida, carimbo de tempo correto e um problema que ninguém tinha visto: a ART anexada era de outro engenheiro, de outra obra, de dois anos antes. O analista havia aprovado o mesmo documento na semana anterior.</p>
             <p>Não é falha de atenção. É volume. A área recebia certificados de segurança, olerites, cartões de ponto e programas de gerenciamento de risco de centenas de fornecedores, alguns com mais de mil páginas, e a validação de um dependia do que estava escrito no outro.</p>
 
-            <h2 class="wp-block-heading is-style-destaque" id="o-pedido-nao-era-validar-documento">O pedido não era validar documento</h2>
+            <h2 class="wp-block-heading is-style-destaque" id="o-pedido-nao-era-validar-documento" data-split="lines">O pedido não era validar documento</h2>
             <p>O pedido que chegou foi "acelerar a conferência de documentação de fornecedor". O diagnóstico mostrou outra coisa: o gargalo não estava na leitura, estava na validação cruzada — conferir se o nome do responsável técnico no certificado bate com o da ART, se a data de emissão cobre o período do contrato, se o CNPJ é o mesmo dos três anexos.</p>
             <p>Quem fazia isso tinha o critério na cabeça. Não estava no procedimento, não estava no sistema, e mudava de fornecedor para fornecedor. Extrair esse critério e escrevê-lo com rigor levou mais tempo que construir o software.</p>
 
-            <h2 class="wp-block-heading" id="por-que-o-pipeline-e-proprio">Por que o pipeline é próprio</h2>
+            <h2 class="wp-block-heading" id="por-que-o-pipeline-e-proprio" data-split="lines">Por que o pipeline é próprio</h2>
             <p>Mil páginas não entram em uma janela de contexto de forma útil. Testamos duas abordagens antes da que ficou: mandar o documento inteiro e pedir o veredito, e depois quebrar em páginas independentes. A primeira alucinava datas; a segunda perdia exatamente a informação que estava em duas páginas ao mesmo tempo.</p>
             <p>O pipeline que ficou tem quatro etapas:</p>
             <ol class="wp-block-list">
@@ -145,9 +146,9 @@
             <p>O registro da página em cada campo é o que permite a única coisa que o analista pediu explicitamente: clicar no motivo da reprovação e cair na folha onde ela está.</p>
 
             <!-- Image · 8331:1213 (859×600) · Mobile 8673:5806 (343×292) — preenchimento FILL centralizado = object-fit: cover -->
-            <figure class="wp-block-image is-style-recorte"><img src="/assets/images/blog-02-destaque/capa-wcontrol.png" width="672" height="573" alt="Tela de estatísticas do WControl: documentos aprovados, reprovados e em processamento" loading="lazy" decoding="async"></figure>
+            <figure class="wp-block-image is-style-recorte" data-wipe="up" data-wipe-zoom><img src="/assets/images/blog-02-destaque/capa-wcontrol.png" width="672" height="573" alt="Tela de estatísticas do WControl: documentos aprovados, reprovados e em processamento" loading="lazy" decoding="async"></figure>
 
-            <h2 class="wp-block-heading" id="onde-a-ia-errou-primeiro">Onde a IA errou primeiro</h2>
+            <h2 class="wp-block-heading" id="onde-a-ia-errou-primeiro" data-split="lines">Onde a IA errou primeiro</h2>
             <p>Assinatura digital foi o erro mais caro do começo. O sistema tratava a presença do certificado como prova de validade, e havia documento com assinatura expirada no momento da emissão. A correção não foi de modelo: passamos a validar a assinatura contra a API do Gov.br e a comparar a imagem da assinatura manuscrita com as anteriores do mesmo signatário.</p>
             <p>O segundo erro foi de critério, não de leitura. O sistema reprovava olerite sem o campo de insalubridade — porque o especialista reprovava. Ao revisar caso a caso, o próprio especialista concluiu que a regra dele estava errada para dois cargos. Esses casos saíram da base.</p>
             <ul class="wp-block-list">
@@ -155,24 +156,26 @@
               <li>Quando o humano errou, o caso saiu do gabarito — com registro de quem decidiu e por quê.</li>
             </ul>
 
-            <h2 class="wp-block-heading" id="como-medimos-os-97">Como medimos os 97%</h2>
+            <h2 class="wp-block-heading" id="como-medimos-os-97" data-split="lines">Como medimos os 97%</h2>
             <p>Antes da primeira linha de código, montamos uma base de casos reais com a resposta que o especialista daria. Cada versão do sistema roda contra essa base e cada divergência é analisada uma por uma. Assertividade aqui não é uma nota de prova: é a taxa em que o sistema concorda com o gabarito humano nos casos que já sabemos julgar.</p>
 
-            <!-- Statistics · 8331:1248 (strokes em cima e embaixo, py 32, gap 32) · Mobile 8673:5813 — no WordPress: [artemis_numeros] -->
-            <div class="post-numeros">
-              <p class="post-numeros__label eyebrow">Números</p>
+            <!-- Statistics · 8331:1248 (strokes em cima e embaixo, py 32, gap 32) · Mobile 8673:5813 — no WordPress: [artemis_numeros]
+                 Entrada (motion.js): rótulo em fade e os valores contam um por vez (240 ms entre itens, 800 ms por contagem:
+                 o seguinte começa com o anterior em ~94%), cada descrição em fade logo depois do seu valor -->
+            <div class="post-numeros" data-reveal-group data-stagger="240">
+              <p class="post-numeros__label eyebrow" data-reveal="fade">Números</p>
               <dl class="post-numeros__grid">
                 <div class="post-numeros__item">
-                  <dt class="post-numeros__value"><small>R$</small> 40.000 <small>/MÊS</small></dt>
-                  <dd class="post-numeros__desc">economizados em um único tipo de documento</dd>
+                  <dt class="post-numeros__value" data-count data-count-duration="800"><small>R$</small> 40.000 <small>/MÊS</small></dt>
+                  <dd class="post-numeros__desc" data-reveal="fade">economizados em um único tipo de documento</dd>
                 </div>
                 <div class="post-numeros__item">
-                  <dt class="post-numeros__value">97%</dt>
-                  <dd class="post-numeros__desc">de assertividade medida contra gabarito humano</dd>
+                  <dt class="post-numeros__value" data-count data-count-duration="800">97%</dt>
+                  <dd class="post-numeros__desc" data-reveal="fade">de assertividade medida contra gabarito humano</dd>
                 </div>
                 <div class="post-numeros__item">
-                  <dt class="post-numeros__value">1.240</dt>
-                  <dd class="post-numeros__desc">páginas no maior documento processado até aqui</dd>
+                  <dt class="post-numeros__value" data-count data-count-duration="800">1.240</dt>
+                  <dd class="post-numeros__desc" data-reveal="fade">páginas no maior documento processado até aqui</dd>
                 </div>
               </dl>
             </div>
@@ -200,10 +203,11 @@
          blog-03-categoria.css), com stroke superior e da grade em gray-800 no desktop; no Mobile só os 2 primeiros (como no Blog) -->
     <section class="blog-cat blog-cat--related" aria-labelledby="post-related-title">
       <div class="container blog-cat__inner">
-        <h2 class="blog-cat__title" id="post-related-title">Continue lendo</h2>
+        <h2 class="blog-cat__title" id="post-related-title" data-split="lines">Continue lendo</h2>
 
-        <!-- Article Card · 8331:1590 (3 colunas) · Mobile 8673:6760 (2 empilhados) -->
-        <div class="blog-cat__grid">
+        <!-- Article Card · 8331:1590 (3 colunas) · Mobile 8673:6760 (2 empilhados) — os cards sobem em sequência (motion.js);
+             no hover só o título muda de cor (o card é link), nada cresce -->
+        <div class="blog-cat__grid" data-reveal-group="up">
 
           <article class="post-card">
             <div class="post-card__text">
@@ -523,11 +527,11 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=1791980106" defer></script>
-  <script src="/assets/js/motion.js?v=1792348449" defer></script>
-  <script src="/assets/js/sections/post-02-conteudo.js?v=1792060210" defer></script>
-  <script src="/assets/js/sections/newsletter.js?v=1791998361" defer></script>
-  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+  <script src="/assets/js/main.js?v=1792179890" defer></script>
+  <script src="/assets/js/motion.js?v=1792349816" defer></script>
+  <script src="/assets/js/sections/post-02-conteudo.js?v=1792179891" defer></script>
+  <script src="/assets/js/sections/newsletter.js?v=1792179891" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1792179890" defer></script>
 
 </body>
 </html>

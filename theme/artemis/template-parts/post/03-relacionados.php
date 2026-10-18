@@ -13,8 +13,8 @@ if ( ! $artemis_related ) {
 ?>
 <section class="blog-cat blog-cat--related" aria-labelledby="post-related-title">
 	<div class="container blog-cat__inner">
-		<h2 class="blog-cat__title" id="post-related-title"><?php echo esc_html( artemis_mod( 'art_post_related_title' ) ); ?></h2>
-		<div class="blog-cat__grid">
+		<h2 class="blog-cat__title" id="post-related-title" data-split="lines"><?php echo esc_html( artemis_mod( 'art_post_related_title' ) ); ?></h2>
+		<div class="blog-cat__grid" data-reveal-group="up">
 			<?php
 			foreach ( $artemis_related as $artemis_rel ) {
 				echo artemis_blog_card( $artemis_rel ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_blog_card().

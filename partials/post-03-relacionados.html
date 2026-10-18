@@ -2,10 +2,11 @@
      blog-03-categoria.css), com stroke superior e da grade em gray-800 no desktop; no Mobile só os 2 primeiros (como no Blog) -->
 <section class="blog-cat blog-cat--related" aria-labelledby="post-related-title" data-figma-root data-figma="8331:1587" data-figma-m="8673:6757">
   <div class="container blog-cat__inner">
-    <h2 class="blog-cat__title" id="post-related-title" data-figma="8331:1588" data-figma-m="8673:6758">Continue lendo</h2>
+    <h2 class="blog-cat__title" id="post-related-title" data-split="lines" data-figma="8331:1588" data-figma-m="8673:6758">Continue lendo</h2>
 
-    <!-- Article Card · 8331:1590 (3 colunas) · Mobile 8673:6760 (2 empilhados) -->
-    <div class="blog-cat__grid" data-figma="8331:1590" data-figma-m="8673:6760">
+    <!-- Article Card · 8331:1590 (3 colunas) · Mobile 8673:6760 (2 empilhados) — os cards sobem em sequência (motion.js);
+         no hover só o título muda de cor (o card é link), nada cresce -->
+    <div class="blog-cat__grid" data-reveal-group="up" data-figma="8331:1590" data-figma-m="8673:6760">
 
       <article class="post-card" data-figma="8331:1591" data-figma-m="8673:6761">
         <div class="post-card__text" data-figma="8331:1592" data-figma-m="8673:6762">
