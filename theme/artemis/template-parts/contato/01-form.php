@@ -44,7 +44,7 @@ $artemis_status   = artemis_contato_status();
 				<img class="contato__arrow" src="<?php echo esc_url( artemis_asset( 'images/contato/seta.svg' ) ); ?>" width="8" height="33" alt="" aria-hidden="true" data-reveal="grow-y" data-origin="top" data-motion-start="load" data-motion-delay="300">
 			</div>
 
-			<form class="contato-form" id="contato-form" action="<?php echo esc_url( artemis_contato_action() ); ?>" method="post" data-contato-form data-reveal="up" data-motion-start="load" data-motion-delay="200">
+			<form class="contato-form" id="contato-form" action="<?php echo esc_url( artemis_contato_action() ); ?>" method="post" data-contato-form data-reveal="up" data-motion-start="load">
 				<?php if ( ! $artemis_external ) : ?>
 					<input type="hidden" name="action" value="artemis_contato">
 					<?php wp_nonce_field( 'artemis_contato', 'artemis_contato_nonce' ); ?>
