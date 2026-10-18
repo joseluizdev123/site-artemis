@@ -119,13 +119,38 @@
 /* Com JS: cada luz corre pela sua linha (posição e ângulo em transform, ver blog-01-hero.js) — as 10 do Figma só
    durante o loop (.is-flowing); as criadas pelo JS (extras e cliques, --js) sempre */
 .blog-hero__light.is-flowing .blog-hero__pulse,
-.blog-hero__pulse--js { left: 0; top: 0; will-change: transform, opacity; }
+.blog-hero__light .blog-hero__pulse--js { left: 0; top: 0; will-change: transform, opacity; }
 /* Fim do loop: as 10 do Figma reacendem nas posições do repouso */
 .blog-hero__light.is-back .blog-hero__pulse:not(.blog-hero__pulse--js) { animation: blog-hero-back .6s ease both; }
 @keyframes blog-hero-back { from { opacity: 0; } }
+
+/* Tiro da pessoa (clique ou toque no banner): o dobro do comprimento, mais grosso, cabeça branca e brilho —
+   para se destacar das automáticas; o anel abre no ponto de partida */
+.blog-hero__light .blog-hero__pulse--shot {
+  width: 64px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to right, transparent, var(--blue-300) 65%, var(--gray-0));
+  box-shadow: 0 0 8px 1px rgb(135 186 255 / .55);
+}
+.blog-hero__ring {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border: 1px solid var(--blue-300);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: blog-hero-ring .6s cubic-bezier(.2, .7, .2, 1) both;
+}
+@keyframes blog-hero-ring {
+  from { opacity: 1; scale: .2; }
+  to { opacity: 0; scale: 1; }
+}
 /* Impressão: só as 10 do Figma, acesas (o JS já volta ao repouso no beforeprint; isto cobre o resto) */
 @media print {
-  .blog-hero__pulse--js { display: none; }
+  .blog-hero__pulse--js,
+  .blog-hero__ring { display: none; }
   .blog-hero__light.is-back .blog-hero__pulse { animation: none; }
 }
 /* Luzes correndo: clicar no banner cria mais uma; as imagens das linhas não recebem o clique (nem arrastam) */
@@ -196,6 +221,9 @@
     width: 13.692px;
     height: 0.342px;
   }
+  /* Tiro no celular: proporcional ao traço de 13,7 (mais longo e mais grosso, para o toque ser visto) */
+  .blog-hero__light .blog-hero__pulse--shot { width: 36px; height: 1.5px; box-shadow: 0 0 6px 1px rgb(135 186 255 / .55); }
+  .blog-hero__ring { width: 20px; height: 20px; margin: -10px 0 0 -10px; }
 
   /* Button Container (8673:3895): 2 colunas de 170,5 · Tab p 20 · stroke inferior; colunas pares com stroke à esquerda;
      a última aba sozinha na linha (8673:3900) troca o inferior pelo da direita */

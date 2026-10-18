@@ -136,8 +136,12 @@ Estático: `blog/index.html` (`src/pages.json` → página `blog`). WP: `home.ph
 Validação mobile (375, 2026-10-15): página 375×8038 = Figma `8673:3845`; gates por seção só com larguras de texto ≤1px (métrica da fonte) (título do hero com entrelinha arredondada para 38, como a caixa do Figma: gate 0 — revalidado após a página do artigo). Diferenças intencionais: rótulo de categoria nos cards = categoria real do post (Figma repete "Análises de caso"); placeholder da newsletter sem o espaço duplo do Figma. Sem rolagem horizontal de 320 a 767; abas do hero param logo abaixo do header (`section[id] { scroll-margin-top }`); favicon = marca "A" (`assets/images/favicon.svg`; no WP só se não houver Ícone do site).
 
 Interações pedidas pelo cliente, fora do Figma (2026-10-16). Valem no estático e no tema, que usam o mesmo CSS e JS.
-- **Luzes do banner** (`blog-01-hero.js`): o banner tem `data-loop` (Motion). Enquanto o motion.js liga `.is-looping` (até 5 s a cada entrada na tela), correm 30 luzes automáticas (`AUTO`): as 10 do Figma partem da sua posição e 20 acendem em 0,4 s em pontos sorteados das linhas. No fim do loop as automáticas apagam em 0,6 s (`SETTLE`) e as 10 do Figma reacendem no repouso (`.is-back`).
-- **Clique ou toque no banner**, a qualquer momento (ação da pessoa, fora do limite de 5 s): cria uma luz no ponto da linha mais próximo, que corre até o fim da linha e some. Ficam no máximo 24 de uma vez (`CLICK_MAX`) e o banner mostra o cursor de clique (`.is-clickable`).
+- **Luzes do banner** (`blog-01-hero.js`): o banner tem `data-loop` (Motion). Enquanto o motion.js mantém `.is-looping`, correm 30 luzes automáticas (`AUTO`): as 10 do Figma partem da sua posição e 20 acendem em 0,4 s em pontos sorteados das linhas. No fim do loop as automáticas apagam em 0,6 s (`SETTLE`) e as 10 do Figma reacendem no repouso (`.is-back`).
+- **Clique ou toque no banner** (o "tiro" da pessoa), a qualquer momento, durante o loop ou fora dele:
+  - um anel abre no ponto da linha mais próximo do clique (`.blog-hero__ring`);
+  - dali sai uma luz que se destaca das automáticas (`--shot`): 64×2, ou 36×1,5 no celular, com cabeça branca e brilho azul;
+  - ela acende na hora (`SHOT_IN`), corre 3× mais rápido (`SHOT_SPEED`) até o fim da linha e some;
+  - ficam no máximo 24 de uma vez (`CLICK_MAX`) e o banner mostra o cursor de clique (`.is-clickable`).
 - **Movimento reduzido, sem JS ou sem o motion.js**: as 10 luzes do Figma ficam paradas.
 - **Impressão**: no `beforeprint` o banner vai direto ao quadro do Figma, mesmo com o loop ligado. Não espera o `SETTLE`, não reacende e tira as luzes do clique; no CSS de impressão, as `--js` somem.
 - **Hover nos artigos**: só com mouse (`hover: hover`); o foco do teclado tem o mesmo efeito.
