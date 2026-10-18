@@ -79,7 +79,9 @@
   animation: mk-com-run var(--dur, 6s) linear var(--delay, 0s) infinite paused;
   filter: drop-shadow(0 0 2px var(--green-300));
 }
-.mk-inst__community.is-looping .mk-com__run { opacity: 1; animation-play-state: running; }
+@media (prefers-reduced-motion: no-preference) {
+  .mk-inst__community.is-looping .mk-com__run { opacity: 1; animation-play-state: running; }
+}
 @keyframes mk-com-run { to { stroke-dashoffset: calc(-1 * var(--len)); } }
 
 @media (max-width: 1023px) {

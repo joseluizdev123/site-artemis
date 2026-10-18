@@ -13,7 +13,8 @@
 
   var fig = document.querySelector('.mk-hero__diagram');
   if (!fig) return;
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduceMQ.matches) return;
   if (!('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
 
   var TRAVEL = 1.5;   // s de uma luz pela linha
@@ -175,6 +176,7 @@
   }
 
   function start() {
+    if (reduceMQ.matches) return; // movimento reduzido ligado com a página aberta: fica no quadro do Figma
     looping = true;
     clock = 0;
     last = 0;
@@ -192,6 +194,7 @@
   fig.addEventListener('motion:loop-start', start);
   fig.addEventListener('motion:loop-stop', stop);
   if (fig.classList.contains('is-looping')) start();
+  if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', function () { if (reduceMQ.matches) { stop(); folderIO.disconnect(); } });
   if (mqMobile.addEventListener) {
     mqMobile.addEventListener('change', function () {
       var st = active();
