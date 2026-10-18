@@ -65,16 +65,9 @@
 .mk-inst__community .mk-inst__text { width: 485px; max-width: 100%; }
 .mk-inst__illus { position: absolute; top: -29px; right: 33px; width: 232px; height: 232px; overflow: visible; }
 
-/* Animações (assets/js/sections/mktops-03-instalado.js) — sem JS / movimento reduzido fica o quadro do Figma.
-   Arquivo: com o cursor no item, o documento vem para frente (sobe, cresce e ganha sombra), como os cards da Home */
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .mk-inst__file img { transition: transform .45s cubic-bezier(.2, .7, .2, 1), filter .45s ease; }
-  .mk-inst__item:hover .mk-inst__file img {
-    transform: translateY(-10px) scale(1.06);
-    filter: drop-shadow(0 18px 22px rgb(0 0 0 / .55));
-  }
-}
-/* Comunidade: ilustração fixa na posição do Figma; uma luz por peça (cópia de cada path, .mk-com__run): segmento de 22
+/* Animação (assets/js/sections/mktops-03-instalado.js) — sem JS / movimento reduzido fica o quadro do Figma.
+   Os itens não são link: sem efeito de hover (MODEL.md, "Regra de hover").
+   Comunidade: ilustração fixa na posição do Figma; uma luz por peça (cópia de cada path, .mk-com__run): segmento de 22
    com brilho correndo pelas arestas.
    --len = comprimento do path (JS): o padrão tem período = comprimento, então a luz dá a volta sem emenda */
 .mk-com__run {

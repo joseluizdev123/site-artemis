@@ -285,14 +285,12 @@ Validação (2026-10-16): 1440×5137 e 375×7468,08 = Figma (Δ 0 em todos os bl
 
 ### MktOps — animações (pedido do cliente, 2026-10-17)
 
-Sem JS ou com `prefers-reduced-motion` fica o quadro do Figma em todas.
+Sem JS ou com `prefers-reduced-motion` fica o quadro do Figma em todas. Sem efeito de hover: arquivos e planos não são link (o "vem para frente" dos arquivos e dos desenhos dos planos saiu em 2026-10-18 — "Regra de hover").
 
 | Onde | O quê | Arquivos |
 |------|-------|----------|
 | Diagrama do topo | ciclo de 5 s: luz sai de Skills e de MCP (contorno da pasta acende) → no MktOps o contorno acende e um traço verde contorna a borda (Skills por cima, MCP por baixo; no celular pelas laterais) → luz segue para Pipelines (de Skills) e Infra (de MCP), que acendem na chegada. Pastas flutuam (vertical no desktop, horizontal no celular, ao longo da borda onde a linha encosta). Etiquetas entram uma por vez quando a pasta chega na tela (escondidas só com `@media (scripting: enabled)`, sem piscar no carregamento). Para fora da tela / aba escondida | `mktops-01-hero.css/.js`, `mktops-01-diagrama.html` |
-| Arquivos (instalado) | cursor no item: o documento sobe 10, cresce 6% e ganha sombra (como os cards da Home) | `mktops-03-instalado.css` |
 | Comunidade | ilustração fixa (o cliente preferiu sem a subida com o scroll); cada peça tem uma luz verde correndo pelas arestas (cópia `.mk-com__run` de cada path, mesma velocidade, início diferente) | `mktops-03-instalado.css/.js`, `mktops-03-comunidade.html` |
-| Desenhos dos planos | cursor no plano: o desenho sobe 8, cresce 6% e ganha sombra | `mktops-04-niveis.css` |
 | Linhas dos planos | entram de leve quando o plano chega na tela: rótulo e valor sobem 10 e aparecem, linha a linha e plano a plano (o fundo não se mexe) | `mktops-04-niveis.css/.js` |
 
 Validação (2026-10-17, `diff.py` já com movimento reduzido): topo e instalado com 0 diferenças (desktop e mobile), níveis só com as larguras de texto de sempre; `page_check` 1440 e 375 com Δ 0 em todos os blocos.
