@@ -47,13 +47,21 @@
 .mk-dg--d { width: 100%; height: auto; aspect-ratio: 1184 / 290; }
 .mk-dg--m { display: none; }
 
-/* Diagrama animado (assets/js/sections/mktops-01-hero.js). Sem JS / movimento reduzido fica o quadro do Figma:
-   luzes paradas (.mk-dg__static), etiquetas à vista, pastas paradas. Com o JS (.is-running) as luzes do Figma dão
+/* Entrada ao carregar (motion.js: data-split / data-reveal / data-reveal-group com data-motion-start="load"): título por
+   linhas, texto (+150 ms) e botões (+200 e +260 ms) com 0,7 s em vez de 0,9 s — tudo termina em até 1 s, antes das
+   etiquetas do diagrama */
+.motion-on .mk-hero__title[data-split].is-in .m-w__i,
+.motion-on .mk-hero__article [data-reveal].is-in { animation-duration: .7s; }
+
+/* Diagrama animado (assets/js/sections/mktops-01-hero.js). Repouso (sem JS, movimento reduzido, fora do loop) = quadro do
+   Figma: luzes paradas (.mk-dg__static), etiquetas à vista, pastas paradas. A cada entrada na tela a figura ganha
+   .is-looping por 5 s (data-loop, motion.js) = um ciclo do fluxo: o JS liga .is-running no SVG — as luzes do Figma dão
    lugar às que correm (.mk-dg__flow) e o JS acende o contorno do núcleo (.mk-dg__glow), o traço que contorna a borda
-   (.mk-dg__trace) e o contorno da pasta na partida/chegada (.mk-dg__hl) — opacidade por quadro, no atributo style */
-.mk-dg__flow { display: none; }
-.mk-dg.is-running .mk-dg__flow { display: inline; }
-.mk-dg.is-running .mk-dg__static { display: none; }
+   (.mk-dg__trace) e o contorno da pasta na partida/chegada (.mk-dg__hl), por quadro no atributo style */
+.mk-dg__flow { opacity: 0; }
+.mk-dg__static { transition: opacity .4s ease; }
+.mk-dg.is-running .mk-dg__flow { opacity: 1; }
+.mk-dg.is-running .mk-dg__static { opacity: 0; }
 .mk-dg__glow,
 .mk-dg__trace,
 .mk-dg__hl { opacity: 0; }
@@ -61,28 +69,26 @@
 .mk-dg__trace { filter: drop-shadow(0 0 3px rgb(168 232 122 / .75)); }
 .mk-dg__hl { filter: drop-shadow(0 0 4px rgb(168 232 122 / .5)); }
 
+/* Pastas: uma flutuada (sobe e volta) por loop, cada uma começando um pouco depois e todas de volta ao lugar em 5 s —
+   no desktop na vertical, no celular na horizontal (a linha encosta na lateral da pasta no desktop e na base/topo no
+   celular: flutuando ao longo da borda ela nunca se solta) */
 @media (prefers-reduced-motion: no-preference) {
-  /* Pastas flutuam, cada uma no seu ritmo — no desktop na vertical, no celular na horizontal (a linha encosta na lateral
-     da pasta no desktop e na base/topo no celular: flutuando ao longo da borda ela nunca se solta) */
-  .mk-dg__folder {
+  .mk-hero__diagram.is-looping .mk-dg__folder {
     transform-box: fill-box;
-    animation: mk-dg-float-y calc(5.4s + var(--i, 0) * .7s) ease-in-out calc(var(--i, 0) * -1.3s) infinite;
+    animation: mk-dg-float-y calc(5s - var(--i, 0) * .3s) ease-in-out calc(var(--i, 0) * .3s) both;
   }
-  .mk-dg--m .mk-dg__folder { animation-name: mk-dg-float-x; }
-  .mk-dg.is-paused .mk-dg__folder { animation-play-state: paused; }
+  .mk-hero__diagram.is-looping .mk-dg--m .mk-dg__folder { animation-name: mk-dg-float-x; }
 }
 @keyframes mk-dg-float-y { 50% { transform: translateY(-6px); } }
 @keyframes mk-dg-float-x { 50% { transform: translateX(5px); } }
 
-/* Etiquetas entram uma por vez quando a pasta chega na tela (.is-in + --delay pelo JS). Só esconde se houver JS
-   (scripting: enabled) — sem JS ficam à vista; o CSS esconde desde o primeiro quadro, sem piscar no carregamento */
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  .mk-dg__label { opacity: 0; transform: translateX(-10px); transform-box: fill-box; }
-  .mk-dg__folder.is-in .mk-dg__label {
-    opacity: 1;
-    transform: none;
-    transition: opacity .5s ease var(--delay, 0s), transform .7s cubic-bezier(.2, .7, .2, 1) var(--delay, 0s);
-  }
+/* Etiquetas entram uma por vez quando a pasta chega na tela (.is-in + --delay pelo JS). Só esconde com html.motion-on
+   (ligado no <head> antes da 1ª pintura, só com movimento liberado; some se o motion.js não carregar) */
+.motion-on .mk-dg__label { opacity: 0; transform: translateX(-10px); transform-box: fill-box; }
+.motion-on .mk-dg__folder.is-in .mk-dg__label {
+  opacity: 1;
+  transform: none;
+  transition: opacity .5s ease var(--delay, 0s), transform .7s cubic-bezier(.2, .7, .2, 1) var(--delay, 0s);
 }
 @media print {
   .mk-dg__label { opacity: 1 !important; transform: none !important; }

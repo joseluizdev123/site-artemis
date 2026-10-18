@@ -1,5 +1,5 @@
-/* MktOps — os três níveis: as linhas de cada plano entram de leve quando o plano chega na tela (CSS: .is-armed /
-   .is-in, --r = linha, --c = plano). Começa quando o topo do plano passa de 85% da altura da tela; quem recarregou
+/* MktOps — os três níveis: o cabeçalho (nome, selo, desenho) e as linhas de cada plano entram de leve quando o plano
+   chega na tela (CSS: .is-armed / .is-in, --r = linha, --c = plano). Começa quando o topo do plano passa de 85% da altura da tela; quem recarregou
    mais abaixo (plano acima da tela) também dispara. Sem JS / prefers-reduced-motion: tudo à vista desde o início. */
 (function () {
   'use strict';

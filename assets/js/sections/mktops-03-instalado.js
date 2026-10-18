@@ -1,7 +1,8 @@
 /* MktOps — o que é instalado: ilustração da comunidade (partials/mktops-03-comunidade.html · Figma 8512:5774).
    Fixa na posição do Figma; luz nas arestas: cada peça (path) ganha uma cópia .mk-com__run com --len = comprimento do
-   path, e o CSS corre um segmento verde por ela, cada uma no seu ritmo (mesma velocidade, início diferente).
-   Para fora da tela (.is-paused). Sem JS / prefers-reduced-motion: o quadro do Figma, sem luz. */
+   path, e o CSS corre um segmento verde por ela, cada uma no seu ritmo (mesma velocidade, início diferente) — só
+   enquanto a faixa tem .is-looping (data-loop: 5 s a cada entrada na tela, motion.js).
+   Sem JS / prefers-reduced-motion: o quadro do Figma, sem luz. */
 (function () {
   'use strict';
 
@@ -30,10 +31,4 @@
     runs.appendChild(run);
   });
   illus.appendChild(runs);
-
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      illus.classList.toggle('is-paused', !entries[0].isIntersecting);
-    }).observe(band);
-  }
 })();

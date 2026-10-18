@@ -13,7 +13,8 @@
 /* 8425:4178 · Cabin 18/1.5 gray-300, parágrafos com 16 (caixa 124 = 54 + 16 + 54) */
 .mk-problema__text { flex: 0 1 672px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
 .mk-problema__text p { font-size: 18px; line-height: 1.5; color: var(--gray-300); }
-/* Rectangle 15 8502:4257: 1376×570 */
+/* Rectangle 15 8502:4257: 1376×570 — block para o recorte da entrada (data-wipe) valer na caixa da foto */
+.mk-problema__img { display: block; }
 .mk-problema__img img { width: 100%; height: auto; aspect-ratio: 1376 / 570; object-fit: cover; }
 
 @media (max-width: 1023px) {

@@ -283,17 +283,21 @@ Estático: `mktops/index.html` (`src/pages.json` → página `mktops`, `assets: 
 
 Validação (2026-10-16): 1440×5137 e 375×7468,08 = Figma (Δ 0 em todos os blocos); gates das 5 seções com 0 diferenças, salvo larguras de texto ≤ 0,95 px (nome dos planos, selo). Template PHP renderizado com o tema = mesmo texto e classes do estático. 768–1023: planos empilhados (em 3 colunas o desenho cobria nome e selo).
 
-### MktOps — animações (pedido do cliente, 2026-10-17)
+### MktOps — animações (pedido do cliente, 2026-10-17 · Motion em 2026-10-18)
 
-Sem JS ou com `prefers-reduced-motion` fica o quadro do Figma em todas. Sem efeito de hover: arquivos e planos não são link (o "vem para frente" dos arquivos e dos desenhos dos planos saiu em 2026-10-18 — "Regra de hover").
+Repouso = Figma: sem JS, com `prefers-reduced-motion` e fora dos loops fica o quadro do Figma em todas. Sem efeito de hover: arquivos e planos não são link (o "vem para frente" dos arquivos e dos desenhos dos planos saiu em 2026-10-18 — "Regra de hover"). Loops infinitos viraram `data-loop` (5 s a cada entrada na tela, motion.js).
 
-| Onde | O quê | Arquivos |
-|------|-------|----------|
-| Diagrama do topo | ciclo de 5 s: luz sai de Skills e de MCP (contorno da pasta acende) → no MktOps o contorno acende e um traço verde contorna a borda (Skills por cima, MCP por baixo; no celular pelas laterais) → luz segue para Pipelines (de Skills) e Infra (de MCP), que acendem na chegada. Pastas flutuam (vertical no desktop, horizontal no celular, ao longo da borda onde a linha encosta). Etiquetas entram uma por vez quando a pasta chega na tela (escondidas só com `@media (scripting: enabled)`, sem piscar no carregamento). Para fora da tela / aba escondida | `mktops-01-hero.css/.js`, `mktops-01-diagrama.html` |
-| Comunidade | ilustração fixa (o cliente preferiu sem a subida com o scroll); cada peça tem uma luz verde correndo pelas arestas (cópia `.mk-com__run` de cada path, mesma velocidade, início diferente) | `mktops-03-instalado.css/.js`, `mktops-03-comunidade.html` |
-| Linhas dos planos | entram de leve quando o plano chega na tela: rótulo e valor sobem 10 e aparecem, linha a linha e plano a plano (o fundo não se mexe) | `mktops-04-niveis.css/.js` |
+| Onde | O quê | Como |
+|------|-------|------|
+| Topo — texto | ao carregar: título por linhas, texto sobe (+150 ms), botões sobem (+200/+260 ms), 0,7 s cada → termina em ~1 s | `data-split` / `data-reveal` / `data-reveal-group="up"` com `data-motion-start="load"`; durações em `mktops-01-hero.css` |
+| Topo — diagrama | etiquetas entram uma por vez quando a pasta chega na tela (no carregamento, depois do título). A cada entrada na tela, um ciclo de 5 s (`data-loop` na figura → `motion:loop-start/stop`): luz sai de Skills e de MCP (contorno da pasta acende) → no MktOps o contorno acende e um traço verde contorna a borda (Skills por cima, MCP por baixo; no celular pelas laterais) → luz segue para Pipelines (de Skills) e Infra (de MCP), que acendem na chegada; as pastas flutuam uma vez (vertical no desktop, horizontal no celular) e voltam ao lugar | `mktops-01-hero.css/.js`, `mktops-01-diagrama.html` |
+| O problema | título por linhas, parágrafos sobem, foto abre de baixo para cima e assenta | `data-split`, `data-reveal-group="up"`, `data-wipe="up" data-wipe-zoom` (o `<picture>` é block) |
+| O que é instalado | título por linhas; itens um a um (arquivo em pop, texto sobe); texto da faixa sobe | `data-split`, `data-reveal-group` + `data-reveal="pop"/"up"` |
+| Comunidade | ilustração fixa; a cada entrada na tela (5 s) cada peça tem uma luz verde correndo pelas arestas (cópia `.mk-com__run` de cada path, mesma velocidade, início diferente), que apaga no fim | `data-loop` na faixa; `mktops-03-instalado.css/.js`, `mktops-03-comunidade.html` |
+| Os três níveis | título por linhas (motion.js); quando o plano chega na tela: nome sobe, selo "Popular" em pop, desenho sobe 16 dentro do cabeçalho; depois as linhas — rótulo e valor sobem 10, linha a linha e plano a plano (o fundo não se mexe) | `data-split`; `.is-armed`/`.is-in` em `mktops-04-niveis.css/.js` |
+| Garantias | automático do motion.js (CTA) | — |
 
-Validação (2026-10-17, `diff.py` já com movimento reduzido): topo e instalado com 0 diferenças (desktop e mobile), níveis só com as larguras de texto de sempre; `page_check` 1440 e 375 com Δ 0 em todos os blocos.
+Validação (2026-10-18): `motion_check` 1440 e 375 com 0 pendentes, 0 sobras e 0 erros de JS; `diff.py` (movimento reduzido) topo, problema e instalado com 0 diferenças (desktop e mobile), níveis só com as larguras de texto de sempre; `page_check` 1440 e 375 com Δ 0 em todos os blocos.
 
 ## Regra de hover (2026-10-18, pedido do cliente)
 

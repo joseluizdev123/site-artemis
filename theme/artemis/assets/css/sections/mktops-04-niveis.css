@@ -62,19 +62,40 @@
 .mk-plano__title { position: relative; z-index: 1; }
 
 /* Os planos não são link: sem efeito de hover (MODEL.md, "Regra de hover").
-   Linhas entram de leve quando o plano chega na tela (assets/js/sections/mktops-04-niveis.js): rótulo e valor sobem
-   10 px e aparecem, linha a linha (--r) e plano a plano (--c). O fundo das linhas não se mexe. Sem .is-armed (sem JS /
-   movimento reduzido) fica o desenho do Figma; esconder é instantâneo, só a entrada tem transição */
+   Entrada quando o plano chega na tela (assets/js/sections/mktops-04-niveis.js; o título é do motion.js, por linhas):
+   no cabeçalho o nome sobe, o selo "Popular" aparece crescendo e o desenho sobe 16 px dentro do cabeçalho (que corta);
+   depois as linhas — rótulo e valor sobem 10 px e aparecem, linha a linha (--r) e plano a plano (--c); o fundo das
+   linhas não se mexe. Sem .is-armed (sem JS / movimento reduzido) fica o desenho do Figma; esconder é instantâneo,
+   só a entrada tem transição */
+.mk-niveis__grid.is-armed .mk-plano__name { opacity: 0; translate: 0 16px; }
+.mk-niveis__grid.is-armed .mk-plano__tag { opacity: 0; scale: .9; }
+.mk-niveis__grid.is-armed .mk-plano__deco { translate: 0 16px; }
 .mk-niveis__grid.is-armed .mk-plano__row > * { opacity: 0; translate: 0 10px; }
+.mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__name {
+  opacity: 1;
+  translate: none;
+  transition: opacity .7s ease, translate .8s cubic-bezier(.25, .6, .3, 1);
+  transition-delay: calc(var(--c, 0) * 90ms);
+}
+.mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__tag {
+  opacity: 1;
+  scale: none;
+  transition: opacity .6s ease, scale .7s cubic-bezier(.25, .6, .3, 1);
+  transition-delay: calc(var(--c, 0) * 90ms + 160ms);
+}
+.mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__deco {
+  translate: none;
+  transition: translate 1s cubic-bezier(.25, .6, .3, 1) calc(var(--c, 0) * 90ms + 80ms);
+}
 .mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__row > * {
   opacity: 1;
   translate: none;
   transition: opacity .7s ease, translate .8s cubic-bezier(.25, .6, .3, 1);
-  transition-delay: calc(var(--c, 0) * 90ms + var(--r, 0) * 110ms);
+  transition-delay: calc(var(--c, 0) * 90ms + 200ms + var(--r, 0) * 110ms);
 }
-.mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__row > dd { transition-delay: calc(var(--c, 0) * 90ms + var(--r, 0) * 110ms + 70ms); }
+.mk-niveis__grid.is-armed .mk-plano.is-in .mk-plano__row > dd { transition-delay: calc(var(--c, 0) * 90ms + 270ms + var(--r, 0) * 110ms); }
 @media print {
-  .mk-niveis__grid.is-armed .mk-plano__row > * { opacity: 1; translate: none; transition: none; }
+  .mk-niveis__grid.is-armed :is(.mk-plano__name, .mk-plano__tag, .mk-plano__deco, .mk-plano__row > *) { opacity: 1; translate: none; scale: none; transition: none; }
 }
 
 /* 768–1023: três colunas ficam estreitas demais para o desenho — planos empilhados, como no Mobile */

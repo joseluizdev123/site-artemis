@@ -15,10 +15,10 @@
   <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
   <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1792179920">
   <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792179920">
-  <link rel="stylesheet" href="/assets/css/sections/mktops-01-hero.css?v=1792349812">
-  <link rel="stylesheet" href="/assets/css/sections/mktops-02-problema.css?v=1792179920">
-  <link rel="stylesheet" href="/assets/css/sections/mktops-03-instalado.css?v=1792349954">
-  <link rel="stylesheet" href="/assets/css/sections/mktops-04-niveis.css?v=1792349954">
+  <link rel="stylesheet" href="/assets/css/sections/mktops-01-hero.css?v=1792350227">
+  <link rel="stylesheet" href="/assets/css/sections/mktops-02-problema.css?v=1792350394">
+  <link rel="stylesheet" href="/assets/css/sections/mktops-03-instalado.css?v=1792350351">
+  <link rel="stylesheet" href="/assets/css/sections/mktops-04-niveis.css?v=1792350426">
   <link rel="stylesheet" href="/assets/css/sections/mktops-05-cta.css?v=1792179920">
   <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1792179920">
 </head>
@@ -80,19 +80,21 @@
         <!-- Article · 8425:4101 (984, gap 32) · Mobile: parte do Article 8695:3272 (gap 40) -->
         <div class="mk-hero__article">
           <div class="mk-hero__heading">
-            <h1 class="mk-hero__title" id="mk-hero-title"><em>Não terceirizamos seu marketing.</em> Instalamos a operação dentro da sua empresa.</h1>
-            <p class="mk-hero__lead">E a IA responde citando alguém. Trabalhamos para que seja você, no orgânico do Google e dentro do ChatGPT, do Perplexity e dos AI Overviews.</p>
+            <h1 class="mk-hero__title" id="mk-hero-title" data-split="lines" data-motion-start="load"><em>Não terceirizamos seu marketing.</em> Instalamos a operação dentro da sua empresa.</h1>
+            <p class="mk-hero__lead" data-reveal="up" data-motion-start="load" data-motion-delay="150">E a IA responde citando alguém. Trabalhamos para que seja você, no orgânico do Google e dentro do ChatGPT, do Perplexity e dos AI Overviews.</p>
           </div>
-          <!-- Container buttons · 8425:4105 (gap 16, botões de 170) · Mobile 8695:3276 (empilhados) -->
-          <div class="mk-hero__actions">
+          <!-- Container buttons · 8425:4105 (gap 16, botões de 170) · Mobile 8695:3276 (empilhados).
+               Entrada ao carregar (motion.js): título por linhas, texto e botões sobem — tudo em até 1 s (durações em mktops-01-hero.css) -->
+          <div class="mk-hero__actions" data-reveal-group="up" data-motion-start="load" data-motion-delay="200" data-stagger="60">
             <a class="btn btn--primary" href="/contato/">Agendar conversa</a>
             <a class="btn mk-hero__btn" href="/contato/">Rodar o SpyOps</a>
           </div>
         </div>
         <!-- Main Container · 8453:9443 (1184×290, corta o padrão de baixo) · Mobile Frame 106 · 8696:4910 (155,6×880, etiquetas passam das bordas).
-             Animado (mktops-01-hero.js): luzes correm Skills/MCP → MktOps → Pipelines/Infra, o núcleo contorna a borda de verde,
-             as pastas flutuam e as etiquetas entram uma por vez. Sem JS / movimento reduzido: o quadro do Figma. -->
-        <figure class="mk-hero__diagram" role="img" aria-label="Diagrama do MktOps: Skills, MCP, Pipelines e Infra conectados à operação no centro">
+             Animado (mktops-01-hero.js): as etiquetas entram uma por vez; a cada entrada na tela (data-loop, 5 s = um ciclo) as luzes
+             correm Skills/MCP → MktOps → Pipelines/Infra, o núcleo contorna a borda de verde e as pastas flutuam. Fora disso,
+             sem JS ou com movimento reduzido: o quadro do Figma. -->
+        <figure class="mk-hero__diagram" role="img" data-loop aria-label="Diagrama do MktOps: Skills, MCP, Pipelines e Infra conectados à operação no centro">
           <img class="mk-hero__floor" src="/assets/images/mktops/hero-padrao.svg" width="1184" height="290" alt="" decoding="async">
           <!-- MktOps — diagrama do topo em camadas (Figma 8453:9443 · mobile 8696:4910), gerado das exportações do Figma.
                Desktop (.mk-dg--d, 1184×290) e mobile (.mk-dg--m, 208×881, vertical); o CSS mostra um dos dois.
@@ -585,14 +587,15 @@
       <div class="container mk-problema__inner">
         <!-- Frame 90 · 8502:4254 (título 704 | texto 672) · Mobile 8695:3457 (empilhado, gap 16) -->
         <div class="mk-problema__row">
-          <h2 class="section-title mk-problema__title" id="mk-problema-title">O problema</h2>
-          <div class="mk-problema__text">
+          <h2 class="section-title mk-problema__title" id="mk-problema-title" data-split="lines">O problema</h2>
+          <div class="mk-problema__text" data-reveal-group="up">
             <p>Quando o contrato com a agência acaba, o que fica na sua empresa? Um Drive com arquivos e nenhuma capacidade nova instalada.</p>
             <p>Aqui é o contrário: no fim, a operação continua rodando porque as pessoas da sua casa sabem operá-la.</p>
           </div>
         </div>
-        <!-- Rectangle 15 · 8502:4257 (1376×570) · Mobile 8695:3462 (343×264) — mesma foto, recorte do Figma -->
-        <picture class="mk-problema__img">
+        <!-- Rectangle 15 · 8502:4257 (1376×570) · Mobile 8695:3462 (343×264) — mesma foto, recorte do Figma; abre de baixo para cima
+             e assenta (motion.js: data-wipe + data-wipe-zoom) -->
+        <picture class="mk-problema__img" data-wipe="up" data-wipe-zoom>
           <source media="(max-width: 767px)" srcset="/assets/images/mktops/m-problema.jpg" width="686" height="528">
           <img src="/assets/images/mktops/problema.jpg" width="2752" height="1140" alt="Notebook aberto numa mesa de trabalho, com outra pessoa digitando ao lado" loading="lazy" decoding="async">
         </picture>
@@ -603,36 +606,38 @@
          (arquivo 90×127 + texto com trecho cinza), e a faixa da comunidade com a ilustração verde cortada -->
     <section class="mk-inst" aria-labelledby="mk-inst-title">
       <div class="container mk-inst__inner">
-        <h2 class="section-title" id="mk-inst-title">O que é <em>instalado</em></h2>
+        <h2 class="section-title" id="mk-inst-title" data-split="lines">O que é <em>instalado</em></h2>
         <!-- Frame 95 · 8502:4723 (gap 32) · Mobile 8695:3465 -->
         <div class="mk-inst__body">
-          <!-- Main Container · 8502:4265 (1376×385, stroke gray-900) · Mobile 8695:3466 (empilhado) -->
-          <ul class="mk-inst__grid">
+          <!-- Main Container · 8502:4265 (1376×385, stroke gray-900) · Mobile 8695:3466 (empilhado).
+               Entrada (motion.js, data-reveal-group): item a item, o arquivo aparece crescendo e o texto sobe -->
+          <ul class="mk-inst__grid" data-reveal-group>
             <li class="mk-inst__item mk-inst__item--main">
-              <span class="mk-inst__file" aria-hidden="true"><img src="/assets/images/mktops/arquivo-tools.svg" width="142" height="155" alt=""></span>
-              <p class="mk-inst__text">15 ferramentas proprietárias remixáveis: <em>SDR no WhatsApp, follow-up automático, anti-churn, gestor de tráfego</em></p>
+              <span class="mk-inst__file" aria-hidden="true" data-reveal="pop"><img src="/assets/images/mktops/arquivo-tools.svg" width="142" height="155" alt=""></span>
+              <p class="mk-inst__text" data-reveal="up">15 ferramentas proprietárias remixáveis: <em>SDR no WhatsApp, follow-up automático, anti-churn, gestor de tráfego</em></p>
             </li>
             <li class="mk-inst__item">
-              <span class="mk-inst__file" aria-hidden="true"><img src="/assets/images/mktops/arquivo-brand.svg" width="142" height="155" alt=""></span>
-              <p class="mk-inst__text">Sistema de produção com IA configurado no <em>contexto da sua marca</em></p>
+              <span class="mk-inst__file" aria-hidden="true" data-reveal="pop"><img src="/assets/images/mktops/arquivo-brand.svg" width="142" height="155" alt=""></span>
+              <p class="mk-inst__text" data-reveal="up">Sistema de produção com IA configurado no <em>contexto da sua marca</em></p>
             </li>
             <li class="mk-inst__item">
-              <span class="mk-inst__file" aria-hidden="true"><img src="/assets/images/mktops/arquivo-dna.svg" width="142" height="155" alt=""></span>
-              <p class="mk-inst__text">DNA e critérios da marca documentados, <em>para que a IA produza no seu tom</em></p>
+              <span class="mk-inst__file" aria-hidden="true" data-reveal="pop"><img src="/assets/images/mktops/arquivo-dna.svg" width="142" height="155" alt=""></span>
+              <p class="mk-inst__text" data-reveal="up">DNA e critérios da marca documentados, <em>para que a IA produza no seu tom</em></p>
             </li>
             <li class="mk-inst__item mk-inst__item--fixed">
-              <span class="mk-inst__file" aria-hidden="true"><img src="/assets/images/mktops/arquivo-template.svg" width="142" height="155" alt=""></span>
-              <p class="mk-inst__text">3 a 4 templates de peça <em>recorrente</em></p>
+              <span class="mk-inst__file" aria-hidden="true" data-reveal="pop"><img src="/assets/images/mktops/arquivo-template.svg" width="142" height="155" alt=""></span>
+              <p class="mk-inst__text" data-reveal="up">3 a 4 templates de peça <em>recorrente</em></p>
             </li>
             <li class="mk-inst__item mk-inst__item--fixed">
-              <span class="mk-inst__file" aria-hidden="true"><img src="/assets/images/mktops/arquivo-guide.svg" width="142" height="155" alt=""></span>
-              <p class="mk-inst__text">Operador treinado, com guia de operação <em>diária de uma a duas páginas</em></p>
+              <span class="mk-inst__file" aria-hidden="true" data-reveal="pop"><img src="/assets/images/mktops/arquivo-guide.svg" width="142" height="155" alt=""></span>
+              <p class="mk-inst__text" data-reveal="up">Operador treinado, com guia de operação <em>diária de uma a duas páginas</em></p>
             </li>
           </ul>
           <!-- Frame 94 · 8502:4715 (1376×126, black-100, p 32) · Mobile 8695:3533 (343×281, ilustração embaixo, cortada).
-               Ilustração fixa; cada peça tem uma luz verde correndo pelas arestas (mktops-03-instalado.js) -->
-          <div class="mk-inst__community">
-            <p class="mk-inst__text">Comunidade, encontro semanal e mentoria técnica com o time de engenharia</p>
+               Ilustração fixa; a cada entrada na tela (data-loop, 5 s) cada peça tem uma luz verde correndo pelas arestas
+               (mktops-03-instalado.js); o texto sobe -->
+          <div class="mk-inst__community" data-loop>
+            <p class="mk-inst__text" data-reveal="up">Comunidade, encontro semanal e mentoria técnica com o time de engenharia</p>
             <!-- MktOps — ilustração da comunidade (Figma 8512:5774 · mobile 8695:3535) inline: cada path é uma peça;
                  assets/js/sections/mktops-03-instalado.js põe uma luz verde correndo pelas arestas de cada uma.
                  Espelho no tema: theme/artemis/template-parts/mktops/svg/comunidade.php (mesmo conteúdo). -->
@@ -673,7 +678,7 @@
          cabeçalho com o desenho de arquivos (cortado) e 5 linhas alternando black-100 -->
     <section class="mk-niveis" aria-labelledby="mk-niveis-title">
       <div class="container mk-niveis__inner">
-        <h2 class="section-title" id="mk-niveis-title">Os três níveis</h2>
+        <h2 class="section-title" id="mk-niveis-title" data-split="lines">Os três níveis</h2>
         <!-- Container · 8502:3105 (1376×580, borda gray-900) · Mobile 8695:3552 (empilhado) -->
         <div class="mk-niveis__grid">
           <article class="mk-plano" aria-labelledby="mk-plano-solo">
@@ -996,9 +1001,9 @@
   <script src="/assets/js/main.js?v=1792179924" defer></script>
   <script src="/assets/js/motion.js?v=1792349810" defer></script>
   <script src="/assets/js/sections/10-cta.js?v=1792179924" defer></script>
-  <script src="/assets/js/sections/mktops-01-hero.js?v=1792349813" defer></script>
-  <script src="/assets/js/sections/mktops-03-instalado.js?v=1792349944" defer></script>
-  <script src="/assets/js/sections/mktops-04-niveis.js?v=1792349813" defer></script>
+  <script src="/assets/js/sections/mktops-01-hero.js?v=1792351409" defer></script>
+  <script src="/assets/js/sections/mktops-03-instalado.js?v=1792350394" defer></script>
+  <script src="/assets/js/sections/mktops-04-niveis.js?v=1792350426" defer></script>
   <script src="/assets/js/sections/footer.js?v=1792179924" defer></script>
 
 </body>

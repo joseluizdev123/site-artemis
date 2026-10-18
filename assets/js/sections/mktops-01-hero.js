@@ -1,11 +1,13 @@
 /* MktOps — topo: diagrama animado (partials/mktops-01-diagrama.html · Figma 8453:9443 / mobile 8696:4910).
-   Fluxo de dados, num ciclo que se repete:
+   Etiquetas: entram uma por vez quando a pasta chega na tela (CSS: .motion-on + .is-in + --delay); no carregamento
+   esperam a entrada do título e dos botões (até ~1 s).
+   Fluxo de dados — um ciclo de 5 s a cada entrada na tela (data-loop na figura: o motion.js liga .is-looping por 5 s e
+   avisa com motion:loop-start / motion:loop-stop; WCAG 2.2.2):
      1. uma luz sai de Skills e outra de MCP (o contorno da pasta acende) e corre pela linha até o MktOps;
      2. no núcleo, o contorno acende e um traço verde dá a volta pela borda (Skills por cima, MCP por baixo no desktop;
         pelas laterais no celular) até o lado de saída;
      3. dali a luz segue para Pipelines (vinda de Skills) e Infra (vinda de MCP), e o contorno da pasta acende na chegada.
-   As etiquetas entram uma por vez quando a pasta chega na tela (CSS: .is-in + --delay); as pastas flutuam só com CSS.
-   Para fora da tela ou com a aba escondida (.is-paused). Sem JS / prefers-reduced-motion: o quadro do Figma. */
+   As pastas flutuam uma vez por loop (só CSS). Fora do loop, sem JS ou com prefers-reduced-motion: o quadro do Figma. */
 (function () {
   'use strict';
 
@@ -16,7 +18,7 @@
 
   var TRAVEL = 1.5;   // s de uma luz pela linha
   var TRACE = 0.65;   // s do traço contornando o núcleo
-  var PERIOD = 5;     // s do ciclo inteiro (o contorno de Infra apaga antes de recomeçar)
+  var PERIOD = 5;     // s do ciclo (= data-loop-max: um ciclo inteiro por entrada na tela)
   var LAG = 0.3;      // MCP sai um pouco depois de Skills
   var FADE = 0.12;    // fração da viagem em que a luz acende/apaga nas pontas
   var PAIRS = [['skills', 'pipelines', 0], ['mcp', 'infra', LAG]]; // entrada → saída, atraso
@@ -24,15 +26,28 @@
   var svgs = Array.prototype.slice.call(fig.querySelectorAll('svg.mk-dg'));
   if (!svgs.length) return;
 
-  // Etiquetas: cada pasta ganha .is-in ao entrar na tela; as que entram juntas vão em sequência (0,45 s)
+  // Etiquetas: cada pasta ganha .is-in ao entrar na tela; as que entram juntas vão em sequência (0,45 s).
+  // Enquanto o título do topo ainda entra (motion.js, ~1 s ao carregar), elas esperam ele terminar (.is-done)
+  function afterHeroText(cb) {
+    var title = document.querySelector('.mk-hero__title[data-split]');
+    if (!title || title.classList.contains('is-done') || !document.documentElement.classList.contains('motion-on')) { cb(); return; }
+    var fired = false, mo, to;
+    function go() { if (fired) return; fired = true; mo.disconnect(); clearTimeout(to); cb(); }
+    mo = new MutationObserver(function () { if (title.classList.contains('is-done')) go(); });
+    mo.observe(title, { attributes: true, attributeFilter: ['class'] });
+    to = setTimeout(go, 2500); // garantia
+  }
   var folderIO = new IntersectionObserver(function (entries) {
     var batch = entries.filter(function (e) { return e.isIntersecting; })
       .map(function (e) { return e.target; })
       .sort(function (a, b) { return a.style.getPropertyValue('--i') - b.style.getPropertyValue('--i'); });
-    batch.forEach(function (folder, n) {
-      folder.style.setProperty('--delay', (0.25 + n * 0.45).toFixed(2) + 's');
-      folder.classList.add('is-in');
-      folderIO.unobserve(folder);
+    batch.forEach(function (folder) { folderIO.unobserve(folder); });
+    if (!batch.length) return;
+    afterHeroText(function () {
+      batch.forEach(function (folder, n) {
+        folder.style.setProperty('--delay', (0.1 + n * 0.45).toFixed(2) + 's');
+        folder.classList.add('is-in');
+      });
     });
   }, { threshold: 0.6 });
   svgs.forEach(function (svg) {
@@ -70,7 +85,6 @@
   }
 
   function ease(u) { return 0.5 * u + 0.5 * u * u * (3 - 2 * u); } // meio linear, meio suave
-  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   // pulso: sobe em 0,15 s e apaga em 0,9 s
   function bump(t, t0) {
     var d = t - t0;
@@ -121,7 +135,7 @@
     if (st.glow) st.glow.style.opacity = (0.7 * glow).toFixed(3);
   }
 
-  var state = null, clock = 0, last = 0, raf = 0, visible = false;
+  var state = null, clock = 0, last = 0, raf = 0, looping = false;
   var mqMobile = window.matchMedia('(max-width: 767px)');
 
   function active() {
@@ -129,35 +143,55 @@
     var svg = svgs.filter(function (s) { return s.classList.contains(want); })[0];
     if (!svg) return null;
     if (!state || state.svg !== svg) {
-      if (state) state.svg.classList.remove('is-running');
+      if (state) rest(state);
       state = setup(svg);
-      svg.classList.add('is-running');
     }
     return state;
   }
 
+  // repouso: tudo o que o JS acende apagado e as luzes do Figma de volta (.is-running sai)
+  function rest(st) {
+    st.svg.classList.remove('is-running');
+    [st.lights, st.hls].forEach(function (group) {
+      Object.keys(group).forEach(function (k) { group[k].style.opacity = 0; });
+    });
+    Object.keys(st.traces).forEach(function (k) { st.traces[k].el.style.opacity = 0; });
+    if (st.glow) st.glow.style.opacity = 0;
+  }
+
   function frame(now) {
     raf = 0;
-    if (!visible || document.hidden) return;
+    if (!looping) return;
     var dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
     last = now;
-    clock = (clock + dt) % PERIOD;
+    clock = Math.min(PERIOD, clock + dt);
     var st = active();
     if (st) render(st, clock);
-    raf = requestAnimationFrame(frame);
+    if (clock < PERIOD) raf = requestAnimationFrame(frame);
   }
 
-  function run() {
-    var on = visible && !document.hidden;
-    svgs.forEach(function (s) { s.classList.toggle('is-paused', !on); });
-    if (on && !raf) { last = 0; raf = requestAnimationFrame(frame); }
+  function start() {
+    looping = true;
+    clock = 0;
+    last = 0;
+    var st = active();
+    if (st) st.svg.classList.add('is-running');
+    if (!raf) raf = requestAnimationFrame(frame);
   }
 
-  new IntersectionObserver(function (entries) {
-    visible = entries[0].isIntersecting;
-    run();
-  }).observe(fig);
-  document.addEventListener('visibilitychange', run);
-  if (mqMobile.addEventListener) mqMobile.addEventListener('change', function () { active(); });
+  function stop() {
+    looping = false;
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    if (state) rest(state);
+  }
 
+  fig.addEventListener('motion:loop-start', start);
+  fig.addEventListener('motion:loop-stop', stop);
+  if (fig.classList.contains('is-looping')) start();
+  if (mqMobile.addEventListener) {
+    mqMobile.addEventListener('change', function () {
+      var st = active();
+      if (st && looping) st.svg.classList.add('is-running');
+    });
+  }
 })();
