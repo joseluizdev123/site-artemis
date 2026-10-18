@@ -478,8 +478,10 @@
       if (e.isIntersecting || reduceMQ.matches || !el.__mPlayed || watching.has(el)) return;
       // No Chrome a interseção considera o clip-path do próprio alvo: no início do data-wipe (inset 100%) ela zera e a
       // imagem "sairia da tela" a cada quadro, reiniciando sem parar. Vale a caixa: ainda na tela, não reinicia.
+      // Só para alvo com clip-path próprio (a cortina usa máscara desde ddff5cd): conferir a caixa de qualquer alvo
+      // impedia a repetição do que passa da borda de um ancestral com overflow (círculos do Sobre) ou tem parallax
       var r = e.boundingClientRect;
-      if (r.bottom > 0 && r.top < window.innerHeight) return;
+      if (r.bottom > 0 && r.top < window.innerHeight && getComputedStyle(el).clipPath !== 'none') return;
       resetRoot(el);
       watch(el);
     });
