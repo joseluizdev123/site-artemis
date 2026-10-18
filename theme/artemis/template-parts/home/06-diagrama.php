@@ -17,41 +17,41 @@ $artemis_diag_img      = static function ( $file ) {
 	<div class="container diagrama__inner">
 		<div class="diagrama__diagram" data-diagrama>
 			<div class="diagrama__scroll" data-diagrama-scroll>
-				<figure class="diagrama__chart" data-reveal-group data-stagger="0" data-loop aria-label="<?php echo esc_attr( artemis_diagrama_label() ); ?>">
+				<figure class="diagrama__chart" data-loop aria-label="<?php echo esc_attr( artemis_diagrama_label() ); ?>">
 					<ol class="diagrama__phases">
-						<li class="diagrama__phase"><span class="eyebrow diagrama__phase-title" data-reveal="fade" data-motion-delay="0"><?php echo esc_html( artemis_mod( 'art_diag_phase_1' ) ); ?></span></li>
+						<li class="diagrama__phase"><span class="eyebrow diagrama__phase-title"><?php echo esc_html( artemis_mod( 'art_diag_phase_1' ) ); ?></span></li>
 						<li class="diagrama__phase">
-							<span class="eyebrow diagrama__phase-title" data-reveal="fade" data-motion-delay="100"><?php echo esc_html( artemis_mod( 'art_diag_phase_2' ) ); ?></span>
-							<span class="diagrama__lines diagrama__lines--mvp" aria-hidden="true" data-wipe="down" data-motion-delay="400"><img src="<?php echo $artemis_diag_img( 'lines-mvp.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="465" height="461" alt=""></span>
+							<span class="eyebrow diagrama__phase-title"><?php echo esc_html( artemis_mod( 'art_diag_phase_2' ) ); ?></span>
+							<span class="diagrama__lines diagrama__lines--mvp" aria-hidden="true"><img src="<?php echo $artemis_diag_img( 'lines-mvp.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="465" height="461" alt=""></span>
 						</li>
 						<li class="diagrama__phase">
-							<span class="eyebrow diagrama__phase-title" data-reveal="fade" data-motion-delay="200"><?php echo esc_html( artemis_mod( 'art_diag_phase_3' ) ); ?></span>
-							<span class="diagrama__lines diagrama__lines--escala" aria-hidden="true" data-wipe="down" data-motion-delay="550"><img src="<?php echo $artemis_diag_img( 'lines-escala.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="434" height="461" alt=""></span>
+							<span class="eyebrow diagrama__phase-title"><?php echo esc_html( artemis_mod( 'art_diag_phase_3' ) ); ?></span>
+							<span class="diagrama__lines diagrama__lines--escala" aria-hidden="true"><img src="<?php echo $artemis_diag_img( 'lines-escala.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="434" height="461" alt=""></span>
 						</li>
 					</ol>
 
 					<div class="diagrama__body">
 						<div class="diagrama__content">
 							<div class="diagrama__row diagrama__row--start">
-								<div class="diagrama__item diagrama__item--light" data-reveal="up" data-motion-delay="600">
+								<div class="diagrama__item diagrama__item--light">
 									<p class="diagrama__item-title diagrama__item-title--bold"><?php echo esc_html( artemis_mod( 'art_diag_step_1' ) ); ?></p>
 									<span class="diagrama__badge"><span class="diagrama__badge-num">01</span></span>
 								</div>
-								<div class="diagrama__item diagrama__item--measure" data-reveal="up" data-motion-delay="700">
+								<div class="diagrama__item diagrama__item--measure">
 									<p class="diagrama__item-title"><?php echo esc_html( artemis_mod( 'art_diag_step_2' ) ); ?></p>
 									<span class="diagrama__badge diagrama__badge--blue"><span class="diagrama__badge-num">02</span></span>
 								</div>
 							</div>
 
 							<div class="diagrama__row">
-								<div class="diagrama__item diagrama__item--adjust" data-reveal="up" data-motion-delay="820">
+								<div class="diagrama__item diagrama__item--adjust">
 									<p class="diagrama__item-title"><?php echo esc_html( artemis_mod( 'art_diag_adjust' ) ); ?></p>
 									<img class="diagrama__icon" src="<?php echo $artemis_diag_img( 'icon-refresh-ccw.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="24" height="24" alt="">
 								</div>
 							</div>
 
 							<div class="diagrama__row">
-								<div class="diagrama__item diagrama__item--error" data-reveal="up" data-motion-delay="940">
+								<div class="diagrama__item diagrama__item--error">
 									<svg class="diagrama__dash" aria-hidden="true" focusable="false"><rect width="100%" height="100%" rx="17" ry="17"/></svg>
 									<p class="diagrama__item-text">
 										<span class="diagrama__item-label"><?php echo esc_html( artemis_mod( 'art_diag_error_label' ) ); ?></span>
@@ -62,7 +62,7 @@ $artemis_diag_img      = static function ( $file ) {
 							</div>
 
 							<div class="diagrama__row">
-								<div class="diagrama__item diagrama__item--lab" data-reveal="up" data-motion-delay="1060">
+								<div class="diagrama__item diagrama__item--lab">
 									<p class="diagrama__item-text">
 										<?php if ( '' !== $artemis_diag_lab_label ) : ?>
 											<span class="diagrama__item-label diagrama__item-label--lab"><?php echo esc_html( $artemis_diag_lab_label ); ?></span>
@@ -76,22 +76,22 @@ $artemis_diag_img      = static function ( $file ) {
 							<?php if ( $artemis_diag_versions ) : ?>
 								<div class="diagrama__row diagrama__row--end">
 									<ul class="diagrama__versions" aria-label="<?php esc_attr_e( 'Versões', 'artemis' ); ?>">
-										<?php foreach ( array_values( $artemis_diag_versions ) as $artemis_diag_i => $artemis_diag_version ) : ?>
-											<li class="diagrama__item diagrama__item--version" data-reveal="up" data-motion-delay="<?php echo (int) ( 1160 + 80 * $artemis_diag_i ); ?>"><span class="diagrama__item-title"><?php echo esc_html( $artemis_diag_version ); ?></span></li>
+										<?php foreach ( $artemis_diag_versions as $artemis_diag_version ) : ?>
+											<li class="diagrama__item diagrama__item--version"><span class="diagrama__item-title"><?php echo esc_html( $artemis_diag_version ); ?></span></li>
 										<?php endforeach; ?>
 									</ul>
 								</div>
 							<?php endif; ?>
 
-							<span class="diagrama__lines diagrama__lines--poc" aria-hidden="true" data-wipe="down" data-motion-delay="250"><img src="<?php echo $artemis_diag_img( 'lines-poc.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="436" height="461" alt=""></span>
+							<span class="diagrama__lines diagrama__lines--poc" aria-hidden="true"><img src="<?php echo $artemis_diag_img( 'lines-poc.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="436" height="461" alt=""></span>
 						</div>
 
 						<ul class="diagrama__legend" aria-label="<?php esc_attr_e( 'Legenda', 'artemis' ); ?>">
-							<li class="diagrama__legend-item diagrama__legend-item--start" data-reveal="fade" data-motion-delay="1500">
+							<li class="diagrama__legend-item diagrama__legend-item--start">
 								<img src="<?php echo $artemis_diag_img( 'diamond-gabarito.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="24" height="24" alt="">
 								<span class="diagrama__legend-text"><?php echo esc_html( artemis_mod( 'art_diag_legend_1' ) ); ?></span>
 							</li>
-							<li class="diagrama__legend-item diagrama__legend-item--end" data-reveal="fade" data-motion-delay="1600">
+							<li class="diagrama__legend-item diagrama__legend-item--end">
 								<img src="<?php echo $artemis_diag_img( 'diamond-producao.svg' ); // phpcs:ignore WordPress.Security.EscapeOutput -- esc_url na closure. ?>" width="24" height="24" alt="">
 								<span class="diagrama__legend-text"><?php echo esc_html( artemis_mod( 'art_diag_legend_2' ) ); ?></span>
 							</li>
