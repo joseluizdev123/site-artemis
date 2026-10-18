@@ -210,6 +210,87 @@
 
 .diagrama__icon { flex: none; width: 24px; height: 24px; }
 
+/* --------------------------------------------------------------------------
+   Ciclo do fluxo (.is-flowing, assets/js/sections/06-diagrama.js): depois da entrada, a cada vez que o
+   diagrama entra na tela (data-loop da biblioteca Motion), o processo acontece uma vez (~4,6 s):
+   um pulso de luz desce as linhas de POC → MVP → Escala; os cartões acendem na ordem do fluxo (só
+   brilho na borda, sem mover nem mudar de tamanho) — 01 → 02 → Ajuste de critério (o ícone dá uma volta)
+   → Humano errou (o tracejado anda e a lixeira treme) → 03 → V 1.0 → V 1.1 → V 1.2; os losangos da
+   legenda pulsam quando o fluxo passa por eles. Sem a classe (repouso, movimento reduzido) é o Figma.
+   Nada reage ao cursor: os cartões não são link.
+   -------------------------------------------------------------------------- */
+.diagrama { --diagrama-glow: var(--blue-300); }
+
+/* Pulso nas linhas: faixa de luz recortada pelo próprio desenho das linhas (mask), só durante o ciclo */
+.diagrama__chart.is-flowing .diagrama__lines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0 40%, var(--diagrama-glow) 50%, transparent 60% 100%) 0 0 / 100% 300% no-repeat;
+  -webkit-mask: var(--diagrama-lines-mask) 0 0 / 100% 100% no-repeat;
+  mask: var(--diagrama-lines-mask) 0 0 / 100% 100% no-repeat;
+  animation: diagrama-pulse 1.1s ease-in-out both;
+}
+.diagrama__lines--poc { --diagrama-lines-mask: url(../../images/06-diagrama/lines-poc.svg); }
+.diagrama__lines--mvp { --diagrama-lines-mask: url(../../images/06-diagrama/lines-mvp.svg); }
+.diagrama__lines--escala { --diagrama-lines-mask: url(../../images/06-diagrama/lines-escala.svg); }
+.diagrama__chart.is-flowing .diagrama__lines--mvp::after { animation-delay: .45s; }
+.diagrama__chart.is-flowing .diagrama__lines--escala::after { animation-delay: .9s; }
+@keyframes diagrama-pulse { /* a faixa (10% de uma imagem de 300%) desce do topo ao pé (só pintura) */
+  0% { background-position: 0 100%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { background-position: 0 0; opacity: 0; }
+}
+
+/* Cartões acendem na ordem do processo */
+.diagrama__chart.is-flowing :is(.diagrama__item--light, .diagrama__item--measure, .diagrama__item--adjust, .diagrama__item--lab, .diagrama__item--version) {
+  animation: diagrama-glow 1s ease-in-out both;
+}
+.diagrama__chart.is-flowing .diagrama__item--light { animation-delay: .15s; }
+.diagrama__chart.is-flowing .diagrama__item--measure { animation-delay: .6s; }
+.diagrama__chart.is-flowing .diagrama__item--adjust { animation-delay: 1.1s; }
+.diagrama__chart.is-flowing .diagrama__item--lab { animation-delay: 2.5s; }
+.diagrama__chart.is-flowing .diagrama__item--version:nth-child(1) { animation-delay: 3s; }
+.diagrama__chart.is-flowing .diagrama__item--version:nth-child(2) { animation-delay: 3.25s; }
+.diagrama__chart.is-flowing .diagrama__item--version:nth-child(n+3) { animation-delay: 3.5s; }
+@keyframes diagrama-glow {
+  40% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--diagrama-glow) 70%, transparent), 0 0 22px color-mix(in srgb, var(--diagrama-glow) 35%, transparent); }
+}
+
+/* Ajuste de critério: o ícone de refresh (anti-horário) dá uma volta */
+.diagrama__chart.is-flowing .diagrama__item--adjust .diagrama__icon { animation: diagrama-spin .9s ease-in-out 1.15s both; }
+@keyframes diagrama-spin { to { rotate: -360deg; } }
+
+/* Humano errou · Caso sai da base: brilho rosa, o tracejado anda duas voltas do padrão (7 + 5) e a lixeira treme */
+.diagrama__chart.is-flowing .diagrama__item--error { animation: diagrama-glow-error 1.2s ease-in-out 1.7s both; }
+.diagrama__chart.is-flowing .diagrama__dash rect { animation: diagrama-march 1.2s linear 1.7s both; }
+.diagrama__chart.is-flowing .diagrama__item--error .diagrama__icon { transform-origin: 50% 20%; animation: diagrama-shake .6s ease-in-out 1.95s both; }
+@keyframes diagrama-glow-error {
+  40% { box-shadow: 0 0 22px color-mix(in srgb, var(--diagrama-error) 30%, transparent); }
+}
+@keyframes diagrama-march { to { stroke-dashoffset: -25.5; } } /* −1,5 − 2×12: termina igual ao repouso */
+@keyframes diagrama-shake {
+  20% { rotate: -10deg; }
+  40% { rotate: 8deg; }
+  60% { rotate: -6deg; }
+  80% { rotate: 4deg; }
+}
+
+/* Legenda: "Gabarito pronto" pulsa depois do 01; "Promoção para produção" nas versões */
+.diagrama__chart.is-flowing .diagrama__legend-item img { animation: diagrama-diamond .8s ease-in-out both; }
+.diagrama__chart.is-flowing .diagrama__legend-item--start img { animation-delay: .55s; }
+.diagrama__chart.is-flowing .diagrama__legend-item--end img { animation-delay: 3.3s; }
+@keyframes diagrama-diamond {
+  45% { scale: 1.3; filter: brightness(1.35) drop-shadow(0 0 6px rgb(255 255 255 / .45)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diagrama__chart.is-flowing *,
+  .diagrama__chart.is-flowing *::after { animation: none !important; }
+}
+
 /* Legenda (8653:2348) */
 .diagrama__legend {
   display: flex;

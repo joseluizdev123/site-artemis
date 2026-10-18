@@ -17,7 +17,7 @@ $artemis_diag_img      = static function ( $file ) {
 	<div class="container diagrama__inner">
 		<div class="diagrama__diagram" data-diagrama>
 			<div class="diagrama__scroll" data-diagrama-scroll>
-				<figure class="diagrama__chart" data-reveal-group data-stagger="0" aria-label="<?php echo esc_attr( artemis_diagrama_label() ); ?>">
+				<figure class="diagrama__chart" data-reveal-group data-stagger="0" data-loop aria-label="<?php echo esc_attr( artemis_diagrama_label() ); ?>">
 					<ol class="diagrama__phases">
 						<li class="diagrama__phase"><span class="eyebrow diagrama__phase-title" data-reveal="fade" data-motion-delay="0"><?php echo esc_html( artemis_mod( 'art_diag_phase_1' ) ); ?></span></li>
 						<li class="diagrama__phase">
