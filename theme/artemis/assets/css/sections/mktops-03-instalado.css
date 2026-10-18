@@ -67,9 +67,9 @@
 
 /* Entradas (motion.js): título por linhas; itens um a um (data-reveal-group: arquivo em pop, texto sobe); texto da faixa
    sobe. Os itens não são link: sem efeito de hover (MODEL.md, "Regra de hover").
-   Comunidade: ilustração fixa na posição do Figma. A cada entrada na tela a faixa ganha .is-looping por 5 s (data-loop):
-   uma luz por peça (cópia de cada path, .mk-com__run, assets/js/sections/mktops-03-instalado.js) corre pelas arestas e
-   apaga no fim. --len = comprimento do path: o padrão tem período = comprimento, então a luz dá a volta sem emenda.
+   Comunidade: ilustração fixa na posição do Figma. Enquanto está na tela a faixa tem .is-looping (data-loop, motion.js):
+   uma luz por peça (cópia de cada path, .mk-com__run, assets/js/sections/mktops-03-instalado.js) corre pelas arestas
+   sem parar e apaga quando a faixa sai da tela. --len = comprimento do path: o padrão tem período = comprimento, então a luz dá a volta sem emenda.
    Fora do loop, sem JS ou com movimento reduzido: o quadro do Figma (sem luz) */
 .mk-com__run {
   stroke-width: 1.4;

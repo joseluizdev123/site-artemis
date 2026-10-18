@@ -54,8 +54,8 @@
 .motion-on .mk-hero__article [data-reveal].is-in { animation-duration: .7s; }
 
 /* Diagrama animado (assets/js/sections/mktops-01-hero.js). Repouso (sem JS, movimento reduzido, fora do loop) = quadro do
-   Figma: luzes paradas (.mk-dg__static), etiquetas à vista, pastas paradas. A cada entrada na tela a figura ganha
-   .is-looping por 5 s (data-loop, motion.js) = um ciclo do fluxo: o JS liga .is-running no SVG — as luzes do Figma dão
+   Figma: luzes paradas (.mk-dg__static), etiquetas à vista, pastas paradas. Enquanto está na tela a figura tem
+   .is-looping (data-loop, motion.js) e o ciclo de 5 s do fluxo se repete: o JS liga .is-running no SVG — as luzes do Figma dão
    lugar às que correm (.mk-dg__flow) e o JS acende o contorno do núcleo (.mk-dg__glow), o traço que contorna a borda
    (.mk-dg__trace) e o contorno da pasta na partida/chegada (.mk-dg__hl), por quadro no atributo style */
 .mk-dg__flow { opacity: 0; }
@@ -69,13 +69,13 @@
 .mk-dg__trace { filter: drop-shadow(0 0 3px rgb(168 232 122 / .75)); }
 .mk-dg__hl { filter: drop-shadow(0 0 4px rgb(168 232 122 / .5)); }
 
-/* Pastas: uma flutuada (sobe e volta) por loop, cada uma começando um pouco depois e todas de volta ao lugar em 5 s —
-   no desktop na vertical, no celular na horizontal (a linha encosta na lateral da pasta no desktop e na base/topo no
-   celular: flutuando ao longo da borda ela nunca se solta) */
+/* Pastas: flutuam (sobe e volta a cada 5 s, cada uma um pouco defasada) enquanto dura o loop — no desktop na vertical,
+   no celular na horizontal (a linha encosta na lateral da pasta no desktop e na base/topo no celular: flutuando ao
+   longo da borda ela nunca se solta) */
 @media (prefers-reduced-motion: no-preference) {
   .mk-hero__diagram.is-looping .mk-dg__folder {
     transform-box: fill-box;
-    animation: mk-dg-float-y calc(5s - var(--i, 0) * .3s) ease-in-out calc(var(--i, 0) * .3s) both;
+    animation: mk-dg-float-y 5s ease-in-out calc(var(--i, 0) * .3s) infinite both;
   }
   .mk-hero__diagram.is-looping .mk-dg--m .mk-dg__folder { animation-name: mk-dg-float-x; }
 }
