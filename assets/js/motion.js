@@ -451,7 +451,9 @@
         if (it.hasAttribute('data-type')) prepareType(it);
       });
       var r = el.getBoundingClientRect();
-      if (el.getAttribute('data-motion-start') === 'load') { trigger(el); return; }
+      // Topo: tudo que toca ao carregar começa junto, depois das fontes (no máx. 1 s) — senão o lead (reveal)
+      // aparecia antes do título (split, que espera a Exo para medir as linhas) num primeiro acesso
+      if (el.getAttribute('data-motion-start') === 'load') { fontsReady.then(function () { trigger(el); }); return; }
       if (r.bottom <= 0) { items.forEach(finishNow); if (isGroup) el.classList.add('is-done'); return; } // já passou: pronto, sem animar
       watch(el);
     });
