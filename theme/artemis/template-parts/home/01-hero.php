@@ -15,21 +15,21 @@ $artemis_hatch_narrow = array( 5, 13, 14, 60, 62, 67, 69 );
 ?>
 <section class="hero container" aria-labelledby="hero-title">
 	<div class="hero__main">
-		<div class="hero__row">
+		<div class="hero__row" data-reveal-group data-motion-start="load">
 			<div class="hero__text">
 				<div class="hero__heading">
-					<p class="hero__eyebrow"><?php echo esc_html( artemis_mod( 'art_hero_eyebrow' ) ); ?></p>
-					<h1 class="hero__title" id="hero-title"><?php echo artemis_highlight( artemis_mod( 'art_hero_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h1>
+					<p class="hero__eyebrow" data-reveal="fade"><?php echo esc_html( artemis_mod( 'art_hero_eyebrow' ) ); ?></p>
+					<h1 class="hero__title" id="hero-title" data-split="lines"><?php echo artemis_highlight( artemis_mod( 'art_hero_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h1>
 				</div>
-				<p class="hero__lead"><?php echo esc_html( artemis_mod( 'art_hero_lead' ) ); ?></p>
+				<p class="hero__lead" data-reveal="up"><?php echo esc_html( artemis_mod( 'art_hero_lead' ) ); ?></p>
 			</div>
 			<div class="hero__actions">
-				<a class="btn btn--primary" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_hero_cta1_label' ) ); ?></a>
-				<a class="btn" href="<?php echo esc_url( artemis_mod( 'art_hero_cta2_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_hero_cta2_label' ) ); ?></a>
+				<a class="btn btn--primary" data-reveal="up" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_hero_cta1_label' ) ); ?></a>
+				<a class="btn" data-reveal="up" href="<?php echo esc_url( artemis_mod( 'art_hero_cta2_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_hero_cta2_label' ) ); ?></a>
 			</div>
 		</div>
 
-		<div class="hero__pattern" aria-hidden="true" data-dash-pattern>
+		<div class="hero__pattern" aria-hidden="true" data-dash-pattern data-loop>
 			<div class="hero__pattern-group hero__pattern-group--start">
 				<?php foreach ( $artemis_dash_start as $row ) : ?>
 					<div class="hero__dash-row" style="width:<?php echo esc_attr( $row[1] ); ?>px"><img src="<?php echo esc_url( artemis_asset( "images/hero/dash-row-{$row[0]}.svg" ) ); ?>" alt=""></div>
@@ -45,12 +45,12 @@ $artemis_hatch_narrow = array( 5, 13, 14, 60, 62, 67, 69 );
 
 	<?php if ( $artemis_clientes ) : ?>
 		<div class="clients">
-			<ul class="clients__grid" aria-label="<?php esc_attr_e( 'Clientes', 'artemis' ); ?>">
+			<ul class="clients__grid" aria-label="<?php esc_attr_e( 'Clientes', 'artemis' ); ?>" data-reveal-group data-stagger="70" data-motion-start="load">
 				<?php foreach ( $artemis_clientes as $cliente ) : ?>
 					<?php $artemis_logo_m = artemis_cliente_mobile_style( $cliente ); // --mw/--mh = tamanho do logo no mobile ?>
-					<li class="clients__cell"<?php echo $artemis_logo_m ? ' style="' . esc_attr( $artemis_logo_m ) . '"' : ''; ?>><?php echo artemis_cliente_logo( $cliente ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado na função. ?></li>
+					<li class="clients__cell"<?php echo $artemis_logo_m ? ' style="' . esc_attr( $artemis_logo_m ) . '"' : ''; ?>><?php echo preg_replace( '/^<(img|span) class="clients__logo/', '<$1 data-reveal="fade" class="clients__logo', artemis_cliente_logo( $cliente ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado na função. ?></li>
 				<?php endforeach; ?>
-				<li class="clients__pattern" aria-hidden="true">
+				<li class="clients__pattern" aria-hidden="true" data-wipe>
 					<img src="<?php echo esc_url( artemis_asset( 'images/pattern-diagonal.svg' ) ); ?>" alt="">
 					<span class="clients__hatch"><?php for ( $i = 0; $i < 83; $i++ ) { echo in_array( $i, $artemis_hatch_narrow, true ) ? '<i class="clients__hatch-line--narrow"></i>' : '<i></i>'; } ?></span>
 				</li>

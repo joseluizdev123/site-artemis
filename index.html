@@ -9,26 +9,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css?v=1792348249">
-  <link rel="stylesheet" href="/assets/css/motion.css?v=1792348229">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792349748">
+  <link rel="stylesheet" href="/assets/css/motion.css?v=1792353327">
   <!-- Motion: liga html.motion-on antes da 1ª pintura (só com movimento liberado); volta sozinho se o motion.js não carregar -->
   <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
-  <link rel="stylesheet" href="/assets/css/sections/01-hero.css?v=1791992189">
-  <link rel="stylesheet" href="/assets/css/sections/02-o-que-fazemos.css?v=1791989539">
-  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas.css?v=1792340550">
-  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--codificacao.css?v=1792008942">
-  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--quantificacao.css?v=1792008941">
-  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--roteirizacao.css?v=1792008942">
-  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--validacao.css?v=1792008941">
-  <link rel="stylesheet" href="/assets/css/sections/04-depoimento.css?v=1791978735">
-  <link rel="stylesheet" href="/assets/css/sections/05-como-funciona.css?v=1792259291">
-  <link rel="stylesheet" href="/assets/css/sections/06-diagrama.css?v=1792340550">
-  <link rel="stylesheet" href="/assets/css/sections/07-estudos.css?v=1792191548">
-  <link rel="stylesheet" href="/assets/css/sections/08-stats.css?v=1792340550">
-  <link rel="stylesheet" href="/assets/css/sections/09-como-trabalhamos.css?v=1792185614">
-  <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1791992993">
-  <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792152372">
-  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+  <link rel="stylesheet" href="/assets/css/sections/01-hero.css?v=1792353328">
+  <link rel="stylesheet" href="/assets/css/sections/02-o-que-fazemos.css?v=1792179881">
+  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas.css?v=1792340943">
+  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--codificacao.css?v=1792179881">
+  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--quantificacao.css?v=1792179881">
+  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--roteirizacao.css?v=1792179881">
+  <link rel="stylesheet" href="/assets/css/sections/03-nossos-sistemas--validacao.css?v=1792353327">
+  <link rel="stylesheet" href="/assets/css/sections/04-depoimento.css?v=1792179881">
+  <link rel="stylesheet" href="/assets/css/sections/05-como-funciona.css?v=1792259027">
+  <link rel="stylesheet" href="/assets/css/sections/06-diagrama.css?v=1792353922">
+  <link rel="stylesheet" href="/assets/css/sections/07-estudos.css?v=1792353327">
+  <link rel="stylesheet" href="/assets/css/sections/08-stats.css?v=1792353327">
+  <link rel="stylesheet" href="/assets/css/sections/09-como-trabalhamos.css?v=1792353327">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1792179881">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792179881">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1792179881">
 </head>
 <body class="page-home">
 
@@ -84,22 +84,22 @@
     <!-- Hero · 8160:165 · mobile 8635:1586 -->
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero__main">
-        <div class="hero__row">
+        <div class="hero__row" data-reveal-group data-motion-start="load">
           <div class="hero__text">
             <div class="hero__heading">
-              <p class="hero__eyebrow">Do canteiro de obra ao chão de fábrica, do comércio exterior à frota.</p>
-              <h1 class="hero__title" id="hero-title">Inteligência artificial para <em>cada decisão</em> que a sua operação repete.</h1>
+              <p class="hero__eyebrow" data-reveal="fade">Do canteiro de obra ao chão de fábrica, do comércio exterior à frota.</p>
+              <h1 class="hero__title" data-split="lines" id="hero-title">Inteligência artificial para <em>cada decisão</em> que a sua operação repete.</h1>
             </div>
-            <p class="hero__lead">Construímos agentes e automações com IA para o trabalho que consome horas de colaboradores sêniores. Cada sistema é medido contra gabarito humano antes de entrar em produção.</p>
+            <p class="hero__lead" data-reveal="up">Construímos agentes e automações com IA para o trabalho que consome horas de colaboradores sêniores. Cada sistema é medido contra gabarito humano antes de entrar em produção.</p>
           </div>
           <div class="hero__actions">
-            <a class="btn btn--primary" href="/contato">Agendar diagnóstico</a>
-            <a class="btn" href="#estudos">Ver os estudos de impacto</a>
+            <a class="btn btn--primary" href="/contato" data-reveal="up">Agendar diagnóstico</a>
+            <a class="btn" href="#estudos" data-reveal="up">Ver os estudos de impacto</a>
           </div>
         </div>
 
         <!-- Pattern · 8160:174 (mobile 8635:1597 = o mesmo padrão em escala 0,788) — traços piscam em loop e acendem perto do cursor -->
-        <div class="hero__pattern" aria-hidden="true" data-dash-pattern>
+        <div class="hero__pattern" aria-hidden="true" data-dash-pattern data-loop>
           <div class="hero__pattern-group hero__pattern-group--start">
             <div class="hero__dash-row" style="width:610.5px"><img src="/assets/images/hero/dash-row-0.svg" alt=""></div>
             <div class="hero__dash-row" style="width:610.5px"><img src="/assets/images/hero/dash-row-1.svg" alt=""></div>
@@ -121,13 +121,13 @@
 
       <!-- Customer Logos · 8160:446 · mobile 8635:1869 — --mw/--mh = tamanho do logo no mobile (px, sem unidade) -->
       <div class="clients">
-        <ul class="clients__grid" aria-label="Clientes">
-          <li class="clients__cell" style="--mw:115;--mh:20"><img class="clients__logo" src="/assets/images/client-athie-wohnrath.png" width="166" height="29" alt="Athié Wohnrath"></li>
-          <li class="clients__cell" style="--mw:81;--mh:24"><img class="clients__logo" src="/assets/images/client-gascat.png" width="120" height="36" alt="Gascat"></li>
-          <li class="clients__cell" style="--mw:109;--mh:24"><img class="clients__logo" src="/assets/images/client-jrgcorp.png" width="152" height="33" alt="JRG Corp"></li>
-          <li class="clients__cell" style="--mw:145.456;--mh:12"><img class="clients__logo" src="/assets/images/client-marine-telematics.svg" width="211" height="17" style="width:211.2px;height:17.424px" alt="Marine Telematics"></li>
-          <li class="clients__cell" style="--mw:94.542;--mh:24"><span class="clients__logo clients__logo--mask" role="img" aria-label="Orsegups" style="--logo:url(/assets/images/client-orsegups-mask.png);width:143.201px;height:36.352px;transform:translateX(-2.98px)"></span></li>
-          <li class="clients__pattern" aria-hidden="true">
+        <ul class="clients__grid" aria-label="Clientes" data-reveal-group data-stagger="70" data-motion-start="load">
+          <li class="clients__cell" style="--mw:115;--mh:20"><img class="clients__logo" data-reveal="fade" src="/assets/images/client-athie-wohnrath.png" width="166" height="29" alt="Athié Wohnrath"></li>
+          <li class="clients__cell" style="--mw:81;--mh:24"><img class="clients__logo" data-reveal="fade" src="/assets/images/client-gascat.png" width="120" height="36" alt="Gascat"></li>
+          <li class="clients__cell" style="--mw:109;--mh:24"><img class="clients__logo" data-reveal="fade" src="/assets/images/client-jrgcorp.png" width="152" height="33" alt="JRG Corp"></li>
+          <li class="clients__cell" style="--mw:145.456;--mh:12"><img class="clients__logo" data-reveal="fade" src="/assets/images/client-marine-telematics.svg" width="211" height="17" style="width:211.2px;height:17.424px" alt="Marine Telematics"></li>
+          <li class="clients__cell" style="--mw:94.542;--mh:24"><span class="clients__logo clients__logo--mask" data-reveal="fade" role="img" aria-label="Orsegups" style="--logo:url(/assets/images/client-orsegups-mask.png);width:143.201px;height:36.352px;transform:translateX(-2.98px)"></span></li>
+          <li class="clients__pattern" aria-hidden="true" data-wipe>
             <img src="/assets/images/pattern-diagonal.svg" alt="">
             <!-- Hachura do mobile (8635:1905–1987): 83 traços de 24×64 a cada 12px, centrados e cortados em 32px -->
             <span class="clients__hatch">
@@ -149,24 +149,24 @@
     <section class="o-que-fazemos" aria-labelledby="o-que-fazemos-title">
       <div class="o-que-fazemos__inner container">
         <div class="o-que-fazemos__aside">
-          <div class="o-que-fazemos__heading section-head">
-            <p class="o-que-fazemos__eyebrow eyebrow eyebrow--400">O que fazemos</p>
-            <h2 class="o-que-fazemos__title section-title section-title--em-400" id="o-que-fazemos-title">Existe uma decisão na sua operação <em>que nenhum sistema toma</em></h2>
+          <div class="o-que-fazemos__heading section-head" data-reveal-group>
+            <p class="o-que-fazemos__eyebrow eyebrow eyebrow--400" data-reveal="fade">O que fazemos</p>
+            <h2 data-split="lines" class="o-que-fazemos__title section-title section-title--em-400" id="o-que-fazemos-title">Existe uma decisão na sua operação <em>que nenhum sistema toma</em></h2>
           </div>
 
           <!-- Founder Info · 8213:357 — nome do fundador aparece acima do avatar no hover/foco -->
           <div class="o-que-fazemos__founders">
-            <ul class="o-que-fazemos__avatars" aria-label="Fundadores">
-              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/willy.png" width="66" height="66" alt=""><span class="o-que-fazemos__name">Willy</span></li>
-              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/enzo.png" width="66" height="66" alt=""><span class="o-que-fazemos__name">Enzo</span></li>
-              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/julio.png" width="66" height="66" alt=""><span class="o-que-fazemos__name">Julio</span></li>
-              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/helio.png" width="66" height="66" alt=""><span class="o-que-fazemos__name">Helio</span></li>
+            <ul class="o-que-fazemos__avatars" aria-label="Fundadores" data-reveal-group>
+              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/willy.png" width="66" height="66" alt="" data-reveal="pop"><span class="o-que-fazemos__name">Willy</span></li>
+              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/enzo.png" width="66" height="66" alt="" data-reveal="pop"><span class="o-que-fazemos__name">Enzo</span></li>
+              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/julio.png" width="66" height="66" alt="" data-reveal="pop"><span class="o-que-fazemos__name">Julio</span></li>
+              <li class="o-que-fazemos__avatar" tabindex="0"><img src="/assets/images/02-o-que-fazemos/helio.png" width="66" height="66" alt="" data-reveal="pop"><span class="o-que-fazemos__name">Helio</span></li>
             </ul>
             <p class="o-que-fazemos__caption">Fundadores<br>do Studio Artemis</p>
           </div>
         </div>
 
-        <div class="o-que-fazemos__body body-lg">
+        <div class="o-que-fazemos__body body-lg" data-reveal-group="up" data-stagger="120">
           <p>Qual código essa peça recebe. Se o documento desse fornecedor está válido. Quantos dutos tem nessa planta e de que tipo. Como essa carga vai no caminhão. Se esse pedido pode ser liberado.</p>
           <p>São decisões de julgamento técnico, tomadas dezenas de vezes por dia, por gente cara. O critério existe, mas mora dentro de três ou quatro pessoas que o aprenderam em anos de operação. Não está no ERP, não está no procedimento, não está escrito em lugar nenhum.</p>
           <p>É por isso que o erro custa caro e ninguém consegue explicar direito por que ele aconteceu. E é por isso que, quando o especialista sai, o conhecimento vai junto.</p>
@@ -179,12 +179,12 @@
     <section class="sistemas" aria-labelledby="sistemas-title">
       <div class="sistemas__inner container">
         <!-- Service Block · 8294:501 · mobile 8635:2000 -->
-        <div class="sistemas__head">
+        <div class="sistemas__head" data-reveal-group>
           <div class="sistemas__title-wrap">
-            <h2 class="sistemas__title section-title section-title--em-300" id="sistemas-title">O que nossos <em>sistemas decidem</em></h2>
+            <h2 data-split="lines" class="sistemas__title section-title section-title--em-300" id="sistemas-title">O que nossos <em>sistemas decidem</em></h2>
           </div>
           <div class="sistemas__intro">
-            <p class="sistemas__text body-lg">Uma construtora de prédios corporativos e uma fábrica de válvulas não têm nada em comum como negócio. Como problema, têm: as duas erram na codificação de item pelo mesmo motivo. Por isso trabalhamos por formato de decisão, não por ramo de atividade.</p>
+            <p class="sistemas__text body-lg" data-reveal="up">Uma construtora de prédios corporativos e uma fábrica de válvulas não têm nada em comum como negócio. Como problema, têm: as duas erram na codificação de item pelo mesmo motivo. Por isso trabalhamos por formato de decisão, não por ramo de atividade.</p>
           </div>
         </div>
 
@@ -400,22 +400,22 @@
 
     <!-- Depoimento (testmonial) · 8186:1160 · mobile 8635:2302 -->
     <section class="depoimento" aria-labelledby="depoimento-title">
-      <div class="container depoimento__inner">
+      <div class="container depoimento__inner" data-reveal-group>
         <!-- Globo pontilhado · 8229:2131 (935×443, ancorado embaixo à esquerda) · mobile 8635:2311 (800×501,
              ancorado embaixo e centralizado) — gira mostrando o mundo inteiro (canvas + assets/data/globe-land.json);
              sem JS fica o SVG estático do Figma -->
-        <div class="depoimento__globe" aria-hidden="true" data-globe="/assets/data/globe-points.json">
+        <div class="depoimento__globe" aria-hidden="true" data-loop data-globe="/assets/data/globe-points.json">
           <canvas class="depoimento__globe-canvas" width="935" height="443"></canvas>
           <noscript><img src="/assets/images/04-depoimento/globe.svg" width="935" height="443" alt="" loading="lazy" decoding="async"></noscript>
         </div>
 
-        <h2 class="eyebrow depoimento__eyebrow" id="depoimento-title">O que dizem quem já rodou</h2>
+        <h2 class="eyebrow depoimento__eyebrow" data-reveal="fade" id="depoimento-title">O que dizem quem já rodou</h2>
 
         <figure class="depoimento__card">
           <blockquote class="depoimento__quote">
-            <p class="section-title">“Isso aqui está tomando mais decisão do que a nossa engenharia”.</p>
+            <p class="section-title" data-split="lines">“Isso aqui está tomando mais decisão do que a nossa engenharia”.</p>
           </blockquote>
-          <figcaption class="depoimento__author">
+          <figcaption class="depoimento__author" data-reveal="up" data-motion-delay="350">
             <img class="depoimento__avatar" src="/assets/images/04-depoimento/avatar-celso.png" width="51" height="51" alt="Foto de Celso" loading="lazy">
             <div class="depoimento__author-text">
               <p class="depoimento__name"><strong>Celso,</strong> Dono e engenheiro</p>
@@ -431,20 +431,20 @@
       <div class="container">
         <div class="como-funciona__blocks">
           <!-- Left Service Block · 8307:3382 — fixo (sticky) enquanto os passos rolam -->
-          <div class="como-funciona__intro">
-            <p class="eyebrow">Como funciona</p>
+          <div class="como-funciona__intro" data-reveal-group>
+            <p class="eyebrow" data-reveal="fade">Como funciona</p>
             <div class="como-funciona__text">
-              <h2 class="section-title section-title--em-400" id="como-funciona-title">Você vê a inteligência artificial <em>errar antes de confiar nela</em></h2>
+              <h2 class="section-title section-title--em-400" id="como-funciona-title" data-split="lines">Você vê a inteligência artificial <em>errar antes de confiar nela</em></h2>
               <div class="como-funciona__desc">
-                <p class="body-lg">O que trava a automação de decisão técnica costuma ser confiança, não tecnologia. Ninguém deixa um software codificar a válvula que vai para a Escócia sem poder provar, caso a caso, que ele acerta.</p>
-                <p class="body-lg">Por isso todo sistema que entregamos vem com um laboratório de teste embutido, e ele fica com você.</p>
+                <p class="body-lg" data-reveal="up">O que trava a automação de decisão técnica costuma ser confiança, não tecnologia. Ninguém deixa um software codificar a válvula que vai para a Escócia sem poder provar, caso a caso, que ele acerta.</p>
+                <p class="body-lg" data-reveal="up">Por isso todo sistema que entregamos vem com um laboratório de teste embutido, e ele fica com você.</p>
               </div>
             </div>
           </div>
 
           <!-- Main Container · 8307:3506 — quatro passos -->
           <div class="como-funciona__main">
-            <p class="eyebrow">Quatro passos:</p>
+            <p class="eyebrow" data-reveal="fade">Quatro passos:</p>
             <ol class="como-funciona__steps">
               <li class="como-funciona__step">
                 <img class="como-funciona__marker" src="/assets/images/05-como-funciona/step-spacer.svg" width="4" height="48" alt="">
@@ -490,41 +490,41 @@
         <div class="diagrama__diagram" data-diagrama>
           <div class="diagrama__scroll" data-diagrama-scroll>
             <!-- Section Container · 8653:2287 · mobile 8653:2600 — diagrama POC → MVP → Escala -->
-            <figure class="diagrama__chart" aria-label="Diagrama POC → MVP → Escala: Amostra com gabarito, Medição de assertividade, Ajuste de critério, Laboratório no seu sistema">
+            <figure class="diagrama__chart" data-reveal-group data-stagger="0" data-loop aria-label="Diagrama POC → MVP → Escala: Amostra com gabarito, Medição de assertividade, Ajuste de critério, Laboratório no seu sistema">
               <ol class="diagrama__phases">
-                <li class="diagrama__phase"><span class="eyebrow diagrama__phase-title">POC</span></li>
+                <li class="diagrama__phase"><span class="eyebrow diagrama__phase-title" data-reveal="fade" data-motion-delay="0">POC</span></li>
                 <li class="diagrama__phase">
-                  <span class="eyebrow diagrama__phase-title">MVP</span>
-                  <span class="diagrama__lines diagrama__lines--mvp" aria-hidden="true"><img src="/assets/images/06-diagrama/lines-mvp.svg" width="465" height="461" alt=""></span>
+                  <span class="eyebrow diagrama__phase-title" data-reveal="fade" data-motion-delay="100">MVP</span>
+                  <span class="diagrama__lines diagrama__lines--mvp" aria-hidden="true" data-wipe="down" data-motion-delay="400"><img src="/assets/images/06-diagrama/lines-mvp.svg" width="465" height="461" alt=""></span>
                 </li>
                 <li class="diagrama__phase">
-                  <span class="eyebrow diagrama__phase-title">Escala</span>
-                  <span class="diagrama__lines diagrama__lines--escala" aria-hidden="true"><img src="/assets/images/06-diagrama/lines-escala.svg" width="434" height="461" alt=""></span>
+                  <span class="eyebrow diagrama__phase-title" data-reveal="fade" data-motion-delay="200">Escala</span>
+                  <span class="diagrama__lines diagrama__lines--escala" aria-hidden="true" data-wipe="down" data-motion-delay="550"><img src="/assets/images/06-diagrama/lines-escala.svg" width="434" height="461" alt=""></span>
                 </li>
               </ol>
 
               <div class="diagrama__body">
                 <div class="diagrama__content">
                   <div class="diagrama__row diagrama__row--start">
-                    <div class="diagrama__item diagrama__item--light">
+                    <div class="diagrama__item diagrama__item--light" data-reveal="up" data-motion-delay="600">
                       <p class="diagrama__item-title diagrama__item-title--bold">Amostra com gabarito</p>
                       <span class="diagrama__badge"><span class="diagrama__badge-num">01</span></span>
                     </div>
-                    <div class="diagrama__item diagrama__item--measure">
+                    <div class="diagrama__item diagrama__item--measure" data-reveal="up" data-motion-delay="700">
                       <p class="diagrama__item-title">Medição de assertividade</p>
                       <span class="diagrama__badge diagrama__badge--blue"><span class="diagrama__badge-num">02</span></span>
                     </div>
                   </div>
 
                   <div class="diagrama__row">
-                    <div class="diagrama__item diagrama__item--adjust">
+                    <div class="diagrama__item diagrama__item--adjust" data-reveal="up" data-motion-delay="820">
                       <p class="diagrama__item-title">Ajuste de critério</p>
                       <img class="diagrama__icon" src="/assets/images/06-diagrama/icon-refresh-ccw.svg" width="24" height="24" alt="">
                     </div>
                   </div>
 
                   <div class="diagrama__row">
-                    <div class="diagrama__item diagrama__item--error">
+                    <div class="diagrama__item diagrama__item--error" data-reveal="up" data-motion-delay="940">
                       <svg class="diagrama__dash" aria-hidden="true" focusable="false"><rect width="100%" height="100%" rx="17" ry="17"/></svg>
                       <p class="diagrama__item-text">
                         <span class="diagrama__item-label">Humano errou</span>
@@ -535,7 +535,7 @@
                   </div>
 
                   <div class="diagrama__row">
-                    <div class="diagrama__item diagrama__item--lab">
+                    <div class="diagrama__item diagrama__item--lab" data-reveal="up" data-motion-delay="1060">
                       <p class="diagrama__item-text">
                         <span class="diagrama__item-label diagrama__item-label--lab">Você testa</span>
                         <span class="diagrama__item-title diagrama__item-title--bold">Laboratório no seu sistema</span>
@@ -546,22 +546,22 @@
 
                   <div class="diagrama__row diagrama__row--end">
                     <ul class="diagrama__versions" aria-label="Versões">
-                      <li class="diagrama__item diagrama__item--version"><span class="diagrama__item-title">V 1.0</span></li>
-                      <li class="diagrama__item diagrama__item--version"><span class="diagrama__item-title">V 1.1</span></li>
-                      <li class="diagrama__item diagrama__item--version"><span class="diagrama__item-title">V 1.2</span></li>
+                      <li class="diagrama__item diagrama__item--version" data-reveal="up" data-motion-delay="1160"><span class="diagrama__item-title">V 1.0</span></li>
+                      <li class="diagrama__item diagrama__item--version" data-reveal="up" data-motion-delay="1240"><span class="diagrama__item-title">V 1.1</span></li>
+                      <li class="diagrama__item diagrama__item--version" data-reveal="up" data-motion-delay="1320"><span class="diagrama__item-title">V 1.2</span></li>
                     </ul>
                   </div>
 
-                  <span class="diagrama__lines diagrama__lines--poc" aria-hidden="true"><img src="/assets/images/06-diagrama/lines-poc.svg" width="436" height="461" alt=""></span>
+                  <span class="diagrama__lines diagrama__lines--poc" aria-hidden="true" data-wipe="down" data-motion-delay="250"><img src="/assets/images/06-diagrama/lines-poc.svg" width="436" height="461" alt=""></span>
                 </div>
 
                 <!-- Legenda · 8653:2348 · mobile 8653:2661 -->
                 <ul class="diagrama__legend" aria-label="Legenda">
-                  <li class="diagrama__legend-item diagrama__legend-item--start">
+                  <li class="diagrama__legend-item diagrama__legend-item--start" data-reveal="fade" data-motion-delay="1500">
                     <img src="/assets/images/06-diagrama/diamond-gabarito.svg" width="24" height="24" alt="">
                     <span class="diagrama__legend-text">Gabarito pronto</span>
                   </li>
-                  <li class="diagrama__legend-item diagrama__legend-item--end">
+                  <li class="diagrama__legend-item diagrama__legend-item--end" data-reveal="fade" data-motion-delay="1600">
                     <img src="/assets/images/06-diagrama/diamond-producao.svg" width="24" height="24" alt="">
                     <span class="diagrama__legend-text">Promoção para produção</span>
                   </li>
@@ -589,9 +589,9 @@
     <section class="estudos" id="estudos" aria-labelledby="estudos-title">
       <div class="container estudos__inner">
         <!-- Left Service Block · 8195:1064 · Mobile 8635:2367 -->
-        <div class="section-head">
-          <p class="eyebrow">Estudos de impacto</p>
-          <h2 class="section-title estudos__heading" id="estudos-title">O que já está <em>em produção</em></h2>
+        <div class="section-head" data-reveal-group>
+          <p class="eyebrow" data-reveal="fade">Estudos de impacto</p>
+          <h2 class="section-title estudos__heading" data-split="lines" id="estudos-title">O que já está <em>em produção</em></h2>
         </div>
 
         <!-- Estudos · instância 8201:3770 do componente 8201:3769 (4 variantes = 4 slides) · Mobile 8635:3459 (estudo 1) -->
@@ -718,7 +718,7 @@
       <!-- Faixa superior · 8486:1794 (mobile 8635:2372) — Pattern 8486:1883 (8635:2374): elipses espelhadas a partir do centro -->
       <div class="stats__band stats__band--top" aria-hidden="true">
         <div class="container">
-          <div class="stats__pattern">
+          <div class="stats__pattern" data-wipe="out">
             <img class="stats__ellipses stats__ellipses--mirror" src="/assets/images/08-stats/ellipse-container-a.svg" width="686" height="62" alt="" loading="lazy" decoding="async">
             <img class="stats__ellipses" src="/assets/images/08-stats/ellipse-container-b.svg" width="686" height="62" alt="" loading="lazy" decoding="async">
           </div>
@@ -752,7 +752,7 @@
            o diff acusaria −62 falso; o retângulo visual (y 1, 1376/311 × 62) é igual ao da faixa de cima. -->
       <div class="stats__band stats__band--bottom" aria-hidden="true">
         <div class="container">
-          <div class="stats__pattern stats__pattern--flip">
+          <div class="stats__pattern stats__pattern--flip" data-stats-band-end>
             <img class="stats__ellipses stats__ellipses--mirror" src="/assets/images/08-stats/ellipse-container-a.svg" width="686" height="62" alt="" loading="lazy" decoding="async">
             <img class="stats__ellipses" src="/assets/images/08-stats/ellipse-container-b.svg" width="686" height="62" alt="" loading="lazy" decoding="async">
           </div>
@@ -763,17 +763,17 @@
     <!-- Como trabalhamos · 8490:2191 (mobile 8635:2435) -->
     <section class="como-trabalhamos" aria-labelledby="como-trabalhamos-title">
       <div class="como-trabalhamos__inner container">
-        <div class="como-trabalhamos__head section-head">
-          <p class="como-trabalhamos__eyebrow eyebrow">Como trabalhamos</p>
-          <h2 class="como-trabalhamos__title section-title section-title--em-400" id="como-trabalhamos-title">Cinco regras que valem <em>para todo projeto</em></h2>
+        <div class="como-trabalhamos__head section-head" data-reveal-group>
+          <p class="como-trabalhamos__eyebrow eyebrow" data-reveal="fade">Como trabalhamos</p>
+          <h2 data-split="lines" class="como-trabalhamos__title section-title section-title--em-400" id="como-trabalhamos-title">Cinco regras que valem <em>para todo projeto</em></h2>
         </div>
 
         <!-- Frame 84 · 8490:2976 (mobile 8635:2439) — grade das 5 regras + faixa de diagonais -->
         <div class="como-trabalhamos__frame">
-          <ul class="como-trabalhamos__rules">
+          <ul class="como-trabalhamos__rules" data-reveal-group data-stagger="120">
             <li class="como-trabalhamos__rule">
               <!-- Illustration · 8490:2308 — telas isométricas + selo "Validação pendente" -->
-              <div class="como-trabalhamos__illustration" aria-hidden="true" data-rise>
+              <div class="como-trabalhamos__illustration" aria-hidden="true" data-rise data-loop>
                 <img class="como-trabalhamos__base" src="/assets/images/09-como-trabalhamos/base-outline.svg" alt="">
                 <div class="como-trabalhamos__iso como-trabalhamos__iso--top como-trabalhamos__iso--code">
                   <div class="como-trabalhamos__card como-trabalhamos__card--code">
@@ -815,31 +815,31 @@
                   </div>
                 </div>
               </div>
-              <div class="como-trabalhamos__rule-body">
+              <div class="como-trabalhamos__rule-body" data-reveal="up">
                 <h3 class="como-trabalhamos__rule-title">Medimos antes de construir</h3>
                 <p class="como-trabalhamos__rule-text">Amostra com gabarito humano vem antes da primeira linha de código.</p>
               </div>
             </li>
             <li class="como-trabalhamos__rule">
-              <div class="como-trabalhamos__rule-body">
+              <div class="como-trabalhamos__rule-body" data-reveal="up">
                 <h3 class="como-trabalhamos__rule-title">Não tocamos no seu sistema</h3>
                 <p class="como-trabalhamos__rule-text">Sem acesso ao seu banco, sem migração, sem projeto paralelo no seu TI.</p>
               </div>
             </li>
             <li class="como-trabalhamos__rule">
-              <div class="como-trabalhamos__rule-body">
+              <div class="como-trabalhamos__rule-body" data-reveal="up">
                 <h3 class="como-trabalhamos__rule-title">A prova é entregue junto com o produto</h3>
                 <p class="como-trabalhamos__rule-text">O laboratório de teste é módulo do seu sistema, operado por você.</p>
               </div>
             </li>
             <li class="como-trabalhamos__rule">
-              <div class="como-trabalhamos__rule-body">
+              <div class="como-trabalhamos__rule-body" data-reveal="up">
                 <h3 class="como-trabalhamos__rule-title">A ferramenta se adapta ao seu processo</h3>
                 <p class="como-trabalhamos__rule-text">Você não vai mudar como a operação funciona para caber no nosso</p>
               </div>
             </li>
             <li class="como-trabalhamos__rule">
-              <div class="como-trabalhamos__rule-body">
+              <div class="como-trabalhamos__rule-body" data-reveal="up">
                 <h3 class="como-trabalhamos__rule-title">A fase é declarada. POC, MVP ou escala</h3>
                 <p class="como-trabalhamos__rule-text">Você sempre sabe o que está comprando.</p>
               </div>
@@ -847,7 +847,7 @@
           </ul>
 
           <!-- Pattern · 8490:2977 (mobile 8635:2541, passo 12) — 83 diagonais (24 ou 22 de largura) sobrepostas −7,366 -->
-          <div class="como-trabalhamos__pattern" aria-hidden="true">
+          <div class="como-trabalhamos__pattern" aria-hidden="true" data-wipe>
             <span class="como-trabalhamos__stroke"><img src="/assets/images/09-como-trabalhamos/diagonal-24.svg" alt=""></span>
             <span class="como-trabalhamos__stroke"><img src="/assets/images/09-como-trabalhamos/diagonal-24.svg" alt=""></span>
             <span class="como-trabalhamos__stroke"><img src="/assets/images/09-como-trabalhamos/diagonal-24.svg" alt=""></span>
@@ -1206,19 +1206,19 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=1791980106" defer></script>
-  <script src="/assets/js/motion.js?v=1792348449" defer></script>
-  <script src="/assets/js/sections/01-hero.js?v=1791992922" defer></script>
-  <script src="/assets/js/sections/03-nossos-sistemas.js?v=1792340559" defer></script>
-  <script src="/assets/js/sections/03-nossos-sistemas--roteirizacao.js?v=1792008943" defer></script>
-  <script src="/assets/js/sections/04-depoimento.js?v=1792185614" defer></script>
-  <script src="/assets/js/sections/05-como-funciona.js?v=1792191548" defer></script>
-  <script src="/assets/js/sections/06-diagrama.js?v=1791991846" defer></script>
-  <script src="/assets/js/sections/07-estudos.js?v=1792191548" defer></script>
-  <script src="/assets/js/sections/08-stats.js?v=1792191548" defer></script>
-  <script src="/assets/js/sections/09-como-trabalhamos.js?v=1792185615" defer></script>
-  <script src="/assets/js/sections/10-cta.js?v=1791922306" defer></script>
-  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+  <script src="/assets/js/main.js?v=1792179885" defer></script>
+  <script src="/assets/js/motion.js?v=1792352323" defer></script>
+  <script src="/assets/js/sections/01-hero.js?v=1792353327" defer></script>
+  <script src="/assets/js/sections/03-nossos-sistemas.js?v=1792340943" defer></script>
+  <script src="/assets/js/sections/03-nossos-sistemas--roteirizacao.js?v=1792179885" defer></script>
+  <script src="/assets/js/sections/04-depoimento.js?v=1792353327" defer></script>
+  <script src="/assets/js/sections/05-como-funciona.js?v=1792190739" defer></script>
+  <script src="/assets/js/sections/06-diagrama.js?v=1792353922" defer></script>
+  <script src="/assets/js/sections/07-estudos.js?v=1792353327" defer></script>
+  <script src="/assets/js/sections/08-stats.js?v=1792353327" defer></script>
+  <script src="/assets/js/sections/09-como-trabalhamos.js?v=1792353327" defer></script>
+  <script src="/assets/js/sections/10-cta.js?v=1792179885" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1792179885" defer></script>
 
 </body>
 </html>

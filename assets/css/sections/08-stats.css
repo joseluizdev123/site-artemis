@@ -83,6 +83,11 @@
   border: 0;
 }
 
+/* Faixa de baixo (8497:1585): abre do centro (motion.js, data-wipe="out") quando a última contagem termina —
+   o 08-stats.js põe o data-wipe; até lá fica fechada, só com o movimento liberado */
+.motion-on .stats__pattern[data-stats-band-end]:not([data-wipe]) { clip-path: inset(0 50% 0 50%); }
+@media print { .stats__pattern[data-stats-band-end] { clip-path: none !important; } }
+
 /* Legenda (8486:1691): Cabin 18/1.5 gray-300 (.body-lg) */
 .stats__label { width: 100%; text-wrap: pretty; }
 

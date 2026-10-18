@@ -62,4 +62,41 @@
     scroller.addEventListener('pointercancel', end);
     scroller.addEventListener('dragstart', function (e) { e.preventDefault(); }); // imagens das linhas não "descolam"
   });
+
+  /* Ciclo do fluxo (CSS .is-flowing): a cada vez que o diagrama entra na tela (motion:loop-start do data-loop,
+     biblioteca Motion), espera a entrada terminar e toca o processo uma vez (~4,6 s). Fim do tempo do loop com o
+     ciclo tocando: deixa terminar (o ciclo já é curto); saiu da tela: para e volta ao quadro do Figma. */
+  Array.prototype.forEach.call(document.querySelectorAll('.diagrama__chart[data-loop]'), function (chart) {
+    var FLOW_MS = 4600;
+    var timer = 0, wait = 0;
+    var targets = chart.querySelectorAll('[data-reveal],[data-split],[data-wipe]');
+    function entranceDone() {
+      return Array.prototype.every.call(targets, function (t) { return t.classList.contains('is-done'); });
+    }
+    function stop() {
+      clearTimeout(timer);
+      clearTimeout(wait);
+      chart.classList.remove('is-flowing');
+    }
+    function play() {
+      stop();
+      void chart.offsetWidth; // reinicia as animações
+      chart.classList.add('is-flowing');
+      timer = setTimeout(function () { chart.classList.remove('is-flowing'); }, FLOW_MS);
+    }
+    function start(tries) {
+      clearTimeout(wait);
+      if (entranceDone()) { wait = setTimeout(play, 250); return; }
+      if (tries > 50) return; // a entrada não terminou em ~5 s: fica para a próxima entrada na tela
+      wait = setTimeout(function () { start(tries + 1); }, 100);
+    }
+    function inView() {
+      var r = chart.getBoundingClientRect();
+      return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight);
+    }
+    chart.addEventListener('motion:loop-start', function () { start(0); });
+    chart.addEventListener('motion:loop-stop', function () { if (!inView()) stop(); });
+    window.addEventListener('beforeprint', stop);
+    if (chart.classList.contains('is-looping')) start(0); // o loop pode ter ligado antes deste script
+  });
 })();

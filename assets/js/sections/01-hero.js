@@ -3,7 +3,9 @@
   'use strict';
 
   /* Hero pattern (8160:174)
-     - cada traço pisca em loop sutil (fade de opacidade, tempo aleatório)
+     - cada traço pisca em loop sutil (fade de opacidade, tempo aleatório) — só enquanto o data-loop da
+       biblioteca Motion estiver ligado (até 5 s a cada entrada na tela, eventos motion:loop-start/stop);
+       ao parar, cada traço termina o ciclo em que está e fica no quadro do Figma (sem salto)
      - perto do cursor o traço acende por completo, com transição suave */
   var pattern = document.querySelector('[data-dash-pattern]');
   if (!pattern) return;
@@ -35,6 +37,24 @@
       p.style.setProperty('--delay', (-Math.random() * 6).toFixed(2) + 's');
     });
     pattern.classList.add('is-live');
+
+    // Pisca só com o loop ligado; ao parar, cada traço completa o ciclo atual (0% = 100% = opacidade do Figma)
+    var blink = function () {
+      pattern.classList.remove('is-blinking');
+      void pattern.offsetWidth; // reinicia as animações
+      pattern.classList.add('is-blinking');
+    };
+    var settle = function () {
+      if (!pattern.getAnimations) { pattern.classList.remove('is-blinking'); return; }
+      pattern.getAnimations({ subtree: true }).forEach(function (a) {
+        if (a.animationName !== 'dash-blink') return;
+        var it = a.effect.getComputedTiming().currentIteration;
+        a.effect.updateTiming({ iterations: (it == null ? 0 : it) + 1 });
+      });
+    };
+    pattern.addEventListener('motion:loop-start', blink);
+    pattern.addEventListener('motion:loop-stop', settle);
+    if (pattern.classList.contains('is-looping')) blink(); // o loop pode ter ligado antes deste script
 
     var area = pattern.parentElement; // hero__main
     var centers = [];

@@ -9,6 +9,8 @@
      passa um pouco para a esquerda, nunca empurra o sufixo). A largura é medida depois de a Exo
      carregar (document.fonts.ready) — com a fonte reserva sairia menor.
    - Impressão: os que ainda não contaram saem com o valor final.
+   - Faixa de elipses de baixo ([data-stats-band-end]): abre do centro (data-wipe="out" da biblioteca Motion)
+     quando a última contagem termina — até lá o CSS a mantém fechada (só com o movimento liberado).
    Sem JS / prefers-reduced-motion o valor aparece pronto. */
 (function () {
   'use strict';
@@ -73,6 +75,14 @@
     return counters;
   }
 
+  function openBand() {
+    var band = document.querySelector('[data-stats-band-end]');
+    if (!band || band.hasAttribute('data-wipe')) return;
+    band.setAttribute('data-wipe', 'out');
+    if (window.ArtemisMotion) window.ArtemisMotion.refresh(band.parentNode);
+  }
+
+  var all = [];
   // Fim da contagem: volta o texto original, sem as caixas — o mesmo DOM de antes
   function finish(c) {
     if (c.done) return;
@@ -81,6 +91,7 @@
     parent.replaceChild(document.createTextNode(c.raw), c.span);
     parent.removeChild(c.sr);
     parent.normalize();
+    if (all.every(function (x) { return x.done; })) openBand();
   }
 
   function run(c, delay) {
@@ -101,8 +112,8 @@
   }
 
   function start() {
-    var counters = setup();
-    if (!counters.length) return;
+    var counters = all = setup();
+    if (!counters.length) { openBand(); return; }
 
     window.addEventListener('beforeprint', function () { counters.forEach(finish); });
 

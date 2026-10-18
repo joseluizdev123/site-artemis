@@ -152,9 +152,35 @@
       animTimer = setTimeout(clearAnim, 2600);
     }
 
+    /* 1ª entrada: com o movimento liberado (html.motion-on, biblioteca Motion), o estudo ativo espera
+       escondido (.is-pending, mesmo estado inicial da troca) e entra como numa troca quando o carrossel
+       chega na tela; a contagem da troca automática começa aí. Já passou da tela ao carregar: fica pronto. */
+    var pending = null;
+    function revealPending() {
+      if (pending) pending.classList.remove('is-pending');
+      pending = null;
+    }
+    function enterFirst() {
+      if (!pending) return;
+      var card = pending;
+      pending = null;
+      card.style.setProperty('--estudos-dir', 1);
+      card.classList.remove('is-pending');
+      card.classList.add('is-entering');
+      clearTimeout(animTimer);
+      animTimer = setTimeout(clearAnim, 2600);
+    }
+    if (!reduce.matches && document.documentElement.classList.contains('motion-on') &&
+        root.getBoundingClientRect().bottom > 0) {
+      pending = cards[current];
+      pending.classList.add('is-pending');
+      window.addEventListener('beforeprint', revealPending);
+    }
+
     function go(index, dir) {
       index = (index + total) % total;
       if (index === current) return;
+      revealPending();
       animate(cards[current], cards[index], dir || (index > current ? 1 : -1));
       var from = track.offsetHeight;
       var pin = controls && track.getBoundingClientRect().top < headerOffset();
@@ -226,6 +252,7 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         inView = entries[0].isIntersecting;
+        if (inView) enterFirst();
         schedule();
       }, { threshold: 0.35 }).observe(root);
     }

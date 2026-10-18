@@ -12,7 +12,7 @@ $artemis_stats_ellipse_b = artemis_asset( 'images/08-stats/ellipse-container-b.s
 <section class="stats" aria-label="<?php esc_attr_e( 'Resultados em números', 'artemis' ); ?>">
 	<div class="stats__band stats__band--top" aria-hidden="true">
 		<div class="container">
-			<div class="stats__pattern">
+			<div class="stats__pattern" data-wipe="out">
 				<img class="stats__ellipses stats__ellipses--mirror" src="<?php echo esc_url( $artemis_stats_ellipse_a ); ?>" width="686" height="62" alt="" loading="lazy" decoding="async">
 				<img class="stats__ellipses" src="<?php echo esc_url( $artemis_stats_ellipse_b ); ?>" width="686" height="62" alt="" loading="lazy" decoding="async">
 			</div>
@@ -32,7 +32,7 @@ $artemis_stats_ellipse_b = artemis_asset( 'images/08-stats/ellipse-container-b.s
 
 	<div class="stats__band stats__band--bottom" aria-hidden="true">
 		<div class="container">
-			<div class="stats__pattern stats__pattern--flip">
+			<div class="stats__pattern stats__pattern--flip" data-stats-band-end>
 				<img class="stats__ellipses stats__ellipses--mirror" src="<?php echo esc_url( $artemis_stats_ellipse_a ); ?>" width="686" height="62" alt="" loading="lazy" decoding="async">
 				<img class="stats__ellipses" src="<?php echo esc_url( $artemis_stats_ellipse_b ); ?>" width="686" height="62" alt="" loading="lazy" decoding="async">
 			</div>
