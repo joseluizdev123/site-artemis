@@ -25,6 +25,8 @@
 }
 /* Frame 63 · 8355:2015: foto 3:4 + bloco de texto, fundo black-100 */
 .sobre-card { display: flex; flex-direction: column; background: var(--black-100); }
+/* moldura da foto: alvo da cortina (data-wipe="up" data-wipe-zoom) — a foto assenta de 1,06 para 1 dentro dela */
+.sobre-card__media { overflow: hidden; }
 .sobre-card__photo { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
 /* Description Block 8355:2043: p 24 · Text Block 8355:2044: gap 16 — nome Exo 24/1.3 (caixa 31), cargo Cabin 16/1.5 gray-300 */
 .sobre-card__info { padding: 24px; }

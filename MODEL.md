@@ -266,6 +266,18 @@ Decisões (2026-10-16, com o usuário): as duas versões da equipe entram, como 
 
 Validação (2026-10-16): 1440×7855 e 375×10335 = Figma (Δ ≤ 0,03 por bloco); gates das 7 seções com 0 diferenças, salvo larguras de texto ≤ 0,94 px (métrica da fonte). No Figma: "Nome"/"Cargo" e a bio da versão B são provisórios (o estático mantém; o WP usa os dados dos sócios); os cards (A) e as fotos (B) estão em ordens diferentes; no mobile o marcador do item 01 está 67 px mais abaixo que os outros — mantive os três iguais. Retratos 3 e 4 atribuídos a Enzo e Willy por palpite (a confirmar).
 
+Animações (2026-10-18, biblioteca Motion — atributos no partial e no template PHP):
+
+| Seção | Entrada |
+|-------|---------|
+| 1 topo | ao carregar: círculos em pop lento (1,6 s, `sobre-01-hero.css` — a mesma animação vale em `.is-in` e `.is-done`, então segue até o fim depois que o motion.js troca a classe), título por linhas (200 ms), texto sobe (500 ms); na rolagem os círculos descem até 24 px (`data-parallax="0.12"`). Os círculos centralizam com `margin-left: -960px` (não `transform`), para o pop crescer do centro |
+| 2 por que | título por linhas, parágrafos sobem (grupo, +150 ms); foto com cortina para cima + assentamento só se abrir abaixo da dobra (`sobre-02-porque.js` põe o `data-wipe`); visível ao abrir (1440×900: topo em 602; 375: em 402) fica parada |
+| 3 três coisas | título por linhas; lista em grupo a cada 75 ms: número sobe → marcador cresce de cima → título → texto, item a item (~1,7 s) |
+| 4 audita | título por linhas, parágrafos sobem (grupo, +150 ms) |
+| 5 equipe A | título por linhas, texto sobe; cada card é um grupo (+0/120/240/360 ms): foto (`.sobre-card__media`) com cortina para cima e assentamento, nome (+350) e cargo (+450) sobem; nota em fade. Sem hover |
+| 6 equipe B | só título por linhas, texto (+150) e nota sobem; fotos e bio continuam com o `sobre-06-socios.js` |
+| 7 onde | forma em pop; título por linhas, texto (+150) e botão (+250) sobem; mapa com cortina para cima; faixa de traços abre da esquerda (+300) |
+
 ## Contato — mapa (desktop `8348:3835` 1440×2075 · mobile `8693:2761` 375×2934)
 
 Estático: `contato/index.html` (`src/pages.json` → página `contato`). WP: página de slug `contato` → `page-contato.php` → `template-parts/contato/*.php`.
