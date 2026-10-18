@@ -8,7 +8,7 @@
 import { spawn, execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { makeProfile, removeProfile } from './chrome_profile.mjs';
+import { CHROME_FLAGS, makeProfile, removeProfile } from './chrome_profile.mjs';
 
 const [url, widthArg, shotPath, shotHeightArg] = process.argv.slice(2);
 const width = Number(widthArg || 1440);
@@ -21,7 +21,7 @@ if (!CHROME) { console.error('Chrome/Edge não encontrado'); process.exit(2); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const prof = makeProfile('cdp');
 const chrome = spawn(CHROME, [
-  '--headless=new', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check',
+  ...CHROME_FLAGS,
   '--remote-debugging-port=0', '--user-data-dir=' + prof, '--window-size=1440,900', 'about:blank',
 ], { stdio: 'ignore' });
 

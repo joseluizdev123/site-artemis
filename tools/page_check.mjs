@@ -8,7 +8,7 @@
 import { spawn, execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { makeProfile, removeProfile } from './chrome_profile.mjs';
+import { CHROME_FLAGS, makeProfile, removeProfile } from './chrome_profile.mjs';
 
 const url = process.argv[2] || 'http://localhost:5500/';
 const width = Number(process.argv[3] || 1440);
@@ -53,7 +53,7 @@ const FIGMA = MKTOPS ? (mobile
 const CHROME = ['C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'].find(existsSync);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const prof = makeProfile('page');
-const chrome = spawn(CHROME, ['--headless=new', '--hide-scrollbars', '--no-first-run', '--remote-debugging-port=0', '--user-data-dir=' + prof, 'about:blank'], { stdio: 'ignore' });
+const chrome = spawn(CHROME, [...CHROME_FLAGS, '--remote-debugging-port=0', '--user-data-dir=' + prof, 'about:blank'], { stdio: 'ignore' });
 
 try {
   let port;
