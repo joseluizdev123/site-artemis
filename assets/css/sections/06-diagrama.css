@@ -211,8 +211,8 @@
 .diagrama__icon { flex: none; width: 24px; height: 24px; }
 
 /* --------------------------------------------------------------------------
-   Ciclo do fluxo (.is-flowing, assets/js/sections/06-diagrama.js): depois da entrada, a cada vez que o
-   diagrama entra na tela (data-loop da biblioteca Motion), o processo acontece uma vez (~4,6 s):
+   Ciclo do fluxo (.is-flowing, assets/js/sections/06-diagrama.js): depois da entrada e enquanto o diagrama
+   está na tela (data-loop da biblioteca Motion), o processo se repete (~4,6 s por ciclo, pausa de 1,2 s):
    um pulso de luz desce as linhas de POC → MVP → Escala; os cartões acendem na ordem do fluxo (só
    brilho na borda, sem mover nem mudar de tamanho) — 01 → 02 → Ajuste de critério (o ícone dá uma volta)
    → Humano errou (o tracejado anda e a lixeira treme) → 03 → V 1.0 → V 1.1 → V 1.2; os losangos da

@@ -247,7 +247,7 @@
   translate: 0 calc((1 - clamp(0, (var(--p) - 0.8) / 0.2, 1)) * 6px);
 }
 
-/* Depois de montada e só durante o data-loop (.is-floating, JS), as camadas flutuam devagar, cada uma no seu ritmo:
+/* Depois de montada e enquanto está na tela (data-loop, .is-floating, JS), as camadas flutuam devagar, cada uma no seu ritmo:
    a tela e o selo descem um pouco e a camada de código sobe — o vão entre elas "respira".
    Só para dentro da caixa de 190 (a tela e o selo encostam no topo, o código no pé).
    transform não briga com o translate da montagem. */

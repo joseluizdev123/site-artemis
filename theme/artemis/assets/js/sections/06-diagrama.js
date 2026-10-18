@@ -63,13 +63,16 @@
     scroller.addEventListener('dragstart', function (e) { e.preventDefault(); }); // imagens das linhas não "descolam"
   });
 
-  /* Ciclo do fluxo (CSS .is-flowing): a cada vez que o diagrama entra na tela (motion:loop-start do data-loop,
-     biblioteca Motion), espera a entrada terminar e toca o processo uma vez (~4,6 s). Fim do tempo do loop com o
-     ciclo tocando: deixa terminar (o ciclo já é curto); saiu da tela: para e volta ao quadro do Figma. */
+  /* Ciclo do fluxo (CSS .is-flowing): enquanto o diagrama está na tela (data-loop da biblioteca Motion, entre
+     motion:loop-start e motion:loop-stop), espera a entrada terminar e repete o processo sem parar — ~4,6 s de
+     ciclo e uma pausa curta entre um e outro. Fora da tela (ou aba oculta): para e volta ao quadro do Figma; ao
+     voltar, a entrada toca de novo e o ciclo recomeça depois dela. */
   Array.prototype.forEach.call(document.querySelectorAll('.diagrama__chart[data-loop]'), function (chart) {
-    var FLOW_MS = 4600;
+    var FLOW_MS = 4600;   // duração do ciclo (último cartão + losango)
+    var GAP_MS = 1200;    // pausa entre um ciclo e o próximo
     var timer = 0, wait = 0;
     var targets = chart.querySelectorAll('[data-reveal],[data-split],[data-wipe]');
+    function looping() { return chart.classList.contains('is-looping'); }
     function entranceDone() {
       return Array.prototype.every.call(targets, function (t) { return t.classList.contains('is-done'); });
     }
@@ -80,23 +83,23 @@
     }
     function play() {
       stop();
+      if (!looping()) return;
       void chart.offsetWidth; // reinicia as animações
       chart.classList.add('is-flowing');
-      timer = setTimeout(function () { chart.classList.remove('is-flowing'); }, FLOW_MS);
+      timer = setTimeout(function () {
+        chart.classList.remove('is-flowing');
+        if (looping()) wait = setTimeout(play, GAP_MS);
+      }, FLOW_MS);
     }
-    function start(tries) {
+    function start() {
       clearTimeout(wait);
+      if (!looping()) return;
       if (entranceDone()) { wait = setTimeout(play, 250); return; }
-      if (tries > 50) return; // a entrada não terminou em ~5 s: fica para a próxima entrada na tela
-      wait = setTimeout(function () { start(tries + 1); }, 100);
+      wait = setTimeout(start, 150); // a entrada ainda está tocando (ou nem começou): espera
     }
-    function inView() {
-      var r = chart.getBoundingClientRect();
-      return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight);
-    }
-    chart.addEventListener('motion:loop-start', function () { start(0); });
-    chart.addEventListener('motion:loop-stop', function () { if (!inView()) stop(); });
+    chart.addEventListener('motion:loop-start', start);
+    chart.addEventListener('motion:loop-stop', stop);
     window.addEventListener('beforeprint', stop);
-    if (chart.classList.contains('is-looping')) start(0); // o loop pode ter ligado antes deste script
+    if (looping()) start(); // o loop pode ter ligado antes deste script
   });
 })();

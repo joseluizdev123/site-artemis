@@ -154,7 +154,9 @@
 
     /* 1ª entrada: com o movimento liberado (html.motion-on, biblioteca Motion), o estudo ativo espera
        escondido (.is-pending, mesmo estado inicial da troca) e entra como numa troca quando o carrossel
-       chega na tela; a contagem da troca automática começa aí. Já passou da tela ao carregar: fica pronto. */
+       chega na tela; a contagem da troca automática começa aí. Já passou da tela ao carregar: fica pronto.
+       Repete: quando o carrossel sai da tela por inteiro, o estudo ativo volta a esperar escondido (fora da
+       tela, sem piscar) e entra de novo ao voltar. */
     var pending = null;
     function revealPending() {
       if (pending) pending.classList.remove('is-pending');
@@ -170,12 +172,19 @@
       clearTimeout(animTimer);
       animTimer = setTimeout(clearAnim, 2600);
     }
-    if (!reduce.matches && document.documentElement.classList.contains('motion-on') &&
-        root.getBoundingClientRect().bottom > 0) {
+    function motionOn() {
+      return !reduce.matches && document.documentElement.classList.contains('motion-on');
+    }
+    function armPending() {
+      if (pending || !motionOn()) return;
+      clearTimeout(animTimer);
+      clearAnim();
       pending = cards[current];
       pending.classList.add('is-pending');
-      window.addEventListener('beforeprint', revealPending);
     }
+    if (root.getBoundingClientRect().bottom > 0) armPending();
+    window.addEventListener('beforeprint', revealPending);
+    if (reduce.addEventListener) reduce.addEventListener('change', function () { if (reduce.matches) revealPending(); });
 
     function go(index, dir) {
       index = (index + total) % total;
@@ -257,6 +266,7 @@
         var vh = e.rootBounds ? e.rootBounds.height : window.innerHeight;
         inView = e.isIntersecting && (e.intersectionRatio >= 0.35 || e.intersectionRect.height >= vh * 0.35);
         if (inView) enterFirst();
+        else if (!e.isIntersecting) armPending(); // saiu por inteiro: a entrada toca de novo ao voltar
         schedule();
       }, { threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5, 0.75, 1] }).observe(root);
     }

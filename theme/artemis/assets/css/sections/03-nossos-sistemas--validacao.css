@@ -1,10 +1,9 @@
 /* Ilustração "Validação documental" (Figma 8294:509 · celular 8635:2008) — laser verde de leitura
-   ("Analysis illustration" 8294:534) desce e sobe sobre o documento quando o card toca.
-   Percurso: 65 de 135 da altura do laser (fica dentro do documento 8294:523).
-   Duas passadas de 2,5 s: no máximo 5 s a cada vez que o card toca (entrada na tela ou cursor), e termina
-   no quadro do Figma (0% = 100%) — sem loop infinito. */
-.sistemas__card.is-playing .ilu--validacao .ilu__laser {
-  animation: ilu-laser 2.5s ease-in-out 2;
+   ("Analysis illustration" 8294:534) desce e sobe sobre o documento sem parar enquanto o card está na tela
+   (.is-playing ou .is-static — o 03-nossos-sistemas.js tira as duas quando o card sai da tela: volta ao
+   quadro do Figma). Percurso: 65 de 135 da altura do laser (fica dentro do documento 8294:523). */
+.sistemas__card:is(.is-playing, .is-static) .ilu--validacao .ilu__laser {
+  animation: ilu-laser 2.5s ease-in-out infinite;
 }
 @keyframes ilu-laser {
   0%, 100% { transform: translateY(0); }
