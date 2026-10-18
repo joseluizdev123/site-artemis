@@ -139,6 +139,7 @@ Interações pedidas pelo cliente, fora do Figma (2026-10-16). Valem no estátic
 - **Luzes do banner** (`blog-01-hero.js`): o banner tem `data-loop` (Motion). Enquanto o motion.js liga `.is-looping` (até 5 s a cada entrada na tela), correm 30 luzes automáticas (`AUTO`): as 10 do Figma partem da sua posição e 20 acendem em 0,4 s em pontos sorteados das linhas. No fim do loop as automáticas apagam em 0,6 s (`SETTLE`) e as 10 do Figma reacendem no repouso (`.is-back`).
 - **Clique ou toque no banner**, a qualquer momento (ação da pessoa, fora do limite de 5 s): cria uma luz no ponto da linha mais próximo, que corre até o fim da linha e some. Ficam no máximo 24 de uma vez (`CLICK_MAX`) e o banner mostra o cursor de clique (`.is-clickable`).
 - **Movimento reduzido, sem JS ou sem o motion.js**: as 10 luzes do Figma ficam paradas.
+- **Impressão**: no `beforeprint` o banner vai direto ao quadro do Figma, mesmo com o loop ligado. Não espera o `SETTLE`, não reacende e tira as luzes do clique; no CSS de impressão, as `--js` somem.
 - **Hover nos artigos**: só com mouse (`hover: hover`); o foco do teclado tem o mesmo efeito.
   - O card em destaque aumenta 2% (`scale(1.02)`).
   - Os cards das categorias aumentam 4% e ganham fundo `black-100` e borda `gray-800` por cima dos vizinhos.

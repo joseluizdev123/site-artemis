@@ -123,6 +123,11 @@
 /* Fim do loop: as 10 do Figma reacendem nas posições do repouso */
 .blog-hero__light.is-back .blog-hero__pulse:not(.blog-hero__pulse--js) { animation: blog-hero-back .6s ease both; }
 @keyframes blog-hero-back { from { opacity: 0; } }
+/* Impressão: só as 10 do Figma, acesas (o JS já volta ao repouso no beforeprint; isto cobre o resto) */
+@media print {
+  .blog-hero__pulse--js { display: none; }
+  .blog-hero__light.is-back .blog-hero__pulse { animation: none; }
+}
 /* Luzes correndo: clicar no banner cria mais uma; as imagens das linhas não recebem o clique (nem arrastam) */
 .blog-hero__banner.is-clickable { cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; }
 .blog-hero__banner.is-clickable img { pointer-events: none; }

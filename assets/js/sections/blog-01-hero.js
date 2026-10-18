@@ -7,7 +7,7 @@
    - clique (ou toque) no banner, a qualquer momento: nasce uma luz no ponto da linha mais próximo, corre até o fim e
      some (ação da pessoa, fora do limite de 5 s)
    - a geometria vem do mesmo SVG que o <img> exibe (currentSrc: desktop ou mobile), lido sem editar o arquivo
-   - sem JS, sem o motion.js ou com prefers-reduced-motion: luzes paradas nas posições do Figma */
+   - sem JS, sem o motion.js, com prefers-reduced-motion e na impressão: luzes paradas nas posições do Figma */
 (function () {
   'use strict';
 
@@ -198,15 +198,15 @@
     kick();
   }
 
-  /* Repouso do Figma: extras saem, as 10 voltam às posições do CSS e reacendem (.is-back) */
-  function toRest() {
+  /* Repouso do Figma: extras saem, as 10 voltam às posições do CSS e reacendem (.is-back; quiet: sem reacender) */
+  function toRest(quiet) {
     var wasFlowing = auto.length > 0;
     auto.forEach(function (run) { if (run.age != null) run.el.remove(); });
     auto = [];
     settle = -1;
     light.classList.remove('is-flowing');
     pulses.forEach(function (el) { el.style.transform = ''; el.style.opacity = ''; });
-    if (wasFlowing && onScreen()) {
+    if (wasFlowing && !quiet && onScreen()) {
       light.classList.remove('is-back');
       void light.offsetWidth; // reinicia a animação de reacender
       light.classList.add('is-back');
@@ -282,6 +282,14 @@
   });
 
   var onReduce = function () { if (reduce.matches) reset(); else init(); };
+  // Impressão: o quadro do Figma na hora (sem apagar em SETTLE, sem reacender, sem as luzes do clique)
+  window.addEventListener('beforeprint', function () {
+    stop();
+    toRest(true);
+    clicks.forEach(function (run) { run.el.remove(); });
+    clicks = [];
+    light.classList.remove('is-back');
+  });
   if (reduce.addEventListener) reduce.addEventListener('change', onReduce); else if (reduce.addListener) reduce.addListener(onReduce);
 
   // Só anima com o banner na tela
