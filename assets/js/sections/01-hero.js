@@ -38,20 +38,15 @@
     });
     pattern.classList.add('is-live');
 
-    // Pisca só com o loop ligado; ao parar, cada traço completa o ciclo atual (0% = 100% = opacidade do Figma)
+    // Pisca só com o loop ligado (5 s por entrada na tela). Ao parar, a classe sai e a transição de opacidade (.35s) leva
+    // cada traço de volta ao Figma — completar o ciclo passava até 6 s dos 5 s, e um traço aceso pelo cursor depois disso
+    // ganhava uma animação infinita nova
     var blink = function () {
       pattern.classList.remove('is-blinking');
       void pattern.offsetWidth; // reinicia as animações
       pattern.classList.add('is-blinking');
     };
-    var settle = function () {
-      if (!pattern.getAnimations) { pattern.classList.remove('is-blinking'); return; }
-      pattern.getAnimations({ subtree: true }).forEach(function (a) {
-        if (a.animationName !== 'dash-blink') return;
-        var it = a.effect.getComputedTiming().currentIteration;
-        a.effect.updateTiming({ iterations: (it == null ? 0 : it) + 1 });
-      });
-    };
+    var settle = function () { pattern.classList.remove('is-blinking'); };
     pattern.addEventListener('motion:loop-start', blink);
     pattern.addEventListener('motion:loop-stop', settle);
     if (pattern.classList.contains('is-looping')) blink(); // o loop pode ter ligado antes deste script

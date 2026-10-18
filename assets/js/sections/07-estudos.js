@@ -250,11 +250,15 @@
     syncToggle();
 
     if ('IntersectionObserver' in window) {
+      // "Na tela" = 35% do carrossel OU 35% da altura da janela ocupada por ele: com o carrossel mais alto que ~2,9 telas
+      // (celular deitado, zoom de 200%) a razão nunca chegava a 0,35 e o estudo ativo ficava escondido para sempre
       new IntersectionObserver(function (entries) {
-        inView = entries[0].isIntersecting;
+        var e = entries[0];
+        var vh = e.rootBounds ? e.rootBounds.height : window.innerHeight;
+        inView = e.isIntersecting && (e.intersectionRatio >= 0.35 || e.intersectionRect.height >= vh * 0.35);
         if (inView) enterFirst();
         schedule();
-      }, { threshold: 0.35 }).observe(root);
+      }, { threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5, 0.75, 1] }).observe(root);
     }
     document.addEventListener('visibilitychange', function () { schedule(); });
     root.addEventListener('pointerenter', function (e) {
