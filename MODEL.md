@@ -351,9 +351,9 @@ Estático: `mktops/index.html` (`src/pages.json` → página `mktops`, `assets: 
 | # | Seção | Desktop | Mobile | Partial / template | Status |
 |---|-------|---------|--------|--------------------|--------|
 | 0 | Header (o da Home) | `8348:4182` | `8695:4281` | `partials/header.html` | ✅ |
-| 1 | topo: título com trecho cinza, 2 botões, diagrama MktOps (Skills, MCP, Pipelines, Infra → marca; SVG exportado, vertical no mobile) | `8425:3827` (864) | `8695:3271` (1500,08) | `mktops-01-hero` · `01-hero.php` | ✅ |
+| 1 | topo: título com trecho cinza, 2 botões, diagrama MktOps (Skills, MCP, Pipelines, Infra → marca; SVG inline em camadas, vertical no mobile, animado) | `8425:3827` (864) | `8695:3271` (1500,08) | `mktops-01-hero` (+ `mktops-01-diagrama`) · `01-hero.php` (+ `svg/diagrama.php`) | ✅ |
 | 2 | "O problema" + foto | `8425:4174` (966) | `8695:3456` (671) | `mktops-02-problema` · `02-problema.php` | ✅ |
-| 3 | "O que é instalado": 5 itens com arquivo (1 grande + 2×2) e faixa da comunidade com ilustração cortada | `8502:4262` (911) | `8695:3463` (1506) | `mktops-03-instalado` · `03-instalado.php` | ✅ |
+| 3 | "O que é instalado": 5 itens com arquivo (1 grande + 2×2) e faixa da comunidade com ilustração cortada (SVG inline, animada) | `8502:4262` (911) | `8695:3463` (1506) | `mktops-03-instalado` (+ `mktops-03-comunidade`) · `03-instalado.php` (+ `svg/comunidade.php`) | ✅ |
 | 4 | "Os três níveis": Solo / Squad (selo Popular) / Enterprise, 5 linhas cada | `8502:3101` (948) | `8695:3548` (1644) | `mktops-04-niveis` · `04-niveis.php` | ✅ |
 | 5 | "Garantias" (barra de status e traços da chamada da Home, traços em green-300) | `8436:2565` (628) | `8695:3733` (628) | `mktops-05-cta` · `05-cta.php` (+ `10-cta.css/js`) | ✅ |
 | 6 | Footer | `8348:4183` | `8695:4282` | `footer` | ✅ |
@@ -366,9 +366,25 @@ Estático: `mktops/index.html` (`src/pages.json` → página `mktops`, `assets: 
 | O que é instalado | Customizer | `art_mk_inst_title` · `art_mk_item{1..5}` · `art_mk_comunidade` | texto de cada item com {cinza}; o desenho do arquivo (Tools, Brand, DNA, Template, Guide) é fixo pela posição |
 | Planos | Customizer | `art_mk_plano{1..3}_name/_tag/_rows` | nome, selo (vazio esconde), linhas "Rótulo \| Valor" |
 | Garantias | Customizer | `art_mk_cta_note/_title/_bold/_text/_btn/_btn_url` | nota, título, frase em negrito, texto, botão |
-| Imagens | arquivos do tema | `assets/images/mktops` | diagramas (SVG), foto do problema, arquivos, comunidade, desenhos dos planos, traços verdes |
+| Imagens | arquivos do tema | `assets/images/mktops` | padrão do chão do diagrama (`hero-padrao.svg`), foto do problema, arquivos, desenhos dos planos, traços verdes. O diagrama e a ilustração da comunidade são SVG inline: `partials/mktops-01-diagrama.html` e `partials/mktops-03-comunidade.html`, com cópia igual (sem os `data-figma`) em `template-parts/mktops/svg/*.php` — mexeu num, copie no outro |
 
 Validação (2026-10-16): 1440×5137 e 375×7468,08 = Figma (Δ 0 em todos os blocos); gates das 5 seções com 0 diferenças, salvo larguras de texto ≤ 0,95 px (nome dos planos, selo). Template PHP renderizado com o tema = mesmo texto e classes do estático. 768–1023: planos empilhados (em 3 colunas o desenho cobria nome e selo).
+
+### MktOps — animações (pedido do cliente, 2026-10-17 · Motion em 2026-10-18)
+
+Repouso = Figma: sem JS, com `prefers-reduced-motion` e fora dos loops fica o quadro do Figma em todas. Sem efeito de hover: arquivos e planos não são link (o "vem para frente" dos arquivos e dos desenhos dos planos saiu em 2026-10-18 — "Regra de hover"). Loops infinitos viraram `data-loop` (5 s a cada entrada na tela, motion.js).
+
+| Onde | O quê | Como |
+|------|-------|------|
+| Topo — texto | ao carregar: título por linhas, texto sobe (+150 ms), botões sobem (+200/+260 ms), 0,7 s cada → termina em ~1 s | `data-split` / `data-reveal` / `data-reveal-group="up"` com `data-motion-start="load"`; durações em `mktops-01-hero.css` |
+| Topo — diagrama | etiquetas entram uma por vez quando a pasta chega na tela (no carregamento, depois do título). A cada entrada na tela, um ciclo de 5 s (`data-loop` na figura → `motion:loop-start/stop`): luz sai de Skills e de MCP (contorno da pasta acende) → no MktOps o contorno acende e um traço verde contorna a borda (Skills por cima, MCP por baixo; no celular pelas laterais) → luz segue para Pipelines (de Skills) e Infra (de MCP), que acendem na chegada; as pastas flutuam uma vez (vertical no desktop, horizontal no celular) e voltam ao lugar | `mktops-01-hero.css/.js`, `mktops-01-diagrama.html` |
+| O problema | título por linhas, parágrafos sobem, foto abre de baixo para cima e assenta | `data-split`, `data-reveal-group="up"`, `data-wipe="up" data-wipe-zoom` (o `<picture>` é block) |
+| O que é instalado | título por linhas; itens um a um (arquivo em pop, texto sobe); texto da faixa sobe | `data-split`, `data-reveal-group` + `data-reveal="pop"/"up"` |
+| Comunidade | ilustração fixa; a cada entrada na tela (5 s) cada peça tem uma luz verde correndo pelas arestas (cópia `.mk-com__run` de cada path, mesma velocidade, início diferente), que apaga no fim | `data-loop` na faixa; `mktops-03-instalado.css/.js`, `mktops-03-comunidade.html` |
+| Os três níveis | título por linhas (motion.js); quando o plano chega na tela: nome sobe, selo "Popular" em pop, desenho sobe 16 dentro do cabeçalho; depois as linhas — rótulo e valor sobem 10, linha a linha e plano a plano (o fundo não se mexe) | `data-split`; `.is-armed`/`.is-in` em `mktops-04-niveis.css/.js` |
+| Garantias | automático do motion.js (CTA) | — |
+
+Validação (2026-10-18): `motion_check` 1440 e 375 com 0 pendentes, 0 sobras e 0 erros de JS; `diff.py` (movimento reduzido) topo, problema e instalado com 0 diferenças (desktop e mobile), níveis só com as larguras de texto de sempre; `page_check` 1440 e 375 com Δ 0 em todos os blocos.
 
 ## Regra de hover (2026-10-18, pedido do cliente)
 

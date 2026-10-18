@@ -39,9 +39,60 @@
 .mk-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
 .mk-hero__actions .btn { min-width: 170px; justify-content: center; } /* 8425:4106/4107: 170 cada */
 
-/* Main Container 8453:9443: 1184×290 — pastas, linhas, marca e o padrão (cortado embaixo) num SVG só */
-.mk-hero__diagram { margin: 0; width: 100%; max-width: 1184px; }
-.mk-hero__diagram img { width: 100%; height: auto; aspect-ratio: 1184 / 290; }
+/* Main Container 8453:9443: 1184×290 — padrão do chão (cortado embaixo) numa <img> atrás e o diagrama em camadas
+   inline por cima (partials/mktops-01-diagrama.html): .mk-dg--d no desktop, .mk-dg--m (vertical) no celular */
+.mk-hero__diagram { position: relative; margin: 0; width: 100%; max-width: 1184px; }
+.mk-hero__floor { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mk-dg { position: relative; display: block; overflow: visible; }
+.mk-dg--d { width: 100%; height: auto; aspect-ratio: 1184 / 290; }
+.mk-dg--m { display: none; }
+
+/* Entrada ao carregar (motion.js: data-split / data-reveal / data-reveal-group com data-motion-start="load"): título por
+   linhas, texto (+150 ms) e botões (+200 e +260 ms) com 0,7 s em vez de 0,9 s — tudo termina em até 1 s, antes das
+   etiquetas do diagrama */
+.motion-on .mk-hero__title[data-split].is-in .m-w__i,
+.motion-on .mk-hero__article [data-reveal].is-in { animation-duration: .7s; }
+
+/* Diagrama animado (assets/js/sections/mktops-01-hero.js). Repouso (sem JS, movimento reduzido, fora do loop) = quadro do
+   Figma: luzes paradas (.mk-dg__static), etiquetas à vista, pastas paradas. A cada entrada na tela a figura ganha
+   .is-looping por 5 s (data-loop, motion.js) = um ciclo do fluxo: o JS liga .is-running no SVG — as luzes do Figma dão
+   lugar às que correm (.mk-dg__flow) e o JS acende o contorno do núcleo (.mk-dg__glow), o traço que contorna a borda
+   (.mk-dg__trace) e o contorno da pasta na partida/chegada (.mk-dg__hl), por quadro no atributo style */
+.mk-dg__flow { opacity: 0; }
+.mk-dg__static { transition: opacity .4s ease; }
+.mk-dg.is-running .mk-dg__flow { opacity: 1; }
+.mk-dg.is-running .mk-dg__static { opacity: 0; }
+.mk-dg__glow,
+.mk-dg__trace,
+.mk-dg__hl { opacity: 0; }
+.mk-dg__flow,
+.mk-dg__trace { filter: drop-shadow(0 0 3px rgb(168 232 122 / .75)); }
+.mk-dg__hl { filter: drop-shadow(0 0 4px rgb(168 232 122 / .5)); }
+
+/* Pastas: uma flutuada (sobe e volta) por loop, cada uma começando um pouco depois e todas de volta ao lugar em 5 s —
+   no desktop na vertical, no celular na horizontal (a linha encosta na lateral da pasta no desktop e na base/topo no
+   celular: flutuando ao longo da borda ela nunca se solta) */
+@media (prefers-reduced-motion: no-preference) {
+  .mk-hero__diagram.is-looping .mk-dg__folder {
+    transform-box: fill-box;
+    animation: mk-dg-float-y calc(5s - var(--i, 0) * .3s) ease-in-out calc(var(--i, 0) * .3s) both;
+  }
+  .mk-hero__diagram.is-looping .mk-dg--m .mk-dg__folder { animation-name: mk-dg-float-x; }
+}
+@keyframes mk-dg-float-y { 50% { transform: translateY(-6px); } }
+@keyframes mk-dg-float-x { 50% { transform: translateX(5px); } }
+
+/* Etiquetas entram uma por vez quando a pasta chega na tela (.is-in + --delay pelo JS). Só esconde com html.motion-on
+   (ligado no <head> antes da 1ª pintura, só com movimento liberado; some se o motion.js não carregar) */
+.motion-on .mk-dg__label { opacity: 0; transform: translateX(-10px); transform-box: fill-box; }
+.motion-on .mk-dg__folder.is-in .mk-dg__label {
+  opacity: 1;
+  transform: none;
+  transition: opacity .5s ease var(--delay, 0s), transform .7s cubic-bezier(.2, .7, .2, 1) var(--delay, 0s);
+}
+@media print {
+  .mk-dg__label { opacity: 1 !important; transform: none !important; }
+}
 
 @media (max-width: 1023px) {
   .mk-hero__title { font-size: 48px; line-height: 1.1; }
@@ -58,5 +109,7 @@
   .mk-hero__lead { max-width: none; }
   .mk-hero__actions { flex-direction: column; align-self: stretch; }
   .mk-hero__diagram { width: 155.6px; height: 880.08px; }
-  .mk-hero__diagram img { width: 208px; max-width: none; height: 881px; aspect-ratio: auto; margin-left: -18.07px; }
+  .mk-hero__floor,
+  .mk-dg--d { display: none; }
+  .mk-dg--m { display: block; width: 208px; max-width: none; height: 881px; margin-left: -18.07px; }
 }

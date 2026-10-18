@@ -63,7 +63,24 @@
   background: var(--black-100);
 }
 .mk-inst__community .mk-inst__text { width: 485px; max-width: 100%; }
-.mk-inst__illus { position: absolute; top: -29px; right: 33px; width: 232px; height: 232px; }
+.mk-inst__illus { position: absolute; top: -29px; right: 33px; width: 232px; height: 232px; overflow: visible; }
+
+/* Entradas (motion.js): título por linhas; itens um a um (data-reveal-group: arquivo em pop, texto sobe); texto da faixa
+   sobe. Os itens não são link: sem efeito de hover (MODEL.md, "Regra de hover").
+   Comunidade: ilustração fixa na posição do Figma. A cada entrada na tela a faixa ganha .is-looping por 5 s (data-loop):
+   uma luz por peça (cópia de cada path, .mk-com__run, assets/js/sections/mktops-03-instalado.js) corre pelas arestas e
+   apaga no fim. --len = comprimento do path: o padrão tem período = comprimento, então a luz dá a volta sem emenda.
+   Fora do loop, sem JS ou com movimento reduzido: o quadro do Figma (sem luz) */
+.mk-com__run {
+  stroke-width: 1.4;
+  stroke-dasharray: 22px calc(var(--len) - 22px);
+  opacity: 0;
+  transition: opacity .6s ease;
+  animation: mk-com-run var(--dur, 6s) linear var(--delay, 0s) infinite paused;
+  filter: drop-shadow(0 0 2px var(--green-300));
+}
+.mk-inst__community.is-looping .mk-com__run { opacity: 1; animation-play-state: running; }
+@keyframes mk-com-run { to { stroke-dashoffset: calc(-1 * var(--len)); } }
 
 @media (max-width: 1023px) {
   .mk-inst__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

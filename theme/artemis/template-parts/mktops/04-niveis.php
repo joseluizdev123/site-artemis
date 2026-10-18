@@ -14,7 +14,7 @@ $artemis_decos = array(
 ?>
 <section class="mk-niveis" aria-labelledby="mk-niveis-title">
 	<div class="container mk-niveis__inner">
-		<h2 class="section-title" id="mk-niveis-title"><?php echo esc_html( artemis_mod( 'art_mk_niveis_title' ) ); ?></h2>
+		<h2 class="section-title" id="mk-niveis-title" data-split="lines"><?php echo esc_html( artemis_mod( 'art_mk_niveis_title' ) ); ?></h2>
 		<div class="mk-niveis__grid">
 			<?php foreach ( artemis_mk_planos() as $artemis_plano ) : ?>
 				<?php
