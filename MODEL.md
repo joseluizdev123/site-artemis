@@ -73,6 +73,22 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 | 10| call to action       | `8160:1628` | 628    | barra de status (estática) + CTA + traços | ✅    |
 | 11| Footer container     | `8165:2501` | 740    | newsletter, links, contato, redes       | ✅      |
 
+### Home — Motion (biblioteca global, atributos no partial e no template PHP)
+
+| Seção | Entrada |
+|---|---|
+| 01 hero | ao carregar (`data-motion-start="load"`): grupo em `.hero__row` — eyebrow fade → h1 `data-split` (0,65 s por linha, 40 ms entre linhas: termina em ≤ 0,9 s, é o LCP) → lead up → 2 botões up. Logos em fade da esquerda para a direita (grupo em `.clients__grid`, 70 ms; o fade é no logo, não na célula — no tema via `preg_replace` sobre `artemis_cliente_logo()`), faixa do padrão com `data-wipe` |
+| 02 | cabeçalho (eyebrow fade, título split); avatares `data-reveal="pop"` na `<img>` (o `li` tem o tooltip; no tema em `artemis_oqf_avatar()`); parágrafos `data-reveal-group="up"` (120 ms) |
+| 03 | só o cabeçalho (título split, texto up); os cards têm IO próprio |
+| 04 | eyebrow fade, citação split, autor up (+350 ms); globo como estava |
+| 05 | bloco da esquerda (eyebrow fade, título split, parágrafos up) + "Quatro passos:" fade; os passos seguem com a entrada própria |
+| 06 | grupo único na figura (~2,2 s, `data-stagger="0"` + `data-motion-delay`): fases fade 0/100/200 → linhas POC/MVP/Escala `data-wipe="down"` 250/400/550 → cartões up 600–1060, versões 1160+80·i → legenda fade 1500/1600. Só eixo Y (no celular o desenho rola na horizontal) |
+| 07 | cabeçalho (eyebrow fade, título split); a 1ª entrada do estudo ativo (`.is-pending` → `.is-entering`) toca quando o carrossel chega na tela e a contagem de 8 s começa aí |
+| 08 | faixa de cima `data-wipe="out"`; a de baixo (`data-stats-band-end`) ganha o `data-wipe="out"` do 08-stats.js quando a última contagem termina |
+| 09 | cabeçalho padrão; regras up em sequência no `.como-trabalhamos__rule-body` (grupo no `ul`, 120 ms); faixa de diagonais `data-wipe` |
+
+Loops com tempo (`data-loop`, até 5 s por entrada na tela; ao parar, cada animação termina o ciclo e assenta no quadro do Figma, sem salto): traços do hero (`.is-blinking`, 01-hero.js), globo do 04 (gira só no loop e volta suave à orientação inicial), flutuação do 09 (só montada e no loop). Laser do 03: duas passadas de 2,5 s a cada vez que o card toca (entrada ou cursor) — finito, sem `data-loop`.
+
 Página inteira (1440, sem scrollbar): altura 8594 no Figma → 8666 no código (+72 da altura reservada dos estudos, ver seção 7); demais seções Δ ≤ 0,8px. Diferenças restantes = largura de texto por métrica de fonte web (≤ 1,9px) e glifos ~1px mais altos (métrica vertical do Google Fonts).
 
 ## Home mobile — mapa (frame `8635:1583`, 375 × 13162)

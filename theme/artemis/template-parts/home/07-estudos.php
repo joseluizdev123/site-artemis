@@ -14,9 +14,9 @@ $artemis_estudos_total = count( $artemis_estudos );
 ?>
 <section class="estudos" id="estudos" aria-labelledby="estudos-title">
 	<div class="container estudos__inner">
-		<div class="section-head">
-			<p class="eyebrow"><?php echo esc_html( artemis_mod( 'art_estudos_eyebrow' ) ); ?></p>
-			<h2 class="section-title estudos__heading" id="estudos-title"><?php echo artemis_highlight( artemis_mod( 'art_estudos_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
+		<div class="section-head" data-reveal-group>
+			<p class="eyebrow" data-reveal="fade"><?php echo esc_html( artemis_mod( 'art_estudos_eyebrow' ) ); ?></p>
+			<h2 class="section-title estudos__heading" id="estudos-title" data-split="lines"><?php echo artemis_highlight( artemis_mod( 'art_estudos_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
 		</div>
 
 		<div class="estudos__carousel<?php echo 1 === $artemis_estudos_total ? ' is-single' : ''; ?>" role="region" aria-roledescription="<?php esc_attr_e( 'carrossel', 'artemis' ); ?>" aria-label="<?php echo esc_attr( artemis_mod( 'art_estudos_eyebrow' ) ); ?>" style="--estudos-step:1;--estudos-total:<?php echo (int) $artemis_estudos_total; ?>" data-estudos>

@@ -13,12 +13,12 @@ $artemis_caption  = artemis_mod( 'art_sistemas_caption' );
 ?>
 <section class="sistemas" aria-labelledby="sistemas-title">
 	<div class="sistemas__inner container">
-		<div class="sistemas__head">
+		<div class="sistemas__head" data-reveal-group>
 			<div class="sistemas__title-wrap">
-				<h2 class="sistemas__title section-title section-title--em-300" id="sistemas-title"><?php echo artemis_highlight( artemis_mod( 'art_sistemas_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
+				<h2 data-split="lines" class="sistemas__title section-title section-title--em-300" id="sistemas-title"><?php echo artemis_highlight( artemis_mod( 'art_sistemas_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
 			</div>
 			<div class="sistemas__intro">
-				<p class="sistemas__text body-lg"><?php echo esc_html( artemis_mod( 'art_sistemas_text' ) ); ?></p>
+				<p class="sistemas__text body-lg" data-reveal="up"><?php echo esc_html( artemis_mod( 'art_sistemas_text' ) ); ?></p>
 			</div>
 		</div>
 

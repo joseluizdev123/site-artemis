@@ -161,7 +161,7 @@ function artemis_oqf_avatar( $post ) {
 		return '';
 	}
 	return sprintf(
-		'<li class="o-que-fazemos__avatar" tabindex="0"><img src="%s" width="66" height="66" alt=""><span class="o-que-fazemos__name">%s</span></li>',
+		'<li class="o-que-fazemos__avatar" tabindex="0"><img src="%s" width="66" height="66" alt="" data-reveal="pop"><span class="o-que-fazemos__name">%s</span></li>',
 		esc_url( wp_get_attachment_image_url( $thumb, 'thumbnail' ) ),
 		esc_html( get_the_title( $post ) )
 	);

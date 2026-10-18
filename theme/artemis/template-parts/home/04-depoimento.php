@@ -16,19 +16,19 @@ $artemis_dep_empresa = get_post_meta( $artemis_depoimento->ID, '_art_depoimento_
 $artemis_dep_foto    = get_post_thumbnail_id( $artemis_depoimento );
 ?>
 <section class="depoimento" aria-labelledby="depoimento-title">
-	<div class="container depoimento__inner">
-		<div class="depoimento__globe" aria-hidden="true" data-globe="<?php echo esc_url( artemis_asset( 'data/globe-points.json' ) ); ?>">
+	<div class="container depoimento__inner" data-reveal-group>
+		<div class="depoimento__globe" aria-hidden="true" data-loop data-globe="<?php echo esc_url( artemis_asset( 'data/globe-points.json' ) ); ?>">
 			<canvas class="depoimento__globe-canvas" width="935" height="443"></canvas>
 			<noscript><img src="<?php echo esc_url( artemis_asset( 'images/04-depoimento/globe.svg' ) ); ?>" width="935" height="443" alt="" loading="lazy" decoding="async"></noscript>
 		</div>
 
-		<h2 class="eyebrow depoimento__eyebrow" id="depoimento-title"><?php echo esc_html( artemis_mod( 'art_depoimento_eyebrow' ) ); ?></h2>
+		<h2 class="eyebrow depoimento__eyebrow" id="depoimento-title" data-reveal="fade"><?php echo esc_html( artemis_mod( 'art_depoimento_eyebrow' ) ); ?></h2>
 
 		<figure class="depoimento__card">
 			<blockquote class="depoimento__quote">
-				<p class="section-title"><?php echo esc_html( artemis_depoimento_citacao( $artemis_depoimento ) ); ?></p>
+				<p class="section-title" data-split="lines"><?php echo esc_html( artemis_depoimento_citacao( $artemis_depoimento ) ); ?></p>
 			</blockquote>
-			<figcaption class="depoimento__author">
+			<figcaption class="depoimento__author" data-reveal="up" data-motion-delay="350">
 				<?php if ( $artemis_dep_foto ) : ?>
 					<?php /* translators: %s: nome do autor do depoimento. */ ?>
 					<img class="depoimento__avatar" src="<?php echo esc_url( wp_get_attachment_image_url( $artemis_dep_foto, 'thumbnail' ) ); ?>" width="51" height="51" alt="<?php echo esc_attr( sprintf( __( 'Foto de %s', 'artemis' ), $artemis_dep_nome ) ); ?>" loading="lazy">

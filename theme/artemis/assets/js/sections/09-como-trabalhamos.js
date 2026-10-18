@@ -1,7 +1,9 @@
 /* Seção 09 — Como trabalhamos: ilustração que "monta" com o scroll (8490:2308)
    Grava --p (0 → 1) na ilustração conforme ela sobe na tela; o CSS move a camada
    da tela, desenha o tracejado e revela o selo. Suavizado para subir devagar.
-   Na primeira vez que fica montada (p = 1) ganha .is-floating: as camadas passam a flutuar. */
+   Montada (p = 1) e com o data-loop da biblioteca Motion ligado (até 5 s a cada entrada na tela, eventos
+   motion:loop-start/stop), ganha .is-floating: as camadas flutuam. Ao parar, cada camada termina a volta
+   em que está e assenta no quadro do Figma (sem salto). */
 (function () {
   'use strict';
 
@@ -15,9 +17,35 @@
 
   var current = 0, target = 0, raf = 0, visible = false;
 
+  var assembled = false, looping = el.classList.contains('is-looping'), floating = false;
+
+  function startFloat() {
+    if (floating || !assembled || !looping) return;
+    floating = true;
+    el.classList.remove('is-floating');
+    void el.offsetWidth; // reinicia as animações
+    el.classList.add('is-floating');
+  }
+
+  // alternate: a ida é a volta ímpar; terminar num número par de voltas devolve a camada ao 0
+  function stopFloat() {
+    if (!floating) return;
+    floating = false;
+    if (!el.getAnimations) { el.classList.remove('is-floating'); return; }
+    el.getAnimations({ subtree: true }).forEach(function (a) {
+      if (a.animationName !== 'como-trabalhamos-float') return;
+      var it = a.effect.getComputedTiming().currentIteration;
+      if (it == null) { a.cancel(); return; } // ainda no atraso: nem saiu do lugar
+      a.effect.updateTiming({ iterations: Math.ceil((it + 1) / 2) * 2 });
+    });
+  }
+
+  el.addEventListener('motion:loop-start', function () { looping = true; startFloat(); });
+  el.addEventListener('motion:loop-stop', function () { looping = false; stopFloat(); });
+
   function setP() {
     el.style.setProperty('--p', current.toFixed(4));
-    if (current >= 0.999) el.classList.add('is-floating');
+    if (current >= 0.999 && !assembled) { assembled = true; startFloat(); }
   }
 
   function measure() {

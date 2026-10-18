@@ -13,13 +13,13 @@ $artemis_cf_last       = count( $artemis_cf_steps ) - 1;
 <section class="como-funciona" id="como-funciona" aria-labelledby="como-funciona-title">
 	<div class="container">
 		<div class="como-funciona__blocks">
-			<div class="como-funciona__intro">
-				<p class="eyebrow"><?php echo esc_html( artemis_mod( 'art_cf_eyebrow' ) ); ?></p>
+			<div class="como-funciona__intro" data-reveal-group>
+				<p class="eyebrow" data-reveal="fade"><?php echo esc_html( artemis_mod( 'art_cf_eyebrow' ) ); ?></p>
 				<div class="como-funciona__text">
-					<h2 class="section-title section-title--em-400" id="como-funciona-title"><?php echo artemis_highlight( artemis_mod( 'art_cf_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
+					<h2 class="section-title section-title--em-400" id="como-funciona-title" data-split="lines"><?php echo artemis_highlight( artemis_mod( 'art_cf_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
 					<div class="como-funciona__desc">
 						<?php foreach ( $artemis_cf_paragraphs as $artemis_cf_paragraph ) : ?>
-							<p class="body-lg"><?php echo esc_html( $artemis_cf_paragraph ); ?></p>
+							<p class="body-lg" data-reveal="up"><?php echo esc_html( $artemis_cf_paragraph ); ?></p>
 						<?php endforeach; ?>
 					</div>
 				</div>
@@ -27,7 +27,7 @@ $artemis_cf_last       = count( $artemis_cf_steps ) - 1;
 
 			<?php if ( $artemis_cf_steps ) : ?>
 				<div class="como-funciona__main">
-					<p class="eyebrow"><?php echo esc_html( artemis_mod( 'art_cf_steps_eyebrow' ) ); ?></p>
+					<p class="eyebrow" data-reveal="fade"><?php echo esc_html( artemis_mod( 'art_cf_steps_eyebrow' ) ); ?></p>
 					<ol class="como-funciona__steps">
 						<?php foreach ( $artemis_cf_steps as $artemis_cf_index => $artemis_cf_step ) : ?>
 							<li class="como-funciona__step">

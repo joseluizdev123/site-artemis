@@ -4,7 +4,9 @@
    raio), orientação inicial (Atlântico no centro), cor #CECECE, degradê horizontal e tamanho dos pontos.
    - Terra: grade do mapa real (Natural Earth), cada ponto uma vez — sem continentes sobrepostos.
    - Oceano: o resto da grade, bem fraco — o globo nunca fica vazio.
-   - Velocidade variável: sobre o oceano (pouco continente no lado visível) acelera até MAX_BOOST×. */
+   - Velocidade variável: sobre o oceano (pouco continente no lado visível) acelera até MAX_BOOST×.
+   - Gira só com o data-loop da biblioteca Motion ligado (até 5 s a cada entrada na tela, eventos
+     motion:loop-start/stop); ao parar, volta suave à orientação inicial — o quadro do Figma — e para de desenhar. */
 (function () {
   'use strict';
 
@@ -36,7 +38,9 @@
   var mobile = window.matchMedia ? window.matchMedia(MOBILE_MQ) : null;
   var ctx = canvas.getContext('2d');
   var view = null, land = null, sea = null;
-  var visible = false, raf = 0, last = 0, spin = 0, speed = 1; // spin = quanto já girou (°)
+  var looping = false, raf = 0, last = 0, spin = 0, speed = 1; // spin = quanto já girou (°)
+  var settleFrom = null, settleTo = 0, settleT0 = 0;            // volta ao quadro inicial
+  var SETTLE_MS = 1200;
   var landInk = 0, refInk = 0;   // "quanto continente aparece" no quadro atual / no 1º quadro
   var W, H, OX, OY, sized = '';
 
@@ -152,6 +156,14 @@
   function frame() {
     var t = performance.now();
     raf = 0;
+    if (settleFrom !== null) {                  // voltando ao quadro inicial (easeOutCubic)
+      var k = Math.min(1, (t - settleT0) / SETTLE_MS);
+      spin = settleFrom + (settleTo - settleFrom) * (1 - Math.pow(1 - k, 3));
+      draw();
+      if (k < 1) raf = requestAnimationFrame(frame);
+      else { settleFrom = null; spin = 0; speed = 1; last = 0; }
+      return;
+    }
     if (last) {
       var dt = Math.min(t - last, 100);         // salto máx. 100ms ao voltar de aba
       speed += (targetSpeed() - speed) * Math.min(1, dt / 350);
@@ -159,18 +171,26 @@
     }
     last = t;
     draw();
-    if (visible && !reduced) raf = requestAnimationFrame(frame);
+    if (looping && !reduced) raf = requestAnimationFrame(frame);
   }
 
   function start() {
-    if (!land || reduced || raf) return;
+    if (!land || reduced) return;
+    settleFrom = null;
+    if (raf) return;
     last = 0;
     raf = requestAnimationFrame(frame);
   }
 
-  function stop() {
-    if (raf) cancelAnimationFrame(raf);
-    raf = 0;
+  // Fim do loop: volta pelo caminho mais curto até a orientação inicial (múltiplo de 360°)
+  function settle() {
+    if (!land) return;
+    var m = spin % 360;
+    if (Math.abs(m) < 0.01) { spin = 0; return; }
+    settleFrom = m;
+    settleTo = Math.abs(m) > 180 ? (m < 0 ? -360 : 360) : 0;
+    settleT0 = performance.now();
+    if (!raf) raf = requestAnimationFrame(frame);
   }
 
   function redraw() { if (resize() && land) draw(); }
@@ -182,20 +202,15 @@
     else if (mobile.addListener) mobile.addListener(redraw);
   }
 
+  box.addEventListener('motion:loop-start', function () { looping = true; start(); });
+  box.addEventListener('motion:loop-stop', function () { looping = false; settle(); });
+
   fetch(box.getAttribute('data-globe'))
     .then(function (r) { return r.json(); })
     .then(function (data) {
       load(data);
-      draw();
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-          visible = entries[0].isIntersecting;
-          if (visible) start(); else stop();
-        }, { rootMargin: '10% 0px' }).observe(box);
-      } else {
-        visible = true;
-        start();
-      }
+      draw();                                   // quadro do Figma
+      if (box.classList.contains('is-looping')) { looping = true; start(); } // o loop pode ter ligado antes
     })
     .catch(function () { /* sem dados: canvas fica vazio, o resto da seção segue normal */ });
 })();

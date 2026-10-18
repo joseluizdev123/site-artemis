@@ -37,17 +37,17 @@ $artemis_ct_bar = function ( $w ) {
 ?>
 <section class="como-trabalhamos" aria-labelledby="como-trabalhamos-title">
 	<div class="como-trabalhamos__inner container">
-		<div class="como-trabalhamos__head section-head">
-			<p class="como-trabalhamos__eyebrow eyebrow"><?php echo esc_html( artemis_mod( 'art_ct_eyebrow' ) ); ?></p>
-			<h2 class="como-trabalhamos__title section-title section-title--em-400" id="como-trabalhamos-title"><?php echo artemis_highlight( artemis_mod( 'art_ct_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
+		<div class="como-trabalhamos__head section-head" data-reveal-group>
+			<p class="como-trabalhamos__eyebrow eyebrow" data-reveal="fade"><?php echo esc_html( artemis_mod( 'art_ct_eyebrow' ) ); ?></p>
+			<h2 data-split="lines" class="como-trabalhamos__title section-title section-title--em-400" id="como-trabalhamos-title"><?php echo artemis_highlight( artemis_mod( 'art_ct_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
 		</div>
 
 		<div class="como-trabalhamos__frame">
-			<ul class="como-trabalhamos__rules">
+			<ul class="como-trabalhamos__rules" data-reveal-group data-stagger="120">
 				<?php foreach ( artemis_como_trabalhamos_rules() as $artemis_ct_pos => $artemis_ct_rule ) : ?>
 					<li class="como-trabalhamos__rule">
 						<?php if ( 1 === $artemis_ct_pos ) : ?>
-							<div class="como-trabalhamos__illustration" aria-hidden="true" data-rise>
+							<div class="como-trabalhamos__illustration" aria-hidden="true" data-rise data-loop>
 								<img class="como-trabalhamos__base" src="<?php echo esc_url( artemis_como_trabalhamos_img( 'base-outline.svg' ) ); ?>" alt="">
 								<div class="como-trabalhamos__iso como-trabalhamos__iso--top como-trabalhamos__iso--code">
 									<div class="como-trabalhamos__card como-trabalhamos__card--code">
@@ -87,7 +87,7 @@ $artemis_ct_bar = function ( $w ) {
 								</div>
 							</div>
 						<?php endif; ?>
-						<div class="como-trabalhamos__rule-body">
+						<div class="como-trabalhamos__rule-body" data-reveal="up">
 							<h3 class="como-trabalhamos__rule-title"><?php echo esc_html( $artemis_ct_rule[0] ); ?></h3>
 							<p class="como-trabalhamos__rule-text"><?php echo esc_html( $artemis_ct_rule[1] ); ?></p>
 						</div>
@@ -95,7 +95,7 @@ $artemis_ct_bar = function ( $w ) {
 				<?php endforeach; ?>
 			</ul>
 
-			<div class="como-trabalhamos__pattern" aria-hidden="true">
+			<div class="como-trabalhamos__pattern" aria-hidden="true" data-wipe>
 				<?php for ( $artemis_ct_i = 0; $artemis_ct_i < 83; $artemis_ct_i++ ) : ?>
 					<?php if ( in_array( $artemis_ct_i, $artemis_ct_narrow, true ) ) : ?>
 						<span class="como-trabalhamos__stroke como-trabalhamos__stroke--narrow"><img src="<?php echo esc_url( $artemis_ct_slim ); ?>" alt=""></span>

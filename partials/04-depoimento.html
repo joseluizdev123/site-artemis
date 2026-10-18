@@ -1,21 +1,21 @@
 <!-- Depoimento (testmonial) · 8186:1160 · mobile 8635:2302 -->
 <section class="depoimento" aria-labelledby="depoimento-title" data-figma-root data-figma="8186:1160" data-figma-m="8635:2302">
-  <div class="container depoimento__inner">
+  <div class="container depoimento__inner" data-reveal-group>
     <!-- Globo pontilhado · 8229:2131 (935×443, ancorado embaixo à esquerda) · mobile 8635:2311 (800×501,
          ancorado embaixo e centralizado) — gira mostrando o mundo inteiro (canvas + assets/data/globe-land.json);
          sem JS fica o SVG estático do Figma -->
-    <div class="depoimento__globe" aria-hidden="true" data-figma="8229:2131" data-figma-m="8635:2311" data-globe="/assets/data/globe-points.json">
+    <div class="depoimento__globe" aria-hidden="true" data-loop data-figma="8229:2131" data-figma-m="8635:2311" data-globe="/assets/data/globe-points.json">
       <canvas class="depoimento__globe-canvas" width="935" height="443"></canvas>
       <noscript><img src="/assets/images/04-depoimento/globe.svg" width="935" height="443" alt="" loading="lazy" decoding="async"></noscript>
     </div>
 
-    <h2 class="eyebrow depoimento__eyebrow" id="depoimento-title" data-figma="8186:1170" data-figma-m="8635:2303">O que dizem quem já rodou</h2>
+    <h2 class="eyebrow depoimento__eyebrow" data-reveal="fade" id="depoimento-title" data-figma="8186:1170" data-figma-m="8635:2303">O que dizem quem já rodou</h2>
 
     <figure class="depoimento__card" data-figma="8186:1335" data-figma-m="8635:2304">
       <blockquote class="depoimento__quote">
-        <p class="section-title" data-figma="8186:1340" data-figma-m="8635:2305">“Isso aqui está tomando mais decisão do que a nossa engenharia”.</p>
+        <p class="section-title" data-split="lines" data-figma="8186:1340" data-figma-m="8635:2305">“Isso aqui está tomando mais decisão do que a nossa engenharia”.</p>
       </blockquote>
-      <figcaption class="depoimento__author" data-figma="8186:1346" data-figma-m="8635:2306">
+      <figcaption class="depoimento__author" data-reveal="up" data-motion-delay="350" data-figma="8186:1346" data-figma-m="8635:2306">
         <img class="depoimento__avatar" src="/assets/images/04-depoimento/avatar-celso.png" width="51" height="51" alt="Foto de Celso" loading="lazy" data-figma="8186:1342" data-figma-m="8635:2307">
         <div class="depoimento__author-text" data-figma="8186:1351" data-figma-m="8635:2308">
           <p class="depoimento__name" data-figma="8186:1352" data-figma-m="8635:2309"><strong>Celso,</strong> Dono e engenheiro</p>

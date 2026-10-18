@@ -86,7 +86,7 @@
   opacity: var(--o, 1);
   transition: opacity .35s ease, stroke .35s ease;
 }
-.hero__pattern.is-live .hero__dash-row path {
+.hero__pattern.is-live.is-blinking .hero__dash-row path { /* só com o data-loop ligado (01-hero.js) */
   animation: dash-blink var(--d, 4s) ease-in-out var(--delay, 0s) infinite;
 }
 .hero__pattern.is-live .hero__dash-row path.is-lit {
@@ -100,6 +100,13 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__pattern.is-live .hero__dash-row path { animation: none; }
+}
+
+/* Entrada do h1 (motion.js, data-split): é o LCP — termina em até 0,9 s (0,65 s por linha, 40 ms entre linhas;
+   com o atraso de 90 ms do grupo, 5 linhas no celular = 0,9 s) */
+.motion-on .hero__title.is-in .m-w__i {
+  animation-duration: .65s;
+  animation-delay: calc(var(--m-delay, 0ms) + var(--m-line, 0) * 40ms);
 }
 
 /* Logos de clientes (8160:446) */
