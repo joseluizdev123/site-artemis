@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 			</ul>
 			<div class="mk-inst__community" data-loop>
 				<p class="mk-inst__text" data-reveal="up"><?php echo esc_html( artemis_mod( 'art_mk_comunidade' ) ); ?></p>
-				<?php get_template_part( 'template-parts/mktops/svg/comunidade' ); // luz verde nas arestas de cada peça, 5 s a cada entrada na tela (mktops-03-instalado.js). ?>
+				<?php get_template_part( 'template-parts/mktops/svg/comunidade' ); // luz verde nas arestas de cada peça enquanto a faixa está na tela (mktops-03-instalado.js). ?>
 			</div>
 		</div>
 	</div>

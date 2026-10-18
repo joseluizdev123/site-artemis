@@ -1,13 +1,14 @@
 /* MktOps — topo: diagrama animado (partials/mktops-01-diagrama.html · Figma 8453:9443 / mobile 8696:4910).
-   Etiquetas: entram uma por vez quando a pasta chega na tela (CSS: .motion-on + .is-in + --delay); no carregamento
-   esperam a entrada do título e dos botões (até ~1 s).
-   Fluxo de dados — um ciclo de 5 s a cada entrada na tela (data-loop na figura: o motion.js liga .is-looping por 5 s e
-   avisa com motion:loop-start / motion:loop-stop; WCAG 2.2.2):
+   Etiquetas: entram uma por vez quando a pasta chega na tela (CSS: .motion-on + .is-in + --delay); com o título do
+   topo entrando na tela, esperam ele terminar. Quando a pasta sai da tela por inteiro a etiqueta volta ao início (fora
+   da tela, sem piscar) e entra de novo na volta.
+   Fluxo de dados — ciclo de 5 s que se repete enquanto a figura está na tela (data-loop: o motion.js liga .is-looping
+   e avisa com motion:loop-start / motion:loop-stop):
      1. uma luz sai de Skills e outra de MCP (o contorno da pasta acende) e corre pela linha até o MktOps;
      2. no núcleo, o contorno acende e um traço verde dá a volta pela borda (Skills por cima, MCP por baixo no desktop;
         pelas laterais no celular) até o lado de saída;
      3. dali a luz segue para Pipelines (vinda de Skills) e Infra (vinda de MCP), e o contorno da pasta acende na chegada.
-   As pastas flutuam uma vez por loop (só CSS). Fora do loop, sem JS ou com prefers-reduced-motion: o quadro do Figma. */
+   As pastas flutuam enquanto dura o loop (só CSS). Fora do loop, sem JS ou com prefers-reduced-motion: o quadro do Figma. */
 (function () {
   'use strict';
 
@@ -19,7 +20,7 @@
 
   var TRAVEL = 1.5;   // s de uma luz pela linha
   var TRACE = 0.65;   // s do traço contornando o núcleo
-  var PERIOD = 5;     // s do ciclo (= data-loop-max: um ciclo inteiro por entrada na tela)
+  var PERIOD = 5;     // s do ciclo (repete enquanto .is-looping)
   var LAG = 0.3;      // MCP sai um pouco depois de Skills
   var FADE = 0.12;    // fração da viagem em que a luz acende/apaga nas pontas
   var PAIRS = [['skills', 'pipelines', 0], ['mcp', 'infra', LAG]]; // entrada → saída, atraso
@@ -27,11 +28,13 @@
   var svgs = Array.prototype.slice.call(fig.querySelectorAll('svg.mk-dg'));
   if (!svgs.length) return;
 
-  // Etiquetas: cada pasta ganha .is-in ao entrar na tela; as que entram juntas vão em sequência (0,45 s).
-  // Enquanto o título do topo ainda entra (motion.js, ~1 s ao carregar), elas esperam ele terminar (.is-done)
+  // Etiquetas: cada pasta ganha .is-in quando 60% dela está na tela; as que entram juntas vão em sequência (0,45 s).
+  // Se o título do topo está na tela e ainda entrando (motion.js), elas esperam ele terminar (.is-done)
   function afterHeroText(cb) {
     var title = document.querySelector('.mk-hero__title[data-split]');
-    if (!title || title.classList.contains('is-done') || !document.documentElement.classList.contains('motion-on')) { cb(); return; }
+    var r = title && title.getBoundingClientRect();
+    if (!title || title.classList.contains('is-done') || !document.documentElement.classList.contains('motion-on') ||
+        r.bottom <= 0 || r.top >= window.innerHeight) { cb(); return; }
     var fired = false, mo, to;
     function go() { if (fired) return; fired = true; mo.disconnect(); clearTimeout(to); cb(); }
     mo = new MutationObserver(function () { if (title.classList.contains('is-done')) go(); });
@@ -40,13 +43,20 @@
   }
   var nextLabel = 0; // s (performance.now) a partir do qual a próxima etiqueta pode entrar
   var folderIO = new IntersectionObserver(function (entries) {
-    var batch = entries.filter(function (e) { return e.isIntersecting; })
+    entries.forEach(function (e) { // saiu da tela por inteiro: volta ao início para tocar de novo
+      if (e.isIntersecting) return;
+      e.target.__mkQueued = false;
+      e.target.classList.remove('is-in');
+      e.target.style.removeProperty('--delay');
+    });
+    var batch = entries.filter(function (e) { return e.isIntersecting && e.intersectionRatio >= 0.6 && !e.target.__mkQueued; })
       .map(function (e) { return e.target; })
       .sort(function (a, b) { return a.style.getPropertyValue('--i') - b.style.getPropertyValue('--i'); });
-    batch.forEach(function (folder) { folderIO.unobserve(folder); });
     if (!batch.length) return;
+    batch.forEach(function (folder) { folder.__mkQueued = true; });
     afterHeroText(function () {
       batch.forEach(function (folder) {
+        if (!folder.__mkQueued) return; // saiu da tela enquanto esperava
         // fila única: cada etiqueta pelo menos 0,45 s depois da anterior, mesmo que as pastas cheguem em lotes
         var now = performance.now() / 1000, delay = Math.max(0.1, nextLabel - now);
         nextLabel = now + delay + 0.45;
@@ -54,7 +64,7 @@
         folder.classList.add('is-in');
       });
     });
-  }, { threshold: 0.6 });
+  }, { threshold: [0, 0.6] });
   svgs.forEach(function (svg) {
     Array.prototype.forEach.call(svg.querySelectorAll('.mk-dg__folder'), function (f) { folderIO.observe(f); });
   });
@@ -169,10 +179,10 @@
     if (!looping) return;
     var dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
     last = now;
-    clock = Math.min(PERIOD, clock + dt);
+    clock = (clock + dt) % PERIOD;
     var st = active();
     if (st) render(st, clock);
-    if (clock < PERIOD) raf = requestAnimationFrame(frame);
+    raf = requestAnimationFrame(frame);
   }
 
   function start() {
