@@ -257,6 +257,13 @@ Estático: `artemis-seo/index.html` (`src/pages.json` → página `seo`, `assets
 
 Validação (2026-10-16): 1440×3464 e 375×5860 = Figma (Δ ≤ 0,01); gates das 4 seções com 0 diferenças, salvo larguras de texto ≤ 1,06 px; variante SEO’Ops conferida após o clique (título 120, linha 261, SEO’Ops 286, texto 331, "Para quem" 471, barra 560, altura 682). No Figma: o retângulo branco nas imagens das opções é o lugar da tela do produto (mantido); no celular as duas opções usam a mesma pintura (no desktop, cada uma tem a sua) — mantido como está.
 
+Motion (2026-10-18, biblioteca global — MODEL.md › Motion; atributos no partial e no template PHP):
+- topo, ao carregar: `.seo-hero__article` é `data-reveal-group data-motion-start="load"` (h1 `data-split`, texto e os dois botões `up`, em sequência); o navegador `data-reveal="rise"` + `data-motion-start="load"` + `data-motion-delay="300"` (sem fade: candidato a LCP, visível desde o 1º quadro); a pintura do fundo `data-parallax` (padrão 0,12, até 24 px; o `overflow: hidden` da seção corta o que desce).
+- "O problema": `.seo-problema__inner` é grupo — título `data-split`, parágrafos `up`.
+- "Duas formas de contratar": desktop — `.seo-formas__left` é grupo (título `data-split`, as duas `.seo-opt` `up`); `.seo-formas__media` `data-wipe="up"` (uma vez, no contêiner; a troca das imagens e a barra de progresso seguem iguais). O corpo oculto da opção (`hidden`) não tem reveal. Celular — cada `.seo-fm` `up`. Os elementos do layout escondido (`display: none`) ficam prontos na hora (o motion.js os dá como já passados).
+- Validação: `motion_check` 1440 e 375 com 0 pendentes, 0 sobras, sem rolagem lateral e sem erro de JS; `page_check` e `diff.py` iguais aos de antes do motion.
+- Pendente na biblioteca (avisado à sessão mestre): no celular, do carregamento até o status do CTA ser digitado, a página fica com 1399 px de largura — o `.m-sr` (absolute) que o `data-type` cria no `.cta__status-text` não tem ancestral posicionado e escapa do `overflow: clip`. Vale para toda página com o CTA; `[data-type], [data-count] { position: relative; }` no motion.css resolve (testado em headless: 1399 → 375). O `motion_check` não pega porque mede só o fim.
+
 ## MktOps — mapa (desktop `8348:4181` 1440×5137 · mobile `8695:3268` 375×7468,08)
 
 Estático: `mktops/index.html` (`src/pages.json` → página `mktops`, `assets: 10-cta`). WP: página de slug `mktops` → `page-mktops.php` → `template-parts/mktops/*.php`. O link "MktOps" do rodapé aponta para cá.

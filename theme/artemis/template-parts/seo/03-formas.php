@@ -31,10 +31,10 @@ $artemis_body = function ( $o, $class, $id = '', $hidden = false ) {
 ?>
 <section class="seo-formas" aria-labelledby="seo-formas-title">
 	<div class="seo-formas__desk" data-formas data-active="1">
-		<div class="seo-formas__left">
-			<h2 class="section-title seo-formas__title" id="seo-formas-title"><?php echo $artemis_title; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
+		<div class="seo-formas__left" data-reveal-group>
+			<h2 class="section-title seo-formas__title" id="seo-formas-title" data-split="lines"><?php echo $artemis_title; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
 			<?php foreach ( $artemis_opts as $artemis_o ) : ?>
-				<div class="seo-opt seo-opt--<?php echo esc_attr( $artemis_o['cor'] ); ?>" style="--opt:<?php echo (int) $artemis_o['n']; ?>">
+				<div class="seo-opt seo-opt--<?php echo esc_attr( $artemis_o['cor'] ); ?>" style="--opt:<?php echo (int) $artemis_o['n']; ?>" data-reveal="up">
 					<?php if ( $artemis_o['n'] > 1 ) : ?>
 						<span class="seo-opt__bar" aria-hidden="true"><i></i></span>
 					<?php endif; ?>
@@ -51,7 +51,7 @@ $artemis_body = function ( $o, $class, $id = '', $hidden = false ) {
 				</div>
 			<?php endforeach; ?>
 		</div>
-		<div class="seo-formas__media">
+		<div class="seo-formas__media" data-wipe="up">
 			<?php foreach ( $artemis_opts as $artemis_o ) : ?>
 				<figure class="seo-formas__img<?php echo 1 === $artemis_o['n'] ? ' is-active' : ''; ?>" data-opt="<?php echo (int) $artemis_o['n']; ?>">
 					<img src="<?php echo esc_url( artemis_asset( 'images/seo/' . $artemis_o['img'] ) ); ?>" width="1440" height="1364" alt="" loading="lazy" decoding="async">
@@ -64,7 +64,7 @@ $artemis_body = function ( $o, $class, $id = '', $hidden = false ) {
 		<?php
 		list( $artemis_o1, $artemis_o2 ) = $artemis_opts;
 		?>
-		<div class="seo-fm">
+		<div class="seo-fm" data-reveal="up">
 			<div class="seo-fm__text">
 				<h2 class="section-title seo-formas__title"><?php echo $artemis_title; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
 				<div class="seo-opt seo-opt--<?php echo esc_attr( $artemis_o1['cor'] ); ?> is-open">
@@ -74,7 +74,7 @@ $artemis_body = function ( $o, $class, $id = '', $hidden = false ) {
 			</div>
 			<img class="seo-fm__img" src="<?php echo esc_url( artemis_asset( 'images/seo/' . $artemis_o1['mimg'] ) ); ?>" width="750" height="1094" alt="" loading="lazy" decoding="async">
 		</div>
-		<div class="seo-fm">
+		<div class="seo-fm" data-reveal="up">
 			<div class="seo-fm__text">
 				<div class="seo-opt seo-opt--<?php echo esc_attr( $artemis_o1['cor'] ); ?>"><p class="seo-opt__tab"><span class="seo-opt__name"><?php echo esc_html( $artemis_o1['name'] ); ?></span></p></div>
 				<div class="seo-opt seo-opt--<?php echo esc_attr( $artemis_o2['cor'] ); ?> is-open">

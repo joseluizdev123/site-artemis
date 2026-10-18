@@ -9,17 +9,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css?v=1792348249">
-  <link rel="stylesheet" href="/assets/css/motion.css?v=1792348229">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792349876">
+  <link rel="stylesheet" href="/assets/css/motion.css?v=1792349876">
   <!-- Motion: liga html.motion-on antes da 1ª pintura (só com movimento liberado); volta sozinho se o motion.js não carregar -->
   <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
-  <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1791992993">
-  <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792152372">
-  <link rel="stylesheet" href="/assets/css/sections/seo-01-hero.css?v=1792157193">
-  <link rel="stylesheet" href="/assets/css/sections/seo-02-problema.css?v=1792157193">
-  <link rel="stylesheet" href="/assets/css/sections/seo-03-formas.css?v=1792157194">
-  <link rel="stylesheet" href="/assets/css/sections/seo-04-cta.css?v=1792157195">
-  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta.css?v=1792179914">
+  <link rel="stylesheet" href="/assets/css/sections/10-cta--servicos.css?v=1792179914">
+  <link rel="stylesheet" href="/assets/css/sections/seo-01-hero.css?v=1792179914">
+  <link rel="stylesheet" href="/assets/css/sections/seo-02-problema.css?v=1792179914">
+  <link rel="stylesheet" href="/assets/css/sections/seo-03-formas.css?v=1792179914">
+  <link rel="stylesheet" href="/assets/css/sections/seo-04-cta.css?v=1792179914">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1792179914">
 </head>
 <body class="page-seo">
 
@@ -76,25 +76,25 @@
          e o navegador com a resposta de IA citando o site (8409:1710 — ilustração exportada do Figma) -->
     <section class="seo-hero" aria-labelledby="seo-hero-title">
       <!-- Background · 8409:1728 (1440×480, y 603) · Mobile 8704:6453 (375×598, y 639) -->
-      <picture class="seo-hero__bg" aria-hidden="true">
+      <picture class="seo-hero__bg" aria-hidden="true" data-parallax>
         <source media="(max-width: 767px)" srcset="/assets/images/seo/m-hero-fundo.jpg" width="750" height="1196">
         <img src="/assets/images/seo/hero-fundo.jpg" width="2880" height="960" alt="" decoding="async">
       </picture>
       <div class="container seo-hero__inner">
         <!-- Article · 8388:1924 (984, gap 32) · Mobile 8704:6454 -->
-        <div class="seo-hero__article">
+        <div class="seo-hero__article" data-reveal-group data-motion-start="load">
           <div class="seo-hero__heading">
-            <h1 class="seo-hero__title" id="seo-hero-title">Seu cliente parou de pesquisar no Google. <em>Ele pergunta para uma IA.</em></h1>
-            <p class="seo-hero__lead">E a IA responde citando alguém. Trabalhamos para que seja você, no orgânico do Google e dentro do ChatGPT, do Perplexity e dos AI Overviews.</p>
+            <h1 class="seo-hero__title" id="seo-hero-title" data-split="lines">Seu cliente parou de pesquisar no Google. <em>Ele pergunta para uma IA.</em></h1>
+            <p class="seo-hero__lead" data-reveal="up">E a IA responde citando alguém. Trabalhamos para que seja você, no orgânico do Google e dentro do ChatGPT, do Perplexity e dos AI Overviews.</p>
           </div>
           <!-- Container buttons · 8389:1938 (gap 16) · Mobile 8704:6458 (empilhados) -->
           <div class="seo-hero__actions">
-            <a class="btn btn--primary" href="/contato/">Agendar conversa</a>
-            <a class="btn" href="/contato/">Medir minha visibilidade em IA</a>
+            <a class="btn btn--primary" href="/contato/" data-reveal="up">Agendar conversa</a>
+            <a class="btn" href="/contato/" data-reveal="up">Medir minha visibilidade em IA</a>
           </div>
         </div>
         <!-- Main Container · 8409:1710 (906×543,5: barra do Safari, conversa, campo e faixa de traços) · Mobile 8704:6461 (343×669) -->
-        <picture class="seo-hero__mockup">
+        <picture class="seo-hero__mockup" data-reveal="rise" data-motion-start="load" data-motion-delay="300">
           <source media="(max-width: 767px)" srcset="/assets/images/seo/m-mockup.png" width="686" height="1338">
           <img src="/assets/images/seo/mockup.png" width="1814" height="1088" alt="Conversa num assistente de IA: à pergunta “Como reduzir parada não planejada em linha de produção?”, a resposta cita seusite.com.br como fonte, ao lado de concorrentes" decoding="async">
         </picture>
@@ -103,13 +103,13 @@
 
     <!-- Artemis SEO — o problema · 8393:1582 · Mobile 8704:6597 — título à esquerda, texto na coluna de 672 à direita -->
     <section class="seo-problema" aria-labelledby="seo-problema-title">
-      <div class="container seo-problema__inner">
+      <div class="container seo-problema__inner" data-reveal-group>
         <div class="seo-problema__head">
-          <h2 class="section-title" id="seo-problema-title">O problema</h2>
+          <h2 class="section-title" id="seo-problema-title" data-split="lines">O problema</h2>
         </div>
         <div class="seo-problema__text">
-          <p>Quando o comprador B2B pergunta a uma IA quem é a melhor empresa de um segmento, ele não recebe dez links azuis para comparar. Recebe três nomes, com a recomendação já formada.</p>
-          <p>Quem está na primeira página do Google e fora dessas três respostas perdeu a disputa antes de ela começar. E a lógica que coloca uma empresa ali não é a mesma que a coloca no topo da busca clássica.</p>
+          <p data-reveal="up">Quando o comprador B2B pergunta a uma IA quem é a melhor empresa de um segmento, ele não recebe dez links azuis para comparar. Recebe três nomes, com a recomendação já formada.</p>
+          <p data-reveal="up">Quem está na primeira página do Google e fora dessas três respostas perdeu a disputa antes de ela começar. E a lógica que coloca uma empresa ali não é a mesma que a coloca no topo da busca clássica.</p>
         </div>
       </div>
     </section>
@@ -121,9 +121,9 @@
     <section class="seo-formas" aria-labelledby="seo-formas-title">
       <!-- Desktop -->
       <div class="seo-formas__desk" data-formas data-active="1">
-        <div class="seo-formas__left">
-          <h2 class="section-title seo-formas__title" id="seo-formas-title">Duas formas <em>de contratar</em></h2>
-          <div class="seo-opt seo-opt--azul" style="--opt:1">
+        <div class="seo-formas__left" data-reveal-group>
+          <h2 class="section-title seo-formas__title" id="seo-formas-title" data-split="lines">Duas formas <em>de contratar</em></h2>
+          <div class="seo-opt seo-opt--azul" style="--opt:1" data-reveal="up">
             <h3 class="seo-opt__heading"><button class="seo-opt__tab" type="button" id="seo-tab-plataforma" aria-expanded="true" aria-controls="seo-opt-plataforma">
               <span class="seo-opt__name">Plataforma</span>
               <span class="seo-opt__tag">A partir de R$ 997/mês</span>
@@ -139,7 +139,7 @@
               </div>
             </div>
           </div>
-          <div class="seo-opt seo-opt--verde" style="--opt:2">
+          <div class="seo-opt seo-opt--verde" style="--opt:2" data-reveal="up">
             <span class="seo-opt__bar" aria-hidden="true"><i></i></span>
             <h3 class="seo-opt__heading"><button class="seo-opt__tab" type="button" id="seo-tab-seoops" aria-expanded="false" aria-controls="seo-opt-seoops">
               <span class="seo-opt__name">SEO’Ops</span>
@@ -158,7 +158,7 @@
             <span class="seo-opt__bar seo-opt__bar--end" aria-hidden="true"><i></i></span>
           </div>
         </div>
-        <div class="seo-formas__media">
+        <div class="seo-formas__media" data-wipe="up">
           <figure class="seo-formas__img is-active" data-opt="1">
             <img src="/assets/images/seo/formas-plataforma.jpg" width="1440" height="1364" alt="" loading="lazy" decoding="async">
           </figure>
@@ -170,7 +170,7 @@
 
       <!-- Mobile: estado "Plataforma aberta" (8704:7347) e estado "SEO’Ops aberta" (8704:7536) -->
       <div class="seo-formas__mob">
-        <div class="seo-fm">
+        <div class="seo-fm" data-reveal="up">
           <div class="seo-fm__text">
             <h2 class="section-title seo-formas__title">Duas formas <em>de contratar</em></h2>
             <div class="seo-opt seo-opt--azul is-open">
@@ -189,7 +189,7 @@
           </div>
           <img class="seo-fm__img" src="/assets/images/seo/m-formas-plataforma.jpg" width="750" height="1094" alt="" loading="lazy" decoding="async">
         </div>
-        <div class="seo-fm">
+        <div class="seo-fm" data-reveal="up">
           <div class="seo-fm__text">
             <div class="seo-opt seo-opt--azul"><p class="seo-opt__tab"><span class="seo-opt__name">Plataforma</span></p></div>
             <div class="seo-opt seo-opt--verde is-open">
@@ -480,11 +480,11 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=1791980106" defer></script>
-  <script src="/assets/js/motion.js?v=1792348449" defer></script>
-  <script src="/assets/js/sections/10-cta.js?v=1791922306" defer></script>
-  <script src="/assets/js/sections/seo-03-formas.js?v=1792157212" defer></script>
-  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+  <script src="/assets/js/main.js?v=1792179919" defer></script>
+  <script src="/assets/js/motion.js?v=1792349876" defer></script>
+  <script src="/assets/js/sections/10-cta.js?v=1792179919" defer></script>
+  <script src="/assets/js/sections/seo-03-formas.js?v=1792179920" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1792179919" defer></script>
 
 </body>
 </html>
