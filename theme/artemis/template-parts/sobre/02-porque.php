@@ -23,8 +23,8 @@ $artemis_thumb = get_post_thumbnail_id();
 			<?php } ?>
 		</figure>
 		<div class="sobre-split">
-			<h2 class="section-title sobre-porque__title" id="sobre-porque-title"><?php echo artemis_highlight( artemis_mod( 'art_sobre_porque_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
-			<div class="sobre-split__text"><?php echo artemis_sobre_paragraphs( 'art_sobre_porque_text' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_oqf_paragraphs. ?></div>
+			<h2 class="section-title sobre-porque__title" id="sobre-porque-title" data-split="lines"><?php echo artemis_highlight( artemis_mod( 'art_sobre_porque_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
+			<div class="sobre-split__text" data-reveal-group="up" data-motion-delay="150"><?php echo artemis_sobre_paragraphs( 'art_sobre_porque_text' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_oqf_paragraphs. ?></div>
 		</div>
 	</div>
 </section>

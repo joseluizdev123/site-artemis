@@ -17,8 +17,8 @@ $artemis_note = (string) artemis_mod( 'art_sobre_note' );
 	<div class="container sobre-socios__inner">
 		<div class="sobre-socios__list" data-socios>
 			<div class="sobre-socios__intro">
-				<h2 class="section-title sobre-socios__title" id="sobre-socios-title"><?php echo esc_html( artemis_mod( 'art_sobre_socios_title' ) ); ?></h2>
-				<p class="sobre-socios__lead body-lg"><?php echo esc_html( artemis_mod( 'art_sobre_equipe_lead' ) ); ?></p>
+				<h2 class="section-title sobre-socios__title" id="sobre-socios-title" data-split="lines"><?php echo esc_html( artemis_mod( 'art_sobre_socios_title' ) ); ?></h2>
+				<p class="sobre-socios__lead body-lg" data-reveal="up" data-motion-delay="150"><?php echo esc_html( artemis_mod( 'art_sobre_equipe_lead' ) ); ?></p>
 			</div>
 			<div class="sobre-socios__photos">
 				<?php foreach ( $artemis_membros as $artemis_i => $artemis_m ) : ?>
@@ -46,7 +46,7 @@ $artemis_note = (string) artemis_mod( 'art_sobre_note' );
 			</div>
 		</div>
 		<?php if ( '' !== $artemis_note ) : ?>
-			<p class="sobre-note"><?php echo esc_html( $artemis_note ); ?></p>
+			<p class="sobre-note" data-reveal="up"><?php echo esc_html( $artemis_note ); ?></p>
 		<?php endif; ?>
 	</div>
 </section>

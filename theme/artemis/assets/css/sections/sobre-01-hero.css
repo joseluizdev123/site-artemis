@@ -7,6 +7,7 @@
   padding-block: var(--section-py);
   background: var(--black-200);
 }
+/* centralizados por margem (não transform): o pop e o parallax (scale/translate do motion.js) partem do centro */
 .sobre-hero__circles {
   position: absolute;
   top: 0;
@@ -14,9 +15,13 @@
   width: 1920px;
   max-width: none;
   height: 522px;
-  transform: translateX(-50%);
+  margin-left: -960px;
   pointer-events: none;
 }
+/* Entrada ao carregar (data-reveal="pop"): pop lento, 1,6 s. O motion.js troca .is-in por .is-done no tempo do pop
+   padrão; como a mesma animação vale nos dois estados, ela segue sem reiniciar até o fim (escala 1, opacidade 1). */
+.motion-on .sobre-hero .sobre-hero__circles:is(.is-in, .is-done) { animation: sobre-hero-pop 1.6s var(--motion-ease) both; }
+@keyframes sobre-hero-pop { from { opacity: 0; scale: .9; } }
 .sobre-hero__inner { position: relative; }
 
 /* Article 8355:1921: 871 de largura, gap 24, centralizado */

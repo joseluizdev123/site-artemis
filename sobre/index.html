@@ -9,18 +9,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css?v=1792348249">
-  <link rel="stylesheet" href="/assets/css/motion.css?v=1792348229">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792349765">
+  <link rel="stylesheet" href="/assets/css/motion.css?v=1792349765">
   <!-- Motion: liga html.motion-on antes da 1ª pintura (só com movimento liberado); volta sozinho se o motion.js não carregar -->
   <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
-  <link rel="stylesheet" href="/assets/css/sections/sobre-01-hero.css?v=1792153817">
-  <link rel="stylesheet" href="/assets/css/sections/sobre-02-porque.css?v=1792154073">
-  <link rel="stylesheet" href="/assets/css/sections/sobre-03-tres-coisas.css?v=1792153924">
-  <link rel="stylesheet" href="/assets/css/sections/sobre-04-audita.css?v=1792153924">
-  <link rel="stylesheet" href="/assets/css/sections/sobre-05-equipe.css?v=1792154154">
-  <link rel="stylesheet" href="/assets/css/sections/sobre-06-socios.css?v=1792154073">
-  <link rel="stylesheet" href="/assets/css/sections/sobre-07-onde.css?v=1792154074">
-  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+  <link rel="stylesheet" href="/assets/css/sections/sobre-01-hero.css?v=1792351119">
+  <link rel="stylesheet" href="/assets/css/sections/sobre-02-porque.css?v=1792179905">
+  <link rel="stylesheet" href="/assets/css/sections/sobre-03-tres-coisas.css?v=1792179905">
+  <link rel="stylesheet" href="/assets/css/sections/sobre-04-audita.css?v=1792179905">
+  <link rel="stylesheet" href="/assets/css/sections/sobre-05-equipe.css?v=1792351120">
+  <link rel="stylesheet" href="/assets/css/sections/sobre-06-socios.css?v=1792179905">
+  <link rel="stylesheet" href="/assets/css/sections/sobre-07-onde.css?v=1792179905">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1792179905">
 </head>
 <body class="page-sobre">
 
@@ -76,12 +76,12 @@
     <!-- Sobre — topo · 8355:1920 · Mobile 8689:1935 — título centralizado com trecho em cinza, texto e círculos concêntricos ao fundo (8497:2207) -->
     <section class="sobre-hero" aria-labelledby="sobre-hero-title">
       <!-- Pattern · 8497:2207 (1920×522, centralizado) · Mobile 8689:1940 (y −30) -->
-      <img class="sobre-hero__circles" src="/assets/images/sobre/circulos.svg" width="1920" height="522" alt="" aria-hidden="true">
+      <img class="sobre-hero__circles" src="/assets/images/sobre/circulos.svg" width="1920" height="522" alt="" aria-hidden="true" data-reveal="pop" data-motion-start="load" data-parallax="0.12" data-parallax-max="24">
       <div class="container sobre-hero__inner">
         <!-- Article · 8355:1921 (871, gap 24) · Mobile 8689:1936 (gap 16) -->
         <div class="sobre-hero__article">
-          <h1 class="sobre-hero__title" id="sobre-hero-title">Uma empresa que automatiza a própria operação <em>antes de automatizar a sua.</em></h1>
-          <p class="sobre-hero__lead">Artemis. Inteligência artificial e automações para indústria, construção e operação B2B.</p>
+          <h1 class="sobre-hero__title" id="sobre-hero-title" data-split="lines" data-motion-start="load" data-motion-delay="200">Uma empresa que automatiza a própria operação <em>antes de automatizar a sua.</em></h1>
+          <p class="sobre-hero__lead" data-reveal="up" data-motion-start="load" data-motion-delay="500">Artemis. Inteligência artificial e automações para indústria, construção e operação B2B.</p>
         </div>
       </div>
     </section>
@@ -98,8 +98,8 @@
         </figure>
         <!-- Container · 8497:2218 (título à esquerda, texto na coluna da direita) · Mobile 8689:1953 (empilhados, gap 16) -->
         <div class="sobre-split">
-          <h2 class="section-title sobre-porque__title" id="sobre-porque-title">Por que <em>existimos</em></h2>
-          <div class="sobre-split__text">
+          <h2 class="section-title sobre-porque__title" id="sobre-porque-title" data-split="lines">Por que <em>existimos</em></h2>
+          <div class="sobre-split__text" data-reveal-group="up" data-motion-delay="150">
             <p>A maior parte do que se vende como inteligência artificial hoje é uma de duas coisas: uma licença de software que promete resolver um problema genérico, ou um projeto de consultoria que termina em apresentação.</p>
             <p>Existe um espaço entre os dois. É onde mora a decisão técnica que a sua operação toma dezenas de vezes por dia, importante demais para um software de prateleira e específica demais para caber num projeto de escopo fechado. É nesse espaço que trabalhamos.</p>
           </div>
@@ -112,31 +112,31 @@
       <!-- Step blocks · 8355:1947 (gap 32) · Mobile 8689:1957 (empilhado, gap 16) -->
       <div class="container">
       <div class="sobre-tres__inner">
-        <h2 class="section-title sobre-tres__title" id="sobre-tres-title">Três coisas que se repetem <em>em todo projeto</em></h2>
+        <h2 class="section-title sobre-tres__title" id="sobre-tres-title" data-split="lines">Três coisas que se repetem <em>em todo projeto</em></h2>
         <!-- Section · 8355:1955 (672, gap 24) · Mobile 8689:1961 -->
-        <ol class="sobre-tres__list">
+        <ol class="sobre-tres__list" data-reveal-group data-stagger="75">
           <li class="sobre-tres__item">
-            <span class="sobre-tres__num">01</span>
-            <img class="sobre-tres__mark" src="/assets/images/sobre/marcador.svg" width="4" height="48" alt="">
+            <span class="sobre-tres__num" data-reveal="up">01</span>
+            <img class="sobre-tres__mark" src="/assets/images/sobre/marcador.svg" width="4" height="48" alt="" data-reveal="grow-y" data-origin="top">
             <div class="sobre-tres__text">
-              <h3 class="sobre-tres__item-title">A regra nunca estava escrita</h3>
-              <p class="sobre-tres__item-text">Na Gascat, a descrição das peças era cabeça das pessoas, não existia em lugar nenhum. Na Athie, os critérios de validação estavam num prompt monolítico que ninguém tinha decomposto. Reconhecer duto rígido de flexível numa planta era olho de engenheiro. O trabalho real está aí.</p>
+              <h3 class="sobre-tres__item-title" data-reveal="up">A regra nunca estava escrita</h3>
+              <p class="sobre-tres__item-text" data-reveal="up">Na Gascat, a descrição das peças era cabeça das pessoas, não existia em lugar nenhum. Na Athie, os critérios de validação estavam num prompt monolítico que ninguém tinha decomposto. Reconhecer duto rígido de flexível numa planta era olho de engenheiro. O trabalho real está aí.</p>
             </div>
           </li>
           <li class="sobre-tres__item">
-            <span class="sobre-tres__num">02</span>
-            <img class="sobre-tres__mark" src="/assets/images/sobre/marcador.svg" width="4" height="48" alt="">
+            <span class="sobre-tres__num" data-reveal="up">02</span>
+            <img class="sobre-tres__mark" src="/assets/images/sobre/marcador.svg" width="4" height="48" alt="" data-reveal="grow-y" data-origin="top">
             <div class="sobre-tres__text">
-              <h3 class="sobre-tres__item-title">O erro já tem preço</h3>
-              <p class="sobre-tres__item-text">Não entramos por produtividade abstrata. Entramos onde o erro tem número: R$ 12 milhões de estoque parado, R$ 40 mil por mês de retrabalho, uma válvula voltando de navio. Se ninguém consegue dizer quanto custa o erro, o projeto ainda não está pronto para começar.</p>
+              <h3 class="sobre-tres__item-title" data-reveal="up">O erro já tem preço</h3>
+              <p class="sobre-tres__item-text" data-reveal="up">Não entramos por produtividade abstrata. Entramos onde o erro tem número: R$ 12 milhões de estoque parado, R$ 40 mil por mês de retrabalho, uma válvula voltando de navio. Se ninguém consegue dizer quanto custa o erro, o projeto ainda não está pronto para começar.</p>
             </div>
           </li>
           <li class="sobre-tres__item">
-            <span class="sobre-tres__num">03</span>
-            <img class="sobre-tres__mark" src="/assets/images/sobre/marcador.svg" width="4" height="48" alt="">
+            <span class="sobre-tres__num" data-reveal="up">03</span>
+            <img class="sobre-tres__mark" src="/assets/images/sobre/marcador.svg" width="4" height="48" alt="" data-reveal="grow-y" data-origin="top">
             <div class="sobre-tres__text">
-              <h3 class="sobre-tres__item-title">O pedido inicial nunca é o problema</h3>
-              <p class="sobre-tres__item-text">Um cliente pediu para implementar uma ferramenta de automação e recebeu dois sistemas de decisão. Outro pediu para diminuir estoque e descobriu que o problema era codificação na origem. Um terceiro pediu para automatizar uma planilha e saiu com a roteirização inteira redesenhada. O pedido é sintoma. O diagnóstico encontra a causa.</p>
+              <h3 class="sobre-tres__item-title" data-reveal="up">O pedido inicial nunca é o problema</h3>
+              <p class="sobre-tres__item-text" data-reveal="up">Um cliente pediu para implementar uma ferramenta de automação e recebeu dois sistemas de decisão. Outro pediu para diminuir estoque e descobriu que o problema era codificação na origem. Um terceiro pediu para automatizar uma planilha e saiu com a roteirização inteira redesenhada. O pedido é sintoma. O diagnóstico encontra a causa.</p>
             </div>
           </li>
         </ol>
@@ -149,9 +149,9 @@
       <div class="container sobre-split sobre-audita__inner">
         <!-- Container · 8355:1997 (672) · Mobile 8689:1993 -->
         <div class="sobre-audita__head">
-          <h2 class="section-title sobre-audita__title" id="sobre-audita-title">O sistema audita a sua <em>operação de graça</em></h2>
+          <h2 class="section-title sobre-audita__title" id="sobre-audita-title" data-split="lines">O sistema audita a sua <em>operação de graça</em></h2>
         </div>
-        <div class="sobre-split__text">
+        <div class="sobre-split__text" data-reveal-group="up" data-motion-delay="150">
           <p>Quando a IA erra com confiança alta, quase sempre não foi ela. Foi o humano supondo algo que não estava escrito na especificação.</p>
           <p>Na Gascat, esses casos viraram correção de processo. Na Athie, a empresa criou um playbook interno obrigando projetistas terceirizados a marcar dimensão em todos os dutos. Ninguém pediu; ela decidiu sozinha depois de ver o que o sistema apontava.</p>
           <p>Isso normalmente é entregável de consultoria de processo. Aqui sai como consequência.</p>
@@ -165,49 +165,49 @@
       <div class="container sobre-equipe__inner">
         <!-- Frame 59 · 8355:2005 (título | texto) · Mobile 8689:1997 (empilhados, gap 24) -->
         <div class="sobre-equipe__head">
-          <div class="sobre-equipe__title-box"><h2 class="section-title sobre-equipe__title" id="sobre-equipe-title">Quem está <em>por trás</em></h2></div>
-          <p class="sobre-equipe__lead body-lg">Fundada por Hélio Costa Jr. em Florianópolis, com sócios que operam as áreas de engenharia, delivery e comercial.</p>
+          <div class="sobre-equipe__title-box"><h2 class="section-title sobre-equipe__title" id="sobre-equipe-title" data-split="lines">Quem está <em>por trás</em></h2></div>
+          <p class="sobre-equipe__lead body-lg" data-reveal="up" data-motion-delay="150">Fundada por Hélio Costa Jr. em Florianópolis, com sócios que operam as áreas de engenharia, delivery e comercial.</p>
         </div>
         <!-- Frame 60 · 8355:2008 (4 × 320, gap 32) · Mobile 8689:2001 (empilhados, gap 32) -->
         <ul class="sobre-equipe__grid">
-          <li class="sobre-card">
-            <img class="sobre-card__photo" src="/assets/images/sobre/socio-1.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async">
+          <li class="sobre-card" data-reveal-group data-stagger="0" data-motion-delay="0">
+            <div class="sobre-card__media" data-wipe="up" data-wipe-zoom><img class="sobre-card__photo" src="/assets/images/sobre/socio-1.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></div>
             <div class="sobre-card__info">
               <div class="sobre-card__text">
-                <h3 class="sobre-card__name">Nome</h3>
-                <p class="sobre-card__role">Cargo</p>
+                <h3 class="sobre-card__name" data-reveal="up" data-motion-delay="350">Nome</h3>
+                <p class="sobre-card__role" data-reveal="up" data-motion-delay="450">Cargo</p>
               </div>
             </div>
           </li>
-          <li class="sobre-card">
-            <img class="sobre-card__photo" src="/assets/images/sobre/socio-2.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async">
+          <li class="sobre-card" data-reveal-group data-stagger="0" data-motion-delay="120">
+            <div class="sobre-card__media" data-wipe="up" data-wipe-zoom><img class="sobre-card__photo" src="/assets/images/sobre/socio-2.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></div>
             <div class="sobre-card__info">
               <div class="sobre-card__text">
-                <h3 class="sobre-card__name">Nome</h3>
-                <p class="sobre-card__role">Cargo</p>
+                <h3 class="sobre-card__name" data-reveal="up" data-motion-delay="350">Nome</h3>
+                <p class="sobre-card__role" data-reveal="up" data-motion-delay="450">Cargo</p>
               </div>
             </div>
           </li>
-          <li class="sobre-card">
-            <img class="sobre-card__photo" src="/assets/images/sobre/socio-4.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async">
+          <li class="sobre-card" data-reveal-group data-stagger="0" data-motion-delay="240">
+            <div class="sobre-card__media" data-wipe="up" data-wipe-zoom><img class="sobre-card__photo" src="/assets/images/sobre/socio-4.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></div>
             <div class="sobre-card__info">
               <div class="sobre-card__text">
-                <h3 class="sobre-card__name">Nome</h3>
-                <p class="sobre-card__role">Cargo</p>
+                <h3 class="sobre-card__name" data-reveal="up" data-motion-delay="350">Nome</h3>
+                <p class="sobre-card__role" data-reveal="up" data-motion-delay="450">Cargo</p>
               </div>
             </div>
           </li>
-          <li class="sobre-card">
-            <img class="sobre-card__photo" src="/assets/images/sobre/socio-3.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async">
+          <li class="sobre-card" data-reveal-group data-stagger="0" data-motion-delay="360">
+            <div class="sobre-card__media" data-wipe="up" data-wipe-zoom><img class="sobre-card__photo" src="/assets/images/sobre/socio-3.jpg" width="811" height="1081" alt="" loading="lazy" decoding="async"></div>
             <div class="sobre-card__info">
               <div class="sobre-card__text">
-                <h3 class="sobre-card__name">Nome</h3>
-                <p class="sobre-card__role">Cargo</p>
+                <h3 class="sobre-card__name" data-reveal="up" data-motion-delay="350">Nome</h3>
+                <p class="sobre-card__role" data-reveal="up" data-motion-delay="450">Cargo</p>
               </div>
             </div>
           </li>
         </ul>
-        <p class="sobre-note">A empresa opera outras duas linhas, com públicos e problemas diferentes: Artemis SEO, para captação orgânica, e MktOps, que instala capacidade de marketing com IA dentro do cliente.</p>
+        <p class="sobre-note" data-reveal="fade">A empresa opera outras duas linhas, com públicos e problemas diferentes: Artemis SEO, para captação orgânica, e MktOps, que instala capacidade de marketing com IA dentro do cliente.</p>
       </div>
     </section>
 
@@ -220,8 +220,8 @@
         <!-- Team Members List · 8355:3490 (3 colunas de 405,33, gap 80) · Mobile 8689:2028 -->
         <div class="sobre-socios__list" data-socios>
           <div class="sobre-socios__intro">
-            <h2 class="section-title sobre-socios__title" id="sobre-socios-title">Quem está por trás</h2>
-            <p class="sobre-socios__lead body-lg">Fundada por Hélio Costa Jr. em Florianópolis, com sócios que operam as áreas de engenharia, delivery e comercial.</p>
+            <h2 class="section-title sobre-socios__title" id="sobre-socios-title" data-split="lines">Quem está por trás</h2>
+            <p class="sobre-socios__lead body-lg" data-reveal="up" data-motion-delay="150">Fundada por Hélio Costa Jr. em Florianópolis, com sócios que operam as áreas de engenharia, delivery e comercial.</p>
           </div>
           <!-- Team Member · 8355:3491 (fotos 405,33×540,44, gap 32) -->
           <div class="sobre-socios__photos">
@@ -274,7 +274,7 @@
             </article>
           </div>
         </div>
-        <p class="sobre-note">A empresa opera outras duas linhas, com públicos e problemas diferentes: Artemis SEO, para captação orgânica, e MktOps, que instala capacidade de marketing com IA dentro do cliente.</p>
+        <p class="sobre-note" data-reveal="up">A empresa opera outras duas linhas, com públicos e problemas diferentes: Artemis SEO, para captação orgânica, e MktOps, que instala capacidade de marketing com IA dentro do cliente.</p>
       </div>
     </section>
 
@@ -283,17 +283,17 @@
       <div class="container sobre-onde__inner">
         <!-- Container · 8374:1798 (texto | botão) · Mobile 8689:2044 (empilhados, gap 32) -->
         <div class="sobre-onde__head">
-          <img class="sobre-onde__shape" src="/assets/images/sobre/forma.svg" width="270" height="270" alt="" aria-hidden="true">
+          <img class="sobre-onde__shape" src="/assets/images/sobre/forma.svg" width="270" height="270" alt="" aria-hidden="true" data-reveal="pop">
           <div class="sobre-onde__text">
-            <h2 class="section-title sobre-onde__title" id="sobre-onde-title">Onde estamos</h2>
-            <p class="body-lg">R. Fúlvio Aducci, 416 — Florianópolis, SC. Atendimento remoto em todo o Brasil, presencial quando o diagnóstico exigir.</p>
+            <h2 class="section-title sobre-onde__title" id="sobre-onde-title" data-split="lines">Onde estamos</h2>
+            <p class="body-lg" data-reveal="up" data-motion-delay="150">R. Fúlvio Aducci, 416 — Florianópolis, SC. Atendimento remoto em todo o Brasil, presencial quando o diagnóstico exigir.</p>
           </div>
-          <a class="btn btn--primary sobre-onde__cta" href="/contato">Falar com a gente</a>
+          <a class="btn btn--primary sobre-onde__cta" data-reveal="up" data-motion-delay="250" href="/contato">Falar com a gente</a>
         </div>
         <!-- Container · 8374:1889 (stroke 1px): mapa 300 + faixa de traços 64 · Mobile 8689:2051 (faixa 32) -->
         <div class="sobre-onde__map">
-          <iframe class="sobre-onde__frame" src="https://www.google.com/maps?q=R.%20F%C3%BAlvio%20Aducci%2C%20416%20-%20Florian%C3%B3polis%2C%20SC&amp;z=17&amp;output=embed" width="1374" height="300" title="Mapa: R. Fúlvio Aducci, 416 — Florianópolis, SC" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-          <div class="sobre-onde__pattern" aria-hidden="true">
+          <iframe class="sobre-onde__frame" src="https://www.google.com/maps?q=R.%20F%C3%BAlvio%20Aducci%2C%20416%20-%20Florian%C3%B3polis%2C%20SC&amp;z=17&amp;output=embed" width="1374" height="300" title="Mapa: R. Fúlvio Aducci, 416 — Florianópolis, SC" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen data-wipe="up"></iframe>
+          <div class="sobre-onde__pattern" aria-hidden="true" data-wipe data-motion-delay="300">
             <picture>
               <source media="(max-width: 767px)" srcset="/assets/images/sobre/m-pattern.svg" width="341" height="32">
               <img src="/assets/images/sobre/pattern.svg" width="1375" height="65" alt="" loading="lazy" decoding="async">
@@ -474,10 +474,11 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=1791980106" defer></script>
-  <script src="/assets/js/motion.js?v=1792348449" defer></script>
-  <script src="/assets/js/sections/sobre-06-socios.js?v=1792154083" defer></script>
-  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+  <script src="/assets/js/main.js?v=1792179909" defer></script>
+  <script src="/assets/js/motion.js?v=1792349765" defer></script>
+  <script src="/assets/js/sections/sobre-02-porque.js?v=1792351133" defer></script>
+  <script src="/assets/js/sections/sobre-06-socios.js?v=1792179909" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1792179909" defer></script>
 
 </body>
 </html>

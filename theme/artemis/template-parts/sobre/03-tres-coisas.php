@@ -17,15 +17,15 @@ for ( $artemis_i = 1; $artemis_i <= 3; $artemis_i++ ) {
 <section class="sobre-tres" aria-labelledby="sobre-tres-title">
 	<div class="container">
 		<div class="sobre-tres__inner">
-			<h2 class="section-title sobre-tres__title" id="sobre-tres-title"><?php echo artemis_highlight( artemis_mod( 'art_sobre_tres_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
-			<ol class="sobre-tres__list">
+			<h2 class="section-title sobre-tres__title" id="sobre-tres-title" data-split="lines"><?php echo artemis_highlight( artemis_mod( 'art_sobre_tres_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h2>
+			<ol class="sobre-tres__list" data-reveal-group data-stagger="75">
 				<?php foreach ( $artemis_items as $artemis_n => $artemis_item ) : ?>
 					<li class="sobre-tres__item">
-						<span class="sobre-tres__num"><?php echo esc_html( sprintf( '%02d', $artemis_n + 1 ) ); ?></span>
-						<img class="sobre-tres__mark" src="<?php echo esc_url( artemis_asset( 'images/sobre/marcador.svg' ) ); ?>" width="4" height="48" alt="">
+						<span class="sobre-tres__num" data-reveal="up"><?php echo esc_html( sprintf( '%02d', $artemis_n + 1 ) ); ?></span>
+						<img class="sobre-tres__mark" src="<?php echo esc_url( artemis_asset( 'images/sobre/marcador.svg' ) ); ?>" width="4" height="48" alt="" data-reveal="grow-y" data-origin="top">
 						<div class="sobre-tres__text">
-							<h3 class="sobre-tres__item-title"><?php echo esc_html( $artemis_item[0] ); ?></h3>
-							<p class="sobre-tres__item-text"><?php echo esc_html( $artemis_item[1] ); ?></p>
+							<h3 class="sobre-tres__item-title" data-reveal="up"><?php echo esc_html( $artemis_item[0] ); ?></h3>
+							<p class="sobre-tres__item-text" data-reveal="up"><?php echo esc_html( $artemis_item[1] ); ?></p>
 						</div>
 					</li>
 				<?php endforeach; ?>
