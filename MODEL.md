@@ -234,6 +234,21 @@ Estático: `contato/index.html` (`src/pages.json` → página `contato`). WP: p�
 
 Validação (2026-10-16): 1440×2075 e 375×2934 = Figma com Δ 0 em todos os blocos; gates das 2 seções com 0 diferenças. A ilustração é a imagem como o Figma a renderiza (a pintura esticada na vertical) — exportada do nó, não do arquivo original.
 
+### Contato — motion (2026-10-18, biblioteca global, atributos no partial e no template)
+
+| Elemento | Atributos | Início |
+|----------|-----------|--------|
+| Título | `data-split="lines"` | ao carregar |
+| Texto | `data-reveal="up"` · atraso 120 | ao carregar |
+| Seta | `data-reveal="grow-y" data-origin="top"` (cresce para baixo, em direção ao formulário) · atraso 300 | ao carregar |
+| Formulário | `data-reveal="up"` no `<form>` inteiro, nada por campo · atraso 200 | ao carregar |
+| Ilustração | `data-reveal="fade"` · atraso 150 | ao carregar |
+| Contatos | `data-reveal-group="up"` no `.contato-info` (os 3 em sequência) | ao entrar na tela (no celular ficam embaixo) |
+| E-mail e WhatsApp | `data-hover="line"` num `<span>` dentro do link, para o sublinhado ter a largura do texto e não a do link (232/343, como no Figma); `contato-01-form.css` acende o sublinhado com o cursor em qualquer ponto do link | hover |
+| Faixa | `data-wipe="right"` | ao entrar na tela |
+
+Validação (2026-10-18): `motion_check` 1440 e 375 com 0 pendentes, 0 sobras, sem rolagem lateral e sem erro de JS (92 alvos); `page_check` e `diff.py` iguais aos de antes (Δ 0); CLS ≈ 0. Campos escondidos depois da 1ª pintura: ~0,46 s com cache no 1440; no primeiro acesso, ~0,76 s no 1440 e ~0,97 s no 375, quase tudo a espera até o `motion.js` (defer) rodar, que vale para o site inteiro.
+
 ## Artemis SEO — mapa (desktop `8348:4008` 1440×3463,51 · mobile `8704:6450` 375×5860)
 
 Estático: `artemis-seo/index.html` (`src/pages.json` → página `seo`, `assets: 10-cta`). WP: página de slug `artemis-seo` → `page-artemis-seo.php` → `template-parts/seo/*.php`. O link "Artemis SEO" do rodapé aponta para cá.

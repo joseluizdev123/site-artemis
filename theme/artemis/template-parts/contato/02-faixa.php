@@ -5,4 +5,4 @@
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<div class="contato-faixa" aria-hidden="true"></div>
+<div class="contato-faixa" aria-hidden="true" data-wipe="right"></div>

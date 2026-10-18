@@ -9,13 +9,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wdth,wght@75..100,400..700&family=Exo:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css?v=1792348249">
-  <link rel="stylesheet" href="/assets/css/motion.css?v=1792348229">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1792349761">
+  <link rel="stylesheet" href="/assets/css/motion.css?v=1792349761">
   <!-- Motion: liga html.motion-on antes da 1ª pintura (só com movimento liberado); volta sozinho se o motion.js não carregar -->
   <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
-  <link rel="stylesheet" href="/assets/css/sections/contato-01-form.css?v=1792156185">
-  <link rel="stylesheet" href="/assets/css/sections/contato-02-faixa.css?v=1792155914">
-  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1791992993">
+  <link rel="stylesheet" href="/assets/css/sections/contato-01-form.css?v=1792350126">
+  <link rel="stylesheet" href="/assets/css/sections/contato-02-faixa.css?v=1792179905">
+  <link rel="stylesheet" href="/assets/css/sections/footer.css?v=1792179905">
 </head>
 <body class="page-contato">
 
@@ -74,14 +74,14 @@
     <section class="contato" aria-labelledby="contato-title">
       <div class="container contato__grid">
         <!-- Contact Information · 8370:1581 (232, gap 32) · Mobile 8693:2764 -->
-        <ul class="contato-info">
+        <ul class="contato-info" data-reveal-group="up">
           <li class="contato-info__item">
             <p class="contato-info__label">Fale conosco</p>
-            <a class="contato-info__value" href="mailto:contato@studioartemis.co">contato@studioartemis.co</a>
+            <a class="contato-info__value" href="mailto:contato@studioartemis.co"><span data-hover="line">contato@studioartemis.co</span></a>
           </li>
           <li class="contato-info__item">
             <p class="contato-info__label">WhatsApp</p>
-            <a class="contato-info__value" href="https://wa.me/554800000000" target="_blank" rel="noopener">+55 (48) 0000-0000</a>
+            <a class="contato-info__value" href="https://wa.me/554800000000" target="_blank" rel="noopener"><span data-hover="line">+55 (48) 0000-0000</span></a>
           </li>
           <li class="contato-info__item">
             <p class="contato-info__label">Endereço</p>
@@ -94,14 +94,14 @@
           <!-- Form heading · 8370:1546: título + texto (533) e a seta à direita (8374:1795) -->
           <div class="contato__head">
             <div class="contato__heading">
-              <h1 class="contato__title" id="contato-title">Vamos começar <em>pelo diagnóstico</em></h1>
-              <p class="contato__lead">Se você chegou até aqui, provavelmente já tem um processo em mente. Nos conte qual é, e quanto ele custa hoje, se você souber.</p>
+              <h1 class="contato__title" id="contato-title" data-split="lines" data-motion-start="load">Vamos começar <em>pelo diagnóstico</em></h1>
+              <p class="contato__lead" data-reveal="up" data-motion-start="load" data-motion-delay="120">Se você chegou até aqui, provavelmente já tem um processo em mente. Nos conte qual é, e quanto ele custa hoje, se você souber.</p>
             </div>
-            <img class="contato__arrow" src="/assets/images/contato/seta.svg" width="8" height="33" alt="" aria-hidden="true">
+            <img class="contato__arrow" src="/assets/images/contato/seta.svg" width="8" height="33" alt="" aria-hidden="true" data-reveal="grow-y" data-origin="top" data-motion-start="load" data-motion-delay="300">
           </div>
 
           <!-- Form fields container · 8370:1580 (gap 32) · Mobile 8693:2781 -->
-          <form class="contato-form" action="#" method="post" data-contato-form data-unconfigured="Formulário ainda não configurado.">
+          <form class="contato-form" action="#" method="post" data-contato-form data-unconfigured="Formulário ainda não configurado." data-reveal="up" data-motion-start="load" data-motion-delay="200">
             <!-- Form field container · 8370:1579 (gap 24) · Mobile 8693:2782 (gap 20) -->
             <div class="contato-form__fields">
               <div class="contato-form__field">
@@ -135,7 +135,7 @@
         </div>
 
         <!-- Illustration · 8370:1600 (232×951) · Mobile 8693:2806 (faixa de 16×991) — imagens exportadas do Figma como aparecem lá -->
-        <picture class="contato__art">
+        <picture class="contato__art" data-reveal="fade" data-motion-start="load" data-motion-delay="150">
           <source media="(max-width: 1023px)" srcset="/assets/images/contato/m-ilustracao.jpg" width="32" height="1982">
           <img src="/assets/images/contato/ilustracao.jpg" width="464" height="1902" alt="" aria-hidden="true" loading="lazy" decoding="async">
         </picture>
@@ -143,7 +143,7 @@
     </section>
 
     <!-- Contato — faixa de traços diagonais · 8370:1696 (1440×64, strokes em cima e embaixo) · Mobile 8693:2807 (375×32) -->
-    <div class="contato-faixa" aria-hidden="true"></div>
+    <div class="contato-faixa" aria-hidden="true" data-wipe="right"></div>
   </main>
 
   <!-- Footer · 8165:2501 -->
@@ -316,10 +316,10 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=1791980106" defer></script>
-  <script src="/assets/js/motion.js?v=1792348449" defer></script>
-  <script src="/assets/js/sections/contato-01-form.js?v=1792155914" defer></script>
-  <script src="/assets/js/sections/footer.js?v=1791924111" defer></script>
+  <script src="/assets/js/main.js?v=1792179908" defer></script>
+  <script src="/assets/js/motion.js?v=1792349761" defer></script>
+  <script src="/assets/js/sections/contato-01-form.js?v=1792179909" defer></script>
+  <script src="/assets/js/sections/footer.js?v=1792179909" defer></script>
 
 </body>
 </html>

@@ -14,17 +14,17 @@ $artemis_status   = artemis_contato_status();
 ?>
 <section class="contato" aria-labelledby="contato-title">
 	<div class="container contato__grid">
-		<ul class="contato-info">
+		<ul class="contato-info" data-reveal-group="up">
 			<?php if ( '' !== $artemis_email ) : ?>
 				<li class="contato-info__item">
 					<p class="contato-info__label"><?php esc_html_e( 'Fale conosco', 'artemis' ); ?></p>
-					<a class="contato-info__value" href="<?php echo esc_url( 'mailto:' . antispambot( $artemis_email, 1 ) ); ?>"><?php echo esc_html( antispambot( $artemis_email ) ); ?></a>
+					<a class="contato-info__value" href="<?php echo esc_url( 'mailto:' . antispambot( $artemis_email, 1 ) ); ?>"><span data-hover="line"><?php echo esc_html( antispambot( $artemis_email ) ); ?></span></a>
 				</li>
 			<?php endif; ?>
 			<?php if ( '' !== $artemis_whatsapp ) : ?>
 				<li class="contato-info__item">
 					<p class="contato-info__label"><?php esc_html_e( 'WhatsApp', 'artemis' ); ?></p>
-					<a class="contato-info__value" href="<?php echo esc_url( 'https://wa.me/' . preg_replace( '/\D+/', '', $artemis_whatsapp ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $artemis_whatsapp ); ?></a>
+					<a class="contato-info__value" href="<?php echo esc_url( 'https://wa.me/' . preg_replace( '/\D+/', '', $artemis_whatsapp ) ); ?>" target="_blank" rel="noopener"><span data-hover="line"><?php echo esc_html( $artemis_whatsapp ); ?></span></a>
 				</li>
 			<?php endif; ?>
 			<?php if ( '' !== $artemis_address ) : ?>
@@ -38,13 +38,13 @@ $artemis_status   = artemis_contato_status();
 		<div class="contato__main">
 			<div class="contato__head">
 				<div class="contato__heading">
-					<h1 class="contato__title" id="contato-title"><?php echo artemis_highlight( artemis_mod( 'art_contato_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h1>
-					<p class="contato__lead"><?php echo esc_html( artemis_mod( 'art_contato_lead' ) ); ?></p>
+					<h1 class="contato__title" id="contato-title" data-split="lines" data-motion-start="load"><?php echo artemis_highlight( artemis_mod( 'art_contato_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h1>
+					<p class="contato__lead" data-reveal="up" data-motion-start="load" data-motion-delay="120"><?php echo esc_html( artemis_mod( 'art_contato_lead' ) ); ?></p>
 				</div>
-				<img class="contato__arrow" src="<?php echo esc_url( artemis_asset( 'images/contato/seta.svg' ) ); ?>" width="8" height="33" alt="" aria-hidden="true">
+				<img class="contato__arrow" src="<?php echo esc_url( artemis_asset( 'images/contato/seta.svg' ) ); ?>" width="8" height="33" alt="" aria-hidden="true" data-reveal="grow-y" data-origin="top" data-motion-start="load" data-motion-delay="300">
 			</div>
 
-			<form class="contato-form" id="contato-form" action="<?php echo esc_url( artemis_contato_action() ); ?>" method="post" data-contato-form>
+			<form class="contato-form" id="contato-form" action="<?php echo esc_url( artemis_contato_action() ); ?>" method="post" data-contato-form data-reveal="up" data-motion-start="load" data-motion-delay="200">
 				<?php if ( ! $artemis_external ) : ?>
 					<input type="hidden" name="action" value="artemis_contato">
 					<?php wp_nonce_field( 'artemis_contato', 'artemis_contato_nonce' ); ?>
@@ -80,7 +80,7 @@ $artemis_status   = artemis_contato_status();
 			</form>
 		</div>
 
-		<picture class="contato__art">
+		<picture class="contato__art" data-reveal="fade" data-motion-start="load" data-motion-delay="150">
 			<source media="(max-width: 1023px)" srcset="<?php echo esc_url( artemis_asset( 'images/contato/m-ilustracao.jpg' ) ); ?>" width="32" height="1982">
 			<img src="<?php echo esc_url( artemis_asset( 'images/contato/ilustracao.jpg' ) ); ?>" width="464" height="1902" alt="" aria-hidden="true" loading="lazy" decoding="async">
 		</picture>
