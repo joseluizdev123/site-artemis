@@ -393,7 +393,7 @@ Efeito de passar o mouse que mexe no elemento (crescer, subir, zoom, sombra, tex
 
 ## Motion (2026-10-18) — biblioteca global
 
-Arquivos: `assets/js/motion.js` + `assets/css/motion.css` (carregados em todas as páginas: `src/index.template.html` e `functions.php`; o `<head>` liga `html.motion-on` antes da 1ª pintura). Referência: técnicas da galeria Animation do Awwwards (plano em scratchpad/motion-plan.txt). Princípio: em repouso, sem JS, com movimento reduzido e na impressão a página é o Figma; toda entrada termina com `.is-done` e sem spans auxiliares.
+Arquivos: `assets/js/motion.js` + `assets/css/motion.css` (carregados em todas as páginas: `src/index.template.html` e `functions.php`; o `<head>` liga `html.motion-on` antes da 1ª pintura). Referência: técnicas da galeria Animation do Awwwards (plano em scratchpad/motion-plan.txt). Princípio: em repouso, sem JS, com movimento reduzido e na impressão a página é o Figma; toda entrada termina com `.is-done` e sem spans auxiliares. Repetição (2026-10-18): a entrada volta ao estado inicial quando o elemento sai da tela por inteiro e toca de novo quando ele volta; os loops rodam enquanto estão na tela.
 
 | Atributo | Efeito |
 |---|---|
@@ -403,7 +403,7 @@ Arquivos: `assets/js/motion.js` + `assets/css/motion.css` (carregados em todas a
 | `data-count` | número conta de 0 ao valor (formato BR; aria-hidden + valor real para leitor de tela) |
 | `data-type` / `data-type-group` | texto digitado (barra de status) |
 | `data-parallax="0.12"` (+ `data-parallax-max="24"`) | desloca na rolagem; 0 com a página no topo |
-| `data-loop` (+ `data-loop-max="5"`) | `.is-looping` por até 5 s a cada entrada na tela (WCAG 2.2.2) — as seções ligam o loop infinito só com essa classe |
+| `data-loop` (+ `data-loop-max`) | `.is-looping` enquanto está na tela e a aba visível — para sempre (pedido do cliente, 2026-10-18; sem botão de pausa, decisão dele); `data-loop-max="N"` limita a N s por entrada |
 | `data-reveal-group[="variante"]` (+ `data-stagger`) | dispara os itens em sequência (máx. 1,2 s acumulado) |
 | `data-motion-delay="ms"` · `data-motion-start="load"` | atraso · toca ao carregar (topo) |
 

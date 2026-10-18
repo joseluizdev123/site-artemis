@@ -48,16 +48,34 @@ try {
   const H = await evaluate('document.documentElement.scrollHeight');
   for (let y = 0; y <= H; y += 400) { await evaluate(`window.scrollTo(0, ${y})`); await sleep(120); }
   await sleep(3500);
-  const out = await evaluate(`(() => {
+  // As entradas tocam de novo quando voltam à tela: o que está FORA da tela volta ao estado inicial de propósito.
+  // 1) na tela (depois de rolar até o fim e esperar): tudo em repouso, sem spans auxiliares;
+  // 2) ArtemisMotion.finish() (o que a impressão/movimento reduzido usam): a página inteira em repouso.
+  const COLLECT = `(() => {
     const T = '[data-reveal],[data-split],[data-wipe],[data-count],[data-type]';
-    const pending = [...document.querySelectorAll(T)].filter((e) => !e.classList.contains('is-done')).map((e) => (e.className || e.tagName).toString().split(' ')[0] + '[' + [...e.attributes].filter((a) => a.name.startsWith('data-') && !a.name.startsWith('data-figma')).map((a) => a.name).join(',') + ']');
-    const leftovers = document.querySelectorAll('.m-w, .m-c, .m-count, .m-sr, .m-br').length;
+    const vis = (e) => { const r = e.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; };
+    const name = (e) => (e.className || e.tagName).toString().split(' ')[0] + '[' + [...e.attributes].filter((a) => a.name.startsWith('data-') && !a.name.startsWith('data-figma')).map((a) => a.name).join(',') + ']';
+    const all = [...document.querySelectorAll(T)];
     return {
-      targets: document.querySelectorAll(T).length, pending: pending.slice(0, 12), pendingCount: pending.length, leftovers,
+      targets: all.length,
+      pendingVis: all.filter((e) => vis(e) && !e.classList.contains('is-done')).map(name),
+      leftoversVis: [...document.querySelectorAll('.m-w, .m-c, .m-count, .m-sr, .m-br')].filter(vis).length,
+      pendingAll: all.filter((e) => !e.classList.contains('is-done')).map(name),
+      leftoversAll: document.querySelectorAll('.m-w, .m-c, .m-count, .m-sr, .m-br').length,
       rolls: document.querySelectorAll('.m-roll').length,
       docW: document.documentElement.scrollWidth, vw: innerWidth, docH: document.documentElement.scrollHeight,
     };
-  })()`);
+  })()`;
+  const atEnd = await evaluate(COLLECT);
+  await evaluate('window.ArtemisMotion && window.ArtemisMotion.finish()');
+  await sleep(300);
+  const fin = await evaluate(COLLECT);
+  const out = {
+    targets: atEnd.targets, rolls: atEnd.rolls, docW: Math.max(atEnd.docW, fin.docW), vw: atEnd.vw, docH: atEnd.docH,
+    pending: atEnd.pendingVis.concat(fin.pendingAll.map((n) => 'finish:' + n)).slice(0, 12),
+    pendingCount: atEnd.pendingVis.length + fin.pendingAll.length,
+    leftovers: atEnd.leftoversVis + fin.leftoversAll,
+  };
   ws.close();
   // compara com a largura emulada: no celular o Chrome reduz o zoom e innerWidth acompanha a página larga
   if (start.docW > width || start.vw > width) console.log(`  <-- ROLAGEM HORIZONTAL NO CARREGAMENTO: página ${start.docW}px, janela ${start.vw}px (emulada ${width}px)`);

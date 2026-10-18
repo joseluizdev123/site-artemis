@@ -2,7 +2,8 @@
    catálogo e regras em MODEL.md › Motion).
 
    Princípio: em repouso a página é o Figma. Toda animação parte de um estado escondido e TERMINA sem deixar estilo
-   (classe .is-done; spans auxiliares removidos). Sem JS, com prefers-reduced-motion: reduce e na impressão nada é
+   (classe .is-done; spans auxiliares removidos). Toda entrada toca de novo quando o elemento sai da tela por inteiro e
+   volta (pedido do cliente, 2026-10-18). Sem JS, com prefers-reduced-motion: reduce e na impressão nada é
    escondido. O <head> liga html.motion-on antes da primeira pintura (script inline, com volta automática em 4 s se
    este arquivo não carregar); só com .motion-on o CSS esconde alguma coisa.
 
@@ -14,7 +15,8 @@
      data-count                                          número conta de 0 até o valor do texto (formato BR)
      data-type                                           texto digitado caractere a caractere (barra de status)
      data-parallax="0.12" [data-parallax-max="24"]       desloca na rolagem; 0 com a página no topo
-     data-loop [data-loop-max="5"]                       liga .is-looping por até N s a cada entrada na tela
+     data-loop [data-loop-max="5"]                       liga .is-looping enquanto está na tela (para sempre; com
+                                                         data-loop-max, por até N s a cada entrada)
      data-reveal-group[="variante"] [data-stagger="90"]  o pai dispara os itens dentro dele em sequência (no máximo
                                                          1,2 s de atraso acumulado); com valor, os filhos diretos sem
                                                          data-reveal recebem essa variante
@@ -120,7 +122,8 @@
     var v = el.getAttribute('data-reveal') || 'up';
     el.style.setProperty('--m-delay', delay + 'ms');
     el.classList.add('is-in');
-    afterAnim(el, delay + (REVEAL_MS[v] || 900), function () { done(el); });
+    var g = el.__mGen;
+    afterAnim(el, delay + (REVEAL_MS[v] || 900), function () { if (el.__mGen === g) done(el); });
   }
 
   /* ---------------------------------------------------------------------------
@@ -130,8 +133,10 @@
      --------------------------------------------------------------------------- */
   function prepareSplit(el) {
     if (el.__mSplit) return el.__mSplit;
+    var g = el.__mGen;
     el.__mSplit = fontsReady.then(function () {
-      if (el.classList.contains('is-done')) return;
+      // preparação vencida (o elemento voltou ao início e foi preparado de novo) ou já em repouso: não embrulha 2 vezes
+      if (el.__mGen !== g || el.classList.contains('is-done') || el.__mOriginal != null) return;
       el.__mOriginal = el.innerHTML;
       var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
       var nodes = [];
@@ -216,7 +221,8 @@
       el.classList.add('is-in');
       var last = words[words.length - 1];
       if (!last) { restoreSplit(el); return; }
-      afterAnim(last, delay + (el.__mLines || 1) * LINE_STEP + 900, function () { restoreSplit(el); });
+      var g = el.__mGen;
+      afterAnim(last, delay + (el.__mLines || 1) * LINE_STEP + 900, function () { if (el.__mGen === g) restoreSplit(el); });
     });
   }
 
@@ -226,7 +232,8 @@
   function playWipe(el, delay) {
     el.style.setProperty('--m-delay', delay + 'ms');
     el.classList.add('is-in');
-    afterAnim(el, delay + 1100, function () { done(el); });
+    var g = el.__mGen;
+    afterAnim(el, delay + 1100, function () { if (el.__mGen === g) done(el); });
   }
 
   /* ---------------------------------------------------------------------------
@@ -246,8 +253,9 @@
 
   function prepareCount(el) {
     if (el.__mCount) return el.__mCount;
+    var g = el.__mGen;
     el.__mCount = fontsReady.then(function () {
-      if (el.classList.contains('is-done')) return;
+      if (el.__mGen !== g || el.classList.contains('is-done') || el.__mOriginal != null) return;
       var f = findNumber(el);
       if (!f) { done(el); return; }
       el.__mOriginal = el.innerHTML;
@@ -281,13 +289,16 @@
   }
 
   function playCount(el, delay) {
+    var g = el.__mGen;
     prepareCount(el).then(function () {
       var s = el.__mCountState;
-      if (!s || el.classList.contains('is-done')) return;
+      if (!s || el.classList.contains('is-done') || el.__mGen !== g) return;
       var dur = num(el.getAttribute('data-count-duration'), 2000);
       setTimeout(function () {
+        if (el.__mGen !== g) return;
         var t0 = performance.now();
         (function tick(now) {
+          if (el.__mGen !== g) return;
           var p = Math.min(1, (now - t0) / dur);
           var e = 1 - Math.pow(1 - p, 3);
           s.vis.textContent = format(s.value * e, s.dec);
@@ -338,7 +349,8 @@
     prepareType(el);
     el.style.setProperty('--m-delay', delay + 'ms');
     el.classList.add('is-in');
-    setTimeout(function () { finishType(el); }, delay + typeDuration(el) + 250);
+    var g = el.__mGen;
+    setTimeout(function () { if (el.__mGen === g) finishType(el); }, delay + typeDuration(el) + 250);
   }
 
   function finishType(el) {
@@ -421,10 +433,53 @@
       endTick = false;
       if (window.scrollY + window.innerHeight < document.documentElement.scrollHeight - 2) return;
       watching.forEach(function (el) {
-        if (el.getBoundingClientRect().top < window.innerHeight) { io.unobserve(el); watching.delete(el); trigger(el); }
+        var r = el.getBoundingClientRect(); // só o que está visível (não o que ficou acima da tela)
+        if (r.top < window.innerHeight && r.bottom > 0) { io.unobserve(el); watching.delete(el); trigger(el); }
       });
     });
   }, { passive: true });
+
+  /* ---------------------------------------------------------------------------
+     Repetição: quando o elemento (ou grupo) já tocado sai da tela por inteiro, volta ao estado inicial (fora da tela,
+     sem piscar) e é observado de novo — a entrada toca outra vez quando ele volta.
+     --------------------------------------------------------------------------- */
+  function resetItem(it) {
+    it.__mGen = (it.__mGen || 0) + 1; // invalida timers e quadros da execução anterior
+    it.__mPlayed = false;
+    it.classList.remove('is-in', 'is-done');
+    it.style.removeProperty('--m-delay');
+    if (it.hasAttribute('data-split')) {
+      if (it.__mOriginal != null) it.innerHTML = it.__mOriginal;
+      it.__mOriginal = null; it.__mWords = null; it.__mSplit = null;
+      it.classList.remove('is-split');
+      prepareSplit(it);
+    } else if (it.hasAttribute('data-count')) {
+      if (it.__mOriginal != null) it.innerHTML = it.__mOriginal;
+      it.__mOriginal = null; it.__mCountState = null; it.__mCount = null;
+      prepareCount(it);
+    } else if (it.hasAttribute('data-type')) {
+      if (it.__mOriginal != null) it.innerHTML = it.__mOriginal;
+      it.__mOriginal = null; it.__mType = false;
+      it.classList.remove('is-typing-ready');
+      prepareType(it);
+    }
+  }
+  function resetRoot(el) {
+    var isGroup = el.hasAttribute('data-reveal-group') || el.hasAttribute('data-type-group');
+    if (isGroup) {
+      el.__mPlayed = false;
+      el.classList.remove('is-done');
+      groupItems(el).forEach(resetItem);
+    } else resetItem(el);
+  }
+  var replayIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var el = e.target;
+      if (e.isIntersecting || reduceMQ.matches || !el.__mPlayed || watching.has(el)) return;
+      resetRoot(el);
+      watch(el);
+    });
+  }, { threshold: 0 });
 
   function arm(scope) {
     scope = scope || document;
@@ -453,8 +508,9 @@
       var r = el.getBoundingClientRect();
       // Topo: tudo que toca ao carregar começa junto, depois das fontes (no máx. 1 s) — senão o lead (reveal)
       // aparecia antes do título (split, que espera a Exo para medir as linhas) num primeiro acesso
+      replayIO.observe(el);
       if (el.getAttribute('data-motion-start') === 'load') { fontsReady.then(function () { trigger(el); }); return; }
-      if (r.bottom <= 0) { items.forEach(finishNow); if (isGroup) el.classList.add('is-done'); return; } // já passou: pronto, sem animar
+      if (r.bottom <= 0) { items.forEach(finishNow); if (isGroup) { el.__mPlayed = true; el.classList.add('is-done'); } return; } // já passou: pronto agora; toca quando voltar
       watch(el);
     });
     armLoops(scope);
@@ -462,7 +518,7 @@
   }
 
   /* ---------------------------------------------------------------------------
-     data-loop: animação infinita só por alguns segundos a cada entrada na tela (WCAG 2.2.2)
+     data-loop: animação infinita ligada (.is-looping) enquanto o elemento está na tela e a aba está visível
      --------------------------------------------------------------------------- */
   var loopIO = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
@@ -478,7 +534,8 @@
     el.classList.add('is-looping');
     el.dispatchEvent(new CustomEvent('motion:loop-start'));
     clearTimeout(el.__mLoopT);
-    el.__mLoopT = setTimeout(function () { stopLoop(el); }, num(el.getAttribute('data-loop-max'), 5) * 1000);
+    // Para sempre enquanto estiver na tela (pedido do cliente); data-loop-max limita a N s por entrada
+    if (el.hasAttribute('data-loop-max')) el.__mLoopT = setTimeout(function () { stopLoop(el); }, num(el.getAttribute('data-loop-max'), 5) * 1000);
   }
   function stopLoop(el) {
     clearTimeout(el.__mLoopT);
@@ -491,7 +548,12 @@
     each(scope, '[data-loop]', function (el) { if (!el.__mLoopArmed) { el.__mLoopArmed = true; loopIO.observe(el); } });
   }
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden) each(document, '[data-loop]', stopLoop);
+    if (document.hidden) { each(document, '[data-loop]', stopLoop); return; }
+    if (reduceMQ.matches) return;
+    each(document, '[data-loop]', function (el) { // aba visível de novo: religa o que está na tela
+      var r = el.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) startLoop(el);
+    });
   });
 
   /* ---------------------------------------------------------------------------
@@ -556,7 +618,7 @@
   }
 
   // Movimento reduzido ligado com a página aberta: tudo ao repouso e nenhum loop/parallax volta a ligar
-  function onReduce() { if (reduceMQ.matches) { finishAll(); loopIO.disconnect(); pxIO.disconnect(); root.classList.remove('motion-on'); } }
+  function onReduce() { if (reduceMQ.matches) { finishAll(); loopIO.disconnect(); pxIO.disconnect(); replayIO.disconnect(); root.classList.remove('motion-on'); } }
   if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', onReduce);
   window.addEventListener('beforeprint', finishAll);
 
