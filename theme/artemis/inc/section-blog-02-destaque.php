@@ -126,6 +126,17 @@ function artemis_blog_destaque_excerpt( $post ) {
 	return wp_trim_words( wp_strip_all_tags( strip_shortcodes( $post->post_content ) ), 18, '…' );
 }
 
+/**
+ * Acrescenta atributos à 1ª tag de um trecho já escapado (ex.: data-reveal do motion.js na meta e no autor,
+ * que vêm das funções compartilhadas com o card e o artigo). $attr é literal do template, não dado do usuário.
+ */
+function artemis_blog_attr( $html, $attr ) {
+	if ( '' === $html || '' === $attr ) {
+		return $html;
+	}
+	return preg_replace( '/^(\s*<[a-z][a-z0-9]*)/i', '$1 ' . $attr, $html, 1 );
+}
+
 /* --------------------------------------------------------------------------
    Seed — não cria posts (a seção de categorias cria e fixa o destaque).
    Só garante, no post fixado do seed, a capa do Figma e o texto alternativo do estático.

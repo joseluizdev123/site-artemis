@@ -8,15 +8,16 @@
         <!-- Text Container · 8325:2733 (982, gap 32) -->
         <div class="blog-hero__text" data-figma="8325:2733">
           <div class="blog-hero__heading" data-figma="8325:2677" data-figma-m="8673:3851">
-            <p class="blog-hero__eyebrow eyebrow" data-figma="8325:2678" data-figma-m="8673:3852">Blog</p>
-            <h1 class="blog-hero__title" id="blog-hero-title" data-figma="8325:2679" data-figma-m="8673:3853">O que aprendemos colocando <em>inteligência artificial</em> em produção</h1>
+            <p class="blog-hero__eyebrow eyebrow" data-reveal="fade" data-motion-start="load" data-figma="8325:2678" data-figma-m="8673:3852">Blog</p>
+            <h1 class="blog-hero__title" id="blog-hero-title" data-split="lines" data-motion-start="load" data-motion-delay="100" data-figma="8325:2679" data-figma-m="8673:3853">O que aprendemos colocando <em>inteligência artificial</em> em produção</h1>
           </div>
-          <p class="blog-hero__lead body-lg" data-figma="8325:2680" data-figma-m="8673:3854">Análises dos sistemas que construímos, guias de implementação e o registro honesto do que funciona e do que não funciona. Escrito por quem entrega, não por quem assiste.</p>
+          <p class="blog-hero__lead body-lg" data-reveal="up" data-motion-start="load" data-motion-delay="300" data-figma="8325:2680" data-figma-m="8673:3854">Análises dos sistemas que construímos, guias de implementação e o registro honesto do que funciona e do que não funciona. Escrito por quem entrega, não por quem assiste.</p>
         </div>
       </div>
 
-      <!-- Banner · 8512:5733 · Mobile 8673:4735 — linhas convergentes; as luzes (Light) correm pelas linhas (assets/js/sections/blog-01-hero.js) -->
-      <div class="blog-hero__banner" aria-hidden="true" data-blog-hero-banner data-figma="8512:5733" data-figma-m="8673:4735">
+      <!-- Banner · 8512:5733 · Mobile 8673:4735 — linhas convergentes; as luzes (Light) correm pelas linhas (assets/js/sections/blog-01-hero.js)
+           só enquanto o motion.js liga .is-looping (data-loop: até 5 s a cada entrada na tela); o clique cria luz a qualquer momento -->
+      <div class="blog-hero__banner" aria-hidden="true" data-blog-hero-banner data-loop data-figma="8512:5733" data-figma-m="8673:4735">
         <!-- Lines · 8512:5704 · Mobile 8673:4747: Thin Curved Lines + Thick Curved Lines (espelhada na vertical) -->
         <div class="blog-hero__lines" data-figma="8512:5704" data-figma-m="8673:4747">
           <div class="blog-hero__curves" data-figma="8512:5705" data-figma-m="8673:4748">
@@ -48,8 +49,8 @@
         </div>
       </div>
 
-      <!-- Button Container · 8325:2725 · Mobile 8673:3895 — menu âncora: cada aba leva à seção da categoria (#slug) -->
-      <nav class="blog-hero__tabs" aria-label="Categorias do blog" data-figma="8325:2725" data-figma-m="8673:3895">
+      <!-- Button Container · 8325:2725 · Mobile 8673:3895 — menu âncora: cada aba leva à seção da categoria (#slug); entram em sequência ao carregar -->
+      <nav class="blog-hero__tabs" aria-label="Categorias do blog" data-reveal-group="up" data-stagger="50" data-motion-start="load" data-motion-delay="450" data-figma="8325:2725" data-figma-m="8673:3895">
         <a class="blog-hero__tab" href="#analises-de-caso" data-figma="8510:5619" data-figma-m="8673:3896"><span class="blog-hero__tab-label" data-figma="I8510:5619;8510:5612" data-figma-m="I8673:3896;8510:5612">Análises de caso</span></a>
         <a class="blog-hero__tab" href="#implementacao-de-ia" data-figma="8510:5622" data-figma-m="8673:3897"><span class="blog-hero__tab-label" data-figma="I8510:5622;8510:5612" data-figma-m="I8673:3897;8510:5612">Implementação de IA</span></a>
         <a class="blog-hero__tab" href="#ia-na-operacao" data-figma="8510:5627" data-figma-m="8673:3898"><span class="blog-hero__tab-label" data-figma="I8510:5627;8510:5612" data-figma-m="I8673:3898;8510:5612">IA na operação</span></a>

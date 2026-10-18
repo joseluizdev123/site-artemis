@@ -19,25 +19,25 @@ $artemis_destaque_excerpt = artemis_blog_destaque_excerpt( $artemis_destaque );
 		<?php // Article Content 8314:1568 — card inteiro clicável (link do título esticado). ?>
 		<article class="blog-destaque__card">
 			<?php if ( '' !== $artemis_destaque_img ) : ?>
-				<div class="blog-destaque__media"><?php echo $artemis_destaque_img; // phpcs:ignore WordPress.Security.EscapeOutput -- wp_get_attachment_image. ?></div>
+				<div class="blog-destaque__media" data-wipe="up" data-wipe-zoom><?php echo $artemis_destaque_img; // phpcs:ignore WordPress.Security.EscapeOutput -- wp_get_attachment_image. ?></div>
 			<?php endif; ?>
 
-			<div class="blog-destaque__text">
+			<div class="blog-destaque__text" data-reveal-group>
 				<?php if ( '' !== $artemis_destaque_tag ) : ?>
-					<p class="blog-destaque__tag"><span><?php echo esc_html( $artemis_destaque_tag ); ?></span></p>
+					<p class="blog-destaque__tag" data-reveal="pop"><span><?php echo esc_html( $artemis_destaque_tag ); ?></span></p>
 				<?php endif; ?>
 
 				<div class="blog-destaque__content">
 					<div class="blog-destaque__head">
-						<?php echo artemis_blog_destaque_meta( $artemis_destaque ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado na função. ?>
-						<h2 class="blog-destaque__title" id="blog-destaque-title"><a class="blog-destaque__link" href="<?php echo esc_url( get_permalink( $artemis_destaque ) ); ?>"><?php echo esc_html( get_the_title( $artemis_destaque ) ); ?></a></h2>
+						<?php echo artemis_blog_attr( artemis_blog_destaque_meta( $artemis_destaque ), 'data-reveal="fade"' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado na função. ?>
+						<h2 class="blog-destaque__title" id="blog-destaque-title" data-split="lines"><a class="blog-destaque__link" href="<?php echo esc_url( get_permalink( $artemis_destaque ) ); ?>"><?php echo esc_html( get_the_title( $artemis_destaque ) ); ?></a></h2>
 					</div>
 					<?php if ( '' !== $artemis_destaque_excerpt ) : ?>
-						<p class="blog-destaque__excerpt"><?php echo esc_html( $artemis_destaque_excerpt ); ?></p>
+						<p class="blog-destaque__excerpt" data-reveal="up"><?php echo esc_html( $artemis_destaque_excerpt ); ?></p>
 					<?php endif; ?>
 				</div>
 
-				<?php echo artemis_blog_destaque_author( $artemis_destaque ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado na função. ?>
+				<?php echo artemis_blog_attr( artemis_blog_destaque_author( $artemis_destaque ), 'data-reveal="up"' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado na função. ?>
 			</div>
 		</article>
 	</div>

@@ -116,8 +116,16 @@
   background: linear-gradient(to right, transparent, var(--blue-300));
   transform: rotate(var(--r, 0deg));
 }
-/* Com JS: cada luz corre pela sua linha (posição e ângulo em transform, ver blog-01-hero.js) */
-.blog-hero__light.is-flowing .blog-hero__pulse { left: 0; top: 0; will-change: transform, opacity; }
+/* Com JS: cada luz corre pela sua linha (posição e ângulo em transform, ver blog-01-hero.js) — as 10 do Figma só
+   durante o loop (.is-flowing); as criadas pelo JS (extras e cliques, --js) sempre */
+.blog-hero__light.is-flowing .blog-hero__pulse,
+.blog-hero__pulse--js { left: 0; top: 0; will-change: transform, opacity; }
+/* Fim do loop: as 10 do Figma reacendem nas posições do repouso */
+.blog-hero__light.is-back .blog-hero__pulse:not(.blog-hero__pulse--js) { animation: blog-hero-back .6s ease both; }
+@keyframes blog-hero-back { from { opacity: 0; } }
+/* Luzes correndo: clicar no banner cria mais uma; as imagens das linhas não recebem o clique (nem arrastam) */
+.blog-hero__banner.is-clickable { cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; }
+.blog-hero__banner.is-clickable img { pointer-events: none; }
 
 /* --------------------------------------------------------------------------
    Abas (Button Container 8325:2725): stroke superior · 5 abas iguais (flex 1) · menu âncora
