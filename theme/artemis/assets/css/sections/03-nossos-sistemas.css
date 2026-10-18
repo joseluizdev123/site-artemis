@@ -48,21 +48,9 @@
   flex-direction: column;
   min-width: 0;
   background: var(--black-100);
-  transition: transform .45s cubic-bezier(.2, .7, .2, 1), box-shadow .45s ease;
 }
-
-/* Interação: o card vem um pouco para frente quando o cursor entra (a ilustração também anima
-   de novo — ver assets/js/sections/03-nossos-sistemas.js). Sem efeito em telas só de toque. */
-@media (hover: hover) {
-  .sistemas__card:hover {
-    z-index: 1;
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 44px color-mix(in srgb, var(--black-200) 70%, transparent);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .sistemas__card { transition: none; }
-}
+/* Sem efeito de hover no card (não é link: subir/crescer dava a impressão de clicável). Com o cursor no card só a
+   ilustração anima de novo — ver assets/js/sections/03-nossos-sistemas.js. */
 
 /* Ilustrações animadas (cards [data-anim]) — cada uma em 03-nossos-sistemas--<anim>.css, com as camadas
    em partials/ilustra-<anim>.html. Estados (classes postas pelo JS):

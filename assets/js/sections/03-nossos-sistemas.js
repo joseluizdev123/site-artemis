@@ -5,7 +5,7 @@
      .sistemas__card.is-playing        → toca a animação até o quadro final (fill-mode both)
      .sistemas__card.is-static         → quadro final sem animar (card entrou rolando para CIMA)
    Disparo: toda vez que o card entra na tela rolando para BAIXO, e toda vez que o cursor (ou o dedo)
-   entra no card — que também vem um pouco para frente (CSS :hover). Ao sair da tela, volta ao inicial.
+   entra no card (o card em si não se mexe: não é link). Ao sair da tela, volta ao inicial.
    Evento "sistemas:play" no card, para ilustrações que precisem de JS próprio. */
 (function () {
   'use strict';

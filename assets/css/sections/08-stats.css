@@ -83,20 +83,6 @@
   border: 0;
 }
 
-/* Hover (mouse, sem movimento reduzido): o valor cresce 25% a partir da esquerda e "salta" para
-   fora do card, por cima da célula vizinha. No hover a caixa encolhe para o texto (em repouso
-   fica a largura do Figma): a caixa escalada não cobre a célula vizinha nem alarga a página. */
-.stats { overflow-x: clip; }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .stats__item { position: relative; }
-  .stats__item:hover { z-index: 1; }
-  .stats__value {
-    transform-origin: 0 50%;
-    transition: transform .45s cubic-bezier(.2, .7, .2, 1);
-  }
-  .stats__item:hover .stats__value { width: fit-content; max-width: 100%; transform: scale(1.25); } /* 1,25: o "R$ 40.000 /MÊS" ainda não encosta no vizinho */
-}
-
 /* Legenda (8486:1691): Cabin 18/1.5 gray-300 (.body-lg) */
 .stats__label { width: 100%; text-wrap: pretty; }
 
