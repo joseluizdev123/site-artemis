@@ -2,12 +2,12 @@
 <section class="blog-cat" id="{{CAT_SLUG}}" aria-labelledby="{{CAT_SLUG}}-title" data-figma-root data-figma="8314:1689" data-figma-m="8673:3920">
   <div class="container blog-cat__inner">
     <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
-    <h2 class="blog-cat__title" id="{{CAT_SLUG}}-title" data-figma="8314:1706" data-figma-m="8673:3921">{{CAT_TITLE}}</h2>
+    <h2 class="blog-cat__title" id="{{CAT_SLUG}}-title" data-split="lines" data-figma="8314:1706" data-figma-m="8673:3921">{{CAT_TITLE}}</h2>
 
     <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
     <div class="blog-cat__content" data-figma="8325:2695" data-figma-m="8673:3922">
-      <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
-      <div class="blog-cat__grid" data-figma="8314:1709" data-figma-m="8673:3923">
+      <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) — cards sobem em sequência (motion.js) -->
+      <div class="blog-cat__grid" data-reveal-group="up" data-figma="8314:1709" data-figma-m="8673:3923">
 
         <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
         <article class="post-card" data-figma="8314:1710" data-figma-m="8673:3924">
@@ -78,7 +78,7 @@
       </div>
 
       <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
-      <a class="btn blog-cat__more" href="/blog/categoria/{{CAT_SLUG}}/" aria-label="Ver todos os artigos de {{CAT_TITLE}}" data-figma="8325:2696" data-figma-m="8673:3966"><span data-figma="I8325:2696;8044:1369" data-figma-m="I8673:3966;8044:1369">Ver todos os artigos</span></a>
+      <a class="btn blog-cat__more" data-reveal="up" href="/blog/categoria/{{CAT_SLUG}}/" aria-label="Ver todos os artigos de {{CAT_TITLE}}" data-figma="8325:2696" data-figma-m="8673:3966"><span data-figma="I8325:2696;8044:1369" data-figma-m="I8673:3966;8044:1369">Ver todos os artigos</span></a>
     </div>
   </div>
 </section>

@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/assets/css/motion.css?v=1792349831">
   <!-- Motion: liga html.motion-on antes da 1ª pintura (só com movimento liberado); volta sozinho se o motion.js não carregar -->
   <script>(function(d){if(matchMedia('(prefers-reduced-motion: no-preference)').matches&&'IntersectionObserver' in window){d.classList.add('motion-on');setTimeout(function(){if(!window.ArtemisMotion)d.classList.remove('motion-on')},4000)}})(document.documentElement)</script>
-  <link rel="stylesheet" href="/assets/css/sections/blog-01-hero.css?v=1792349833">
+  <link rel="stylesheet" href="/assets/css/sections/blog-01-hero.css?v=1792350360">
   <link rel="stylesheet" href="/assets/css/sections/blog-02-destaque.css?v=1792349833">
   <link rel="stylesheet" href="/assets/css/sections/blog-03-categoria.css?v=1792349833">
   <link rel="stylesheet" href="/assets/css/sections/newsletter.css?v=1792179887">
@@ -89,15 +89,16 @@
             <!-- Text Container · 8325:2733 (982, gap 32) -->
             <div class="blog-hero__text">
               <div class="blog-hero__heading">
-                <p class="blog-hero__eyebrow eyebrow">Blog</p>
-                <h1 class="blog-hero__title" id="blog-hero-title">O que aprendemos colocando <em>inteligência artificial</em> em produção</h1>
+                <p class="blog-hero__eyebrow eyebrow" data-reveal="fade" data-motion-start="load">Blog</p>
+                <h1 class="blog-hero__title" id="blog-hero-title" data-split="lines" data-motion-start="load" data-motion-delay="100">O que aprendemos colocando <em>inteligência artificial</em> em produção</h1>
               </div>
-              <p class="blog-hero__lead body-lg">Análises dos sistemas que construímos, guias de implementação e o registro honesto do que funciona e do que não funciona. Escrito por quem entrega, não por quem assiste.</p>
+              <p class="blog-hero__lead body-lg" data-reveal="up" data-motion-start="load" data-motion-delay="300">Análises dos sistemas que construímos, guias de implementação e o registro honesto do que funciona e do que não funciona. Escrito por quem entrega, não por quem assiste.</p>
             </div>
           </div>
 
-          <!-- Banner · 8512:5733 · Mobile 8673:4735 — linhas convergentes; as luzes (Light) correm pelas linhas (assets/js/sections/blog-01-hero.js) -->
-          <div class="blog-hero__banner" aria-hidden="true" data-blog-hero-banner>
+          <!-- Banner · 8512:5733 · Mobile 8673:4735 — linhas convergentes; as luzes (Light) correm pelas linhas (assets/js/sections/blog-01-hero.js)
+               só enquanto o motion.js liga .is-looping (data-loop: até 5 s a cada entrada na tela); o clique cria luz a qualquer momento -->
+          <div class="blog-hero__banner" aria-hidden="true" data-blog-hero-banner data-loop>
             <!-- Lines · 8512:5704 · Mobile 8673:4747: Thin Curved Lines + Thick Curved Lines (espelhada na vertical) -->
             <div class="blog-hero__lines">
               <div class="blog-hero__curves">
@@ -129,8 +130,8 @@
             </div>
           </div>
 
-          <!-- Button Container · 8325:2725 · Mobile 8673:3895 — menu âncora: cada aba leva à seção da categoria (#slug) -->
-          <nav class="blog-hero__tabs" aria-label="Categorias do blog">
+          <!-- Button Container · 8325:2725 · Mobile 8673:3895 — menu âncora: cada aba leva à seção da categoria (#slug); entram em sequência ao carregar -->
+          <nav class="blog-hero__tabs" aria-label="Categorias do blog" data-reveal-group="up" data-stagger="50" data-motion-start="load" data-motion-delay="450">
             <a class="blog-hero__tab" href="#analises-de-caso"><span class="blog-hero__tab-label">Análises de caso</span></a>
             <a class="blog-hero__tab" href="#implementacao-de-ia"><span class="blog-hero__tab-label">Implementação de IA</span></a>
             <a class="blog-hero__tab" href="#ia-na-operacao"><span class="blog-hero__tab-label">IA na operação</span></a>
@@ -146,29 +147,29 @@
       <div class="container">
         <!-- Article Content · 8314:1568 · Mobile 8673:3902 — card inteiro clicável (link do título esticado) -->
         <article class="blog-destaque__card">
-          <!-- Article Image · 8314:1572 · Mobile 8673:3903 -->
-          <div class="blog-destaque__media">
+          <!-- Article Image · 8314:1572 · Mobile 8673:3903 — recorte que abre de baixo e imagem que assenta (motion.js) -->
+          <div class="blog-destaque__media" data-wipe="up" data-wipe-zoom>
             <img class="blog-destaque__img" src="/assets/images/blog-02-destaque/capa-wcontrol.png" width="672" height="573" alt="Tela de estatísticas do WControl: documentos aprovados, reprovados e em processamento" decoding="async">
           </div>
 
-          <!-- Article Text · 8314:1569 · Mobile 8673:3904 -->
-          <div class="blog-destaque__text">
-            <p class="blog-destaque__tag"><span>Em destaque</span></p>
+          <!-- Article Text · 8314:1569 · Mobile 8673:3904 — selo, meta, título, linha fina e autor entram em sequência (data-reveal-group) -->
+          <div class="blog-destaque__text" data-reveal-group>
+            <p class="blog-destaque__tag" data-reveal="pop"><span>Em destaque</span></p>
 
             <div class="blog-destaque__content">
               <div class="blog-destaque__head">
-                <p class="blog-destaque__meta">
+                <p class="blog-destaque__meta" data-reveal="fade">
                   <span class="blog-destaque__cat">Análises de caso</span>
                   <span class="blog-destaque__dot" aria-hidden="true">·</span>
                   <time class="blog-destaque__date" datetime="2026-03-13">13 de março, 2026</time>
                 </p>
-                <h2 class="blog-destaque__title" id="blog-destaque-title"><a class="blog-destaque__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h2>
+                <h2 class="blog-destaque__title" id="blog-destaque-title" data-split="lines"><a class="blog-destaque__link" href="/blog/anatomia-do-wcontrol-como-se-valida-um-documento-de-mil-paginas/">Anatomia do WControl: como se valida um documento de mil páginas</a></h2>
               </div>
-              <p class="blog-destaque__excerpt">O dia em que a IA discordou do engenheiro — e estava certa</p>
+              <p class="blog-destaque__excerpt" data-reveal="up">O dia em que a IA discordou do engenheiro — e estava certa</p>
             </div>
 
             <!-- Author Info · 8314:1664 · Mobile 8673:3915 — mesma marcação de artemis_blog_author() no tema -->
-            <div class="blog-destaque__author">
+            <div class="blog-destaque__author" data-reveal="up">
               <img class="blog-destaque__avatar" src="/assets/images/blog-02-destaque/avatar-autor.png" width="56" height="56" alt="" decoding="async">
               <p class="blog-destaque__author-details">
                 <span class="blog-destaque__author-name">Nome autor</span>
@@ -184,12 +185,12 @@
     <section class="blog-cat" id="analises-de-caso" aria-labelledby="analises-de-caso-title">
       <div class="container blog-cat__inner">
         <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
-        <h2 class="blog-cat__title" id="analises-de-caso-title">Análises de caso</h2>
+        <h2 class="blog-cat__title" id="analises-de-caso-title" data-split="lines">Análises de caso</h2>
 
         <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
         <div class="blog-cat__content">
-          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
-          <div class="blog-cat__grid">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) — cards sobem em sequência (motion.js) -->
+          <div class="blog-cat__grid" data-reveal-group="up">
 
             <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
             <article class="post-card">
@@ -260,7 +261,7 @@
           </div>
 
           <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
-          <a class="btn blog-cat__more" href="/blog/categoria/analises-de-caso/" aria-label="Ver todos os artigos de Análises de caso"><span>Ver todos os artigos</span></a>
+          <a class="btn blog-cat__more" data-reveal="up" href="/blog/categoria/analises-de-caso/" aria-label="Ver todos os artigos de Análises de caso"><span>Ver todos os artigos</span></a>
         </div>
       </div>
     </section>
@@ -269,12 +270,12 @@
     <section class="blog-cat" id="implementacao-de-ia" aria-labelledby="implementacao-de-ia-title">
       <div class="container blog-cat__inner">
         <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
-        <h2 class="blog-cat__title" id="implementacao-de-ia-title">Implementação de IA</h2>
+        <h2 class="blog-cat__title" id="implementacao-de-ia-title" data-split="lines">Implementação de IA</h2>
 
         <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
         <div class="blog-cat__content">
-          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
-          <div class="blog-cat__grid">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) — cards sobem em sequência (motion.js) -->
+          <div class="blog-cat__grid" data-reveal-group="up">
 
             <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
             <article class="post-card">
@@ -345,7 +346,7 @@
           </div>
 
           <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
-          <a class="btn blog-cat__more" href="/blog/categoria/implementacao-de-ia/" aria-label="Ver todos os artigos de Implementação de IA"><span>Ver todos os artigos</span></a>
+          <a class="btn blog-cat__more" data-reveal="up" href="/blog/categoria/implementacao-de-ia/" aria-label="Ver todos os artigos de Implementação de IA"><span>Ver todos os artigos</span></a>
         </div>
       </div>
     </section>
@@ -354,12 +355,12 @@
     <section class="blog-cat" id="ia-na-operacao" aria-labelledby="ia-na-operacao-title">
       <div class="container blog-cat__inner">
         <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
-        <h2 class="blog-cat__title" id="ia-na-operacao-title">IA na operação</h2>
+        <h2 class="blog-cat__title" id="ia-na-operacao-title" data-split="lines">IA na operação</h2>
 
         <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
         <div class="blog-cat__content">
-          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
-          <div class="blog-cat__grid">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) — cards sobem em sequência (motion.js) -->
+          <div class="blog-cat__grid" data-reveal-group="up">
 
             <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
             <article class="post-card">
@@ -430,7 +431,7 @@
           </div>
 
           <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
-          <a class="btn blog-cat__more" href="/blog/categoria/ia-na-operacao/" aria-label="Ver todos os artigos de IA na operação"><span>Ver todos os artigos</span></a>
+          <a class="btn blog-cat__more" data-reveal="up" href="/blog/categoria/ia-na-operacao/" aria-label="Ver todos os artigos de IA na operação"><span>Ver todos os artigos</span></a>
         </div>
       </div>
     </section>
@@ -439,12 +440,12 @@
     <section class="blog-cat" id="seo-e-ai-search" aria-labelledby="seo-e-ai-search-title">
       <div class="container blog-cat__inner">
         <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
-        <h2 class="blog-cat__title" id="seo-e-ai-search-title">SEO e AI Search</h2>
+        <h2 class="blog-cat__title" id="seo-e-ai-search-title" data-split="lines">SEO e AI Search</h2>
 
         <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
         <div class="blog-cat__content">
-          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
-          <div class="blog-cat__grid">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) — cards sobem em sequência (motion.js) -->
+          <div class="blog-cat__grid" data-reveal-group="up">
 
             <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
             <article class="post-card">
@@ -515,7 +516,7 @@
           </div>
 
           <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
-          <a class="btn blog-cat__more" href="/blog/categoria/seo-e-ai-search/" aria-label="Ver todos os artigos de SEO e AI Search"><span>Ver todos os artigos</span></a>
+          <a class="btn blog-cat__more" data-reveal="up" href="/blog/categoria/seo-e-ai-search/" aria-label="Ver todos os artigos de SEO e AI Search"><span>Ver todos os artigos</span></a>
         </div>
       </div>
     </section>
@@ -524,12 +525,12 @@
     <section class="blog-cat" id="marketing-com-ia" aria-labelledby="marketing-com-ia-title">
       <div class="container blog-cat__inner">
         <!-- Main Description · 8314:1706 · Mobile 8673:3921 -->
-        <h2 class="blog-cat__title" id="marketing-com-ia-title">Marketing com IA</h2>
+        <h2 class="blog-cat__title" id="marketing-com-ia-title" data-split="lines">Marketing com IA</h2>
 
         <!-- Content Container · 8325:2695 · Mobile 8673:3922 -->
         <div class="blog-cat__content">
-          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) -->
-          <div class="blog-cat__grid">
+          <!-- Article Card · 8314:1709 (3 colunas) · Mobile 8673:3923 (2 artigos empilhados) — cards sobem em sequência (motion.js) -->
+          <div class="blog-cat__grid" data-reveal-group="up">
 
             <!-- Article Content · 8314:1710 · Mobile 8673:3924 -->
             <article class="post-card">
@@ -600,7 +601,7 @@
           </div>
 
           <!-- button · instância 8325:2696 · Mobile 8673:3966 (largura total) -->
-          <a class="btn blog-cat__more" href="/blog/categoria/marketing-com-ia/" aria-label="Ver todos os artigos de Marketing com IA"><span>Ver todos os artigos</span></a>
+          <a class="btn blog-cat__more" data-reveal="up" href="/blog/categoria/marketing-com-ia/" aria-label="Ver todos os artigos de Marketing com IA"><span>Ver todos os artigos</span></a>
         </div>
       </div>
     </section>
@@ -859,7 +860,7 @@
 
   <script src="/assets/js/main.js?v=1792179891" defer></script>
   <script src="/assets/js/motion.js?v=1792349831" defer></script>
-  <script src="/assets/js/sections/blog-01-hero.js?v=1792349833" defer></script>
+  <script src="/assets/js/sections/blog-01-hero.js?v=1792350345" defer></script>
   <script src="/assets/js/sections/newsletter.js?v=1792179891" defer></script>
   <script src="/assets/js/sections/footer.js?v=1792179891" defer></script>
 

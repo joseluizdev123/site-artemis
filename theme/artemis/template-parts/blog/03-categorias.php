@@ -20,12 +20,12 @@ foreach ( artemis_blog_categories() as $artemis_cat ) :
 	<section class="blog-cat" id="<?php echo esc_attr( $artemis_cat_id ); ?>" aria-labelledby="<?php echo esc_attr( $artemis_cat_id ); ?>-title">
 		<div class="container blog-cat__inner">
 			<?php // Main Description · 8314:1706 ?>
-			<h2 class="blog-cat__title" id="<?php echo esc_attr( $artemis_cat_id ); ?>-title"><?php echo esc_html( $artemis_cat->name ); ?></h2>
+			<h2 class="blog-cat__title" id="<?php echo esc_attr( $artemis_cat_id ); ?>-title" data-split="lines"><?php echo esc_html( $artemis_cat->name ); ?></h2>
 
 			<?php // Content Container · 8325:2695 ?>
 			<div class="blog-cat__content">
-				<?php // Article Card · 8314:1709 — 3 colunas no desktop; no mobile (8673:3923) só os 2 primeiros ?>
-				<div class="blog-cat__grid">
+				<?php // Article Card · 8314:1709 — 3 colunas no desktop; no mobile (8673:3923) só os 2 primeiros; cards sobem em sequência (motion.js) ?>
+				<div class="blog-cat__grid" data-reveal-group="up">
 					<?php
 					foreach ( $artemis_cat_posts as $artemis_cat_post ) {
 						echo artemis_blog_card( $artemis_cat_post, array( 'term' => $artemis_cat ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_blog_card.
@@ -38,7 +38,7 @@ foreach ( artemis_blog_categories() as $artemis_cat ) :
 					/* translators: 1: rótulo do botão ("Ver todos os artigos"), 2: nome da categoria. */
 					$artemis_cat_label = sprintf( __( '%1$s de %2$s', 'artemis' ), $artemis_cat_more, $artemis_cat->name );
 					?>
-					<a class="btn blog-cat__more" href="<?php echo esc_url( get_category_link( $artemis_cat ) ); ?>" aria-label="<?php echo esc_attr( $artemis_cat_label ); ?>"><span><?php echo esc_html( $artemis_cat_more ); ?></span></a>
+					<a class="btn blog-cat__more" data-reveal="up" href="<?php echo esc_url( get_category_link( $artemis_cat ) ); ?>" aria-label="<?php echo esc_attr( $artemis_cat_label ); ?>"><span><?php echo esc_html( $artemis_cat_more ); ?></span></a>
 				<?php endif; ?>
 			</div>
 		</div>

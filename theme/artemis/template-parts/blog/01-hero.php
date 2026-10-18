@@ -17,16 +17,16 @@ $artemis_blog_eyebrow = (string) artemis_mod( 'art_blog_eyebrow' );
 				<div class="blog-hero__text">
 					<div class="blog-hero__heading">
 						<?php if ( $artemis_blog_eyebrow ) : ?>
-							<p class="blog-hero__eyebrow eyebrow"><?php echo esc_html( $artemis_blog_eyebrow ); ?></p>
+							<p class="blog-hero__eyebrow eyebrow" data-reveal="fade" data-motion-start="load"><?php echo esc_html( $artemis_blog_eyebrow ); ?></p>
 						<?php endif; ?>
-						<h1 class="blog-hero__title" id="blog-hero-title"><?php echo artemis_highlight( artemis_mod( 'art_blog_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h1>
+						<h1 class="blog-hero__title" id="blog-hero-title" data-split="lines" data-motion-start="load" data-motion-delay="100"><?php echo artemis_highlight( artemis_mod( 'art_blog_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h1>
 					</div>
-					<p class="blog-hero__lead body-lg"><?php echo esc_html( artemis_mod( 'art_blog_text' ) ); ?></p>
+					<p class="blog-hero__lead body-lg" data-reveal="up" data-motion-start="load" data-motion-delay="300"><?php echo esc_html( artemis_mod( 'art_blog_text' ) ); ?></p>
 				</div>
 			</div>
 
-			<?php // Banner · 8512:5733 — linhas convergentes; as luzes correm pelas linhas (assets/js/sections/blog-01-hero.js) ?>
-			<div class="blog-hero__banner" aria-hidden="true" data-blog-hero-banner>
+			<?php // Banner · 8512:5733 — linhas convergentes; as luzes correm pelas linhas (assets/js/sections/blog-01-hero.js) só com .is-looping (data-loop: até 5 s por entrada na tela) ?>
+			<div class="blog-hero__banner" aria-hidden="true" data-blog-hero-banner data-loop>
 				<div class="blog-hero__lines">
 					<div class="blog-hero__curves">
 						<picture>
@@ -57,7 +57,7 @@ $artemis_blog_eyebrow = (string) artemis_mod( 'art_blog_eyebrow' );
 			</div>
 
 			<?php // Button Container · 8325:2725 — menu âncora: cada aba leva à seção da categoria (#slug) ?>
-			<nav class="blog-hero__tabs" aria-label="<?php esc_attr_e( 'Categorias do blog', 'artemis' ); ?>">
+			<nav class="blog-hero__tabs" aria-label="<?php esc_attr_e( 'Categorias do blog', 'artemis' ); ?>" data-reveal-group="up" data-stagger="50" data-motion-start="load" data-motion-delay="450">
 				<?php foreach ( artemis_blog_hero_tabs() as $artemis_tab ) : ?>
 					<a class="blog-hero__tab" href="#<?php echo esc_attr( $artemis_tab[1] ); ?>"><span class="blog-hero__tab-label"><?php echo esc_html( $artemis_tab[0] ); ?></span></a>
 				<?php endforeach; ?>

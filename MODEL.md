@@ -120,13 +120,26 @@ Estático: `blog/index.html` (`src/pages.json` → página `blog`). WP: `home.ph
 Validação mobile (375, 2026-10-15): página 375×8038 = Figma `8673:3845`; gates por seção só com larguras de texto ≤1px (métrica da fonte) (título do hero com entrelinha arredondada para 38, como a caixa do Figma: gate 0 — revalidado após a página do artigo). Diferenças intencionais: rótulo de categoria nos cards = categoria real do post (Figma repete "Análises de caso"); placeholder da newsletter sem o espaço duplo do Figma. Sem rolagem horizontal de 320 a 767; abas do hero param logo abaixo do header (`section[id] { scroll-margin-top }`); favicon = marca "A" (`assets/images/favicon.svg`; no WP só se não houver Ícone do site).
 
 Interações pedidas pelo cliente, fora do Figma (2026-10-16). Valem no estático e no tema, que usam o mesmo CSS e JS.
-- **Luzes do banner** (`blog-01-hero.js`): 30 luzes automáticas (`AUTO`). São as 10 do Figma mais 20 em pontos sorteados das linhas, que acendem em 0,4 s.
-- **Clique ou toque no banner**: cria mais uma luz no ponto da linha mais próximo. Ela corre até o fim da linha e some. Ficam no máximo 24 de uma vez (`CLICK_MAX`) e o banner mostra o cursor de clique (`.is-clickable`).
-- **Movimento reduzido ou sem JS**: as 10 luzes do Figma ficam paradas, como antes.
+- **Luzes do banner** (`blog-01-hero.js`): o banner tem `data-loop` (Motion). Enquanto o motion.js liga `.is-looping` (até 5 s a cada entrada na tela), correm 30 luzes automáticas (`AUTO`): as 10 do Figma partem da sua posição e 20 acendem em 0,4 s em pontos sorteados das linhas. No fim do loop as automáticas apagam em 0,6 s (`SETTLE`) e as 10 do Figma reacendem no repouso (`.is-back`).
+- **Clique ou toque no banner**, a qualquer momento (ação da pessoa, fora do limite de 5 s): cria uma luz no ponto da linha mais próximo, que corre até o fim da linha e some. Ficam no máximo 24 de uma vez (`CLICK_MAX`) e o banner mostra o cursor de clique (`.is-clickable`).
+- **Movimento reduzido, sem JS ou sem o motion.js**: as 10 luzes do Figma ficam paradas.
 - **Hover nos artigos**: só com mouse (`hover: hover`); o foco do teclado tem o mesmo efeito.
   - O card em destaque aumenta 2% (`scale(1.02)`).
   - Os cards das categorias aumentam 4% e ganham fundo `black-100` e borda `gray-800` por cima dos vizinhos.
   - O "Continue lendo" do artigo (`.blog-cat--related`) fica de fora.
+
+Motion (2026-10-18; atributos no partial e no template PHP — no tema, a meta e o autor do destaque recebem o atributo por `artemis_blog_attr()`, porque vêm de funções compartilhadas com o card e o artigo):
+
+| Seção | Elemento | Atributos |
+|---|---|---|
+| hero | eyebrow · título · texto | `data-reveal="fade"` · `data-split="lines"` (+100 ms) · `data-reveal="up"` (+300 ms), todos `data-motion-start="load"` |
+| hero | abas | `data-reveal-group="up" data-stagger="50"` (+450 ms, ao carregar) |
+| hero | banner | `data-loop` (luzes, acima) |
+| destaque | imagem | `data-wipe="up" data-wipe-zoom` no `.blog-destaque__media` (o assentamento usa `scale`; o hover, `transform` — não brigam) |
+| destaque | texto | `data-reveal-group` no `.blog-destaque__text`: selo `pop`, meta `fade`, título `split`, linha fina e autor `up` |
+| categoria ×5 | título · cards · botão | `data-split="lines"` · `data-reveal-group="up"` no `.blog-cat__grid` · `data-reveal="up"` (o reveal usa `translate`; o crescer do hover, `transform`) |
+
+Newsletter, header, rodapé e botões: automáticos (motion.js).
 
 ### Blog — modelo de dados
 

@@ -1,10 +1,13 @@
 /* Blog 01 — Hero: luzes correndo pelas linhas convergentes do banner (Figma Light 8512:5748 sobre Lines 8512:5704)
-   - cada luz parte da posição do Figma, segue a linha mais próxima até o fim e recomeça do início de outra linha
-   - além das 10 do Figma, o JS acende mais luzes automáticas (AUTO no total), em pontos sorteados das linhas
+   - em repouso as 10 luzes ficam nas posições do Figma (CSS)
+   - o banner tem data-loop: o motion.js liga .is-looping por até 5 s a cada entrada na tela (WCAG 2.2.2). Nesse tempo
+     as 10 do Figma partem da sua posição e o JS acende mais luzes (AUTO no total), em pontos sorteados das linhas;
+     cada luz segue a linha até o fim e recomeça do início de outra
+   - quando o loop acaba, as automáticas apagam (SETTLE) e as 10 do Figma reacendem no lugar do repouso
+   - clique (ou toque) no banner, a qualquer momento: nasce uma luz no ponto da linha mais próximo, corre até o fim e
+     some (ação da pessoa, fora do limite de 5 s)
    - a geometria vem do mesmo SVG que o <img> exibe (currentSrc: desktop ou mobile), lido sem editar o arquivo
-   - clique (ou toque) no banner: nasce mais uma luz no ponto da linha mais próximo, corre até o fim e some;
-     as automáticas continuam como estão
-   - sem JS ou com prefers-reduced-motion: luzes paradas nas posições do Figma (CSS) */
+   - sem JS, sem o motion.js ou com prefers-reduced-motion: luzes paradas nas posições do Figma */
 (function () {
   'use strict';
 
@@ -23,13 +26,18 @@
   var AUTO = 30;      // luzes automáticas no total (as 10 do Figma + as criadas aqui)
   var BORN_IN = 0.4; // segundos para acender uma luz criada pelo JS (extra ou do clique)
   var CLICK_MAX = 24; // luzes de clique ao mesmo tempo (a mais antiga sai)
+  var SETTLE = 0.6;  // segundos para as automáticas apagarem quando o loop acaba
 
   var paths = [];    // { layer, pts: [[x, y], …] em unidades do SVG, len }
   var maps = [];     // por camada: { ox, oy, sx, sy, h, flip } — SVG → coordenadas do grupo Light
-  var runs = [];     // por luz: { el, path, s, speed, w, h } — criadas pelo JS têm age (s); as do clique, once: true
+  // Luz em movimento: { el, path, s, speed, w, h } — as criadas pelo JS têm age (s); as do clique, once: true
+  var figma = [];    // repouso das 10 do Figma: { el, path, s, w, h } (ponto da linha mais próximo do CSS)
+  var auto = [];     // automáticas em movimento (só durante o loop ou apagando)
+  var clicks = [];   // luzes do clique
+  var settle = -1;   // ≥ 0: segundos desde o fim do loop (as automáticas apagando)
   var layersInfo = null; // SVGs carregados (viewBox + amostras), para remedir no resize
   var sources = '';
-  var raf = 0, last = 0, visible = false, busy = false;
+  var raf = 0, last = 0, visible = false, busy = false, ready = false;
 
   /* SVG da camada (o arquivo que o <picture> escolheu), num <svg> invisível só para medir */
   function loadLayer(layer, index) {
@@ -91,14 +99,17 @@
   /* Luz nova criada pelo JS (extra automática ou do clique), com o tamanho do traço da tela atual */
   function born(path, s, once) {
     var el = document.createElement('i');
-    el.className = 'blog-hero__pulse';
+    el.className = 'blog-hero__pulse blog-hero__pulse--js';
+    el.style.opacity = '0';
     light.appendChild(el);
     var cs = getComputedStyle(el);
     return {
       el: el, path: path, s: s, w: parseFloat(cs.width), h: parseFloat(cs.height),
-      speed: 1 / (LOOP * (0.8 + Math.random() * 0.45)), age: 0, once: !!once
+      speed: speed(), age: 0, once: !!once
     };
   }
+
+  function speed() { return 1 / (LOOP * (0.8 + Math.random() * 0.45)); }
 
   /* Ponto do caminho mais próximo do centro da luz (posição estática do Figma) */
   function nearest(cx, cy) {
@@ -115,35 +126,42 @@
     return best;
   }
 
-  function place(run) {
+  function place(run, k) {
     var p = at(run.path, run.s);
     var f = FADE * run.path.len;
-    var o = Math.max(0, Math.min(1, run.s / f, (run.path.len - run.s) / f));
+    var o = Math.max(0, Math.min(1, run.s / f, (run.path.len - run.s) / f)) * k;
     if (run.age != null) o *= Math.min(1, run.age / BORN_IN);
     run.el.style.transform = 'translate(' + (p.x - run.w / 2).toFixed(2) + 'px,' + (p.y - run.h / 2).toFixed(2) + 'px) rotate(' + p.a.toFixed(2) + 'deg)';
     run.el.style.opacity = o.toFixed(3);
+  }
+
+  /* Anda dt segundos; devolve false se a luz do clique chegou ao fim (e já saiu) */
+  function advance(run, dt) {
+    run.s += run.speed * run.path.len * dt;
+    if (run.age != null) run.age += dt;
+    if (run.s < run.path.len) return true;
+    if (run.once) { run.el.remove(); return false; }
+    run.path = paths[Math.floor(Math.random() * paths.length)]; // fim da linha: recomeça do início de outra linha
+    run.s = 0;
+    return true;
   }
 
   function frame(now) {
     raf = 0;
     var dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
     last = now;
-    runs = runs.filter(function (run) {
-      run.s += run.speed * run.path.len * dt;
-      if (run.s >= run.path.len) {
-        if (run.once) { run.el.remove(); return false; } // luz do clique: some no fim da linha
-        run.path = paths[Math.floor(Math.random() * paths.length)]; // fim da linha: recomeça do início de outra linha
-        run.s = 0;
-      }
-      if (run.age != null) run.age += dt;
-      place(run);
-      return true;
-    });
-    if (visible) raf = requestAnimationFrame(frame);
+    var k = settle >= 0 ? Math.max(0, 1 - settle / SETTLE) : 1;
+    auto.forEach(function (run) { advance(run, dt); place(run, k); });
+    clicks = clicks.filter(function (run) { if (!advance(run, dt)) return false; place(run, 1); return true; });
+    if (settle >= 0) {
+      settle += dt;
+      if (settle >= SETTLE) toRest();
+    }
+    if (visible && (auto.length || clicks.length)) raf = requestAnimationFrame(frame);
   }
 
-  function start() {
-    if (raf || !runs.length || !visible || reduce.matches) return;
+  function kick() {
+    if (raf || !visible || reduce.matches || !(auto.length || clicks.length)) return;
     last = 0;
     raf = requestAnimationFrame(frame);
   }
@@ -152,22 +170,70 @@
     raf = 0;
   }
 
-  /* Volta às posições do Figma (CSS) */
-  function rest() {
-    stop();
-    runs.forEach(function (run) { if (run.age != null) run.el.remove(); }); // extras e cliques
+  function onScreen() {
+    var r = banner.getBoundingClientRect();
+    return !document.hidden && r.bottom > 0 && r.top < window.innerHeight;
+  }
+
+  /* Loop ligado: as 10 do Figma partem da sua posição e as extras acendem em pontos sorteados */
+  function startFlow() {
+    if (!ready || reduce.matches) return;
+    if (auto.length) { settle = -1; kick(); return; } // ainda apagando: voltam a correr
+    light.classList.remove('is-back');
+    auto = figma.map(function (f) { return { el: f.el, path: f.path, s: f.s, w: f.w, h: f.h, speed: speed() }; });
+    light.classList.add('is-flowing');
+    for (var n = auto.length; n < AUTO; n++) {
+      var path = paths[Math.floor(Math.random() * paths.length)];
+      auto.push(born(path, Math.random() * path.len));
+    }
+    auto.forEach(function (run) { place(run, 1); });
+    kick();
+  }
+
+  /* Loop desligado: na tela, as automáticas apagam em SETTLE s; fora dela, repouso na hora */
+  function stopFlow() {
+    if (!auto.length) return;
+    if (!onScreen()) { toRest(); return; }
+    if (settle < 0) settle = 0;
+    kick();
+  }
+
+  /* Repouso do Figma: extras saem, as 10 voltam às posições do CSS e reacendem (.is-back) */
+  function toRest() {
+    var wasFlowing = auto.length > 0;
+    auto.forEach(function (run) { if (run.age != null) run.el.remove(); });
+    auto = [];
+    settle = -1;
     light.classList.remove('is-flowing');
-    banner.classList.remove('is-clickable');
     pulses.forEach(function (el) { el.style.transform = ''; el.style.opacity = ''; });
-    runs = [];
+    if (wasFlowing && onScreen()) {
+      light.classList.remove('is-back');
+      void light.offsetWidth; // reinicia a animação de reacender
+      light.classList.add('is-back');
+    }
+  }
+
+  function sync() {
+    if (banner.classList.contains('is-looping') && !reduce.matches) startFlow(); else stopFlow();
+  }
+
+  /* Tudo parado e sem luzes do JS (troca de SVG, movimento reduzido) */
+  function reset() {
+    stop();
+    toRest();
+    clicks.forEach(function (run) { run.el.remove(); });
+    clicks = [];
+    light.classList.remove('is-back');
+    banner.classList.remove('is-clickable');
+    ready = false;
   }
 
   function init() {
     if (busy) return;
     var src = layers.map(function (l) { var img = l.querySelector('img'); return img.currentSrc || img.src; }).join('|');
-    if (src === sources && runs.length) return;
+    if (src === sources && ready) return;
     busy = true;
-    rest();
+    reset();
     Promise.all(layers.map(loadLayer)).then(function (info) {
       busy = false;
       sources = src;
@@ -176,35 +242,33 @@
       measure(info);
       layersInfo = info;
       if (reduce.matches) return;
-      // Centro estático de cada luz (left/top do CSS + metade do traço), antes de ligar o modo em movimento
-      runs = pulses.map(function (el) {
+      // Centro estático de cada luz do Figma (left/top do CSS + metade do traço) → ponto da linha mais próximo
+      figma = pulses.map(function (el) {
         var cs = getComputedStyle(el);
         var w = parseFloat(cs.width), h = parseFloat(cs.height);
         var hit = nearest(parseFloat(cs.left) + w / 2, parseFloat(cs.top) + h / 2);
-        return { el: el, path: hit.path, s: hit.s, w: w, h: h, speed: 1 / (LOOP * (0.8 + Math.random() * 0.45)) };
+        return { el: el, path: hit.path, s: hit.s, w: w, h: h };
       });
-      light.classList.add('is-flowing');
-      for (var n = runs.length; n < AUTO; n++) { // extras: linha e ponto sorteados
-        var path = paths[Math.floor(Math.random() * paths.length)];
-        runs.push(born(path, Math.random() * path.len));
-      }
-      runs.forEach(place);
+      ready = true;
       banner.classList.add('is-clickable');
-      start();
-    }).catch(function () { busy = false; rest(); }); // sem rede: luzes paradas
+      sync(); // o loop pode ter ligado antes de as linhas estarem medidas
+    }).catch(function () { busy = false; reset(); }); // sem rede: luzes paradas
   }
+
+  /* Loop do motion.js (data-loop): .is-looping por até 5 s a cada entrada na tela */
+  banner.addEventListener('motion:loop-start', sync);
+  banner.addEventListener('motion:loop-stop', sync);
 
   /* Clique no banner: uma luz a mais, no ponto da linha mais próximo do clique */
   banner.addEventListener('click', function (e) {
-    if (!runs.length || reduce.matches) return; // linhas ainda não medidas ou movimento reduzido: nada
+    if (!ready || reduce.matches) return; // linhas ainda não medidas ou movimento reduzido: nada
     var lb = light.getBoundingClientRect();
     var hit = nearest(e.clientX - lb.left, e.clientY - lb.top);
-    var clicks = runs.filter(function (run) { return run.once; });
-    if (clicks.length >= CLICK_MAX) { clicks[0].el.remove(); runs.splice(runs.indexOf(clicks[0]), 1); }
+    if (clicks.length >= CLICK_MAX) clicks.shift().el.remove();
     var run = born(hit.path, hit.s, true);
-    runs.push(run);
-    place(run);
-    start();
+    clicks.push(run);
+    place(run, 1);
+    kick();
   });
 
   var resizeTimer = 0;
@@ -213,18 +277,18 @@
     resizeTimer = setTimeout(function () {
       var src = layers.map(function (l) { var img = l.querySelector('img'); return img.currentSrc || img.src; }).join('|');
       if (src !== sources) { init(); return; } // trocou desktop ↔ mobile
-      if (layersInfo && runs.length) { measure(layersInfo); runs.forEach(place); }
+      if (layersInfo && ready) { measure(layersInfo); auto.concat(clicks).forEach(function (run) { place(run, 1); }); }
     }, 150);
   });
 
-  var onReduce = function () { if (reduce.matches) rest(); else init(); };
+  var onReduce = function () { if (reduce.matches) reset(); else init(); };
   if (reduce.addEventListener) reduce.addEventListener('change', onReduce); else if (reduce.addListener) reduce.addListener(onReduce);
 
   // Só anima com o banner na tela
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
       visible = entries[0].isIntersecting;
-      if (visible) start(); else stop();
+      if (visible) kick(); else stop();
     }).observe(banner);
   } else {
     visible = true;
