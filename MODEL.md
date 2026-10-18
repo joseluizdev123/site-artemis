@@ -77,7 +77,7 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 
 | Seção | Entrada |
 |---|---|
-| 01 hero | ao carregar (`data-motion-start="load"`): grupo em `.hero__row` — eyebrow fade → h1 `data-split` (0,65 s por linha, 40 ms entre linhas: termina em ≤ 0,9 s, é o LCP) → lead up → 2 botões up. Logos em fade da esquerda para a direita (grupo em `.clients__grid`, 70 ms; o fade é no logo, não na célula — no tema via `preg_replace` sobre `artemis_cliente_logo()`), faixa do padrão com `data-wipe` |
+| 01 hero | ao carregar (`data-motion-start="load"`): grupo em `.hero__row` — eyebrow fade → h1 `data-split` (0,6 s por linha, 40 ms entre linhas: termina em ≤ 0,9 s depois de começar, é o LCP) → lead up → 2 botões up. Logos em fade da esquerda para a direita (grupo em `.clients__grid`, 70 ms; o fade é no logo, não na célula — no tema via `preg_replace` sobre `artemis_cliente_logo()`), faixa do padrão com `data-wipe` |
 | 02 | cabeçalho (eyebrow fade, título split); avatares `data-reveal="pop"` na `<img>` (o `li` tem o tooltip; no tema em `artemis_oqf_avatar()`); parágrafos `data-reveal-group="up"` (120 ms) |
 | 03 | só o cabeçalho (título split, texto up); os cards têm IO próprio |
 | 04 | eyebrow fade, citação split, autor up (+350 ms); globo como estava |

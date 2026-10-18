@@ -102,10 +102,10 @@
   .hero__pattern.is-live .hero__dash-row path { animation: none; }
 }
 
-/* Entrada do h1 (motion.js, data-split): é o LCP — termina em até 0,9 s (0,65 s por linha, 40 ms entre linhas;
-   com o atraso de 90 ms do grupo, 5 linhas no celular = 0,9 s) */
+/* Entrada do h1 (motion.js, data-split): é o LCP — termina em até 0,9 s (0,6 s por linha, 40 ms entre linhas;
+   com o atraso de 90 ms do grupo: 3 linhas no desktop = 0,77 s, 5 no celular = 0,85 s) */
 .motion-on .hero__title.is-in .m-w__i {
-  animation-duration: .65s;
+  animation-duration: .6s;
   animation-delay: calc(var(--m-delay, 0ms) + var(--m-line, 0) * 40ms);
 }
 
