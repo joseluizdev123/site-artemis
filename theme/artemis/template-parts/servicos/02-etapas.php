@@ -56,7 +56,7 @@ $artemis_total = count( $artemis_etapas );
 
 		<?php /* Ilustração em 4 camadas do tamanho do quadro (desktop 296×593 · celular 375×421): monta com o scroll e flutua, como a da Home */ ?>
 		<div class="srv-steps__art" aria-hidden="true">
-			<div class="srv-art" data-rise>
+			<div class="srv-art" data-rise data-loop>
 				<?php foreach ( array( 'base' => 'base', 'screen' => 'tela', 'line' => 'tracejado', 'badge' => 'selo' ) as $artemis_layer => $artemis_file ) : ?>
 					<picture class="srv-art__layer srv-art__layer--<?php echo esc_attr( $artemis_layer ); ?>"><source media="(max-width: 767px)" srcset="<?php echo esc_url( artemis_asset( 'images/servicos-02-etapas/m-ilustra-' . $artemis_file . '.svg' ) ); ?>" width="375" height="421"><img src="<?php echo esc_url( artemis_asset( 'images/servicos-02-etapas/ilustra-' . $artemis_file . '.svg' ) ); ?>" width="296" height="593" alt="" decoding="async"></picture>
 				<?php endforeach; ?>

@@ -6,7 +6,9 @@
    ≤1023: todas as etapas abertas em sequência (só CSS) — aqui só se ajusta o aria-expanded.
 
    Entrada dos textos (.is-armed): as etapas chegam uma por vez quando a lista entra na tela (.is-in) e os itens do
-   painel, um por vez, quando ele entra na tela e a cada troca (.is-entering). Sem JS / movimento reduzido, tudo pronto.
+   painel, um por vez, quando ele entra na tela e a cada troca (.is-entering). Como as entradas da biblioteca motion,
+   cada uma volta ao estado inicial quando sai da tela por inteiro e toca de novo na volta (de cima ou de baixo).
+   Sem JS / movimento reduzido / impressão, tudo pronto.
 
    Ilustração (.srv-art[data-rise]): monta com o scroll e depois flutua — o mesmo da Home (09-como-trabalhamos.js). */
 (function () {
@@ -120,22 +122,19 @@
     });
     section.classList.add('is-armed');
 
-    // Entra quando passa de 90% da altura da tela; quem recarregou mais abaixo (já acima da tela) também,
-    // para não ficar escondido. Painel oculto (outra etapa) espera a troca.
+    // Entra quando passa de 90% da altura da tela. Painel oculto (outra etapa) espera a troca.
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         var el = e.target;
-        if (el.hidden) return;
-        if (!e.isIntersecting && e.boundingClientRect.top > 0) return;
-        if (el.classList.contains('srv-step__head')) {
-          el.classList.add('is-in');
-          io.unobserve(el);
-        } else if (!el.classList.contains('is-entering')) {
-          el.classList.add('is-entering'); // painéis seguem observados: no celular os que estavam ocultos entram depois
-        }
+        if (el.hidden || !e.isIntersecting) return;
+        el.classList.add(el.classList.contains('srv-step__head') ? 'is-in' : 'is-entering');
       });
     }, { rootMargin: '0px 0px -10% 0px' });
-    heads.concat(panels).forEach(function (el) { if (el) io.observe(el); });
+    // Fora da tela por inteiro: volta ao estado inicial (ninguém vê) para entrar de novo na volta
+    var outIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (!e.isIntersecting) e.target.classList.remove('is-in', 'is-entering'); });
+    }, { threshold: 0 });
+    heads.concat(panels).forEach(function (el) { if (el) { io.observe(el); outIO.observe(el); } });
   }
 
   function onLayout() { show(active); resume(); }
@@ -148,9 +147,9 @@
 
 /* Ilustração das etapas (.srv-art[data-rise]) — "monta" com o scroll, como a da Home (09-como-trabalhamos.js).
    Grava --p (0 → 1) conforme ela sobe na tela; o CSS sobe a camada da tela, desenha o tracejado e revela o selo.
-   Suavizado para subir devagar. Na primeira vez que fica montada (p = 1) ganha data-loop: a biblioteca
-   (assets/js/motion.js) liga .is-looping por 5 s agora e a cada nova entrada na tela, e as camadas flutuam um ciclo.
-   O data-loop entra só aqui (e não no HTML) para os 5 s começarem com a ilustração montada, não antes de rolar. */
+   Suavizado para subir devagar. Montada (p = 1) ganha .is-built e, com o data-loop do HTML (.is-looping da biblioteca
+   motion enquanto está na tela), as camadas flutuam sem parar. Quando sai da tela por inteiro volta a encaixar
+   (p = 0, sem .is-built) sem ninguém ver; na volta — de cima ou de baixo — monta de novo até onde a rolagem pede. */
 (function () {
   'use strict';
 
@@ -166,10 +165,7 @@
 
   function setP() {
     el.style.setProperty('--p', current.toFixed(4));
-    if (current >= 0.999 && !el.hasAttribute('data-loop')) {
-      el.setAttribute('data-loop', '');
-      if (window.ArtemisMotion) window.ArtemisMotion.refresh(el.parentNode); // observa o novo data-loop
-    }
+    if (current >= 0.999) el.classList.add('is-built');
   }
 
   function measure() {
@@ -200,8 +196,13 @@
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
       visible = entries[0].isIntersecting;
-      if (visible) update();
-    }, { rootMargin: '25% 0px' }).observe(el);
+      if (visible) { update(); return; }
+      cancelAnimationFrame(raf);
+      raf = 0;
+      current = target = 0;
+      el.classList.remove('is-built');
+      setP();
+    }, { threshold: 0 }).observe(el);
   } else {
     visible = true;
   }
