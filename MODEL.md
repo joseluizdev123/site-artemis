@@ -262,7 +262,7 @@ Motion (2026-10-18, biblioteca global — MODEL.md › Motion; atributos no part
 - "O problema": `.seo-problema__inner` é grupo — título `data-split`, parágrafos `up`.
 - "Duas formas de contratar": desktop — `.seo-formas__left` é grupo (título `data-split`, as duas `.seo-opt` `up`); `.seo-formas__media` `data-wipe="up"` (uma vez, no contêiner; a troca das imagens e a barra de progresso seguem iguais). O corpo oculto da opção (`hidden`) não tem reveal. Celular — cada `.seo-fm` `up`. Os elementos do layout escondido (`display: none`) ficam prontos na hora (o motion.js os dá como já passados).
 - Validação: `motion_check` 1440 e 375 com 0 pendentes, 0 sobras, sem rolagem lateral e sem erro de JS; `page_check` e `diff.py` iguais aos de antes do motion.
-- Pendente na biblioteca (avisado à sessão mestre): no celular, do carregamento até o status do CTA ser digitado, a página fica com 1399 px de largura — o `.m-sr` (absolute) que o `data-type` cria no `.cta__status-text` não tem ancestral posicionado e escapa do `overflow: clip`. Vale para toda página com o CTA; `[data-type], [data-count] { position: relative; }` no motion.css resolve (testado em headless: 1399 → 375). O `motion_check` não pega porque mede só o fim.
+- Achado aqui e corrigido na biblioteca (b007725): no celular, do carregamento até o status do CTA ser digitado, a página ficava com 1399 px de largura — o `.m-sr` (absolute) do `data-type` escapava do `overflow: clip`. Agora `[data-type], [data-count] { position: relative; }` no motion.css, e o `motion_check` mede também a largura logo após o carregamento.
 
 ## MktOps — mapa (desktop `8348:4181` 1440×5137 · mobile `8695:3268` 375×7468,08)
 
