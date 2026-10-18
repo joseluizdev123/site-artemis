@@ -81,6 +81,8 @@
 /* --------------------------------------------------------------------------
    Contador e digitação
    -------------------------------------------------------------------------- */
+/* Contém o .m-sr (absolute): sem ancestral posicionado ele escapa do clip do main e alarga a página no celular */
+[data-type], [data-count] { position: relative; }
 .m-count { display: inline-block; text-align: right; }
 .m-sr {
   position: absolute;

@@ -43,7 +43,8 @@ try {
   await send('Page.enable');
   await send('Page.navigate', { url });
   for (let i = 0; i < 100; i++) { await sleep(200); if (await evaluate("document.readyState === 'complete'")) break; }
-  const start = await evaluate(`({ motion: document.documentElement.classList.contains('motion-on'), api: !!window.ArtemisMotion })`);
+  await sleep(1500); // depois de armar (spans auxiliares já inseridos), antes de rolar
+  const start = await evaluate(`({ motion: document.documentElement.classList.contains('motion-on'), api: !!window.ArtemisMotion, docW: document.documentElement.scrollWidth, vw: innerWidth })`);
   const H = await evaluate('document.documentElement.scrollHeight');
   for (let y = 0; y <= H; y += 400) { await evaluate(`window.scrollTo(0, ${y})`); await sleep(120); }
   await sleep(3500);
@@ -58,9 +59,11 @@ try {
     };
   })()`);
   ws.close();
-  console.log(`${url} @ ${width}px — motion-on ${start.motion} · api ${start.api} · alvos ${out.targets} · pendentes ${out.pendingCount}${out.pendingCount ? ' ' + out.pending.join(' ') : ''} · sobras ${out.leftovers} · botões com roll ${out.rolls} · página ${out.docW}×${out.docH}${out.docW > out.vw ? '  <-- ROLAGEM HORIZONTAL' : ''} · erros JS ${errors.length}`);
+  // compara com a largura emulada: no celular o Chrome reduz o zoom e innerWidth acompanha a página larga
+  if (start.docW > width || start.vw > width) console.log(`  <-- ROLAGEM HORIZONTAL NO CARREGAMENTO: página ${start.docW}px, janela ${start.vw}px (emulada ${width}px)`);
+  console.log(`${url} @ ${width}px — motion-on ${start.motion} · api ${start.api} · alvos ${out.targets} · pendentes ${out.pendingCount}${out.pendingCount ? ' ' + out.pending.join(' ') : ''} · sobras ${out.leftovers} · botões com roll ${out.rolls} · página ${out.docW}×${out.docH}${out.docW > width ? '  <-- ROLAGEM HORIZONTAL' : ''} · erros JS ${errors.length}`);
   errors.slice(0, 5).forEach((e) => console.log('  erro:', String(e).split('\n')[0]));
-  if (out.pendingCount || out.leftovers || errors.length || out.docW > out.vw) process.exitCode = 1;
+  if (out.pendingCount || out.leftovers || errors.length || out.docW > width || start.docW > width || start.vw > width) process.exitCode = 1;
 } catch (e) {
   console.error(String(e && e.message || e)); process.exitCode = 2;
 } finally {
