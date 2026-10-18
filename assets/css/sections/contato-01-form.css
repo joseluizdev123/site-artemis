@@ -73,6 +73,10 @@ a.contato-info__value:hover { color: var(--gray-300); }
 
 /* Campos (8370:1580: gap 32 · 8370:1579: gap 24) */
 .contato-form { display: flex; flex-direction: column; gap: 32px; }
+/* Motion: o formulário volta ao início quando sai da tela e entra de novo quando volta. Com foco num campo (ou no
+   botão) ele fica sempre visível e parado: nada some nem pisca enquanto a pessoa digita. Especificidade (0,4,1) acima
+   da regra que esconde no motion.css, sem depender da ordem dos arquivos. */
+.motion-on form.contato-form[data-reveal]:focus-within { opacity: 1; animation: none; }
 .contato-form__fields { display: flex; flex-direction: column; gap: 24px; }
 /* Container 8370:1547: rótulo Exo SemiBold 14/1.5 + campo, gap 12 */
 .contato-form__field { display: flex; flex-direction: column; gap: 12px; }
