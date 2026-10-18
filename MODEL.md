@@ -313,6 +313,8 @@ Validação (2026-10-16): 1440×2075 e 375×2934 = Figma com Δ 0 em todos os bl
 | E-mail e WhatsApp | `data-hover="line"` num `<span>` dentro do link, para o sublinhado ter a largura do texto e não a do link (232/343, como no Figma); `contato-01-form.css` acende o sublinhado com o cursor em qualquer ponto do link | hover |
 | Faixa | `data-wipe="right"` | ao entrar na tela |
 
+Repetição (2026-10-18, da base): título, texto, seta, formulário e ilustração voltam ao início quando saem da tela por inteiro e tocam de novo ao voltar; contatos e faixa também. Exceção do formulário: com foco num campo ou no botão (`:focus-within`), `contato-01-form.css` o mantém visível e parado (opacidade 1, sem animação), então nada some nem pisca enquanto a pessoa digita, mesmo que ela role até ele sair da tela e volte, ou chegue a um campo pelo teclado com o formulário reiniciado. O campo não perde o foco nem o texto (a repetição só troca classes).
+
 Validação (2026-10-18): `motion_check` 1440 e 375 com 0 pendentes, 0 sobras, sem rolagem lateral e sem erro de JS (92 alvos); `page_check` e `diff.py` iguais aos de antes (Δ 0); CLS ≈ 0. Campos escondidos depois da 1ª pintura (primeiro acesso, headless, 375): 0,1–1,6 s conforme a carga da máquina — quase tudo a espera global até o `motion.js` (defer) rodar e as fontes ficarem prontas (no máx. 1 s depois dele), que vale para todo item `data-motion-start="load"` do site; o atraso do formulário foi zerado por isso.
 
 ## Artemis SEO — mapa (desktop `8348:4008` 1440×3463,51 · mobile `8704:6450` 375×5860)
