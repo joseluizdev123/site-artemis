@@ -2,7 +2,7 @@
 /**
  * Diagram — Figma 8653:2286 · mobile 8653:2599. Markup espelha partials/06-diagrama.html.
  * Conteúdo: Customizer (art_diag_*). Posições, linhas e ícones são fixos (desenho do Figma).
- * Celular (≤767): cartões um embaixo do outro, agrupados por etapa (.diagrama__stage), numa linha do tempo (06-diagrama.css). Tablet: rola na horizontal.
+ * Celular (≤767): o diagrama encolhe para caber na coluna, sem rolagem lateral (06-diagrama.css). Tablet: rola na horizontal.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -33,13 +33,10 @@ $artemis_diag_img      = static function ( $file ) {
 					<div class="diagrama__body">
 						<div class="diagrama__content">
 							<div class="diagrama__row diagrama__row--start">
-								<?php // Nome da etapa antes de cada grupo: só no celular, onde os cartões ficam um embaixo do outro. ?>
-								<span class="diagrama__stage"><?php echo esc_html( artemis_mod( 'art_diag_phase_1' ) ); ?></span>
 								<div class="diagrama__item diagrama__item--light">
 									<p class="diagrama__item-title diagrama__item-title--bold"><?php echo esc_html( artemis_mod( 'art_diag_step_1' ) ); ?></p>
 									<span class="diagrama__badge"><span class="diagrama__badge-num">01</span></span>
 								</div>
-								<span class="diagrama__stage"><?php echo esc_html( artemis_mod( 'art_diag_phase_2' ) ); ?></span>
 								<div class="diagrama__item diagrama__item--measure">
 									<p class="diagrama__item-title"><?php echo esc_html( artemis_mod( 'art_diag_step_2' ) ); ?></p>
 									<span class="diagrama__badge diagrama__badge--blue"><span class="diagrama__badge-num">02</span></span>
@@ -64,7 +61,6 @@ $artemis_diag_img      = static function ( $file ) {
 								</div>
 							</div>
 
-							<p class="diagrama__stage"><?php echo esc_html( artemis_mod( 'art_diag_phase_3' ) ); ?></p>
 							<div class="diagrama__row">
 								<div class="diagrama__item diagrama__item--lab">
 									<p class="diagrama__item-text">

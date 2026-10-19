@@ -107,14 +107,14 @@ Gate: `python tools/diff.py SLUG --mobile --shot` (375 via DevTools, nós `data-
 | nossos sistemas    | `8294:500`  | `8635:1999` | 2649 | ilustração mobile própria via `<picture>` (`_art_sistema_img_m`) | ✅ |
 | testmonial         | `8186:1160` | `8635:2302` | 501 | globo com enquadramento próprio no mobile (`FRAMES.mobile` em `04-depoimento.js`) | ✅ |
 | como funciona      | `8307:3380` | `8635:2313` | 1318 | sem sticky abaixo de 1024 | ✅ |
-| Diagram            | `8653:2286` | `8653:2599` | 869 → 929 | **fora do Figma, pedido do cliente (2026-10-19):** em vez de rolar na horizontal (`8653:2900` + barra `8653:2896`), os cartões ficam um embaixo do outro na largura da coluna, agrupados por etapa (`.diagrama__stage`, do `art_diag_phase_1/2/3`): POC → 01 · MVP → 02, Ajuste (recuo 16), Humano errou (recuo 32) · Escala → 03 e versões (recuo 16, uma por linha). Linha do tempo tracejada à esquerda com um nó por cartão; o cabeçalho em colunas, as linhas pontilhadas e a barra de progresso saem. Montagem pela rolagem igual; o ponto de luz desce pela linha do tempo e acende cada cartão. Tablet (768–1087) segue rolando. Rótulo "Você testa" (`art_diag_lab_label`) | ✅ |
+| Diagram            | `8653:2286` | `8653:2599` | 869 → 667 | **fora do Figma, pedido do cliente (2026-10-19):** em vez de rolar na horizontal (`8653:2900` + barra `8653:2896`), o mesmo diagrama encolhe para caber na coluna — posições em % do desktop, cartões com altura pelo conteúdo, texto `clamp(12px, 3.47vw, 15px)` que quebra em 2 linhas, selos e ícones de 20 (até 479 o selo do 01 vai para o canto), legenda numa linha, sem barra de progresso. Montagem, ponto de luz e luzes das linhas iguais. Tablet (768–1087) segue rolando. Rótulo "Você testa" (`art_diag_lab_label`) | ✅ |
 | estudos de impacto | `8195:1063` | `8635:2366` | 1321,47 → 1442,47 | carrossel com Pausar/Reproduzir, setas, teclado e swipe; estudos 2–4 extrapolados do layout do estudo 1; altura reservada do estudo mais alto (+121 em 375) | ✅ |
 | stats              | `8486:1798` | `8635:2371` | 932 | 4 números empilhados; cada um conta quando entra na tela | ✅ |
 | como trabalhamos   | `8490:2191` | `8635:2435` | 1227 | animação de scroll da ilustração mantida; zoom 0,9/0,8 abaixo de 370/341px | ✅ |
 | call to action     | `8160:1628` | `8635:2625` | 576 | barra de status cortada na borda, como no Figma | ✅ |
 | Footer             | `8165:2501` | `8641:1595` | 1459 | em 320 o 6º ícone social desce de linha | ✅ |
 
-Página inteira (verificada com `node tools/page_check.mjs URL LARGURA`): 375 → 375×13344 (Figma 13162: +121 da altura reservada dos estudos e +60 do diagrama com os cartões empilhados; as outras seções com Δ 0,00); 1440 → 1440×8666 (Figma 8594: +72 dos estudos; demais Δ ≤ 0,19). Sem rolagem horizontal em 320/375/390/414/768/1024/1280/1440.
+Página inteira (verificada com `node tools/page_check.mjs URL LARGURA`): 375 → 375×13081 (Figma 13162: +121 da altura reservada dos estudos e −202 do diagrama que não rola mais na horizontal; as outras seções com Δ 0,00); 1440 → 1440×8666 (Figma 8594: +72 dos estudos; demais Δ ≤ 0,19). Sem rolagem horizontal em 320/375/390/414/768/1024/1280/1440.
 
 ### Mobile — a confirmar com cliente/designer
 - Placeholder do e-mail no Figma mobile com espaço duplo ("Seu endereço  de e-mail") — o código usa espaço simples.

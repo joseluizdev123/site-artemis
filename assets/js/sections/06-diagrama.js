@@ -1,4 +1,4 @@
-/* Seção 06 — Diagram: rolagem horizontal do diagrama no tablet (768–1087). No celular os cartões ficam um embaixo do outro, por etapa (CSS), e não rola. */
+/* Seção 06 — Diagram: rolagem horizontal do diagrama no tablet (768–1087). No celular o diagrama cabe na coluna (CSS) e não rola. */
 (function () {
   'use strict';
 
@@ -101,12 +101,6 @@
     phases.forEach(function (el, i) { parts.push({ el: el, a: i * 0.05, b: 0.25 + i * 0.05, kind: 'rule' }); });
     lines.forEach(function (el, i) { parts.push({ el: el, a: 0.1 + i * 0.05, b: 0.4 + i * 0.05, kind: 'grow' }); });
     flow.forEach(function (el, i) { parts.push({ el: el, a: 0.25 + i * 0.065, b: 0.45 + i * 0.065, kind: 'slide' }); });
-    // Nome da etapa (só aparece no celular): entra junto com o cartão que vem depois dele
-    qa('.diagrama__stage').forEach(function (st) {
-      var i = -1;
-      flow.some(function (el, k) { if (st.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) { i = k; return true; } return false; });
-      if (i >= 0) parts.push({ el: st, a: 0.25 + i * 0.065, b: 0.45 + i * 0.065, kind: 'fade' });
-    });
     legend.forEach(function (el, i) { parts.push({ el: el, a: 0.8 + i * 0.05, b: 0.95 + i * 0.05, kind: 'fade' }); });
 
     var p = -1, near = false, sraf = 0;
@@ -174,32 +168,24 @@
       var vs = qa('.diagrama__item--version').map(rect);
       if (!a || !m || !aj || !er || !lab) { total = 0; return; }
       svg.setAttribute('viewBox', '0 0 ' + content.offsetWidth + ' ' + content.offsetHeight);
+      var c1 = (m.b + aj.t) / 2, c2 = (aj.b + er.t) / 2;
+      var xLab = Math.min(lab.r - 24, Math.max(er.r + 24, lab.l + 24)); // desce ao 03 pela direita do "Humano errou"
       var pts = [], st = [];
       var add = function (x, y, hitEl) { pts.push([x, y]); if (hitEl) st.push({ i: pts.length - 1, el: hitEl }); };
-      if (m.t >= a.b - 1) {
-        // Celular: cartões um embaixo do outro — o ponto desce pela linha do tempo e acende cada cartão ao passar
-        var rx = parseFloat(getComputedStyle(content, '::before').left);
-        rx = isNaN(rx) ? 7.5 : rx + 0.5;
-        add(rx, a.t);
-        [a, m, aj, er, lab].concat(vs).forEach(function (c) { add(rx, c.cy, c.el); });
-      } else { // desktop e tablet: conectores ortogonais pelos vãos e pelas bordas
-        var c1 = (m.b + aj.t) / 2, c2 = (aj.b + er.t) / 2;
-        var xLab = Math.min(lab.r - 24, Math.max(er.r + 24, lab.l + 24)); // desce ao 03 pela direita do "Humano errou"
-        add(a.r, a.cy, a.el);                         // sai do 01 (selo brilha)
-        add(m.l, a.cy, m.el);                         // chega ao 02
-        add(m.l, c1);                                 // desce pela borda do 02 até o corredor
-        add(aj.l, c1); add(aj.l, aj.cy, aj.el);       // borda do Ajuste de critério (refresh dá uma volta)
-        add(aj.l, c2);
-        add(er.cx, c2); add(er.cx, er.t, er.el); add(er.cx, c2); // desvio ao "Humano errou" e volta
-        add(xLab, c2); add(xLab, lab.t, lab.el);      // ao 03
-        if (vs.length) {
-          var c4 = (lab.b + vs[0].t) / 2;
-          add(lab.l, lab.t); add(lab.l, c4);          // contorna o 03 pela borda esquerda
-          vs.forEach(function (v, i) {                // V 1.0 → V 1.1 → V 1.2
-            add(v.cx, c4); add(v.cx, v.t, v.el);
-            if (i < vs.length - 1) add(v.cx, c4);
-          });
-        }
+      add(a.r, a.cy, a.el);                         // sai do 01 (selo brilha)
+      add(m.l, a.cy, m.el);                         // chega ao 02
+      add(m.l, c1);                                 // desce pela borda do 02 até o corredor
+      add(aj.l, c1); add(aj.l, aj.cy, aj.el);       // borda do Ajuste de critério (refresh dá uma volta)
+      add(aj.l, c2);
+      add(er.cx, c2); add(er.cx, er.t, er.el); add(er.cx, c2); // desvio ao "Humano errou" e volta
+      add(xLab, c2); add(xLab, lab.t, lab.el);      // ao 03
+      if (vs.length) {
+        var c4 = (lab.b + vs[0].t) / 2;
+        add(lab.l, lab.t); add(lab.l, c4);          // contorna o 03 pela borda esquerda
+        vs.forEach(function (v, i) {                // V 1.0 → V 1.1 → V 1.2
+          add(v.cx, c4); add(v.cx, v.t, v.el);
+          if (i < vs.length - 1) add(v.cx, c4);
+        });
       }
       route = []; total = 0;
       pts.forEach(function (pt, i) {
@@ -242,7 +228,6 @@
     function drip() {
       if (!lines.length) return;
       var host = lines[Math.floor(Math.random() * lines.length)];
-      if (!host.offsetParent) return; // linhas escondidas (celular)
       var d = document.createElement('i');
       d.className = 'diagrama__drip';
       d.style.left = (Math.floor(Math.random() * 4) / 3 * 100).toFixed(3) + '%';
