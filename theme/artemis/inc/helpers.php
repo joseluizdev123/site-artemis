@@ -66,10 +66,11 @@ function artemis_nav_fallback() {
 		'Estudos de impacto' => home_url( '/#estudos' ),
 		'Blog'               => artemis_blog_url(),
 		'Sobre'              => home_url( '/sobre' ),
+		'MktOps'             => home_url( '/mktops' ),
 	);
 	foreach ( $links as $label => $url ) {
 		$current = ( 'Blog' === $label && artemis_is_blog() ) ? ( is_home() ? ' aria-current="page"' : ' aria-current="true"' ) : '';
-		if ( ( 'Serviços' === $label && is_page( 'servicos' ) ) || ( 'Sobre' === $label && is_page( 'sobre' ) ) ) {
+		if ( ( 'Serviços' === $label && is_page( 'servicos' ) ) || ( 'Sobre' === $label && is_page( 'sobre' ) ) || ( 'MktOps' === $label && is_page( 'mktops' ) ) ) {
 			$current = ' aria-current="page"';
 		}
 		printf( '<a href="%s"%s>%s</a>', esc_url( $url ), $current, esc_html( $label ) );

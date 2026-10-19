@@ -120,6 +120,7 @@ Página inteira (verificada com `node tools/page_check.mjs URL LARGURA`): 375 �
 - "Como funciona": só o marcador do passo 1 (`8635:2324`) está ancorado embaixo no Figma mobile; implementado literalmente.
 - Estudos 2–4 não têm layout mobile no Figma — seguem o do estudo 1.
 - O fundo escurecido atrás da gaveta do menu não está no Figma (leitura da anotação "em overlay").
+- Menu com "MktOps" depois de "Sobre" (barra do topo, gaveta do celular e menu de reserva do WP em `artemis_nav_fallback()`): pedido do cliente em 2026-10-19, o Figma não tem esse link. Para caber, entre 768 e 1023 os espaços do header caem de 24 para 16; no Blog o selo "BLOG" sai entre 768 e 899 e os links ficam a 12 até 819.
 - Animações pedidas pelo cliente fora do Figma (passos, contagem, troca automática dos estudos, flutuação da ilustração 09): todas respeitam `prefers-reduced-motion` e saem no estado final na impressão. Em repouso a geometria é a do Figma, exceto os estudos: altura do mais alto e o botão Pausar/Reproduzir (+48 nos controles). O `diff.py` mede no meio da entrada dos passos — confira o repouso.
 
 ## Blog — mapa (desktop `8294:1703` 1440×6906 · mobile `8673:3845` 375×8037,41)
