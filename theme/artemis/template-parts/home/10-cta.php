@@ -49,7 +49,7 @@ $artemis_cta_dash_end   = array(
 					<h2 class="cta__title" id="cta-title"><?php echo esc_html( artemis_mod( 'art_cta_title' ) ); ?></h2>
 					<p class="body-lg cta__text"><?php echo esc_html( artemis_mod( 'art_cta_text' ) ); ?></p>
 				</div>
-				<a class="btn btn--primary cta__button" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_cta_button_label' ) ); ?></a>
+				<a class="btn btn--primary cta__button" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_contact_cta_label' ) ); ?></a>
 			</div>
 		</div>
 

@@ -165,6 +165,11 @@
   color: var(--gray-0);
 }
 .post-numeros__value small { font-size: 24px; line-height: 1; } /* sem aumentar a linha de 48 */
+/* 1024–1199: coluna estreita — em 40 o "/MÊS" ficaria sozinho na linha (sem palavra viúva) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .post-numeros__value { font-size: 34px; }
+  .post-numeros__value small { font-size: 20px; }
+}
 /* 8331:1253 · Cabin 18/1.5 gray-300 */
 .post-numeros__desc { font-size: 18px; line-height: 1.5; color: var(--gray-300); text-wrap: pretty; }
 

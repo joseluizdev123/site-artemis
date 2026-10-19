@@ -20,10 +20,38 @@ function artemis_asset( $path ) {
 	return ARTEMIS_URI . '/assets/' . ltrim( $path, '/' );
 }
 
-/** Theme mod com default central definido em customizer.php. */
+/**
+ * Valor de conteúdo com default central definido em customizer.php.
+ * Dados globais (contato, redes, link do CTA, destinatário do formulário) vêm da página "Dados do site" (inc/options.php);
+ * enquanto ela não foi salva, vale o que estava no Personalizar (theme mod) ou o default.
+ */
 function artemis_mod( $key ) {
+	if ( artemis_is_site_option( $key ) ) {
+		$site = get_option( 'artemis_site' );
+		if ( is_array( $site ) && array_key_exists( $key, $site ) ) {
+			return $site[ $key ];
+		}
+	}
 	$defaults = artemis_customizer_defaults();
 	return get_theme_mod( $key, isset( $defaults[ $key ] ) ? $defaults[ $key ] : '' );
+}
+
+/** Link do WhatsApp a partir do número como aparece no site; sem código do país (+ ou 00), assume Brasil (+55). */
+function artemis_whatsapp_url( $number ) {
+	$number = trim( (string) $number );
+	$digits = preg_replace( '/\D+/', '', $number );
+	if ( '' === $digits ) {
+		return '';
+	}
+	if ( '+' === substr( $number, 0, 1 ) || '00' === substr( $digits, 0, 2 ) ) { // código do país escrito: fica como está
+		$digits = ltrim( $digits, '0' );
+	} else {
+		$digits = ltrim( $digits, '0' ); // 048… → 48…
+		if ( strlen( $digits ) <= 11 ) { // DDD + número
+			$digits = '55' . $digits;
+		}
+	}
+	return 'https://wa.me/' . $digits;
 }
 
 /** Clientes publicados, na ordem do menu_order. */

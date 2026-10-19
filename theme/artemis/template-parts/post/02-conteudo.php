@@ -39,7 +39,7 @@ $artemis_toc_t   = (string) artemis_mod( 'art_post_toc_title' );
 						<?php endif; ?>
 					</div>
 					<div class="post-cta__actions">
-						<a class="btn btn--primary" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_post_cta_btn1' ) ); ?></a>
+						<a class="btn btn--primary" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_contact_cta_label' ) ); ?></a>
 						<?php if ( '' !== (string) artemis_mod( 'art_post_cta_btn2' ) ) : ?>
 							<a class="btn" href="<?php echo esc_url( artemis_mod( 'art_post_cta_btn2_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_post_cta_btn2' ) ); ?></a>
 						<?php endif; ?>

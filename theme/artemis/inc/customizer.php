@@ -1,6 +1,7 @@
 <?php
 /**
- * Customizer — conteúdo global (MODEL.md).
+ * Customizer — textos das seções (MODEL.md). Dados globais (contato, redes, link do CTA) ficam na página
+ * "Dados do site" (inc/options.php); os defaults deles continuam aqui, num lugar só.
  *
  * Cada inc/section-NN-slug.php estende via filtros:
  *   artemis_customizer_defaults  → array( 'art_chave' => 'valor padrão' )
@@ -13,9 +14,10 @@ function artemis_customizer_defaults() {
 	static $defaults = null;
 	if ( null === $defaults ) {
 		$defaults = apply_filters( 'artemis_customizer_defaults', array(
-			// Contato global
-			'art_contact_cta_url' => '/contato',
-			'art_contact_email'   => 'contato@studioartemis.com.br',
+			// Contato global (editado em "Dados do site")
+			'art_contact_cta_url'   => '/contato',
+			'art_contact_cta_label' => 'Agendar diagnóstico',
+			'art_contact_email'     => 'contato@studioartemis.co',
 		) );
 	}
 	return $defaults;
@@ -25,19 +27,12 @@ add_action( 'customize_register', function ( WP_Customize_Manager $wp ) {
 	$d = artemis_customizer_defaults();
 
 	$wp->add_panel( 'artemis', array(
-		'title'    => __( 'Studio Artemis', 'artemis' ),
-		'priority' => 30,
+		'title'       => __( 'Studio Artemis', 'artemis' ),
+		'description' => __( 'Textos das seções. E-mail, WhatsApp, endereço, redes sociais e o botão "Agendar diagnóstico" (texto e link) ficam no menu "Dados do site" do painel.', 'artemis' ),
+		'priority'    => 30,
 	) );
 
-	$sections = apply_filters( 'artemis_customizer_sections', array(
-		'artemis_contact' => array(
-			__( 'Contato', 'artemis' ),
-			array(
-				'art_contact_cta_url' => array( __( 'Link "Agendar diagnóstico"', 'artemis' ), 'text' ),
-				'art_contact_email'   => array( __( 'E-mail', 'artemis' ), 'email' ),
-			),
-		),
-	) );
+	$sections = apply_filters( 'artemis_customizer_sections', array() );
 
 	$priority = 10;
 	foreach ( $sections as $section_id => $section ) {

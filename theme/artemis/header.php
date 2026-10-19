@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 $artemis_email    = (string) artemis_mod( 'art_contact_email' );
 $artemis_cta_url  = artemis_mod( 'art_contact_cta_url' );
+$artemis_cta_label = (string) artemis_mod( 'art_contact_cta_label' );
 $artemis_nav_args = array(
 	'theme_location' => 'primary',
 	'container'      => false,
@@ -57,7 +58,7 @@ $artemis_inicio   = $artemis_blog ? sprintf( '<a href="%s">%s</a>', esc_url( hom
 					<?php wp_nav_menu( array_merge( $artemis_nav_args, array( 'walker' => new Artemis_Flat_Nav_Walker() ) ) ); ?>
 				</nav>
 				<span class="site-header__sep" aria-hidden="true"></span>
-				<a class="site-header__cta" href="<?php echo esc_url( $artemis_cta_url ); ?>"<?php echo is_page( 'contato' ) ? ' aria-current="page"' : ''; ?>><?php esc_html_e( 'Agendar diagnóstico', 'artemis' ); ?></a>
+				<a class="site-header__cta" href="<?php echo esc_url( $artemis_cta_url ); ?>"<?php echo is_page( 'contato' ) ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $artemis_cta_label ); ?></a>
 			</div>
 		</div>
 		<?php /* Mobile (≤767): botão "Menu" (8635:3577) abre a gaveta */ ?>
@@ -77,7 +78,7 @@ $artemis_inicio   = $artemis_blog ? sprintf( '<a href="%s">%s</a>', esc_url( hom
 				<nav class="site-header__menu" aria-label="<?php esc_attr_e( 'Principal', 'artemis' ); ?>">
 					<?php echo $artemis_inicio; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado acima. ?>
 					<?php wp_nav_menu( array_merge( $artemis_nav_args, array( 'walker' => new Artemis_Flat_Nav_Walker() ) ) ); ?>
-					<a href="<?php echo esc_url( $artemis_cta_url ); ?>"><?php esc_html_e( 'Agendar diagnóstico', 'artemis' ); ?></a>
+					<a href="<?php echo esc_url( $artemis_cta_url ); ?>"><?php echo esc_html( $artemis_cta_label ); ?></a>
 				</nav>
 			</div>
 			<?php if ( $artemis_email ) : ?>

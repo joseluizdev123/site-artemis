@@ -98,6 +98,8 @@
     el.classList.remove('is-in');
     el.classList.add('is-done');
     el.style.removeProperty('--m-delay');
+    // título, contador e digitação devolvem o HTML guardado: o main.js tira a palavra viúva de novo
+    if (window.ArtemisWidows && (el.hasAttribute('data-split') || el.hasAttribute('data-count') || el.hasAttribute('data-type'))) window.ArtemisWidows(el);
   }
 
   function afterAnim(el, ms, cb) {

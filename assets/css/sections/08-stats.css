@@ -61,6 +61,11 @@
   color: var(--gray-0);
 }
 .stats__unit { font-size: 24px; }
+/* 1024–1199: a coluna estreita não comporta "40.000 /MÊS" em 40 e o "/MÊS" ficaria sozinho na linha (sem palavra viúva) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .stats__value { font-size: 34px; }
+  .stats__unit { font-size: 20px; }
+}
 
 /* Contador de rolo (assets/js/sections/08-stats.js): cada dígito numa coluna com máscara da altura da linha
    (--odo-lh, em) e a largura do dígito final; a fita (0–9 repetidos, terminando no dígito) sobe até o fim com

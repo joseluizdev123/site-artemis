@@ -549,7 +549,9 @@ add_filter( 'artemis_seed', function ( $log ) {
 	// Links "Ver todos os artigos" em /blog/categoria/<slug>/, como no estático (só com links permanentes ativos e base vazia).
 	if ( get_option( 'permalink_structure' ) && '' === (string) get_option( 'category_base' ) ) {
 		update_option( 'category_base', 'blog/categoria' );
-		flush_rewrite_rules( false );
+		// Não dá para regerar aqui: a taxonomia já registrou a base antiga nesta requisição. Sem regras salvas,
+		// o WordPress monta tudo de novo na próxima visita, já com /blog/categoria/.
+		delete_option( 'rewrite_rules' );
 		$log[] = 'Base das categorias: /blog/categoria/.';
 	}
 	return $log;

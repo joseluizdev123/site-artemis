@@ -67,6 +67,10 @@ a.contato-info__value:hover { color: var(--gray-300); }
   text-wrap: pretty;
 }
 .contato__title em { font-style: normal; color: var(--gray-500); }
+/* 1024–1199: em 62 "pelo diagnóstico" passa da coluna e "diagnóstico" ficaria sozinho na linha (sem palavra viúva) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .contato__title { font-size: 56px; line-height: 62px; }
+}
 /* 8370:1543 · Cabin 18/1.5 gray-300 */
 .contato__lead { font-size: 18px; line-height: 1.5; color: var(--gray-300); text-wrap: pretty; }
 .contato__arrow { position: absolute; top: 21px; right: -4px; width: 8px; height: 33px; }

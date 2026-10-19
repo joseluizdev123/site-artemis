@@ -26,7 +26,6 @@ add_filter( 'artemis_customizer_defaults', function ( $d ) {
 		'art_post_related_title' => 'Continue lendo',
 		'art_post_cta_title'     => 'Sua operação recebe documento de fornecedor em volume?',
 		'art_post_cta_text'      => 'O diagnóstico começa com um dia dentro da operação, com as pessoas que decidem. Você sai com o mapa dos processos que mais consomem hora sênior e o custo estimado de cada um.',
-		'art_post_cta_btn1'      => 'Agendar diagnóstico',
 		'art_post_cta_btn2'      => 'Ver os estudos de impacto',
 		'art_post_cta_btn2_url'  => '/#estudos',
 	);
@@ -40,7 +39,6 @@ add_filter( 'artemis_customizer_sections', function ( $s ) {
 			'art_post_related_title' => array( __( 'Título dos artigos relacionados', 'artemis' ), 'text' ),
 			'art_post_cta_title'     => array( __( 'Chamada final — título padrão (cada artigo pode trocar)', 'artemis' ), 'text' ),
 			'art_post_cta_text'      => array( __( 'Chamada final — texto padrão', 'artemis' ), 'textarea' ),
-			'art_post_cta_btn1'      => array( __( 'Chamada final — botão principal (leva ao link "Agendar diagnóstico")', 'artemis' ), 'text' ),
 			'art_post_cta_btn2'      => array( __( 'Chamada final — botão secundário', 'artemis' ), 'text' ),
 			'art_post_cta_btn2_url'  => array( __( 'Chamada final — link do botão secundário', 'artemis' ), 'text' ),
 		),

@@ -5,7 +5,8 @@
  *
  * Contatos     art_contact_email / art_contact_whatsapp / art_contact_address (os mesmos do rodapé)
  * Customizer   art_contato_title ({entre chaves} = cinza) · _lead · _button · _note · _ok (confirmação)
- *              art_contato_to (quem recebe; vazio = art_contact_email) · art_contato_action (envio externo, opcional)
+ *              art_contato_action (envio externo, opcional)
+ * Dados do site art_contato_to (quem recebe; vazio = art_contact_email) — inc/options.php
  * Envio        sem art_contato_action: admin-post.php?action=artemis_contato → wp_mail() para art_contato_to,
  *              com nonce e campo-isca contra spam; volta para a página com ?contato=ok|erro|dados
  */
@@ -36,7 +37,6 @@ add_filter( 'artemis_customizer_sections', function ( $s ) {
 			'art_contato_button' => array( __( 'Botão de envio', 'artemis' ), 'text' ),
 			'art_contato_note'   => array( __( 'Nota ao lado do botão', 'artemis' ), 'textarea' ),
 			'art_contato_ok'     => array( __( 'Mensagem depois do envio', 'artemis' ), 'textarea' ),
-			'art_contato_to'     => array( __( 'E-mail que recebe as mensagens (vazio = e-mail de contato do site)', 'artemis' ), 'email' ),
 			'art_contato_action' => array( __( 'Envio externo (RD Station, HubSpot etc.) — vazio = o site envia por e-mail', 'artemis' ), 'url' ),
 		),
 	);

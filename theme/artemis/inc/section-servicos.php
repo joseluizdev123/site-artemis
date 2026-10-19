@@ -4,7 +4,7 @@
  * Template: page-servicos.php (página de slug "servicos") → template-parts/servicos/NN-slug.php + chamada final da Home.
  * Espelha servicos/index.html.
  *
- * Customizer   art_srv_title ({entre chaves} = trecho em cinza) · art_srv_lead · art_srv_cta  → topo (8340:2096)
+ * Customizer   art_srv_title ({entre chaves} = trecho em cinza) · art_srv_lead → topo (8340:2096); botão = Dados do site
  *              art_srv_nao_title · art_srv_nao_lead · art_srv_nao_N_title/_text (4 cards) · art_srv_nao_note → 8348:2419
  * CPT          art_etapa (ordem = menu_order; selo "Etapa N" pela posição) → as etapas (Tabs 8573:1797)
  *              título · meta _art_etapa_quem (um item por linha) · _art_etapa_b2_icon (arquivo|cifrao)
@@ -30,7 +30,6 @@ add_filter( 'artemis_customizer_defaults', function ( $d ) {
 	$add = array(
 		'art_srv_title'     => 'Implementação de inteligência artificial em três etapas. {Todas começam medindo.}',
 		'art_srv_lead'      => 'Do diagnóstico ao sistema em produção, com a prova de assertividade em cada fase.',
-		'art_srv_cta'       => 'Agendar diagnóstico',
 		'art_srv_nao_title' => 'O que {não} fazemos',
 		'art_srv_nao_lead'  => 'Ser específico sobre o que não fazemos economiza o tempo de todo mundo.',
 		'art_srv_nao_note'  => 'Não somos agência de marketing. Captação orgânica é com a Artemis SEO; operação de marketing, com o MktOps.',
@@ -48,7 +47,6 @@ add_filter( 'artemis_customizer_sections', function ( $s ) {
 		array(
 			'art_srv_title' => array( __( 'Título — coloque {entre chaves} o trecho em cinza', 'artemis' ), 'textarea' ),
 			'art_srv_lead'  => array( __( 'Texto de apoio', 'artemis' ), 'textarea' ),
-			'art_srv_cta'   => array( __( 'Botão (leva ao link "Agendar diagnóstico")', 'artemis' ), 'text' ),
 		),
 	);
 	$fields = array(

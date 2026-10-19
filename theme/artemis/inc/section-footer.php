@@ -2,7 +2,7 @@
 /**
  * Footer (Figma 8165:2501) — markup em footer.php.
  * Conteúdo: Customizer art_footer_* + contato global (art_contact_email/whatsapp/address)
- * + redes art_social_* + menu "footer" (registrado em functions.php).
+ * + redes art_social_* (esses dois na página "Dados do site", inc/options.php) + menu "footer" (registrado em functions.php).
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -40,14 +40,6 @@ add_filter( 'artemis_customizer_defaults', function ( $d ) {
 } );
 
 add_filter( 'artemis_customizer_sections', function ( $s ) {
-	// Campos de contato global entram na seção "Contato" existente.
-	if ( isset( $s['artemis_contact'] ) ) {
-		$s['artemis_contact'][1] += array(
-			'art_contact_whatsapp' => array( __( 'WhatsApp (como deve aparecer, ex.: +55 (48) 99999-9999)', 'artemis' ), 'text' ),
-			'art_contact_address'  => array( __( 'Endereço', 'artemis' ), 'text' ),
-		);
-	}
-
 	$s['artemis_footer'] = array(
 		__( 'Rodapé', 'artemis' ),
 		array(
@@ -60,13 +52,6 @@ add_filter( 'artemis_customizer_sections', function ( $s ) {
 			'art_footer_terms_url'         => array( __( 'Link "Termos de uso"', 'artemis' ), 'text' ),
 		),
 	);
-
-	$social = array();
-	foreach ( artemis_footer_socials() as $key => $info ) {
-		/* translators: %s: nome da rede social. */
-		$social[ $key ] = array( sprintf( __( '%s — link do perfil (vazio = esconde o ícone)', 'artemis' ), $info[0] ), 'text' );
-	}
-	$s['artemis_social'] = array( __( 'Redes sociais', 'artemis' ), $social );
 
 	return $s;
 } );

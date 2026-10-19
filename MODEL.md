@@ -8,6 +8,7 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 | Decisão                | Escolha                                                    |
 |------------------------|------------------------------------------------------------|
 | Campos                 | Meta box nativo (sem ACF)                                  |
+| Dados globais          | Página de opções nativa "Dados do site" (`inc/options.php`, Settings API, opção `artemis_site`, capability `edit_pages`: Editor também edita). O Personalizar fica só com os textos das seções |
 | Operador do admin      | Marketing / cliente leigo → meta boxes com labels em PT-BR |
 | Imagens                | Assets do Figma viram seed, importados pro Mídia pelo seeder |
 | Updates                | Git Updater (`GitHub Theme URI` no `style.css`) — repo a definir |
@@ -20,9 +21,9 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 | Equipe                   | CPT           | `art_membro`       | nome, foto (featured), bio, ordem, `_art_membro_cargo`, `_art_membro_fundador` (aparece na Home). *Registrado em `inc/section-02-o-que-fazemos.php` — mover para `inc/cpt-membro.php` quando a página Sobre for feita* |
 | Sistemas (o que decidem) | CPT           | `art_sistema`      | título, descrição do card (excerpt), ilustração (featured, 640² @2x), ordem |
 | Depoimentos              | CPT           | `art_depoimento`   | nome (título), citação (content, sem aspas), foto (featured), `_art_depoimento_cargo`, `_art_depoimento_empresa`; menu_order 0 = o exibido |
-| Estudos de impacto       | CPT           | `art_estudo`       | manchete (título), textos (content), screenshot (featured), `_art_estudo_numero`, `_art_estudo_cliente`, `_art_estudo_sistema`, `_art_estudo_categoria`, `_art_estudo_status`, fundo |
+| Estudos de impacto       | CPT           | `art_estudo`       | manchete (título), textos (content), screenshot (featured), `_art_estudo_cliente`, `_art_estudo_sistema`, `_art_estudo_categoria`, `_art_estudo_status`, fundo, zoom; posição no carrossel = `menu_order`, editada no campo "Posição no carrossel" da caixa (renumera os outros; estudo novo entra no fim); "Estudo N" = posição entre os publicados (sem número digitado) |
 | Blog                     | Post nativo   | `post`             | título, conteúdo, featured, categoria                          |
-| Hero                     | Customizer    | `art_hero_*`       | eyebrow, título com {destaque}, subtítulo, CTAs, legenda dos clientes |
+| Hero                     | Customizer    | `art_hero_*`       | eyebrow, título com {destaque}, subtítulo, 2º botão (o 1º é o "Agendar diagnóstico" de Dados do site), legenda dos clientes |
 | O que fazemos            | Customizer    | `art_oqf_*`        | eyebrow, título com {destaque}, corpo (parágrafos + **negrito**), legenda dos fundadores |
 | Nossos sistemas          | Customizer    | `art_sistemas_*`   | título, texto, legenda                                         |
 | Depoimento               | Customizer    | `art_depoimento_eyebrow` | frase à esquerda                                         |
@@ -31,18 +32,18 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 | Estudos (cabeçalho)      | Customizer    | `art_estudos_*`    | eyebrow, título com {destaque}                                 |
 | Números (stats)          | Customizer    | `art_stat_{1..4}_*`| prefixo, valor, sufixo, legenda                                |
 | Como trabalhamos         | Customizer    | `art_ct_*`, `art_ct_rule_{1..5}_title/_text` | eyebrow, título, 5 regras                         |
-| Call to action           | Customizer    | `art_cta_*`        | barra de status (itens separados por \|), nota em itálico, título, texto, botão |
+| Call to action           | Customizer    | `art_cta_*`        | barra de status (itens separados por \|), nota em itálico, título, texto (botão: Dados do site) |
 | Rodapé                   | Customizer    | `art_footer_*`     | frase da newsletter com {destaque}, action do formulário (vazio = desativado), copyright, links legais |
-| Contato global           | Customizer    | `art_contact_*`    | e-mail, WhatsApp, endereço (link Maps), link "Agendar diagnóstico" |
-| Redes sociais            | Customizer    | `art_social_*`     | instagram, youtube, linkedin, behance, dribbble, x (vazio esconde o ícone) |
+| Contato global           | Dados do site | `art_contact_*`    | e-mail, WhatsApp (link wa.me montado por `artemis_whatsapp_url()`, +55 se faltar), endereço (link Maps), botão "Agendar diagnóstico": texto único `art_contact_cta_label` (até 20 caracteres, sem caixa alta; no tablet o topo corta com reticências se ainda assim não couber; topo, gaveta, Home topo e chamada final, Serviços, fim dos artigos) e link `art_contact_cta_url` |
+| Redes sociais            | Dados do site | `art_social_*`     | instagram, youtube, linkedin, behance, dribbble, x (vazio esconde o ícone) |
 | Menu principal / rodapé  | Menu nativo   | `primary` / `footer` | com fallback estático                                        |
 | Sobre                    | Page única    | `/sobre`           | post_content rico                                              |
 | Serviços                 | Page única    | `/servicos`        | post_content rico                                              |
-| Contato                  | Page única    | `/contato`         | post_content + formulário                                      |
+| Contato                  | Page única    | `/contato`         | template fixo (`template-parts/contato`) + formulário; o conteúdo da página não é usado |
 
 ### Conteúdo a confirmar com o cliente
 
-- E-mail: Figma mostra `contato@studioartemis.co`, o default do tema é `contato@studioartemis.com.br`.
+- E-mail: o default do tema passou a ser `contato@studioartemis.co`, igual ao Figma e ao estático (2026-10-19). Confirmar que a caixa existe: o formulário de contato envia para ela enquanto ninguém preencher "Dados do site".
 - Regra 4 ("A ferramenta se adapta ao seu processo"): texto truncado no Figma — "…para caber no nosso".
 - Estudo Gascat: rodapé "Validação de documentos · Em produção" igual ao estudo 1 (provável copy-paste).
 - WhatsApp `+55 (48) 0000-0000` e links de redes sociais são placeholders.
@@ -198,7 +199,7 @@ A imagem do topo (`8331:1153` · `8673:5793`) está oculta no Figma — não imp
 | Texto do artigo | `post_content` (editor de blocos) | — | parágrafo, título H2/H3, lista, imagem; estilos de bloco **Destaque** (título 40, fora do índice) e **Recorte do layout** (imagem 859×600 / 343×292) |
 | Abertura | post meta | `_art_post_lead` | texto abaixo do título (vazio → resumo) |
 | Números | post meta + shortcode | `_art_post_numeros` · `[artemis_numeros]` | rótulo + 3 itens (prefixo menor, valor, sufixo menor, descrição) |
-| Chamada final | post meta + Customizer | `_art_post_cta_title/_text/_off` · `art_post_cta_*` | título, texto (padrão no Personalizar), botões, esconder |
+| Chamada final | post meta + Customizer | `_art_post_cta_title/_text/_off` · `art_post_cta_*` | título, texto (padrão no Personalizar), 2º botão, esconder (1º botão: Dados do site) |
 | Índice | automático | — | H2 do texto (exceto "Destaque"), ids gerados pelo título; título `art_post_toc_title` |
 | Continue lendo | consulta | — | 3 posts da mesma categoria, completando com os mais recentes; título `art_post_related_title` |
 
@@ -235,7 +236,7 @@ Estático: `servicos/index.html` (`src/pages.json` → página `servicos`). WP: 
 
 | Conteúdo | Tipo | Chave | Campos |
 |----------|------|-------|--------|
-| Topo | Customizer | `art_srv_title` / `_lead` / `_cta` | título com {trecho em cinza}, texto, rótulo do botão (link = `art_contact_cta_url`) |
+| Topo | Customizer | `art_srv_title` / `_lead` | título com {trecho em cinza}, texto (botão: texto e link de Dados do site) |
 | Etapas | CPT | `art_etapa` (ordem = `menu_order`, selo "Etapa N" pela posição) | título · `_art_etapa_quem` (um item por linha) · `_art_etapa_b2_icon` (arquivo/cifrão) · `_art_etapa_b2_label` · `_art_etapa_b2_text` · `_art_etapa_duracao` (vazio esconde) |
 | O que não fazemos | Customizer | `art_srv_nao_*` | título com {destaque}, texto, 4 cards (título + texto), nota |
 | Ilustração, ícones, faixa de traços | arquivos do tema | `assets/images/servicos-02-etapas`, `servicos-03-nao-fazemos` | exportados do Figma (SVG, texto em curvas). A ilustração vem em 4 camadas do tamanho do quadro — `ilustra-{base,tela,tracejado,selo}.svg` (desktop, I8587:2376;8709:4560, 296×593) e `m-ilustra-*.svg` (celular, 8709:5854, 375×421) —, separadas do export de cada nó pela ordem de pintura: base de código até o tique, tela (parede `#09090B` com stroke 1,56081) até o tique, tracejado `#CECECE`, selo. O export do desktop omite o que passa de x = 296 (por isso um export por recorte). |
@@ -303,8 +304,8 @@ Estático: `contato/index.html` (`src/pages.json` → página `contato`). WP: p�
 
 | Conteúdo | Tipo | Chave | Campos |
 |----------|------|-------|--------|
-| E-mail, WhatsApp, endereço | Customizer (os do rodapé) | `art_contact_email` / `_whatsapp` / `_address` | — |
-| Formulário | Customizer | `art_contato_*` | título com {cinza}, texto, botão, nota, mensagem de confirmação, quem recebe (`_to`, vazio = e-mail do site), envio externo opcional (`_action`) |
+| E-mail, WhatsApp, endereço | Dados do site (os do rodapé) | `art_contact_email` / `_whatsapp` / `_address` | — |
+| Formulário | Customizer | `art_contato_*` | título com {cinza}, texto, botão, nota, mensagem de confirmação, envio externo opcional (`_action`); quem recebe (`art_contato_to`, vazio = e-mail do site) fica em Dados do site |
 | Envio | tema | `admin-post.php?action=artemis_contato` | nonce + campo-isca; `wp_mail()` com Reply-To de quem escreveu; volta com `?contato=ok|erro|dados`. No estático (sem servidor): avisa "Formulário ainda não configurado.", como a newsletter |
 
 Validação (2026-10-16): 1440×2075 e 375×2934 = Figma com Δ 0 em todos os blocos; gates das 2 seções com 0 diferenças. A ilustração é a imagem como o Figma a renderiza (a pintura esticada na vertical) — exportada do nó, não do arquivo original.
@@ -401,6 +402,14 @@ Validação (2026-10-18): `motion_check` 1440 e 375 com 0 pendentes, 0 sobras e 
 ## Regra de hover (2026-10-18, pedido do cliente)
 
 Efeito de passar o mouse que mexe no elemento (crescer, subir, zoom, sombra, texto que avança) só em link ou botão: em card ou texto que não é clicável dá a impressão de link. Removidos: cards dos sistemas e do diagrama e números das stats (Home), textos do painel e cards "o que não fazemos" (Serviços). Mantidos: links, cards do Blog (o card inteiro é link), abas de Serviços, setas e pausa dos Estudos. Animações de imagem, de entrada e de rolagem continuam.
+
+## Sem palavra viúva (2026-10-19, pedido do cliente)
+
+Em nenhum lugar do site a última linha de um texto fica com uma palavra só (vale também onde o Figma tinha viúva).
+- CSS: `text-wrap: pretty` no `body` (herdado). Saíram as exceções que copiavam quebras do Figma (`.sistemas__title` no celular, `.diagrama__title`, listas das etapas 2 e 3 de Serviços).
+- JS (`assets/js/main.js`, `window.ArtemisWidows`): pega o que o pretty deixa (heurístico no Chrome; Firefox não tem). Bloco com a última linha de uma palavra → junta as duas últimas (espaço não separável; par com hífen vira `nowrap`) → se faltar pouco, aperta `letter-spacing` em até 0,015em → confere (viúva some, bloco não ganha linha nem estoura) ou desfaz. Roda com as fontes prontas, quando a fonte chega (`loadingdone`), no `load`, ao mudar a largura e no fim de cada entrada do motion que devolve HTML (`done()` chama `ArtemisWidows(el)`). Trechos de 2 palavras e caixas de 1px (leitor de tela) ficam fora.
+- Onde as duas últimas palavras não cabem numa linha, ajuste de layout só na faixa afetada: `.stats__value` e `.post-numeros__value` 34 (unidades 20) em 1024–1199; `.contato__title` 56/62 em 1024–1199; MktOps "o que é instalado" com a grade de 2 colunas até 1199 e o arquivo em `zoom: .667` abaixo de 360.
+- Verificação: `node tools/widow_check.mjs <base>` (repouso, 8 páginas × 59 larguras de 320 a 1920 → 0), `--fallback` (sem pretty, como no Firefox → 0), `--motion` (entradas tocando e repetindo → 0). No WordPress de teste também 0.
 
 ## Motion (2026-10-18) — biblioteca global
 

@@ -24,7 +24,7 @@ $artemis_estudos_total = count( $artemis_estudos );
 				<?php
 				foreach ( $artemis_estudos as $artemis_i => $artemis_estudo ) :
 					$artemis_active    = 0 === $artemis_i;
-					$artemis_meta_line = artemis_estudos_meta_line( $artemis_estudo );
+					$artemis_meta_line = artemis_estudos_meta_line( $artemis_estudo, $artemis_i + 1 );
 					$artemis_categoria = (string) get_post_meta( $artemis_estudo->ID, '_art_estudo_categoria', true );
 					$artemis_status    = (string) get_post_meta( $artemis_estudo->ID, '_art_estudo_status', true );
 					$artemis_rodape    = '' !== $artemis_categoria || '' !== $artemis_status;

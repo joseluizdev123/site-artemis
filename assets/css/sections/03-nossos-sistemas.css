@@ -168,13 +168,11 @@
     gap: 16px;
   }
   /* 8635:2002 — Exo SemiBold 28/1.2; o Figma arredonda cada linha: 33,6 → 34 (2 linhas = 68).
-     Quebra comum: no Figma "decidem" fica sozinho na 2ª linha (o pretty do .section-title
-     levaria "sistemas" junto) */
+     O Figma deixa "decidem" sozinho na 2ª linha; o site não tem palavra viúva (pedido do cliente) */
   .sistemas__title {
     width: auto;
     font-size: 28px;
     line-height: round(nearest, 1.2em, 1px);
-    text-wrap: wrap;
   }
 
   /* Service cards 8635:2005: gap 40 · Services 8635:2006: uma coluna, gap 32 */

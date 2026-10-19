@@ -66,6 +66,7 @@ body {
   font-variation-settings: "wdth" 100;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-wrap: pretty; /* sem palavra viúva no site todo (pedido do cliente); herdado por todo texto. Firefox: reforço no main.js */
 }
 
 main { padding-top: var(--header-h); overflow-x: clip; } /* altura do header fixo (estado inicial) · clip: rede contra rolagem lateral das entradas (não cria contêiner de rolagem, sticky continua) */
@@ -210,6 +211,9 @@ img, svg { display: block; }
   .site-header__brand,
   .site-header__actions,
   .site-nav { gap: 16px; }
+  /* texto do botão editável (Dados do site): se não couber, encolhe com reticências em vez de passar da tela */
+  .site-header__actions { min-width: 0; }
+  .site-header__cta { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 }
 /* 768–899 no Blog: logo + selo (192) + 6 links não cabem — o selo sai, como no celular */
 @media (min-width: 768px) and (max-width: 899px) {

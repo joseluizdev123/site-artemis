@@ -7,8 +7,10 @@
  *   título          → manchete (8201:3601)
  *   conteúdo        → parágrafos (8201:3602)
  *   imagem destacada → captura de tela do sistema (8201:3690)
- *   meta            → número, cliente, sistema (8201:3603) · categoria, status (8201:3596)
+ *   meta            → cliente, sistema (8201:3603) · categoria, status (8201:3596)
  *                     fundo (pintura 8201:3689) · zoom da captura (Gascat 8201:3580 = 138,69%)
+ *   menu_order      → posição no carrossel, editada na caixa "Dados do estudo" (o editor de blocos não mostra "Ordem");
+ *                     "Estudo N" sai da posição entre os publicados — não há número digitado
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -51,11 +53,16 @@ add_action( 'init', function () {
 			'set_featured_image'    => __( 'Definir captura de tela', 'artemis' ),
 			'remove_featured_image' => __( 'Remover captura de tela', 'artemis' ),
 			'use_featured_image'    => __( 'Usar como captura de tela', 'artemis' ),
+			'item_published'        => __( 'Estudo publicado.', 'artemis' ),
+			'item_published_privately' => __( 'Estudo publicado como privado.', 'artemis' ),
+			'item_reverted_to_draft' => __( 'Estudo voltou a ser rascunho.', 'artemis' ),
+			'item_scheduled'        => __( 'Estudo agendado.', 'artemis' ),
+			'item_updated'          => __( 'Estudo atualizado.', 'artemis' ),
 		),
 		'public'       => false,
 		'show_ui'      => true,
 		'menu_icon'    => 'dashicons-chart-line',
-		'supports'     => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
+		'supports'     => array( 'title', 'editor', 'thumbnail' ), // posição: campo próprio na caixa "Dados do estudo"
 		'show_in_rest' => true,
 	) );
 
@@ -74,7 +81,6 @@ add_action( 'init', function () {
 /** Campos do estudo: chave meta => config. */
 function artemis_estudos_fields() {
 	return array(
-		'_art_estudo_numero'    => array( 'type' => 'integer', 'label' => __( 'Número do estudo (ex.: 1)', 'artemis' ), 'input' => 'number' ),
 		'_art_estudo_cliente'   => array( 'type' => 'string', 'label' => __( 'Cliente (ex.: Athié Wohnrath) — opcional', 'artemis' ), 'input' => 'text' ),
 		'_art_estudo_sistema'   => array( 'type' => 'string', 'label' => __( 'Nome do sistema (ex.: AW Control) — opcional', 'artemis' ), 'input' => 'text' ),
 		'_art_estudo_categoria' => array( 'type' => 'string', 'label' => __( 'Categoria no rodapé (ex.: Validação de documentos)', 'artemis' ), 'input' => 'text' ),
@@ -92,9 +98,20 @@ add_action( 'add_meta_boxes', function () {
 	add_meta_box( 'art_estudo_meta', __( 'Dados do estudo', 'artemis' ), 'artemis_estudos_meta_box', 'art_estudo', 'normal', 'high' );
 } );
 
-/** Meta box nativo — campos de texto + seletor de imagem da Mídia para a pintura de fundo. */
+/** Meta box nativo — posição no carrossel, campos de texto + seletor de imagem da Mídia para a pintura de fundo. */
 function artemis_estudos_meta_box( $post ) {
 	wp_nonce_field( 'art_estudo_meta', 'art_estudo_nonce' );
+	$ids      = artemis_estudos_ordered_ids();
+	$index    = array_search( (int) $post->ID, $ids, true );
+	$position = false === $index ? count( $ids ) + 1 : $index + 1;
+	// _orig = o valor mostrado: o editor de blocos reenvia a caixa a cada "Atualizar"; só move se a pessoa mudou o número
+	printf(
+		'<p><label for="art_estudo_posicao">%1$s</label><br><input type="number" min="1" max="%2$d" step="1" class="small-text" id="art_estudo_posicao" name="art_estudo_posicao" value="%3$d"><input type="hidden" name="art_estudo_posicao_orig" value="%3$d"> <span class="description">%4$s</span></p>',
+		esc_html__( 'Posição no carrossel (1 = primeiro)', 'artemis' ),
+		false === $index ? count( $ids ) + 1 : count( $ids ),
+		(int) $position,
+		esc_html__( 'Os outros estudos andam uma casa para abrir espaço. Rascunhos guardam o lugar, mas não aparecem no site: lá o card mostra "Estudo 1, 2, 3…" contando só os publicados (coluna "No site" em Todos os estudos).', 'artemis' )
+	);
 	foreach ( artemis_estudos_fields() as $key => $field ) {
 		$value = get_post_meta( $post->ID, $key, true );
 		$id    = ltrim( $key, '_' );
@@ -119,7 +136,7 @@ function artemis_estudos_meta_box( $post ) {
 			esc_attr( $value )
 		);
 	}
-	echo '<p class="description">' . esc_html__( 'O título do post é a manchete do estudo e o editor guarda os parágrafos. A imagem destacada é a captura de tela do sistema. Sem categoria e status, o texto aparece centralizado no card. A ordem dos slides segue o campo "Ordem".', 'artemis' ) . '</p>';
+	echo '<p class="description">' . esc_html__( 'O título do post é a manchete do estudo e o editor guarda os parágrafos. A imagem destacada é a captura de tela do sistema. Sem categoria e status, o texto aparece centralizado no card. Só estudos publicados aparecem no site.', 'artemis' ) . '</p>';
 }
 
 // Seletor da Mídia (wp.media) só na tela de edição de estudos.
@@ -192,6 +209,120 @@ add_action( 'save_post_art_estudo', function ( $post_id ) {
 			update_post_meta( $post_id, $key, $value );
 		}
 	}
+	$posicao = isset( $_POST['art_estudo_posicao'] ) && is_scalar( $_POST['art_estudo_posicao'] ) ? trim( (string) wp_unslash( $_POST['art_estudo_posicao'] ) ) : '';
+	$antes   = isset( $_POST['art_estudo_posicao_orig'] ) && is_scalar( $_POST['art_estudo_posicao_orig'] ) ? trim( (string) wp_unslash( $_POST['art_estudo_posicao_orig'] ) ) : '';
+	if ( ctype_digit( $posicao ) && (int) $posicao >= 1 && $posicao !== $antes ) { // só número inteiro, e só se a pessoa mudou
+		artemis_estudos_move( $post_id, (int) $posicao );
+	}
+} );
+
+/* --------------------------------------------------------------------------
+   Posição no carrossel (menu_order)
+   -------------------------------------------------------------------------- */
+
+/** Status que ocupam posição (tudo que aparece em "Todos os estudos", menos a Lixeira). */
+function artemis_estudos_statuses() {
+	return array( 'publish', 'future', 'draft', 'pending', 'private' );
+}
+
+/** IDs na ordem do carrossel (mesma ordenação de artemis_estudos_get), incluindo os não publicados. */
+function artemis_estudos_ordered_ids() {
+	return array_map( 'intval', get_posts( array(
+		'post_type'        => 'art_estudo',
+		'post_status'      => artemis_estudos_statuses(),
+		'posts_per_page'   => -1,
+		'fields'           => 'ids',
+		'orderby'          => array(
+			'menu_order' => 'ASC',
+			'date'       => 'ASC',
+			'ID'         => 'ASC',
+		),
+		'suppress_filters' => true,
+	) ) );
+}
+
+/** Põe o estudo na posição pedida (1 = primeiro) e renumera os outros 0, 1, 2… sem disparar save_post de novo. */
+function artemis_estudos_move( $post_id, $position ) {
+	global $wpdb;
+	if ( $position < 1 ) {
+		return;
+	}
+	$ids = array_values( array_diff( artemis_estudos_ordered_ids(), array( (int) $post_id ) ) );
+	array_splice( $ids, min( $position - 1, count( $ids ) ), 0, array( (int) $post_id ) );
+	foreach ( $ids as $order => $id ) {
+		if ( (int) get_post_field( 'menu_order', $id, 'raw' ) !== $order ) {
+			$wpdb->update( $wpdb->posts, array( 'menu_order' => $order ), array( 'ID' => $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			clean_post_cache( $id );
+		}
+	}
+}
+
+// Estudo novo (Adicionar estudo, REST, importação) entra no fim, não empatado com o 1º. Quem passa menu_order (o seed) manda.
+add_filter( 'wp_insert_post_data', function ( $data, $postarr, $unsanitized_postarr = array(), $update = false ) {
+	if ( 'art_estudo' !== $data['post_type'] || $update || ! empty( $postarr['ID'] ) || isset( $unsanitized_postarr['menu_order'] ) ) {
+		return $data;
+	}
+	global $wpdb;
+	$max = $wpdb->get_var( $wpdb->prepare( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		"SELECT MAX(menu_order) FROM {$wpdb->posts} WHERE post_type = %s AND post_status NOT IN ('trash', 'auto-draft', 'inherit')",
+		'art_estudo'
+	) );
+	$data['menu_order'] = null === $max ? 0 : (int) $max + 1;
+	return $data;
+}, 10, 4 );
+
+// "Todos os estudos" na ordem do carrossel, com a coluna Posição.
+add_action( 'pre_get_posts', function ( $query ) {
+	if ( is_admin() && $query->is_main_query() && 'art_estudo' === $query->get( 'post_type' ) && ! isset( $_GET['orderby'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$query->set( 'orderby', array(
+			'menu_order' => 'ASC',
+			'date'       => 'ASC',
+			'ID'         => 'ASC',
+		) );
+	}
+} );
+
+add_filter( 'manage_art_estudo_posts_columns', function ( $columns ) {
+	$out = array();
+	foreach ( $columns as $key => $label ) {
+		if ( 'title' === $key ) {
+			$out['art_posicao'] = __( 'Posição', 'artemis' );
+		}
+		$out[ $key ] = $label;
+		if ( 'title' === $key ) {
+			$out['art_no_site'] = __( 'No site', 'artemis' );
+		}
+	}
+	return $out;
+} );
+
+add_action( 'manage_art_estudo_posts_custom_column', function ( $column, $post_id ) {
+	static $ids = null, $pub = null;
+	if ( 'art_posicao' === $column ) {
+		if ( null === $ids ) {
+			$ids = artemis_estudos_ordered_ids();
+		}
+		$index = array_search( (int) $post_id, $ids, true );
+		echo false === $index ? '—' : (int) $index + 1;
+	} elseif ( 'art_no_site' === $column ) {
+		if ( null === $pub ) {
+			$pub = array_map( 'intval', wp_list_pluck( artemis_estudos_get(), 'ID' ) ); // o que a Home mostra, na ordem
+		}
+		$index = array_search( (int) $post_id, $pub, true );
+		if ( false !== $index ) {
+			/* translators: %d: número do estudo no card. */
+			echo esc_html( sprintf( __( 'Estudo %d', 'artemis' ), $index + 1 ) );
+		} else {
+			echo esc_html( 'publish' === get_post_status( $post_id ) ? __( 'Não aparece (limite de 12)', 'artemis' ) : __( 'Não aparece (não publicado)', 'artemis' ) );
+		}
+	}
+}, 10, 2 );
+
+add_action( 'admin_head', function () {
+	$screen = get_current_screen();
+	if ( $screen && 'edit-art_estudo' === $screen->id ) {
+		echo '<style>.column-art_posicao{width:5.5em}.column-art_no_site{width:12em}</style>';
+	}
 } );
 
 /* --------------------------------------------------------------------------
@@ -206,18 +337,15 @@ function artemis_estudos_get() {
 		'orderby'        => array(
 			'menu_order' => 'ASC',
 			'date'       => 'ASC',
+			'ID'         => 'ASC',
 		),
 	) );
 }
 
-/** "Estudo 1 · Athié Wohnrath · AW Control" (8201:3603) — texto puro, escapar na saída. */
-function artemis_estudos_meta_line( $post ) {
-	$parts  = array();
-	$numero = (string) get_post_meta( $post->ID, '_art_estudo_numero', true );
-	if ( '' !== $numero ) {
-		/* translators: %s: número do estudo. */
-		$parts[] = sprintf( __( 'Estudo %s', 'artemis' ), $numero );
-	}
+/** "Estudo 1 · Athié Wohnrath · AW Control" (8201:3603) — número = posição do slide; texto puro, escapar na saída. */
+function artemis_estudos_meta_line( $post, $numero ) {
+	/* translators: %d: número do estudo (posição no carrossel). */
+	$parts = array( sprintf( __( 'Estudo %d', 'artemis' ), (int) $numero ) );
 	foreach ( array( '_art_estudo_cliente', '_art_estudo_sistema' ) as $key ) {
 		$value = (string) get_post_meta( $post->ID, $key, true );
 		if ( '' !== $value ) {
@@ -279,7 +407,6 @@ add_filter( 'artemis_seed', function ( $log ) {
 	$estudos = array(
 		array(
 			'slug'       => 'aw-control',
-			'numero'     => 1,
 			'cliente'    => 'Athié Wohnrath',
 			'sistema'    => 'AW Control',
 			'titulo'     => 'R$ 40 mil por mês em um único tipo de documento',
@@ -295,7 +422,6 @@ add_filter( 'artemis_seed', function ( $log ) {
 		),
 		array(
 			'slug'       => 'supply-map',
-			'numero'     => 2,
 			'cliente'    => 'Athié Wohnrath',
 			'sistema'    => 'Supply MEP',
 			'titulo'     => "3 horas de engenheiro viraram 25\u{00A0}minutos",
@@ -311,7 +437,6 @@ add_filter( 'artemis_seed', function ( $log ) {
 		),
 		array(
 			'slug'       => 'gascat',
-			'numero'     => 3,
 			'cliente'    => 'Gascat',
 			'sistema'    => '',
 			'titulo'     => '“Isso aqui está tomando mais decisão do que a nossa engenharia”',
@@ -327,7 +452,6 @@ add_filter( 'artemis_seed', function ( $log ) {
 		),
 		array(
 			'slug'       => 'estudo-4',
-			'numero'     => 4,
 			'cliente'    => '',
 			'sistema'    => '',
 			'titulo'     => 'Um quarto sistema está em MVP numa multinacional de alimentos, e roda sem nenhuma IA em produção:',
@@ -348,8 +472,7 @@ add_filter( 'artemis_seed', function ( $log ) {
 		}
 
 		$meta = array(
-			'_art_estudo_numero' => $e['numero'],
-			'_art_estudo_fundo'  => artemis_seed_media( 'images/07-estudos/bg-' . $e['slug'] . '.png', 'Fundo — estudo ' . $e['numero'] ),
+			'_art_estudo_fundo' => artemis_seed_media( 'images/07-estudos/bg-' . $e['slug'] . '.png', 'Fundo — estudo ' . ( $order + 1 ) ),
 		);
 		foreach ( array( 'cliente', 'sistema', 'categoria', 'status' ) as $campo ) {
 			if ( '' !== $e[ $campo ] ) {

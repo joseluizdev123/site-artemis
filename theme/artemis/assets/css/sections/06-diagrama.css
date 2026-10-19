@@ -434,8 +434,7 @@
   /* Description Block (8653:2668): centralizado, gap 10; título 28/1.2 (8653:2669) · texto 16/1.5 (8653:2670) */
   .diagrama__desc { align-items: stretch; gap: 10px; text-align: center; }
   .diagrama__title {
-    white-space: normal;
-    text-wrap: wrap; /* quebra como no Figma ("…no seu / sistema"); o pretty de .section-title levava "seu" para baixo */
+    white-space: normal; /* o Figma quebra "…no seu / sistema"; o site não tem palavra viúva (pedido do cliente) */
     font-size: 28px;
     line-height: 1.2;
     line-height: round(nearest, 1.2em, 1px); /* o Figma arredonda cada linha: 28 × 1,2 = 33,6 → 34 (2 linhas = 68) */

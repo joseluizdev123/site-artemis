@@ -1,7 +1,7 @@
 <?php
 /**
  * Footer — Figma 8165:2501. Markup espelha partials/footer.html.
- * Conteúdo: Customizer (art_footer_*, art_contact_*, art_social_*) + menu "footer" (inc/section-footer.php).
+ * Conteúdo: Customizer (art_footer_*) + Dados do site (art_contact_*, art_social_* — inc/options.php) + menu "footer" (inc/section-footer.php).
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -68,7 +68,7 @@ $artemis_diag_short = array( 5, 13, 14, 60, 62, 67, 69 ); // vetores 22×64 do P
 					<?php if ( $artemis_whatsapp ) : ?>
 						<div class="site-footer__contact-item">
 							<p class="site-footer__label"><?php esc_html_e( 'WhatsApp', 'artemis' ); ?></p>
-							<a class="site-footer__value" href="<?php echo esc_url( 'https://wa.me/' . preg_replace( '/\D+/', '', $artemis_whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $artemis_whatsapp ); ?></a>
+							<a class="site-footer__value" href="<?php echo esc_url( artemis_whatsapp_url( $artemis_whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $artemis_whatsapp ); ?></a>
 						</div>
 					<?php endif; ?>
 					<?php if ( $artemis_address ) : ?>

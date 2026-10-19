@@ -24,7 +24,7 @@ $artemis_status   = artemis_contato_status();
 			<?php if ( '' !== $artemis_whatsapp ) : ?>
 				<li class="contato-info__item">
 					<p class="contato-info__label"><?php esc_html_e( 'WhatsApp', 'artemis' ); ?></p>
-					<a class="contato-info__value" href="<?php echo esc_url( 'https://wa.me/' . preg_replace( '/\D+/', '', $artemis_whatsapp ) ); ?>" target="_blank" rel="noopener"><span data-hover="line"><?php echo esc_html( $artemis_whatsapp ); ?></span></a>
+					<a class="contato-info__value" href="<?php echo esc_url( artemis_whatsapp_url( $artemis_whatsapp ) ); ?>" target="_blank" rel="noopener"><span data-hover="line"><?php echo esc_html( $artemis_whatsapp ); ?></span></a>
 				</li>
 			<?php endif; ?>
 			<?php if ( '' !== $artemis_address ) : ?>

@@ -169,9 +169,7 @@
   flex-direction: column;
   gap: 6px;
 }
-.srv-info__list li { position: relative; padding-left: 24px; text-wrap: wrap; }
-/* No Figma só a lista da etapa 1 usa quebra "pretty" (8573:1642 · 8709:5830); as das etapas 2 e 3 quebram normal */
-.srv-step__panel:nth-child(2) .srv-info__list li { text-wrap: pretty; }
+.srv-info__list li { position: relative; padding-left: 24px; } /* quebra "pretty" do body em todas as etapas: sem palavra viúva (pedido do cliente) */
 .srv-info__list li::before {
   content: "•";
   position: absolute;

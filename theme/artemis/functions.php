@@ -17,6 +17,7 @@ define( 'ARTEMIS_URI', get_template_directory_uri() );
 
 require_once ARTEMIS_DIR . '/inc/helpers.php';
 require_once ARTEMIS_DIR . '/inc/customizer.php';
+require_once ARTEMIS_DIR . '/inc/options.php';
 require_once ARTEMIS_DIR . '/inc/seeder.php';
 require_once ARTEMIS_DIR . '/inc/cpt-cliente.php';
 

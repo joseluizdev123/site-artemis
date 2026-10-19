@@ -84,7 +84,8 @@
 }
 @keyframes mk-com-run { to { stroke-dashoffset: calc(-1 * var(--len)); } }
 
-@media (max-width: 1023px) {
+/* até 1199 (não só no tablet): em 3 colunas o texto ao lado do arquivo fica estreito e "recorrente" sobrava sozinho */
+@media (max-width: 1199px) {
   .mk-inst__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mk-inst__item--main { grid-column: span 2; grid-row: auto; flex-direction: row; align-items: center; border-right: 0; border-bottom: 1px solid var(--gray-900); }
   .mk-inst__item--main .mk-inst__text { flex: 1 1 0; width: auto; }
@@ -107,4 +108,8 @@
   .mk-inst__community { display: flex; flex-direction: column; gap: 24px; height: 281px; padding: 24px; }
   .mk-inst__community .mk-inst__text { width: auto; }
   .mk-inst__illus { position: static; flex: none; align-self: center; }
+}
+/* Celular estreito (320): arquivo em 2/3 para o texto ao lado ter largura (sem palavra viúva) */
+@media (max-width: 359px) {
+  .mk-inst__file { zoom: .667; }
 }

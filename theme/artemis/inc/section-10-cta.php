@@ -12,7 +12,6 @@ add_filter( 'artemis_customizer_defaults', function ( $d ) {
 		'art_cta_note'         => 'Resposta em até 1 dia útil. Atendimento remoto em todo o Brasil, presencial quando o diagnóstico exigir.',
 		'art_cta_title'        => 'Comece pelo diagnóstico',
 		'art_cta_text'         => 'Um dia dentro da sua operação, com o time que decide. Saímos de lá com o mapa dos processos que mais consomem hora sênior, o custo estimado de cada um e um protótipo funcionando no problema mais caro.  Se não fizer sentido seguir, você fica com o mapa.',
-		'art_cta_button_label' => 'Agendar diagnóstico',
 	);
 } );
 
@@ -24,7 +23,6 @@ add_filter( 'artemis_customizer_sections', function ( $s ) {
 			'art_cta_note'         => array( __( 'Frase em itálico (à direita)', 'artemis' ), 'textarea' ),
 			'art_cta_title'        => array( __( 'Título', 'artemis' ), 'text' ),
 			'art_cta_text'         => array( __( 'Texto', 'artemis' ), 'textarea' ),
-			'art_cta_button_label' => array( __( 'Botão — texto (o link é o de "Contato")', 'artemis' ), 'text' ),
 		),
 	);
 	return $s;

@@ -24,7 +24,7 @@ $artemis_hatch_narrow = array( 5, 13, 14, 60, 62, 67, 69 );
 				<p class="hero__lead" data-reveal="up"><?php echo esc_html( artemis_mod( 'art_hero_lead' ) ); ?></p>
 			</div>
 			<div class="hero__actions">
-				<a class="btn btn--primary" data-reveal="up" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_hero_cta1_label' ) ); ?></a>
+				<a class="btn btn--primary" data-reveal="up" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_contact_cta_label' ) ); ?></a>
 				<a class="btn" data-reveal="up" href="<?php echo esc_url( artemis_mod( 'art_hero_cta2_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_hero_cta2_label' ) ); ?></a>
 			</div>
 		</div>

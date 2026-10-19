@@ -12,6 +12,6 @@ defined( 'ABSPATH' ) || exit;
 			<h1 class="srv-hero__title" id="srv-hero-title" data-split="lines" data-motion-start="load"><?php echo artemis_highlight( artemis_mod( 'art_srv_title' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em artemis_highlight. ?></h1>
 			<p class="srv-hero__lead" data-reveal="up" data-motion-start="load" data-motion-delay="350"><?php echo esc_html( artemis_mod( 'art_srv_lead' ) ); ?></p>
 		</div>
-		<a class="btn btn--primary srv-hero__cta" data-reveal="up" data-motion-start="load" data-motion-delay="500" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_srv_cta' ) ); ?></a>
+		<a class="btn btn--primary srv-hero__cta" data-reveal="up" data-motion-start="load" data-motion-delay="500" href="<?php echo esc_url( artemis_mod( 'art_contact_cta_url' ) ); ?>"><?php echo esc_html( artemis_mod( 'art_contact_cta_label' ) ); ?></a>
 	</div>
 </section>
