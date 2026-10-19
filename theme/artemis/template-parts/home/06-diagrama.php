@@ -2,7 +2,7 @@
 /**
  * Diagram — Figma 8653:2286 · mobile 8653:2599. Markup espelha partials/06-diagrama.html.
  * Conteúdo: Customizer (art_diag_*). Posições, linhas e ícones são fixos (desenho do Figma).
- * Mobile: o diagrama rola na horizontal com barra de progresso (assets/js/sections/06-diagrama.js).
+ * Celular (≤767): o diagrama encolhe para caber na coluna, sem rolagem lateral (06-diagrama.css). Tablet: rola na horizontal.
  */
 
 defined( 'ABSPATH' ) || exit;

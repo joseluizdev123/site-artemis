@@ -1,8 +1,8 @@
 <svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="436" height="461" viewBox="0 0 436 461" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Lines">
-<path id="Vector 300" d="M0.5 0V461" stroke="#3A3A3C" stroke-dasharray="2 2"/>
-<path id="Vector 301" d="M145.5 0V461" stroke="#212123"/>
-<path id="Vector 302" d="M290.5 0V461" stroke="#212123"/>
-<path id="Vector 303" d="M435.5 0V461" stroke="#3A3A3C" stroke-dasharray="2 2"/>
+<path vector-effect="non-scaling-stroke" id="Vector 300" d="M0.5 0V461" stroke="#3A3A3C" stroke-dasharray="2 2"/>
+<path vector-effect="non-scaling-stroke" id="Vector 301" d="M145.5 0V461" stroke="#212123"/>
+<path vector-effect="non-scaling-stroke" id="Vector 302" d="M290.5 0V461" stroke="#212123"/>
+<path vector-effect="non-scaling-stroke" id="Vector 303" d="M435.5 0V461" stroke="#3A3A3C" stroke-dasharray="2 2"/>
 </g>
 </svg>

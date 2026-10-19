@@ -1,4 +1,4 @@
-/* Seção 06 — Diagram: rolagem horizontal do diagrama em telas estreitas (mobile 8653:2900, anotação "Scroll horizontal") */
+/* Seção 06 — Diagram: rolagem horizontal do diagrama no tablet (768–1087). No celular o diagrama cabe na coluna (CSS) e não rola. */
 (function () {
   'use strict';
 

@@ -299,6 +299,11 @@
   12%, 85% { opacity: 1; }
   100% { transform: translateY(461px); opacity: 0; }
 }
+@keyframes diagrama-drip-m { /* celular: a faixa tem a altura dos cartões, não 461 */
+  0% { top: -28px; opacity: 0; }
+  12%, 85% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
 
 @media print {
   .diagrama__flow,
@@ -376,60 +381,72 @@
 }
 
 /* ==========================================================================
-   Mobile (≤767) — Figma 8653:2599 (375 × 869)
-   diagram 8653:2900 (rolagem horizontal + progresso 8653:2896) · Description Block 8653:2668
+   Mobile (≤767) — Figma 8653:2599 (375 × 869), com uma mudança pedida pelo cliente (2026-10-19): o Figma deixa o
+   desenho de 1376 rolando na horizontal (8653:2900 + barra 8653:2896); aqui o MESMO diagrama encolhe para caber na
+   coluna, sem rolagem lateral. Posições horizontais seguem as % do desktop (sobre a largura da coluna), cartões com
+   altura pelo conteúdo, texto menor que pode quebrar em 2 linhas, selos e ícones de 20.
    ========================================================================== */
 @media (max-width: 767px) {
   .diagrama { padding-top: 16px; padding-bottom: 56px; } /* 8653:2599: pt 16 · pb 56 */
   .diagrama__inner { gap: 40px; }
 
-  /* diagram (8653:2900): anotação "Scroll horizontal" — o desenho de 1376 rola sob a coluna; gap 16 até a barra */
-  .diagrama__diagram { display: flex; flex-direction: column; gap: 16px; }
-  .diagrama__scroll {
-    display: flex;
-    padding-bottom: 0;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none; /* a barra do Figma (8653:2896) substitui a nativa */
-  }
-  .diagrama__scroll::-webkit-scrollbar { display: none; }
-  .diagrama__scroll:focus-visible { outline-offset: -2px; } /* o scroller encosta nas bordas da tela */
+  .diagrama__scroll { overflow: visible; margin-inline: 0; padding: 0; } /* sem rolagem lateral */
+  .diagrama__chart { --dm-gap: 8px; min-width: 0; width: 100%; gap: 16px; }
+  .diagrama__progress { display: none; } /* a barra de progresso da rolagem não tem mais função */
 
-  /* Section Container (8653:2600): coluna de 343 com o desenho de 1376 transbordando, como no Figma.
-     A margem final leva a área rolável até o fim do desenho (+ respiro de 16 do padding do scroller). */
-  .diagrama__chart {
-    flex: none;
-    width: 100%;
-    min-width: 0;
-    margin-inline-end: calc(var(--content-w) - 100%);
-  }
-  .diagrama__phases,
-  .diagrama__body { flex: none; width: var(--content-w); }
-  .diagrama__phases { position: relative; } /* linhas MVP/Escala em % dos 1376 (8653:2601), não da coluna */
+  /* POC / MVP / Escala: terços da coluna */
+  .diagrama__phases { gap: var(--dm-gap); }
+  .diagrama__phase-title { font-size: 16px; }
 
-  /* 03 · Laboratório (8653:2642): "Você testa" 14 + título 18, gap 2 (Frame 100 · 8653:2643) */
+  /* Linhas pontilhadas: uma faixa por fase, da régua até o fim dos cartões (a legenda tem 1 linha de 20) */
+  .diagrama__lines--mvp,
+  .diagrama__lines--escala {
+    top: calc(16px * 1.3 + 11px + 4px);  /* régua (título 16/1.3 + 10 + 1) + 4 */
+    bottom: calc(20px + 16px);          /* legenda + vão */
+    height: auto;
+    width: calc((100% - 2 * var(--dm-gap)) / 3);
+  }
+  .diagrama__lines--mvp    { left: calc((100% - 2 * var(--dm-gap)) / 3 + var(--dm-gap)); }
+  .diagrama__lines--escala { left: calc((100% - 2 * var(--dm-gap)) * 2 / 3 + 2 * var(--dm-gap)); }
+  .diagrama__lines--poc { top: -12px; bottom: 0; height: auto; left: 0; width: calc((100% - 2 * var(--dm-gap)) / 3); }
+  .diagrama__lines--poc img { width: 100%; margin-left: 0; }
+
+  /* Cartões: as mesmas posições do desktop em % da coluna; altura pelo conteúdo */
+  .diagrama__body { gap: 16px; }
+  .diagrama__content { gap: 12px; }
+  .diagrama__row--start { gap: var(--dm-gap); align-items: stretch; }
+  .diagrama__item {
+    height: auto;
+    min-height: 44px;
+    padding: 8px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+  .diagrama__item--light { height: auto; }
+  .diagrama__item-title { font-size: clamp(12px, 3.47vw, 15px); line-height: 1.2; white-space: normal; } /* 13 em 375 · 12 em 320 */
+  .diagrama__item-label { font-size: clamp(11px, 3.2vw, 13px); }
+  .diagrama__item-text { min-width: 0; }
+  .diagrama__item--error { gap: 8px; }
+  .diagrama__dash rect { rx: 12px; ry: 12px; }
+  .diagrama__versions { gap: 6px; }
+  .diagrama__item--version { padding-inline: 8px; }
+  .diagrama__badge { width: 20px; height: 20px; }
+  .diagrama__badge-num { font-size: 12px; }
+  .diagrama__icon { width: 20px; height: 20px; }
+
+
+  /* 03 · Laboratório (8653:2642): "Você testa" + título, gap 2 (Frame 100 · 8653:2643) */
   .diagrama__item-label--lab { display: block; }
 
-  /* Divider Lines Container (8653:2896): 4 de altura, branco 164 de 343 no início → 100% no fim da rolagem */
-  .diagrama__progress {
-    --diagrama-bar-min: calc(164 / 343 * 100%);
-    display: flex;
-    align-items: center;
-    height: 4px;
-    overflow: clip;
-    border-radius: 999px;
-  }
-  .diagrama__progress-fill {
-    flex: none;
-    width: calc(var(--diagrama-bar-min) + (100% - var(--diagrama-bar-min)) * var(--diagrama-progress, 0));
-    height: 100%;
-    background: var(--gray-0);
-  }
-  .diagrama__progress-rest {
-    flex: 1 0 0;
-    min-width: 0;
-    height: 100%;
-    background: var(--gray-400);
-  }
+  /* Legenda numa linha, centralizada */
+  .diagrama__legend { justify-content: center; gap: 16px; }
+  .diagrama__legend-item--start,
+  .diagrama__legend-item--end { width: auto; gap: 6px; }
+  .diagrama__legend-item img { width: 20px; height: 20px; }
+  .diagrama__legend-text { font-size: clamp(12px, 3.47vw, 14px); }
+
+  /* Luzes das linhas: descem até o fim da faixa (a altura muda com a largura) */
+  .diagrama__drip { animation-name: diagrama-drip-m; }
 
   /* Description Block (8653:2668): centralizado, gap 10; título 28/1.2 (8653:2669) · texto 16/1.5 (8653:2670) */
   .diagrama__desc { align-items: stretch; gap: 10px; text-align: center; }
@@ -440,4 +457,12 @@
     line-height: round(nearest, 1.2em, 1px); /* o Figma arredonda cada linha: 28 × 1,2 = 33,6 → 34 (2 linhas = 68) */
   }
   .diagrama__text { max-width: none; }
+}
+
+/* Até 479: o cartão 01 (coluna POC, a mais estreita) não comporta texto + selo lado a lado — o selo vai para o canto
+   e o texto ganha a largura do cartão ("Amostra / com gabarito"). Acima disso o texto caberia numa linha e passaria
+   por baixo do selo: ele volta para o lado. */
+@media (max-width: 479px) {
+  .diagrama__item--light .diagrama__badge { position: absolute; top: 5px; right: 5px; width: 18px; height: 18px; }
+  .diagrama__item--light .diagrama__badge-num { font-size: 11px; }
 }
