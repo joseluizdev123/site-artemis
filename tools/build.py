@@ -6,6 +6,7 @@ Monta o HTML estático a partir das partes por seção — várias páginas (src
   partials/<slug>.html           → seções, na ordem definida por página em src/pages.json
                                    ("auto" = partials/NN-*.html, a Home)
   partials/footer.html           → <footer> (compartilhado)
+                                   página com "header": "<partial>" troca o header; "footer": null fica sem rodapé (Portfólio)
   assets/css/sections/<slug>.css, assets/js/sections/<slug>.js → carregados se existirem
 
 Seção repetida com variáveis: {"slug": "blog-03-categoria", "vars": {"CAT_TITLE": "…"}} —
@@ -199,9 +200,13 @@ def build_page(page):
         if s not in slugs:
             slugs.insert(0, s)
     main = '\n\n'.join(apply_context(partial(s), page, v).rstrip('\n') for s, v in secs if partial(s))
-    header = apply_context(partial('header'), page, {})
-    footer = apply_context(partial('footer'), page, {})
-    html = render(header, main, footer, slugs + ['footer'], preview=False, page=page)
+    # "header"/"footer" na página: outro partial no lugar do compartilhado, ou null para nenhum (ex.: portfólio)
+    head_slug = pages()[page].get('header', 'header')
+    foot_slug = pages()[page].get('footer', 'footer')
+    header = apply_context(partial(head_slug), page, {}) if head_slug else ''
+    footer = apply_context(partial(foot_slug), page, {}) if foot_slug else ''
+    extra = [s for s in (head_slug, foot_slug) if s and s != 'header']  # CSS/JS do header próprio e do rodapé
+    html = render(header, main, footer, slugs + extra, preview=False, page=page)
     out = pages()[page]['out']
     write_atomic(os.path.join(ROOT, out), html)
     print('%-18s (%d seções: %s)' % (out, len(secs), ', '.join(s for s, _ in secs)))

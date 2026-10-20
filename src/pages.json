@@ -129,5 +129,15 @@
       "mktops-04-niveis",
       "mktops-05-cta"
     ]
+  },
+  "portfolio": {
+    "out": "portfolio/index.html",
+    "title": "Portfólio — Sites, plataformas e onepages que entregamos · Studio Artemis",
+    "description": "Projetos da Artemis no ar: sites institucionais com blog, plataformas e onepages. Navegue por categoria e abra cada projeto.",
+    "header": "portfolio-header",
+    "footer": null,
+    "sections": [
+      "portfolio-01-grid"
+    ]
   }
 }

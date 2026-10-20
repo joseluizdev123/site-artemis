@@ -40,6 +40,7 @@ Tema: `theme/artemis/` · prefixo de CPT/meta: `art_`
 | Sobre                    | Page única    | `/sobre`           | post_content rico                                              |
 | Serviços                 | Page única    | `/servicos`        | post_content rico                                              |
 | Contato                  | Page única    | `/contato`         | template fixo (`template-parts/contato`) + formulário; o conteúdo da página não é usado |
+| Portfólio (projetos)     | CPT + taxonomia | `art_projeto` · `art_projeto_cat` | nome, logo (featured), `_art_projeto_url`, ordem; categorias Site/Onepage/Blog. Página `/portfolio` fora do menu (link no rodapé) — ver "Portfólio" abaixo |
 
 ### Conteúdo a confirmar com o cliente
 
@@ -398,6 +399,38 @@ Repouso = Figma: sem JS, com `prefers-reduced-motion` e fora dos loops fica o qu
 | Garantias | automático do motion.js (CTA) | — |
 
 Validação (2026-10-18): `motion_check` 1440 e 375 com 0 pendentes, 0 sobras e 0 erros de JS; `diff.py` (movimento reduzido) topo, problema e instalado com 0 diferenças (desktop e mobile), níveis só com as larguras de texto de sempre; `page_check` 1440 e 375 com Δ 0 em todos os blocos.
+
+## Portfólio — layout antigo (logos) (2026-10-20)
+
+Fonte: não está no Figma. Canvas de design "Portfólio Artemis — nova página" (https://claude.ai/artifact/AGG32JDtvyj8uZZybjXfan), quadros **Desktop-copia** ("Portfólio — layout antigo (logos)", 1440) e **Mobile-antigo** (390) — o cliente escolheu esse, não o "Portfólio — Desktop 1440" do mesmo canvas. Fora do menu oficial: o link fica no rodapé, em "Outras linhas" (depois de MktOps).
+
+Estático: `portfolio/index.html` (`src/pages.json` → página `portfolio`, com `"header": "portfolio-header"` e `"footer": null` — o `build.py` aceita header próprio e página sem rodapé). WP: página de slug `portfolio` → `page-portfolio.php` → `header-portfolio.php` + `template-parts/portfolio/01-grid.php` + `footer-portfolio.php` (sem o rodapé do site).
+
+| # | Bloco | Partial / template | Status |
+|---|-------|--------------------|--------|
+| 0 | Header próprio: logo + "Comece um projeto" (ponto verde), no fluxo, sem menu; 80 (60 no celular) | `portfolio-header` · `header-portfolio.php` | ✅ |
+| 1 | "Navegue por aqui" + filtro (Todos, Site, Onepage, Blog; no celular, lista suspensa "Categoria: …") e grade de logos (4 colunas; 2 até 1100) + botão flutuante do WhatsApp | `portfolio-01-grid` · `01-grid.php` | ✅ |
+
+### Portfólio — modelo de dados
+
+| Conteúdo | Tipo | Chave | Campos |
+|----------|------|-------|--------|
+| Projetos | CPT | `art_projeto` | nome (título), logo (imagem destacada, 1156×842 com o logo no centro — a grade corta as laterais), `_art_projeto_url` (vazio = logo sem link e sem hover), posição = campo Ordem |
+| Categorias | Taxonomia | `art_projeto_cat` | Site, Onepage, Blog; o filtro mostra só as que têm projeto, em ordem de criação (projeto sem categoria só aparece em "Todos") |
+| Textos | Customizer | `art_pf_title` · `art_pf_cta` · `art_pf_cta_url` | título da coluna, texto e link do topo |
+| WhatsApp | Dados do site | `art_contact_whatsapp` | link do botão flutuante (vazio esconde) |
+| Logos | arquivos do tema → seed | `assets/images/portfolio/*.webp` | os 23 logos do portfólio antigo (SVGs de studioartemis.co/portfolio-artemis rasterizados em 1156×842) |
+
+Conteúdo (seed): os 23 projetos na ordem do quadro, com logos e links do portfólio antigo. Categorias = as **aprovadas pelo Studio em 2026-10-19** no repositório da prévia (`portfolio-artemis`, `src/projetos.json`), não as do portfólio antigo: Site — 19 (todos menos os abaixo) · Onepage — Zeros à Direita, ebrain, FaleUp · Blog — 3Neuron, Voxy, Bolsa de terras, Global Supply (também Site) · oithe sem categoria (só em "Todos"; a aba Plataforma do quadro saiu a pedido do Studio). O link do oithe é o protótipo no Figma que estava no portfólio antigo. O seeder também acrescenta "Portfólio | /portfolio/" em "Outras linhas" quando o rodapé já tinha sido personalizado.
+
+Diferenças do quadro (decididas):
+- Logos: o quadro tinha 8 logos, 12 capturas de site e 3 só com o nome; aqui os 23 têm o logo do portfólio antigo (o mesmo desenho dos 8 do quadro).
+- Hover dos logos (são links): além do quadro (degradê, nome e zoom da imagem), o logo "vem para frente" — sobe 10, cresce 6% e ganha sombra, passando por cima dos vizinhos (pedido do cliente, 2026-10-20; só mouse e foco do teclado). Nome do hover com margem dos dois lados e `text-wrap: balance` (no quadro "Tecnologia" e "Porsche" ficavam sozinhos na última linha).
+- WhatsApp: símbolo oficial em branco sobre #25d366, ocupando 59% do círculo como no botão antigo (no quadro era um desenho aproximado; o cliente reprovou). Número: o do site (placeholder).
+- Abaixo de 360: o header aperta os espaços (12 e 8) e o texto do topo vai a 15, senão rolava para os lados em 320 (335 no quadro).
+- Motion: título por linhas, filtros e logos em sequência ao carregar (biblioteca global).
+
+Validação (2026-10-20): referência montada com o CSS literal do quadro x página, medida por medida (caixa, padding, borda, fonte, cor) em 1920, 1440, 1280, 1100, 1024, 768, 390, 360 e com a lista suspensa aberta: Δ 0, fora o respiro lateral (Δ 0,001 px: o quadro arredonda o `--section-px`) e as diferenças decididas acima. Filtro: Site 19, Onepage 3, Blog 4 (Site + Blog 19, Onepage + Blog 7), oithe só em "Todos", volta a "Todos" ao desmarcar tudo; Esc fecha a suspensa. `motion_check` 1440 e 375: 0 pendentes, 0 sobras, 0 erros de JS. `widow_check` (9 larguras): 0 viúvas, sem rolagem lateral. Template PHP renderizado (WP simulado) = HTML estático (161 elementos, mesmos atributos e textos).
 
 ## Regra de hover (2026-10-18, pedido do cliente)
 
